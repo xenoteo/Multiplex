@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import net.rgielen.fxweaver.core.FxControllerAndView;
 import net.rgielen.fxweaver.core.FxWeaver;
 
 public class AppController {
@@ -55,35 +56,32 @@ public class AppController {
         this.screenSwitcher.activate(screen);
     }
 
-    public User showAddUserDialog() {
+    public Stage setupStageAndScene(Pane root, String title) {
         Stage dialogStage = new Stage();
-        var controllerAndView = fxWeaver.load(EditUserDialogController.class);
-        Pane userAddRoot = (Pane) controllerAndView.getView().get();
-        dialogStage.setTitle("Add user");
+        dialogStage.setTitle(title);
         dialogStage.initModality(Modality.WINDOW_MODAL);
         dialogStage.initOwner(primaryStage);
-        Scene scene = new Scene(userAddRoot);
-        dialogStage.setScene(scene);
 
+        Scene scene = new Scene(root);
+        dialogStage.setScene(scene);
+        return dialogStage;
+    }
+
+    public User showAddUserDialog() {
+        FxControllerAndView<EditUserDialogController, Pane> controllerAndView = fxWeaver.load(EditUserDialogController.class);
+        Stage stage = setupStageAndScene(controllerAndView.getView().get(), "Add user");
         EditUserDialogController controller = controllerAndView.getController();
-        controller.setDialogStage(dialogStage);
-        dialogStage.showAndWait();
+        controller.setDialogStage(stage);
+        stage.showAndWait();
         return controller.getUser();
     }
 
     public Hall showAddHallDialog() {
-        Stage dialogStage = new Stage();
-        var controllerAndView = fxWeaver.load(EditHallDialogController.class);
-        Pane hallAddRoot = (Pane) controllerAndView.getView().get();
-        dialogStage.setTitle("Add hall");
-        dialogStage.initModality(Modality.WINDOW_MODAL);
-        dialogStage.initOwner(primaryStage);
-        Scene scene = new Scene(hallAddRoot);
-        dialogStage.setScene(scene);
-
+        FxControllerAndView<EditHallDialogController, Pane> controllerAndView = fxWeaver.load(EditHallDialogController.class);
+        Stage stage = setupStageAndScene(controllerAndView.getView().get(), "Add hall");
         EditHallDialogController controller = controllerAndView.getController();
-        controller.setDialogStage(dialogStage);
-        dialogStage.showAndWait();
+        controller.setDialogStage(stage);
+        stage.showAndWait();
         return controller.getHall();
     }
 }

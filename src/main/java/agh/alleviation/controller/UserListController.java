@@ -15,26 +15,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 @FxmlView("/views/UserList.fxml")
-public class UserListController {
+public class UserListController extends GenericListController {
     UserService userService;
 
     ObservableList<User> userObservableList;
-
-    AppController appController;
-
-    public void setAppController(AppController appController) {
-        this.appController = appController;
-    }
-
-    @FXML
-    public void switchToUserListView() {
-        this.appController.switchView(Screen.USER_LIST);
-    }
-
-    @FXML
-    public void switchToHallListView() {
-        this.appController.switchView(Screen.HALL_LIST);
-    }
 
     @FXML
     private TableView<User> userTable;
