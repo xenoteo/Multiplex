@@ -45,7 +45,7 @@ public class AlleviationApplication {
 			String login = "helloJoe";
 			UserType type = UserType.ADMIN;
 
-			userService.addUser(userName, login, userMail, type);
+			System.out.println(userService.addUser(userName, login, userMail, type).getEmail());
 			System.out.println(userService.getUserByLogin(login).nameProperty().get());
 
 

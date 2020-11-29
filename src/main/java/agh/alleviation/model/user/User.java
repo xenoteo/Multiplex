@@ -9,13 +9,22 @@ import javafx.beans.property.StringProperty;
 import javax.persistence.*;
 import java.io.*;
 
-
+/**
+ * @author Anna Nosek
+ * This abstract class represents any user of the system. This class is specialized in specific subclasses.
+ * Used inheritance stategies include
+ * @see Admin
+ * @see Worker
+ * @see Customer
+ */
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = User.TABLE_NAME)
 public abstract class User implements Externalizable {
+
     public static final String TABLE_NAME = "user";
+
 
     public static class Columns {
         public static final String ID = "id";
@@ -26,6 +35,11 @@ public abstract class User implements Externalizable {
 
     public User() {}
 
+    /**
+     * @param name name and surname of the user (personal info)
+     * @param login unique login of the user
+     * @param email email of the user
+     */
     public User(final String name, final String login, final String email){
         setName(name);
         setLogin(login);
@@ -55,7 +69,7 @@ public abstract class User implements Externalizable {
 
     private final StringProperty name = new SimpleStringProperty(this, "name");
 
-    @Column(name = User.Columns.NAME, nullable = false, length = 50, unique = true)
+    @Column(name = User.Columns.NAME, nullable = false, length = 50)
     public String getName(){
         return name.get();
     }
