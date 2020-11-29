@@ -1,6 +1,5 @@
 package agh.alleviation.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import javafx.beans.property.*;
 
 import javax.persistence.*;
@@ -9,6 +8,12 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
+/**
+ * @author Ksenia Fiodarava
+ * Class responsible for representation of a ticket. It keeps the information about the seance and its price.
+ * Seance's price may be different from the ticket's price, as a customer may have a discount.
+ * @see Seance
+ */
 @Entity
 @Table(name = Ticket.TABLE_NAME)
 public class Ticket implements Externalizable {

@@ -10,11 +10,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+/**
+ * @author Ksenia Fiodarava
+ * Service responsible for manipulating order and ticket repositories.
+ * @see OrderRepository
+ * @see Order
+ * @see Ticket
+ */
 @Service
 @Transactional
 public class OrderService {
@@ -47,9 +53,8 @@ public class OrderService {
                 .collect(Collectors.toList());
     }
 
-    public Ticket addTicket(Seance seance, double price){
+    public void addTicket(Seance seance, double price){
         Ticket ticket = new Ticket(seance, price);
         ticketRepository.save(ticket);
-        return ticket;
     }
 }

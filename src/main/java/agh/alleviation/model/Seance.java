@@ -9,6 +9,14 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.util.Date;
 
+/**
+ * @author Ksenia Fiodarava
+ * Class responsible for representation of a movie's seance. It keeps the information about the movie, the hall where seance takes place, the seance's date and its price.
+ * One movie can have many seance, but a seance can be assigned only to one movie.
+ * In one hall there can take place many seances, but a seance can be assigned only to one hall.
+ * @see Movie
+ * @see Hall
+ */
 @Entity
 @Table(name = Seance.TABLE_NAME)
 public class Seance implements Externalizable {
@@ -110,6 +118,7 @@ public class Seance implements Externalizable {
         priceProperty.set(price);
     }
 
+
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         out.writeObject(getId());
@@ -126,5 +135,4 @@ public class Seance implements Externalizable {
         setPrice(in.readDouble());
 
     }
-
 }

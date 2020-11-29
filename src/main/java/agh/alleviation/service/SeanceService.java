@@ -11,10 +11,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+/**
+ * @author Ksenia Fiodarava
+ * Service responsible for manipulating the seance repository.
+ * @see SeanceRepository
+ * @see Seance
+ */
 @Service
 @Transactional
 public class SeanceService {
-    private SeanceRepository seanceRepository;
+    private final SeanceRepository seanceRepository;
 
     @Autowired
     public SeanceService(SeanceRepository seanceRepository) {

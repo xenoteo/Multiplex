@@ -9,6 +9,10 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
+/**
+ * @author Ksenia Fiodarava
+ * Class responsible for representation of cinema hall. It keeps the number of a hall and its capacity.
+ */
 @Entity
 @Table(name = Hall.TABLE_NAME)
 public class Hall implements Externalizable {
@@ -55,6 +59,7 @@ public class Hall implements Externalizable {
     public void setCapacity(int capacity){
         capacityProperty.set(capacity);
     }
+
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {

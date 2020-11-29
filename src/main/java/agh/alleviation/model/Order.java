@@ -13,6 +13,12 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.util.List;
 
+/**
+ * @author Ksenia Fiodarava
+ * Class responsible for representation of customer's orders. In one order there may be many tickets, but one order can be bought only by one user.
+ * @see Ticket
+ * @see Customer
+ */
 @Entity
 @Table(name = Order.TABLE_NAME)
 public class Order implements Externalizable {
@@ -66,6 +72,7 @@ public class Order implements Externalizable {
 
     ObjectProperty<Customer> customerProperty(){ return customerProperty;}
 
+    @JoinColumn(name = Columns.CUSTOMER)
     @ManyToOne
     public Customer getCustomer(){
         return customerProperty.getValue();
@@ -74,6 +81,7 @@ public class Order implements Externalizable {
     public void setCustomer(Customer customer){
         customerProperty.setValue(customer);
     }
+
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
