@@ -1,10 +1,7 @@
 package agh.alleviation.model.user;
 
 import agh.alleviation.util.UserType;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 
 import javax.persistence.*;
 import java.io.*;
@@ -61,10 +58,14 @@ public abstract class User implements Externalizable {
     public IntegerProperty idProperty() { return id; }
 
 
-    private UserType userType;
+    private final ObjectProperty<UserType> userType = new SimpleObjectProperty<>(this, "usertype");
 
     public void setUserType(UserType userType) {
-        this.userType = userType;
+        this.userType.set(userType);
+    }
+
+    public ObjectProperty<UserType> userTypeProperty(){
+        return this.userType;
     }
 
     private final StringProperty name = new SimpleStringProperty(this, "name");

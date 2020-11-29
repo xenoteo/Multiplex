@@ -30,13 +30,14 @@ public class Order implements Externalizable {
         public static final String CUSTOMER = "customer";
     }
 
-    private final IntegerProperty idProperty = new SimpleIntegerProperty(this, "id");
-    private final ObjectProperty<List<Ticket>> ticketsProperty = new SimpleObjectProperty<>();
-    private final ObjectProperty<Customer> customerProperty = new SimpleObjectProperty<>();
-
-
     public Order() {
     }
+
+    private final IntegerProperty idProperty = new SimpleIntegerProperty(this, "id");
+    private final ObjectProperty<List<Ticket>> ticketsProperty = new SimpleObjectProperty<>();
+
+    private final ObjectProperty<Customer> customerProperty = new SimpleObjectProperty<>();
+
 
     public Order(List<Ticket> tickets, Customer customer){
         setTickets(tickets);
@@ -47,7 +48,7 @@ public class Order implements Externalizable {
     public IntegerProperty idProperty() { return idProperty; }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = Columns.ID)
     public int getId() {
         return idProperty.get();
