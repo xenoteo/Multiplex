@@ -13,10 +13,16 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.util.List;
 
+/**
+ * @author Ksenia Fiodarava
+ * Class responsible for representation of customer's orders. In one order there may be many tickets, but one order can be bought only by one user.
+ * @see Ticket
+ * @see Customer
+ */
 @Entity
 @Table(name = Order.TABLE_NAME)
 public class Order implements Externalizable {
-    public static final String TABLE_NAME = "order";
+    public static final String TABLE_NAME = "order_table";
 
     public static class Columns {
         public static final String ID = "id";
@@ -53,7 +59,7 @@ public class Order implements Externalizable {
     ObjectProperty<List<Ticket>> ticketsProperty(){ return ticketsProperty;}
 
     @Column(name = Columns.TICKETS)
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER)
     public List<Ticket> getTickets(){
         return ticketsProperty.getValue();
     }
@@ -65,6 +71,7 @@ public class Order implements Externalizable {
 
     ObjectProperty<Customer> customerProperty(){ return customerProperty;}
 
+    @JoinColumn(name = Columns.CUSTOMER)
     @ManyToOne
     public Customer getCustomer(){
         return customerProperty.getValue();
@@ -74,9 +81,10 @@ public class Order implements Externalizable {
         customerProperty.setValue(customer);
     }
 
+
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeObject(getId());
+        out.writeInt(getId());
         out.writeObject(getTickets());
         out.writeObject(getCustomer());
     }

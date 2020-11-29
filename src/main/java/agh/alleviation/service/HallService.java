@@ -10,10 +10,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+/**
+ * @author Ksenia Fiodarava
+ * Service responsible for manipulating the hall repository.
+ * @see HallRepository
+ * @see Hall
+ */
 @Service
 @Transactional
 public class HallService {
-    private HallRepository hallRepository;
+    private final HallRepository hallRepository;
 
     @Autowired
     public HallService(HallRepository hallRepository) {
