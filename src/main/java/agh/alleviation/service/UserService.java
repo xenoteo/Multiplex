@@ -36,6 +36,8 @@ public class UserService {
 
     /**
      * This function updates the userType in the user according to its concrete class.
+     * UserType would be obsolete in the database, so it is only assigned when the User instance is accessed in the application.
+     * @see User
      * @param user user from the database
      * @return user with updated UserType field
      */
