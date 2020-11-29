@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -22,6 +23,13 @@ public class UserService {
     @Autowired
     public UserService(UserRepository userRepository){
         this.userRepository = userRepository;
+    }
+
+    private User setUserType(User user){
+        if(user instanceof Admin) user.setUserType(UserType.ADMIN);
+        else if(user instanceof Worker) user.setUserType(UserType.WORKER);
+        else user.setUserType(UserType.CUSTOMER);
+        return user;
     }
 
     public User addUser(String name, String login, String email, UserType type){
@@ -43,13 +51,15 @@ public class UserService {
 
     }
 
-    public Observable<User> getAllUsers(){
-        return Observable.fromIterable(userRepository.findAll());
+    public List<User> getAllUsers(){
+        return userRepository.findAll().stream().map(this::setUserType).collect(Collectors.toList());
     }
 
     public User getUserByLogin(String login){
-        return userRepository.findByLogin(login);
+        return setUserType(userRepository.findByLogin(login));
     }
+
+
 
 
 
