@@ -32,8 +32,10 @@ public class Hall implements Externalizable {
     public Hall() {
     }
 
-    public Hall(int capacity) {
+    public Hall(int capacity, int number) {
+
         setCapacity(capacity);
+        setNumber(number);
     }
 
 

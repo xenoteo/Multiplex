@@ -26,8 +26,8 @@ public class HallService {
         this.hallRepository = hallRepository;
     }
 
-    public Hall addHall(int capacity){
-        Hall hall = new Hall(capacity);
+    public Hall addHall(int capacity, int number){
+        Hall hall = new Hall(capacity, number);
         hallRepository.save(hall);
         return hall;
     }

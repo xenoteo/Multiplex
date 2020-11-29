@@ -72,8 +72,8 @@ public class AlleviationApplication {
 			User user = userService.getUserByLogin("helloJoe");
 			Movie movie = movieService.findMovie(name);
 
-			int capacity = 50;
-			hallService.addHall(capacity);
+			int capacity = 50, number = 10;
+			hallService.addHall(capacity, number);
 			Hall hall = hallService.findHallsByCapacity(capacity).get(0);
 
 			Date date = new Date(2020, Calendar.DECEMBER, 12, 12, 0);
