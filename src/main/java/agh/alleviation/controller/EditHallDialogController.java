@@ -31,8 +31,11 @@ public class EditHallDialogController {
     private TextField capacityField;
 
     @FXML
+    private TextField numberField;
+
+    @FXML
     private void addHall() {
-        this.hall = this.hallService.addHall(Integer.parseInt(capacityField.getText()));
+        this.hall = this.hallService.addHall(Integer.parseInt(capacityField.getText()), Integer.parseInt(numberField.getText()));
         dialogStage.close();
     }
 

@@ -24,12 +24,16 @@ public class HallListController extends GenericListController {
     private TableView<Hall> hallTable;
 
     @FXML
+    private TableColumn<Hall, Integer> numberColumn;
+
+    @FXML
     private TableColumn<Hall, Integer> capacityColumn;
 
     @FXML
     private void initialize() {
         hallTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
+        numberColumn.setCellValueFactory(dataValue -> dataValue.getValue().numberProperty().asObject());
         capacityColumn.setCellValueFactory(dataValue -> dataValue.getValue().capacityProperty().asObject());
 
         this.hallObservableList = FXCollections.observableArrayList(hallService.getAllHalls());

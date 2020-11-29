@@ -27,6 +27,7 @@
     <center>
         <TableView fx:id="hallTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <columns>
+                <TableColumn fx:id="numberColumn" prefWidth="75.0" text="Hall number"/>
                 <TableColumn fx:id="capacityColumn" prefWidth="75.0" text="Capacity"/>
             </columns>
         </TableView>
