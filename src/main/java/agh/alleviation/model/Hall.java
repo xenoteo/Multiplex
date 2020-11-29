@@ -21,10 +21,12 @@ public class Hall implements Externalizable {
     public static class Columns {
         public static final String ID = "id";
         public static final String CAPACITY = "capacity";
+        public static final String NUMBER = "number";
     }
 
     private final IntegerProperty idProperty = new SimpleIntegerProperty(this, "id");
     private final IntegerProperty capacityProperty = new SimpleIntegerProperty(this, "capacity");
+    private final IntegerProperty numberProperty = new SimpleIntegerProperty(this, "number");
 
 
     public Hall() {
@@ -60,16 +62,26 @@ public class Hall implements Externalizable {
         capacityProperty.set(capacity);
     }
 
+    public IntegerProperty numberProperty(){ return this.numberProperty; }
+
+    @Column(name = Columns.NUMBER)
+    public int getNumber(){ return numberProperty.get(); }
+
+    public void setNumber(int number){ numberProperty.set(number); }
+
+
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         out.writeInt(getId());
         out.writeInt(getCapacity());
+        out.writeInt(getNumber());
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         setId(in.readInt());
+        setCapacity(in.readInt());
         setCapacity(in.readInt());
     }
 }

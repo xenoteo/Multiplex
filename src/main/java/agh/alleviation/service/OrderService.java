@@ -6,6 +6,7 @@ import agh.alleviation.model.Ticket;
 import agh.alleviation.model.user.Customer;
 import agh.alleviation.persistence.OrderRepository;
 import agh.alleviation.persistence.TicketRepository;
+import agh.alleviation.persistence.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,16 +27,20 @@ import java.util.stream.StreamSupport;
 public class OrderService {
     private final OrderRepository orderRepository;
     private final TicketRepository ticketRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public OrderService(OrderRepository orderRepository, TicketRepository ticketRepository) {
+    public OrderService(OrderRepository orderRepository, TicketRepository ticketRepository, UserRepository userRepository) {
         this.orderRepository = orderRepository;
         this.ticketRepository = ticketRepository;
+        this.userRepository = userRepository;
     }
 
     public void addOrder(List<Ticket> tickets, Customer customer){
         Order order = new Order(tickets, customer);
+        customer.addOrder(order);
         orderRepository.save(order);
+        userRepository.save(customer);
     }
 
     public List<Order> getAllOrders(){
@@ -57,4 +62,5 @@ public class OrderService {
         Ticket ticket = new Ticket(seance, price);
         ticketRepository.save(ticket);
     }
+
 }
