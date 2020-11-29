@@ -1,16 +1,25 @@
 package agh.alleviation.controller;
 
+import agh.alleviation.model.user.User;
+import agh.alleviation.service.UserService;
+import agh.alleviation.util.UserType;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxmlView;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 @FxmlView("/views/EditUserDialog.fxml")
 public class EditUserDialogController {
+    UserService userService;
+
+    User user;
+
     @FXML
     private ChoiceBox<UserType> userTypeDropdown;
 
@@ -23,8 +32,16 @@ public class EditUserDialogController {
     @FXML
     private Button addUserButton;
 
-    @FXML
-    private ListView<Object> userListView;
+    private Stage dialogStage;
+
+    public void setDialogStage(Stage dialogStage) {
+        this.dialogStage = dialogStage;
+    }
+
+    @Autowired
+    public EditUserDialogController(UserService userService) {
+        this.userService = userService;
+    }
 
     @FXML
     private void initialize() {
@@ -33,8 +50,14 @@ public class EditUserDialogController {
 
     @FXML
     private void addUser() {
-        System.out.println(userTypeDropdown.getValue());
-        System.out.println(nameField.getText());
-        System.out.println(emailField.getText());
+        this.user = this.userService.addUser(nameField.getText(),
+                                             emailField.getText(),
+                                             emailField.getText(),
+                                             userTypeDropdown.getValue()
+        );
+    }
+
+    public User getUser() {
+        return this.user;
     }
 }

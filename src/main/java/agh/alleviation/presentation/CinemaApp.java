@@ -1,6 +1,7 @@
 package agh.alleviation.presentation;
 
 import agh.alleviation.AlleviationApplication;
+import agh.alleviation.controller.AppController;
 import agh.alleviation.controller.EditUserDialogController;
 import agh.alleviation.controller.MainController;
 import agh.alleviation.controller.UserListController;
@@ -15,32 +16,20 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 public class CinemaApp extends Application {
     private ConfigurableApplicationContext applicationContext;
+    private AppController appController;
 
     @Override
     public void init() {
         String[] args = getParameters().getRaw().toArray(new String[0]);
 
-        this.applicationContext = new SpringApplicationBuilder()
-            .sources(AlleviationApplication.class)
-            .run(args);
+        this.applicationContext = new SpringApplicationBuilder().sources(AlleviationApplication.class).run(args);
     }
 
     @Override
     public void start(Stage primaryStage) {
         FxWeaver fxWeaver = applicationContext.getBean(FxWeaver.class);
-        Pane root = fxWeaver.loadView(MainController.class);
-        Scene scene = new Scene(root);
-        ScreenSwitcher screenSwitcher = new ScreenSwitcher(scene);
-
-        screenSwitcher.addScreen(Screen.MAIN, root);
-
-        Pane userListRoot = fxWeaver.loadView(UserListController.class);
-        screenSwitcher.addScreen(Screen.USER_LIST, userListRoot);
-
-        fxWeaver.loadController(MainController.class).setScreenSwitcher(screenSwitcher);
-
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        this.appController = new AppController(fxWeaver, primaryStage);
+        this.appController.initRootLayout();
     }
 
     @Override

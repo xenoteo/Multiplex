@@ -14,10 +14,10 @@ import org.springframework.stereotype.Component;
 public class MainController {
     FxWeaver fxWeaver;
 
-    ScreenSwitcher screenSwitcher;
+    AppController appController;
 
-    public void setScreenSwitcher(ScreenSwitcher screenSwitcher) {
-        this.screenSwitcher = screenSwitcher;
+    public void setAppController(AppController appController) {
+        this.appController = appController;
     }
 
     @FXML
@@ -25,7 +25,7 @@ public class MainController {
 
     @FXML
     public void switchToUserListView() {
-        this.screenSwitcher.activate(Screen.USER_LIST);
+        this.appController.switchView(Screen.USER_LIST);
     }
 
     @Autowired
