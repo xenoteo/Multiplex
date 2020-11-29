@@ -22,20 +22,22 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public void addUser(String name, String login, String email, UserType type){
+    public User addUser(String name, String login, String email, UserType type){
         User newUser;
 
-        switch (type){
-            case ADMIN: newUser = new Admin();
-            case WORKER: newUser = new Worker();
-            default: newUser = new Customer();
-        }
+        newUser = switch (type){
+            case ADMIN -> new Admin();
+            case WORKER -> new Worker();
+            default -> new Customer();
+        };
 
         newUser.setEmail(email);
         newUser.setName(name);
         newUser.setLogin(login);
 
         userRepository.save(newUser);
+
+        return newUser;
 
     }
 
