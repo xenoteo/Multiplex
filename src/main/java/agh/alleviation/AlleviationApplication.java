@@ -54,8 +54,8 @@ public class AlleviationApplication {
 			String login = "helloJoe";
 			UserType type = UserType.CUSTOMER;
 			userService.addUser(userName, login, userMail, type);
-			User user = userService.getUserByLogin("helloJoe");
-			System.out.println(user.idProperty().get());
+			List<User> users = userService.getAllUsers();
+			users.forEach(System.out::println);
 //			Movie movie = movieService.findMovie(name);
 //
 //			int capacity = 50;
