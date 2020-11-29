@@ -1,6 +1,7 @@
 package agh.alleviation.persistence;
 
 import agh.alleviation.model.Movie;
+import agh.alleviation.model.user.Customer;
 import agh.alleviation.model.user.User;
 import org.springframework.data.repository.CrudRepository;
 

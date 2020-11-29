@@ -5,6 +5,7 @@ import agh.alleviation.model.user.Admin;
 import agh.alleviation.model.user.Customer;
 import agh.alleviation.model.user.User;
 import agh.alleviation.model.user.Worker;
+import agh.alleviation.persistence.CustomerRepository;
 import agh.alleviation.persistence.HallRepository;
 import agh.alleviation.persistence.UserRepository;
 import agh.alleviation.util.UserType;
@@ -27,11 +28,13 @@ import java.util.stream.Collectors;
 @Transactional
 public class UserService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final CustomerRepository customerRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository){
+    public UserService(UserRepository userRepository, CustomerRepository customerRepository){
         this.userRepository = userRepository;
+        this.customerRepository = customerRepository;
     }
 
     /**
@@ -69,6 +72,10 @@ public class UserService {
 
     public List<User> getAllUsers(){
         return userRepository.findAll().stream().map(this::setUserType).collect(Collectors.toList());
+    }
+
+    public List<Customer> getAllCustomers(){
+        return customerRepository.findAll();
     }
 
     public User getUserByLogin(String login){

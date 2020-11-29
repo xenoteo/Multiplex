@@ -43,6 +43,8 @@ import java.util.List;
  *     <li>Inversion Of Control - using Spring Beans</li>
  * </ul>
  *
+ * To see current database state, visit:
+ * <url>http://localhost:8080/h2-console/l</url>
  *
  */
 @SpringBootApplication
@@ -66,49 +68,10 @@ public class AlleviationApplication {
         return args -> {
         	dataLoader.populateUsers();
         	dataLoader.populateHalls();
+        	dataLoader.populateMovies();
+        	dataLoader.populateSeances();
+            dataLoader.populateOrders();
 
-//			String name = "Erlang: The Movie";
-//			movieService.addMovie(name);
-//
-//			String userName = "Mike";
-//			String userMail = "mike@erlang.com";
-//			String login = "helloJoe";
-//			UserType type = UserType.CUSTOMER;
-//			userService.addUser(userName, login, userMail, type);
-//			User user = userService.getUserByLogin("helloJoe");
-//			Movie movie = movieService.findMovie(name);
-//
-//			int capacity = 50, number = 10;
-//			hallService.addHall(capacity, number);
-//			Hall hall = hallService.findHallsByCapacity(capacity).get(0);
-//
-//			Date date = new Date(2020, Calendar.DECEMBER, 12, 12, 0);
-//			double price = 25.00;
-//
-//			seanceService.addSeance(movie, hall, date, price);
-//			Seance seance = seanceService.getAllSeances().get(0);
-//
-//			orderService.addTicket(seance, price);
-//			Ticket ticket = orderService.getAllTickets().get(0);
-//
-//			orderService.addOrder(List.of(ticket), (Customer) user);
-//
-//
-//
-//			for (Order o : ((Customer) userService.getUserByLogin("helloJoe")).getOrders()){
-//				System.out.printf("Order %d, user %s:\n", o.getId(), o.getCustomer().getName());
-
-//				for (Ticket t : o.getTickets()){
-//					Seance s = t.getSeance();
-//					System.out.printf("ticket %d: %s, hall %d, %s, %f\n",
-//							t.getId(),
-//							s.getMovie().getName(),
-//							s.getHall().getId(),
-//							s.getDate().toString(),
-//							t.getPrice());
-//				}
-//				System.out.println();
-//			}
 		};
 	}
 }

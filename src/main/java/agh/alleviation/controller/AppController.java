@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxControllerAndView;
 import net.rgielen.fxweaver.core.FxWeaver;
 
+
 public class AppController {
     private FxWeaver fxWeaver;
     private Stage primaryStage;
