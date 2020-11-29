@@ -9,7 +9,7 @@ import java.io.*;
 /**
  * @author Anna Nosek
  * This abstract class represents any user of the system. This class is specialized in specific subclasses.
- * Used inheritance stategies include
+ * Used inheritance strategy creates a joined table for the User type and specific tables for every extending class.
  * @see Admin
  * @see Worker
  * @see Customer
