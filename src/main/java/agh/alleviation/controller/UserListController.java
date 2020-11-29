@@ -1,6 +1,7 @@
 package agh.alleviation.controller;
 
 import agh.alleviation.model.user.User;
+import agh.alleviation.presentation.Screen;
 import agh.alleviation.service.UserService;
 import agh.alleviation.util.UserType;
 import javafx.collections.FXCollections;
@@ -26,6 +27,16 @@ public class UserListController {
     }
 
     @FXML
+    public void switchToUserListView() {
+        this.appController.switchView(Screen.USER_LIST);
+    }
+
+    @FXML
+    public void switchToHallListView() {
+        this.appController.switchView(Screen.HALL_LIST);
+    }
+
+    @FXML
     private TableView<User> userTable;
 
     @FXML
@@ -39,9 +50,6 @@ public class UserListController {
 
     @FXML
     private TableColumn<User, String> emailColumn;
-
-    @FXML
-    private Button addButton;
 
     @FXML
     private void initialize() {

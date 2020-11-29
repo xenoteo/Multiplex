@@ -1,5 +1,6 @@
 package agh.alleviation.controller;
 
+import agh.alleviation.model.Hall;
 import agh.alleviation.model.Movie;
 import agh.alleviation.model.user.User;
 import agh.alleviation.presentation.Screen;
@@ -32,14 +33,18 @@ public class AppController {
 
         var main = fxWeaver.load(MainController.class);
         var userList = fxWeaver.load(UserListController.class);
+        var hallList = fxWeaver.load(HallListController.class);
 
         main.getController().setAppController(this);
         userList.getController().setAppController(this);
+        hallList.getController().setAppController(this);
 
         Pane mainRoot = (Pane) main.getView().get();
         screenSwitcher.addScreen(Screen.MAIN, mainRoot);
         Pane userListRoot = (Pane) userList.getView().get();
         screenSwitcher.addScreen(Screen.USER_LIST, userListRoot);
+        Pane hallListRoot = (Pane) hallList.getView().get();
+        screenSwitcher.addScreen(Screen.HALL_LIST, hallListRoot);
 
         Scene scene = new Scene(mainRoot);
         screenSwitcher.setMainScene(scene);
@@ -64,5 +69,21 @@ public class AppController {
         controller.setDialogStage(dialogStage);
         dialogStage.showAndWait();
         return controller.getUser();
+    }
+
+    public Hall showAddHallDialog() {
+        Stage dialogStage = new Stage();
+        var controllerAndView = fxWeaver.load(EditHallDialogController.class);
+        Pane hallAddRoot = (Pane) controllerAndView.getView().get();
+        dialogStage.setTitle("Add hall");
+        dialogStage.initModality(Modality.WINDOW_MODAL);
+        dialogStage.initOwner(primaryStage);
+        Scene scene = new Scene(hallAddRoot);
+        dialogStage.setScene(scene);
+
+        EditHallDialogController controller = controllerAndView.getController();
+        controller.setDialogStage(dialogStage);
+        dialogStage.showAndWait();
+        return controller.getHall();
     }
 }
