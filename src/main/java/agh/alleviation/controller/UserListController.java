@@ -1,6 +1,7 @@
 package agh.alleviation.controller;
 
 import agh.alleviation.model.user.User;
+import agh.alleviation.presentation.Screen;
 import agh.alleviation.service.UserService;
 import agh.alleviation.util.UserType;
 import javafx.collections.FXCollections;
@@ -14,16 +15,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 @FxmlView("/views/UserList.fxml")
-public class UserListController {
+public class UserListController extends GenericListController {
     UserService userService;
 
     ObservableList<User> userObservableList;
-
-    AppController appController;
-
-    public void setAppController(AppController appController) {
-        this.appController = appController;
-    }
 
     @FXML
     private TableView<User> userTable;
@@ -39,9 +34,6 @@ public class UserListController {
 
     @FXML
     private TableColumn<User, String> emailColumn;
-
-    @FXML
-    private Button addButton;
 
     @FXML
     private void initialize() {

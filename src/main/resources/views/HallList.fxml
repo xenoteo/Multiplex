@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 
 <BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="agh.alleviation.controller.UserListController">
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="agh.alleviation.controller.HallListController">
     <top>
         <MenuBar BorderPane.alignment="CENTER">
             <menus>
@@ -25,12 +25,9 @@
         </MenuBar>
     </top>
     <center>
-        <TableView fx:id="userTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <TableView fx:id="hallTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <columns>
-                <TableColumn fx:id="typeColumn" prefWidth="75.0" text="Type"/>
-                <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Name"/>
-                <TableColumn fx:id="loginColumn" prefWidth="75.0" text="Login"/>
-                <TableColumn fx:id="emailColumn" prefWidth="75.0" text="Email"/>
+                <TableColumn fx:id="capacityColumn" prefWidth="75.0" text="Capacity"/>
             </columns>
         </TableView>
     </center>

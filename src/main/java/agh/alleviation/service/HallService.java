@@ -26,9 +26,10 @@ public class HallService {
         this.hallRepository = hallRepository;
     }
 
-    public void addHall(int capacity){
+    public Hall addHall(int capacity){
         Hall hall = new Hall(capacity);
         hallRepository.save(hall);
+        return hall;
     }
 
     public List<Hall> getAllHalls(){

@@ -13,6 +13,7 @@
                 <Menu mnemonicParsing="false" text="Menu">
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#switchToUserListView" text="User list"/>
+                        <MenuItem mnemonicParsing="false" onAction="#switchToHallListView" text="Hall list"/>
                     </items>
                 </Menu>
             </menus>

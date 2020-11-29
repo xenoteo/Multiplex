@@ -22,6 +22,17 @@ public class EditUserDialogController {
 
     User user;
 
+    private Stage dialogStage;
+
+    public void setDialogStage(Stage dialogStage) {
+        this.dialogStage = dialogStage;
+    }
+
+    @Autowired
+    public EditUserDialogController(UserService userService) {
+        this.userService = userService;
+    }
+
     @FXML
     private ChoiceBox<UserType> userTypeDropdown;
 
@@ -33,20 +44,6 @@ public class EditUserDialogController {
 
     @FXML
     private TextField emailField;
-
-    @FXML
-    private Button addUserButton;
-
-    private Stage dialogStage;
-
-    public void setDialogStage(Stage dialogStage) {
-        this.dialogStage = dialogStage;
-    }
-
-    @Autowired
-    public EditUserDialogController(UserService userService) {
-        this.userService = userService;
-    }
 
     @FXML
     private void initialize() {
