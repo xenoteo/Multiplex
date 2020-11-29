@@ -38,7 +38,7 @@ public class Movie implements Externalizable {
         return id.get();
     }
 
-    public void setId(int id) { this.id.set(id);}
+    public void setId(int id) { this.id.set(id); }
 
     public IntegerProperty idProperty() { return id; }
 
@@ -65,10 +65,6 @@ public class Movie implements Externalizable {
         setId(in.readInt());
         setName((String) in.readObject());
     }
-}
-
-/*
-
 
     @Override
     public boolean equals(Object o) {
@@ -82,5 +78,4 @@ public class Movie implements Externalizable {
     public int hashCode() {
         return Objects.hash(id, name);
     }
-
- */
+}
