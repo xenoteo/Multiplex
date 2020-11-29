@@ -1,8 +1,10 @@
 package agh.alleviation.controller;
 
+import agh.alleviation.model.Movie;
 import agh.alleviation.model.user.User;
 import agh.alleviation.presentation.Screen;
 import agh.alleviation.presentation.ScreenSwitcher;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
@@ -20,22 +22,28 @@ public class AppController {
     }
 
     public void initRootLayout() {
-        Pane root = fxWeaver.loadView(MainController.class);
-        Scene scene = new Scene(root);
-        this.screenSwitcher = new ScreenSwitcher(scene);
-        this.screenSwitcher.addScreen(Screen.MAIN, root);
-        this.setupScreenSwitcher();
+        this.setViewsAndControllers();
 
-        fxWeaver.loadController(MainController.class).setAppController(this);
-        fxWeaver.loadController(UserListController.class).setAppController(this);
-
-        primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    public void setupScreenSwitcher() {
-        Pane userListRoot = fxWeaver.loadView(UserListController.class);
+    public void setViewsAndControllers() {
+        this.screenSwitcher = new ScreenSwitcher();
+
+        var main = fxWeaver.load(MainController.class);
+        var userList = fxWeaver.load(UserListController.class);
+
+        main.getController().setAppController(this);
+        userList.getController().setAppController(this);
+
+        Pane mainRoot = (Pane) main.getView().get();
+        screenSwitcher.addScreen(Screen.MAIN, mainRoot);
+        Pane userListRoot = (Pane) userList.getView().get();
         screenSwitcher.addScreen(Screen.USER_LIST, userListRoot);
+
+        Scene scene = new Scene(mainRoot);
+        screenSwitcher.setMainScene(scene);
+        primaryStage.setScene(scene);
     }
 
     public void switchView(Screen screen) {
@@ -44,16 +52,17 @@ public class AppController {
 
     public User showAddUserDialog() {
         Stage dialogStage = new Stage();
-        Pane userAddRoot = fxWeaver.loadView(EditUserDialogController.class);
+        var controllerAndView = fxWeaver.load(EditUserDialogController.class);
+        Pane userAddRoot = (Pane) controllerAndView.getView().get();
+        dialogStage.setTitle("Add user");
         dialogStage.initModality(Modality.WINDOW_MODAL);
         dialogStage.initOwner(primaryStage);
         Scene scene = new Scene(userAddRoot);
         dialogStage.setScene(scene);
 
-        EditUserDialogController editUserDialogController = fxWeaver.loadController(EditUserDialogController.class);
-        editUserDialogController.setDialogStage(dialogStage);
+        EditUserDialogController controller = controllerAndView.getController();
+        controller.setDialogStage(dialogStage);
         dialogStage.showAndWait();
-
-        return editUserDialogController.getUser();
+        return controller.getUser();
     }
 }

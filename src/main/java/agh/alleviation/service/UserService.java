@@ -7,6 +7,7 @@ import agh.alleviation.model.user.Worker;
 import agh.alleviation.persistence.UserRepository;
 import agh.alleviation.util.UserType;
 import io.reactivex.rxjava3.core.Observable;
+import javafx.collections.ObservableList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,14 +21,14 @@ public class UserService {
     private UserRepository userRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository){
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    public User addUser(String name, String login, String email, UserType type){
+    public User addUser(String name, String login, String email, UserType type) {
         User newUser;
 
-        newUser = switch (type){
+        newUser = switch (type) {
             case ADMIN -> new Admin();
             case WORKER -> new Worker();
             default -> new Customer();
@@ -43,16 +44,12 @@ public class UserService {
 
     }
 
-    public Observable<User> getAllUsers(){
-        return Observable.fromIterable(userRepository.findAll());
-    }
-
-    public User getUserByLogin(String login){
-        return userRepository.findByLogin(login);
-    }
-
     public List<User> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    public User getUserByLogin(String login) {
+        return userRepository.findByLogin(login);
     }
 
 }

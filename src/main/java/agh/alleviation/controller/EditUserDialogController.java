@@ -12,6 +12,8 @@ import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import javafx.event.ActionEvent;
+import org.w3c.dom.Text;
 
 @Component
 @FxmlView("/views/EditUserDialog.fxml")
@@ -25,6 +27,9 @@ public class EditUserDialogController {
 
     @FXML
     private TextField nameField;
+
+    @FXML
+    private TextField loginField;
 
     @FXML
     private TextField emailField;
@@ -46,15 +51,17 @@ public class EditUserDialogController {
     @FXML
     private void initialize() {
         userTypeDropdown.getItems().addAll(UserType.values());
+        userTypeDropdown.setValue(UserType.CUSTOMER);
     }
 
     @FXML
     private void addUser() {
         this.user = this.userService.addUser(nameField.getText(),
-                                             emailField.getText(),
+                                             loginField.getText(),
                                              emailField.getText(),
                                              userTypeDropdown.getValue()
         );
+        dialogStage.close();
     }
 
     public User getUser() {

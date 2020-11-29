@@ -9,15 +9,15 @@ public class ScreenSwitcher {
     private HashMap<Screen, Pane> screenMap = new HashMap<>();
     private Scene main;
 
-    public ScreenSwitcher(Scene main) {
+    public void setMainScene(Scene main) {
         this.main = main;
     }
 
-    public void addScreen(Screen screen, Pane pane){
+    public void addScreen(Screen screen, Pane pane) {
         screenMap.put(screen, pane);
     }
 
-    public void activate(Screen screen){
+    public void activate(Screen screen) {
         main.setRoot(screenMap.get(screen));
     }
 }

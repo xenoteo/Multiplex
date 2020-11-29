@@ -27,7 +27,7 @@ public class MainController {
     public void switchToUserListView() {
         this.appController.switchView(Screen.USER_LIST);
     }
-
+    
     @Autowired
     public MainController(FxWeaver fxWeaver) {
         this.fxWeaver = fxWeaver;
