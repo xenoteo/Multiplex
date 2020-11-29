@@ -13,21 +13,14 @@ import java.io.ObjectOutput;
 import java.util.Objects;
 
 @Entity
-@Table(name = Movie.TABLE_NAME)
-public class Movie implements Externalizable {
-    public static final String TABLE_NAME = "movie";
+@Table(name = User.TABLE_NAME)
+public class User implements Externalizable {
+    public static final String TABLE_NAME = "user";
 
     public static class Columns {
         public static final String ID = "id";
         public static final String NAME = "name";
     }
-
-    public Movie() { }
-
-    public Movie(final String name) {
-        setName(name);
-    }
-
 
     private final IntegerProperty id = new SimpleIntegerProperty(this, "id");
 
@@ -41,7 +34,6 @@ public class Movie implements Externalizable {
     public void setId(int id) { this.id.set(id); }
 
     public IntegerProperty idProperty() { return id; }
-
 
     private final StringProperty name = new SimpleStringProperty(this, "name");
 
@@ -70,8 +62,8 @@ public class Movie implements Externalizable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Movie movie = (Movie) o;
-        return id == movie.id && name.equals(movie.name);
+        User user = (User) o;
+        return id.equals(user.id) && name.equals(user.name);
     }
 
     @Override

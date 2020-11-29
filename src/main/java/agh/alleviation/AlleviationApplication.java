@@ -7,6 +7,7 @@ import agh.alleviation.service.MovieService;
 import agh.alleviation.service.UserService;
 import agh.alleviation.util.UserType;
 import javafx.application.Application;
+import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.spring.SpringFxWeaver;
 import org.springframework.boot.CommandLineRunner;
@@ -31,7 +32,6 @@ public class AlleviationApplication {
 	public FxWeaver fxWeaver(ConfigurableApplicationContext applicationContext) {
 		return new SpringFxWeaver(applicationContext);
 	}
-
 
 	@Bean
 	public CommandLineRunner demo(MovieService movieService, UserService userService) {
