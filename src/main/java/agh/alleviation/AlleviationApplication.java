@@ -1,7 +1,11 @@
 package agh.alleviation;
 
 import agh.alleviation.presentation.CinemaApp;
+//import agh.alleviation.service.MovieService;
+//import agh.alleviation.service.UserService;
 import agh.alleviation.service.MovieService;
+import agh.alleviation.service.UserService;
+import agh.alleviation.util.UserType;
 import javafx.application.Application;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.spring.SpringFxWeaver;
@@ -30,11 +34,21 @@ public class AlleviationApplication {
 
 
 	@Bean
-	public CommandLineRunner demo(MovieService movieService) {
+	public CommandLineRunner demo(MovieService movieService, UserService userService) {
 		return args -> {
 			String name = "Erlang: The Movie";
 			movieService.addMovie(name);
 			System.out.println(movieService.findMovie(name));
+
+			String userName = "Mike";
+			String userMail = "mike@erlang.com";
+			String login = "helloJoe";
+			UserType type = UserType.ADMIN;
+
+			userService.addUser(userName, login, userMail, type);
+			System.out.println(userService.getUserByLogin(login).nameProperty().get());
+
+
 //			movieService.findMovie(name).subscribe(System.out::println);
 		};
 	}

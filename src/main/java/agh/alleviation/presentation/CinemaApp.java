@@ -2,7 +2,7 @@ package agh.alleviation.presentation;
 
 import agh.alleviation.AlleviationApplication;
 import agh.alleviation.controller.MovieController;
-import agh.alleviation.model.Movie;
+//import agh.alleviation.model.Movie;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Parent;

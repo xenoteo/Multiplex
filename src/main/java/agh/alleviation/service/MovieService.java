@@ -15,7 +15,7 @@ import java.util.List;
 @Service
 @Transactional
 public class MovieService {
-    MovieRepository movieRepository;
+    private MovieRepository movieRepository;
 
     @Autowired
     public MovieService(MovieRepository movieRepository) {

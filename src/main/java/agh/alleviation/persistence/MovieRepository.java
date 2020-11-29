@@ -14,6 +14,3 @@ public interface MovieRepository extends CrudRepository<Movie, Integer> {
     List<Movie> findAll();
 }
 
-//public interface MovieRepository extends RxJava2CrudRepository<Movie, Integer> {
-//    Observable<Movie> findByName(String name);
-//}

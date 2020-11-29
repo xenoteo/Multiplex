@@ -32,7 +32,7 @@ public class Movie implements Externalizable {
     private final IntegerProperty id = new SimpleIntegerProperty(this, "id");
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = Columns.ID)
     public int getId() {
         return id.get();
@@ -45,7 +45,7 @@ public class Movie implements Externalizable {
 
     private final StringProperty name = new SimpleStringProperty(this, "name");
 
-    @Column(name = Columns.NAME, nullable = false, length = 50, unique = true)
+    @Column(name = Movie.Columns.NAME, nullable = false, length = 50, unique = true)
     public String getName() {
         return name.get();
     }
