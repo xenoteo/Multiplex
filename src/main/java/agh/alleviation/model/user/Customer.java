@@ -10,4 +10,6 @@ import javax.persistence.Table;
 public class Customer extends User{
     public static final String TABLE_NAME = "customer";
 
+
+
 }
