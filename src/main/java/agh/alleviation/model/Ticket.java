@@ -4,11 +4,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javafx.beans.property.*;
 
 import javax.persistence.*;
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 
 @Entity
 @Table(name = Ticket.TABLE_NAME)
-public class Ticket {
+public class Ticket implements Externalizable {
     public static final String TABLE_NAME = "ticket";
+
 
     public static class Columns {
         public static final String ID = "id";
@@ -61,5 +66,20 @@ public class Ticket {
 
     public void setPrice(double price){
         priceProperty.set(price);
+    }
+
+
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+        out.writeInt(getId());
+        out.writeObject(getSeance());
+        out.writeObject(getPrice());
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        setId(in.readInt());
+        setSeance((Seance) in.readObject());
+        setPrice(in.readInt());
     }
 }

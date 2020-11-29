@@ -4,10 +4,14 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 import javax.persistence.*;
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 
 @Entity
 @Table(name = Hall.TABLE_NAME)
-public class Hall {
+public class Hall implements Externalizable {
     public static final String TABLE_NAME = "hall";
 
     public static class Columns {
@@ -50,5 +54,17 @@ public class Hall {
 
     public void setCapacity(int capacity){
         capacityProperty.set(capacity);
+    }
+
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+        out.writeInt(getId());
+        out.writeInt(getCapacity());
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        setId(in.readInt());
+        setCapacity(in.readInt());
     }
 }

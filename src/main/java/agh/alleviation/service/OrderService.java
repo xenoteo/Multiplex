@@ -47,8 +47,9 @@ public class OrderService {
                 .collect(Collectors.toList());
     }
 
-    public void addTicket(Seance seance, double price){
+    public Ticket addTicket(Seance seance, double price){
         Ticket ticket = new Ticket(seance, price);
         ticketRepository.save(ticket);
+        return ticket;
     }
 }

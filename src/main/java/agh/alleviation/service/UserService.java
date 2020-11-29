@@ -6,10 +6,12 @@ import agh.alleviation.model.user.User;
 import agh.alleviation.model.user.Worker;
 import agh.alleviation.persistence.UserRepository;
 import agh.alleviation.util.UserType;
+import io.reactivex.rxjava3.core.Observable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @Transactional
@@ -39,6 +41,10 @@ public class UserService {
 
         return newUser;
 
+    }
+
+    public Observable<User> getAllUsers(){
+        return Observable.fromIterable(userRepository.findAll());
     }
 
     public User getUserByLogin(String login){

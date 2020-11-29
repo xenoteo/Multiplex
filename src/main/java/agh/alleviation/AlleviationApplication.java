@@ -56,41 +56,41 @@ public class AlleviationApplication {
 			User user = userService.getUserByLogin("helloJoe");
 
 
-			Movie movie = movieService.findMovie(name);
+//			Movie movie = movieService.findMovie(name);
 
-			int capacity = 50;
-			hallService.addHall(capacity);
-			Hall hall = hallService.findHallsByCapacity(capacity).get(0);
+//			int capacity = 50;
+//			hallService.addHall(capacity);
+//			Hall hall = hallService.findHallsByCapacity(capacity).get(0);
+//
+//			Date date = new Date(2020, Calendar.DECEMBER, 12, 12, 0);
+//			double price = 25.00;
 
-			Date date = new Date(2020, Calendar.DECEMBER, 12, 12, 0);
-			double price = 25.00;
+//			seanceService.addSeance(movie, hall, date, price);
+//			Seance seance = seanceService.getAllSeances().get(0);
 
-			seanceService.addSeance(movie, hall, date, price);
-			Seance seance = seanceService.getAllSeances().get(0);
-
-			orderService.addTicket(seance, price);
-			Ticket ticket = orderService.getAllTickets().get(0);
-
-			orderService.addOrder(List.of(ticket), (Customer) user);
+//			Ticket ticket = orderService.addTicket(seance, price);
+//			Ticket ticket = orderService.getAllTickets().get(0);
+//
+//			orderService.addOrder(List.of(ticket), (Customer) user);
 
 
-			for (Order o : orderService.getAllOrders()){
-				System.out.printf("Order %d:\n", o.getId());
-				Customer customer = o.getCustomer();
-				if (customer != null)
-					System.out.printf("User %s\n", customer.getName());
-
-				for (Ticket t : o.getTickets()){
-					Seance s = t.getSeance();
-					System.out.printf("ticket %d: %s, hall %d, %s, %f\n",
-							t.getId(),
-							s.getMovie().getName(),
-							s.getHall().getId(),
-							s.getDate().toString(),
-							t.getPrice());
-				}
-				System.out.println();
-			}
+//			for (Order o : orderService.getAllOrders()){
+//				System.out.printf("Order %d:\n", o.getId());
+//				Customer customer = o.getCustomer();
+//				if (customer != null)
+//					System.out.printf("User %s\n", customer.getName());
+//
+//				for (Ticket t : o.getTickets()){
+//					Seance s = t.getSeance();
+//					System.out.printf("ticket %d: %s, hall %d, %s, %f\n",
+//							t.getId(),
+//							s.getMovie().getName(),
+//							s.getHall().getId(),
+//							s.getDate().toString(),
+//							t.getPrice());
+//				}
+//				System.out.println();
+//			}
 		};
 	}
 }

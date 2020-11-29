@@ -3,12 +3,18 @@ package agh.alleviation.model;
 import javafx.beans.property.*;
 
 import javax.persistence.*;
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.util.Date;
 
 @Entity
 @Table(name = Seance.TABLE_NAME)
-public class Seance {
+public class Seance implements Externalizable {
     public static final String TABLE_NAME = "seance";
+
+
 
     public static class Columns {
         public static final String ID = "id";
@@ -102,6 +108,23 @@ public class Seance {
 
     public void setPrice(double price){
         priceProperty.set(price);
+    }
+
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+        out.writeObject(getId());
+        out.writeObject(getMovie());
+        out.writeObject(getDate());
+        out.writeObject(getPrice());
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        setId(in.readInt());
+        setMovie((Movie) in.readObject());
+        setDate((Date) in.readObject());
+        setPrice(in.readDouble());
+
     }
 
 }
