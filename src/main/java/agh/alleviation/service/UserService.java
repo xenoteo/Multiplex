@@ -35,12 +35,13 @@ public class UserService {
     public User addUser(String name, String login, String email, UserType type){
         User newUser;
 
-        newUser = switch (type){
+        newUser = switch (type) {
             case ADMIN -> new Admin();
             case WORKER -> new Worker();
             default -> new Customer();
         };
 
+        newUser.setUserType(type);
         newUser.setEmail(email);
         newUser.setName(name);
         newUser.setLogin(login);
@@ -48,7 +49,6 @@ public class UserService {
         userRepository.save(newUser);
 
         return newUser;
-
     }
 
     public List<User> getAllUsers(){

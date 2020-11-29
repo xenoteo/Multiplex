@@ -99,7 +99,7 @@ public abstract class User implements Externalizable {
 
     public void setEmail(String newEmail){ email.set(newEmail);}
 
-    public StringProperty emailProperty(){ return loginProperty(); }
+    public StringProperty emailProperty(){ return this.email; }
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
