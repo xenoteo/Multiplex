@@ -62,4 +62,5 @@ public class OrderService {
         Ticket ticket = new Ticket(seance, price);
         ticketRepository.save(ticket);
     }
+
 }
