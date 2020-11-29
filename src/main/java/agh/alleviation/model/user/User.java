@@ -9,6 +9,8 @@ import javafx.beans.property.StringProperty;
 import javax.persistence.*;
 import java.io.*;
 
+
+
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = User.TABLE_NAME)
