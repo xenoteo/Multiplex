@@ -1,7 +1,6 @@
 package agh.alleviation.controller;
 
 import agh.alleviation.model.user.User;
-import agh.alleviation.presentation.Screen;
 import agh.alleviation.service.UserService;
 import agh.alleviation.util.UserType;
 import javafx.collections.FXCollections;

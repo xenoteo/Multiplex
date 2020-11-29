@@ -1,11 +1,9 @@
 package agh.alleviation.controller;
 
 import agh.alleviation.model.Hall;
-import agh.alleviation.model.Movie;
 import agh.alleviation.model.user.User;
 import agh.alleviation.presentation.Screen;
 import agh.alleviation.presentation.ScreenSwitcher;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;

@@ -1,9 +1,7 @@
 package agh.alleviation.controller;
 
 import agh.alleviation.model.Hall;
-import agh.alleviation.model.user.User;
 import agh.alleviation.service.HallService;
-import agh.alleviation.service.UserService;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;

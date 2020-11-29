@@ -1,7 +1,6 @@
 package agh.alleviation.controller;
 
 import agh.alleviation.presentation.Screen;
-import agh.alleviation.presentation.ScreenSwitcher;
 import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
 import net.rgielen.fxweaver.core.FxWeaver;
