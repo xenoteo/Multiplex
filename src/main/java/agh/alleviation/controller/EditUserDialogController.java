@@ -12,12 +12,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * @author Kamil Krzempek
  * Controller responsible for modal with user editing (support only adding at the moment)
+ *
+ * @author Kamil Krzempek
  */
 @Component
 @FxmlView("/views/EditUserDialog.fxml")
 public class EditUserDialogController {
+    /**
+     * The User service.
+     */
     UserService userService;
 
     /**
@@ -30,10 +34,20 @@ public class EditUserDialogController {
      */
     private Stage dialogStage;
 
+    /**
+     * Sets dialog stage.
+     *
+     * @param dialogStage the dialog stage
+     */
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
     }
 
+    /**
+     * Instantiates a new Edit user dialog controller.
+     *
+     * @param userService the user service
+     */
     @Autowired
     public EditUserDialogController(UserService userService) {
         this.userService = userService;
@@ -70,6 +84,11 @@ public class EditUserDialogController {
         dialogStage.close();
     }
 
+    /**
+     * Gets user.
+     *
+     * @return the user
+     */
     public User getUser() {
         return this.user;
     }

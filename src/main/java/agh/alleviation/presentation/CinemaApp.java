@@ -9,8 +9,9 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 
 /**
- * @author Kamil Krzempek
  * Class responsible for Spring Boot context creation and JavaFx application launch
+ *
+ * @author Kamil Krzempek
  */
 public class CinemaApp extends Application {
     private ConfigurableApplicationContext applicationContext;

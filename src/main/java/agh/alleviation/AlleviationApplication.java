@@ -30,8 +30,23 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  *     <li>Inversion Of Control - using Spring Beans</li>
  * </ul>
  *
- * To see current database state, visit:
- * <url>http://localhost:8080/h2-console/l</url>
+ * Additionally in order to introduce dynamic binding between view and model components,
+ * the fields in the @Entity classes were created as instances of JavaFx Property class.
+ * In order to maintain compliance with JPA mapping requirements, the Externalizable interface
+ * was implemented manually. The columns of tables in database no longer map to the specific class fields,
+ * but to their getters and setters.
+ * <p>
+ * Current database state (the database is created upon starting the app and discarded upon closing the app):
+ * <a href = "http://localhost:8080/h2-console">http://localhost:8080/h2-console</a>
+ * <p>
+ * Roles of team members (m1):
+ * <ul>
+ *     <li>Kamil Krzempek - view design, creation of presentation and controller layers, setting up dependencies</li>
+ *     <li>Ksenia Fiodarava - model design, creation of entities, repositories and services, maintaining UML class diagram</li>
+ *     <li>Anna Nosek - model design, creation of entities, repositories and services, coordination of documentation, database integration, team coordination</li>
+ * </ul>
+ * All team members were actively participating in creation of application structure.
+ *
  *
  */
 @SpringBootApplication
@@ -40,16 +55,33 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 public class AlleviationApplication {
 
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         //		SpringApplication.run(AlleviationApplication.class, args);
         Application.launch(CinemaApp.class, args);
     }
 
-	@Bean
+    /**
+     * Fx weaver fx weaver.
+     *
+     * @param applicationContext the application context
+     * @return the fx weaver
+     */
+    @Bean
     public FxWeaver fxWeaver(ConfigurableApplicationContext applicationContext) {
         return new SpringFxWeaver(applicationContext);
     }
 
+    /**
+     * Demo command line runner.
+     *
+     * @param dataLoader the data loader
+     * @return the command line runner
+     */
     @Bean
     public CommandLineRunner demo(DataLoader dataLoader) {
         return args -> {

@@ -18,12 +18,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * @author Anna Nosek
  * Service responsible for manipulating the user repository.
+ *
+ * @author Anna Nosek
  * @see User
  * @see UserRepository
  */
-
 @Service
 @Transactional
 public class UserService {
@@ -31,6 +31,12 @@ public class UserService {
     private final UserRepository userRepository;
     private final CustomerRepository customerRepository;
 
+    /**
+     * Instantiates a new User service.
+     *
+     * @param userRepository     the user repository
+     * @param customerRepository the customer repository
+     */
     @Autowired
     public UserService(UserRepository userRepository, CustomerRepository customerRepository){
         this.userRepository = userRepository;
@@ -51,6 +57,15 @@ public class UserService {
         return user;
     }
 
+    /**
+     * Add user user.
+     *
+     * @param name  the name
+     * @param login the login
+     * @param email the email
+     * @param type  the type
+     * @return the user
+     */
     public User addUser(String name, String login, String email, UserType type){
         User newUser;
 
@@ -70,14 +85,30 @@ public class UserService {
         return newUser;
     }
 
+    /**
+     * Get all users list.
+     *
+     * @return the list
+     */
     public List<User> getAllUsers(){
         return userRepository.findAll().stream().map(this::setUserType).collect(Collectors.toList());
     }
 
+    /**
+     * Get all customers list.
+     *
+     * @return the list
+     */
     public List<Customer> getAllCustomers(){
         return customerRepository.findAll();
     }
 
+    /**
+     * Get user by login user.
+     *
+     * @param login the login
+     * @return the user
+     */
     public User getUserByLogin(String login){
         return setUserType(userRepository.findByLogin(login));
     }

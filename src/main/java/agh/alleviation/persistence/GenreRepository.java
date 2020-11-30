@@ -5,8 +5,10 @@ import org.springframework.data.repository.CrudRepository;
 
 
 /**
- * @author Anna Nosek
  * A repository for the movie genres.
+ *
+ * @author Anna Nosek
+ * @see Genre
  */
 public interface GenreRepository extends CrudRepository<Genre, Integer> {
 

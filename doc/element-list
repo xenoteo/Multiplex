@@ -1,0 +1,9 @@
+agh.alleviation
+agh.alleviation.controller
+agh.alleviation.model
+agh.alleviation.model.user
+agh.alleviation.persistence
+agh.alleviation.presentation
+agh.alleviation.service
+agh.alleviation.stats
+agh.alleviation.util

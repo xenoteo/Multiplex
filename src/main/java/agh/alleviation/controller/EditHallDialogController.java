@@ -10,8 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
+ * Controller responsible for modal with hall editing (supports only adding at the moment)
+ *
  * @author Kamil Krzempek
- * Controller responsible for modal with hall editing (support only adding at the moment)
  */
 @Component
 @FxmlView("/views/EditHallDialog.fxml")
@@ -28,10 +29,20 @@ public class EditHallDialogController {
      */
     private Stage dialogStage;
 
+    /**
+     * Sets dialog stage.
+     *
+     * @param dialogStage the dialog stage
+     */
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
     }
 
+    /**
+     * Instantiates a new Edit hall dialog controller.
+     *
+     * @param hallService the hall service
+     */
     @Autowired
     public EditHallDialogController(HallService hallService) {
         this.hallService = hallService;
@@ -49,6 +60,11 @@ public class EditHallDialogController {
         dialogStage.close();
     }
 
+    /**
+     * Gets hall.
+     *
+     * @return the hall
+     */
     public Hall getHall() {
         return this.hall;
     }

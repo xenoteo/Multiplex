@@ -13,10 +13,11 @@ import net.rgielen.fxweaver.core.FxControllerAndView;
 import net.rgielen.fxweaver.core.FxWeaver;
 
 /**
- * @author Kamil Krzempek
  * ViewControllerManager is responsible for setting up the controllers of the application.
  * It heavily relies on FxWeaver in order to maintain cooperation between JavaFX and Spring Boot.
  * It sets up modal views for adding user and hall.
+ *
+ * @author Kamil Krzempek
  * @see ScreenSwitcher
  */
 public class ViewControllerManager {
@@ -24,11 +25,20 @@ public class ViewControllerManager {
     private Stage primaryStage;
     private ScreenSwitcher screenSwitcher;
 
+    /**
+     * Instantiates a new View controller manager.
+     *
+     * @param fxWeaver     the fx weaver
+     * @param primaryStage the primary stage
+     */
     public ViewControllerManager(FxWeaver fxWeaver, Stage primaryStage) {
         this.fxWeaver = fxWeaver;
         this.primaryStage = primaryStage;
     }
 
+    /**
+     * Init root layout.
+     */
     public void initRootLayout() {
         this.setViewsAndControllers();
 
@@ -61,12 +71,18 @@ public class ViewControllerManager {
         primaryStage.setScene(scene);
     }
 
+    /**
+     * Switch view.
+     *
+     * @param screen the screen
+     */
     public void switchView(Screen screen) {
         this.screenSwitcher.activate(screen);
     }
 
     /**
      * A helper function for showAddUserDialog and showAddDialog.
+     *
      * @param root  root pane
      * @param title title of the window
      * @return a stage for the window
@@ -82,6 +98,11 @@ public class ViewControllerManager {
         return dialogStage;
     }
 
+    /**
+     * Show add user dialog user.
+     *
+     * @return the user
+     */
     public User showAddUserDialog() {
         FxControllerAndView<EditUserDialogController, Pane> controllerAndView = fxWeaver.load(EditUserDialogController.class);
         Stage stage = setupStageAndScene(controllerAndView.getView().get(), "Add user");
@@ -91,6 +112,11 @@ public class ViewControllerManager {
         return controller.getUser();
     }
 
+    /**
+     * Show add hall dialog hall.
+     *
+     * @return the hall
+     */
     public Hall showAddHallDialog() {
         FxControllerAndView<EditHallDialogController, Pane> controllerAndView = fxWeaver.load(EditHallDialogController.class);
         Stage stage = setupStageAndScene(controllerAndView.getView().get(), "Add hall");
