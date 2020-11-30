@@ -20,11 +20,11 @@ import java.util.List;
 @Component
 public class DataLoader {
 
-    private HallService hallService;
-    private MovieService movieService;
-    private OrderService orderService;
-    private SeanceService seanceService;
-    private UserService userService;
+    private final HallService hallService;
+    private final MovieService movieService;
+    private final OrderService orderService;
+    private final SeanceService seanceService;
+    private final UserService userService;
 
     @Autowired
     public DataLoader(HallService hallService,

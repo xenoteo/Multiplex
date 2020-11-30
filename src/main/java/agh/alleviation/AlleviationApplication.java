@@ -44,7 +44,7 @@ import java.util.List;
  * </ul>
  *
  * To see current database state, visit:
- * <url>http://localhost:8080/h2-console/l</url>
+ * <url>http://localhost:8080/h2-console</url>
  *
  */
 @SpringBootApplication
