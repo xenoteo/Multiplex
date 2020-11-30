@@ -1,29 +1,16 @@
 package agh.alleviation;
 
-import agh.alleviation.model.*;
-import agh.alleviation.model.user.Customer;
-import agh.alleviation.model.user.User;
 import agh.alleviation.presentation.CinemaApp;
-import agh.alleviation.service.*;
 import agh.alleviation.util.DataLoader;
-import agh.alleviation.util.UserType;
 import javafx.application.Application;
-import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.spring.SpringFxWeaver;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-
-import javax.xml.crypto.Data;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 
 /**
  * This application provides functionalities for a cinema multiplex.
@@ -71,7 +58,6 @@ public class AlleviationApplication {
         	dataLoader.populateMovies();
         	dataLoader.populateSeances();
             dataLoader.populateOrders();
-
 		};
 	}
 }

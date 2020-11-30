@@ -1,7 +1,6 @@
 package agh.alleviation.presentation;
 
 import agh.alleviation.AlleviationApplication;
-import agh.alleviation.controller.ViewControllerSetup;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -9,9 +8,13 @@ import net.rgielen.fxweaver.core.FxWeaver;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 
+/**
+ * @author Kamil Krzempek
+ * Class responsible for Spring Boot context creation and JavaFx application launch
+ */
 public class CinemaApp extends Application {
     private ConfigurableApplicationContext applicationContext;
-    private ViewControllerSetup viewControllerSetup;
+    private ViewControllerManager viewControllerManager;
 
     @Override
     public void init() {
@@ -23,8 +26,8 @@ public class CinemaApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         FxWeaver fxWeaver = applicationContext.getBean(FxWeaver.class);
-        this.viewControllerSetup = new ViewControllerSetup(fxWeaver, primaryStage);
-        this.viewControllerSetup.initRootLayout();
+        this.viewControllerManager = new ViewControllerManager(fxWeaver, primaryStage);
+        this.viewControllerManager.initRootLayout();
     }
 
     @Override

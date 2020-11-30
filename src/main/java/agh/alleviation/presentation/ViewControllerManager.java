@@ -1,5 +1,6 @@
-package agh.alleviation.controller;
+package agh.alleviation.presentation;
 
+import agh.alleviation.controller.*;
 import agh.alleviation.model.Hall;
 import agh.alleviation.model.user.User;
 import agh.alleviation.presentation.Screen;
@@ -13,18 +14,17 @@ import net.rgielen.fxweaver.core.FxWeaver;
 
 /**
  * @author Kamil Krzempek
- * AppController is responsible for setting up the controllers of the application.
+ * ViewControllerManager is responsible for setting up the controllers of the application.
  * It heavily relies on FxWeaver in order to maintain cooperation between JavaFX and Spring Boot.
  * It sets up modal views for adding user and hall.
  * @see ScreenSwitcher
  */
-
-public class ViewControllerSetup {
+public class ViewControllerManager {
     private FxWeaver fxWeaver;
     private Stage primaryStage;
     private ScreenSwitcher screenSwitcher;
 
-    public ViewControllerSetup(FxWeaver fxWeaver, Stage primaryStage) {
+    public ViewControllerManager(FxWeaver fxWeaver, Stage primaryStage) {
         this.fxWeaver = fxWeaver;
         this.primaryStage = primaryStage;
     }

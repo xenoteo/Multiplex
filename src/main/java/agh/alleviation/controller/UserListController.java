@@ -12,11 +12,18 @@ import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author Kamil Krzempek
+ * Controller responsible for displaying list of users and control panel, which allows to manipulate them (only adding at the moment)
+ */
 @Component
 @FxmlView("/views/UserList.fxml")
-public class UserListController extends GenericListController {
+public class UserListController extends GenericController {
     UserService userService;
 
+    /**
+     * ObservableList of users used for TableView setup
+     */
     ObservableList<User> userObservableList;
 
     @FXML
@@ -50,7 +57,7 @@ public class UserListController extends GenericListController {
 
     @FXML
     public void handleAddAction(ActionEvent event) {
-        User user = this.viewControllerSetup.showAddUserDialog();
+        User user = this.viewControllerManager.showAddUserDialog();
         if (user != null) {
             this.userObservableList.add(user);
         }
