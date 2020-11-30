@@ -15,31 +15,56 @@ import java.io.ObjectOutput;
 import java.util.List;
 
 /**
- * @author Anna Nosek
  * This class represents the customer of the cinema.
  * Their fields do not differ from the standard user, although they will have the ability to create orders.
+ *
+ * @author Anna Nosek
+ * @see User
  */
 @Entity
 @Table(name = Customer.TABLE_NAME)
 public class Customer extends User{
+    /**
+     * The constant TABLE_NAME.
+     */
     public static final String TABLE_NAME = "customer";
 
 
     private final ObjectProperty<List<Order>> ordersProperty = new SimpleObjectProperty<>();
 
+    /**
+     * Get orders list.
+     *
+     * @return the list
+     */
     @OneToMany(fetch = FetchType.EAGER)
     public List<Order> getOrders(){
         return ordersProperty.get();
     }
 
+    /**
+     * Set orders.
+     *
+     * @param orders the orders
+     */
     public void setOrders(List<Order> orders){
         ordersProperty.set(orders);
     }
 
+    /**
+     * Orders property object property.
+     *
+     * @return the object property
+     */
     public ObjectProperty<List<Order>> ordersProperty(){
         return ordersProperty;
     }
 
+    /**
+     * Add order.
+     *
+     * @param order the order
+     */
     public void addOrder(Order order){
         getOrders().add(order);
     }

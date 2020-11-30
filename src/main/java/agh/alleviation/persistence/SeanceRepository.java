@@ -5,8 +5,9 @@ import org.springframework.data.repository.CrudRepository;
 
 
 /**
- * @author Ksenia Fiodarava
  * Repository of seances.
+ *
+ * @author Ksenia Fiodarava
  * @see Seance
  */
 public interface SeanceRepository extends CrudRepository<Seance, Integer> {

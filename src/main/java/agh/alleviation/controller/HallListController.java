@@ -14,12 +14,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
+ * Controller responsible for displaying list of halls and control panel,
+ * which allows to manipulate them (only adding at the moment)
+ *
  * @author Kamil Krzempek
- * Controller responsible for displaying list of halls and control panel, which allows to manipulate them (only adding at the moment)
  */
 @Component
 @FxmlView("/views/HallList.fxml")
 public class HallListController extends GenericController {
+    /**
+     * The Hall service.
+     */
     HallService hallService;
 
     /**
@@ -56,6 +61,11 @@ public class HallListController extends GenericController {
         }
     }
 
+    /**
+     * Instantiates a new Hall list controller.
+     *
+     * @param hallService the hall service
+     */
     @Autowired
     public HallListController(HallService hallService) {
         this.hallService = hallService;

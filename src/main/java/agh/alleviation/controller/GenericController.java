@@ -5,8 +5,9 @@ import agh.alleviation.presentation.ViewControllerManager;
 import javafx.fxml.FXML;
 
 /**
- * @author Kamil Krzempek
  * Base class for non-modal controllers
+ *
+ * @author Kamil Krzempek
  */
 public class GenericController {
     /**
@@ -14,6 +15,11 @@ public class GenericController {
      */
     ViewControllerManager viewControllerManager;
 
+    /**
+     * Sets app controller.
+     *
+     * @param viewControllerManager the view controller manager
+     */
     public void setAppController(ViewControllerManager viewControllerManager) {
         this.viewControllerManager = viewControllerManager;
     }

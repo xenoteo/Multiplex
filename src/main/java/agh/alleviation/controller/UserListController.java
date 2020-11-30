@@ -13,12 +13,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * @author Kamil Krzempek
  * Controller responsible for displaying list of users and control panel, which allows to manipulate them (only adding at the moment)
+ *
+ * @author Kamil Krzempek
  */
 @Component
 @FxmlView("/views/UserList.fxml")
 public class UserListController extends GenericController {
+    /**
+     * The User service.
+     */
     UserService userService;
 
     /**
@@ -55,6 +59,11 @@ public class UserListController extends GenericController {
         userTable.setItems(userObservableList);
     }
 
+    /**
+     * Handle add action.
+     *
+     * @param event the event
+     */
     @FXML
     public void handleAddAction(ActionEvent event) {
         User user = this.viewControllerManager.showAddUserDialog();
@@ -63,6 +72,11 @@ public class UserListController extends GenericController {
         }
     }
 
+    /**
+     * Instantiates a new User list controller.
+     *
+     * @param userService the user service
+     */
     @Autowired
     public UserListController(UserService userService) {
         this.userService = userService;
