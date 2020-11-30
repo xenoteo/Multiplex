@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 /**
- * This application provides functionalities for a cinema multiplex.
+ * This application provides functionalities for a cinema multiplex. Written in Java 15.
  * First completed milestone:
  * <ul>
  *     <li>model of the application - UML class diagram and package structure</li>
@@ -36,8 +36,12 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  * was implemented manually. The columns of tables in database no longer map to the specific class fields,
  * but to their getters and setters.
  * <p>
+ * Project can be run by executing ./gradlew bootRun command in root folder.
+ * </p>
+ * <p>
  * Current database state (the database is created upon starting the app and discarded upon closing the app):
  * <a href = "http://localhost:8080/h2-console">http://localhost:8080/h2-console</a>
+ * </p>
  * <p>
  * Roles of team members (m1):
  * <ul>
@@ -46,7 +50,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  *     <li>Anna Nosek - model design, creation of entities, repositories and services, coordination of documentation, database integration, team coordination</li>
  * </ul>
  * All team members were actively participating in creation of application structure.
- *
+ * <p>
+ * Class Diagram:
+ * <img alt="class diagram" src="Model.png" style="width:100%">
+ * </p>
  *
  */
 @SpringBootApplication
