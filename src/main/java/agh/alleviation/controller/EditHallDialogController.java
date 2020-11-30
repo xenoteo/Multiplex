@@ -9,13 +9,23 @@ import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author Kamil Krzempek
+ * Controller responsible for modal with hall editing (support only adding at the moment)
+ */
 @Component
 @FxmlView("/views/EditHallDialog.fxml")
 public class EditHallDialogController {
-    HallService hallService;
+    private final HallService hallService;
 
-    Hall hall;
+    /**
+     * Hall instance on which controller is operating
+     */
+    private Hall hall;
 
+    /**
+     * Stage on which modal is placed
+     */
     private Stage dialogStage;
 
     public void setDialogStage(Stage dialogStage) {

@@ -11,13 +11,23 @@ import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author Kamil Krzempek
+ * Controller responsible for modal with user editing (support only adding at the moment)
+ */
 @Component
 @FxmlView("/views/EditUserDialog.fxml")
 public class EditUserDialogController {
     UserService userService;
 
+    /**
+     * User instance on which controller is operating
+     */
     User user;
 
+    /**
+     * Stage on which modal is placed
+     */
     private Stage dialogStage;
 
     public void setDialogStage(Stage dialogStage) {
@@ -41,6 +51,9 @@ public class EditUserDialogController {
     @FXML
     private TextField emailField;
 
+    /**
+     * Initialize fields of form
+     */
     @FXML
     private void initialize() {
         userTypeDropdown.getItems().addAll(UserType.values());

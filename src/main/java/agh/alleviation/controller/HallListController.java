@@ -13,11 +13,18 @@ import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author Kamil Krzempek
+ * Controller responsible for displaying list of halls and control panel, which allows to manipulate them (only adding at the moment)
+ */
 @Component
 @FxmlView("/views/HallList.fxml")
-public class HallListController extends GenericListController {
+public class HallListController extends GenericController {
     HallService hallService;
 
+    /**
+     * ObservableList of halls used for TableView setup
+     */
     ObservableList<Hall> hallObservableList;
 
     @FXML
@@ -41,10 +48,9 @@ public class HallListController extends GenericListController {
         hallTable.setItems(hallObservableList);
     }
 
-
     @FXML
     private void handleAddAction(ActionEvent event) {
-        Hall hall = this.viewControllerSetup.showAddHallDialog();
+        Hall hall = this.viewControllerManager.showAddHallDialog();
         if(hall != null) {
             this.hallObservableList.add(hall);
         }
