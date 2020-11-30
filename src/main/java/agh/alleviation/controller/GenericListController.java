@@ -4,19 +4,19 @@ import agh.alleviation.presentation.Screen;
 import javafx.fxml.FXML;
 
 public class GenericListController {
-    AppController appController;
+    ViewControllerSetup viewControllerSetup;
 
-    public void setAppController(AppController appController) {
-        this.appController = appController;
+    public void setAppController(ViewControllerSetup viewControllerSetup) {
+        this.viewControllerSetup = viewControllerSetup;
     }
 
     @FXML
     public void switchToUserListView() {
-        this.appController.switchView(Screen.USER_LIST);
+        this.viewControllerSetup.switchView(Screen.USER_LIST);
     }
 
     @FXML
     public void switchToHallListView() {
-        this.appController.switchView(Screen.HALL_LIST);
+        this.viewControllerSetup.switchView(Screen.HALL_LIST);
     }
 }

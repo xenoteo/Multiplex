@@ -50,7 +50,7 @@ public class UserListController extends GenericListController {
 
     @FXML
     public void handleAddAction(ActionEvent event) {
-        User user = this.appController.showAddUserDialog();
+        User user = this.viewControllerSetup.showAddUserDialog();
         if (user != null) {
             this.userObservableList.add(user);
         }

@@ -11,13 +11,20 @@ import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxControllerAndView;
 import net.rgielen.fxweaver.core.FxWeaver;
 
+/**
+ * @author Kamil Krzempek
+ * AppController is responsible for setting up the controllers of the application.
+ * It heavily relies on FxWeaver in order to maintain cooperation between JavaFX and Spring Boot.
+ * It sets up modal views for adding user and hall.
+ * @see ScreenSwitcher
+ */
 
-public class AppController {
+public class ViewControllerSetup {
     private FxWeaver fxWeaver;
     private Stage primaryStage;
     private ScreenSwitcher screenSwitcher;
 
-    public AppController(FxWeaver fxWeaver, Stage primaryStage) {
+    public ViewControllerSetup(FxWeaver fxWeaver, Stage primaryStage) {
         this.fxWeaver = fxWeaver;
         this.primaryStage = primaryStage;
     }
@@ -28,6 +35,9 @@ public class AppController {
         primaryStage.show();
     }
 
+    /**
+     * Loads controllers into the FxWeaver and sets them up with corresponding views.
+     */
     public void setViewsAndControllers() {
         this.screenSwitcher = new ScreenSwitcher();
 
@@ -55,6 +65,12 @@ public class AppController {
         this.screenSwitcher.activate(screen);
     }
 
+    /**
+     * A helper function for showAddUserDialog and showAddDialog.
+     * @param root  root pane
+     * @param title title of the window
+     * @return a stage for the window
+     */
     public Stage setupStageAndScene(Pane root, String title) {
         Stage dialogStage = new Stage();
         dialogStage.setTitle(title);

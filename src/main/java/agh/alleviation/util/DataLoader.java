@@ -1,9 +1,7 @@
 package agh.alleviation.util;
 
 import agh.alleviation.model.*;
-import agh.alleviation.model.user.Admin;
 import agh.alleviation.model.user.Customer;
-import agh.alleviation.model.user.User;
 import agh.alleviation.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

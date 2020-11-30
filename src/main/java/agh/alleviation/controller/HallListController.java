@@ -44,7 +44,7 @@ public class HallListController extends GenericListController {
 
     @FXML
     private void handleAddAction(ActionEvent event) {
-        Hall hall = this.appController.showAddHallDialog();
+        Hall hall = this.viewControllerSetup.showAddHallDialog();
         if(hall != null) {
             this.hallObservableList.add(hall);
         }

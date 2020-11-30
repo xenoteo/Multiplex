@@ -1,14 +1,9 @@
 package agh.alleviation.presentation;
 
 import agh.alleviation.AlleviationApplication;
-import agh.alleviation.controller.AppController;
-import agh.alleviation.controller.EditUserDialogController;
-import agh.alleviation.controller.MainController;
-import agh.alleviation.controller.UserListController;
+import agh.alleviation.controller.ViewControllerSetup;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxWeaver;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -16,7 +11,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 public class CinemaApp extends Application {
     private ConfigurableApplicationContext applicationContext;
-    private AppController appController;
+    private ViewControllerSetup viewControllerSetup;
 
     @Override
     public void init() {
@@ -28,8 +23,8 @@ public class CinemaApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         FxWeaver fxWeaver = applicationContext.getBean(FxWeaver.class);
-        this.appController = new AppController(fxWeaver, primaryStage);
-        this.appController.initRootLayout();
+        this.viewControllerSetup = new ViewControllerSetup(fxWeaver, primaryStage);
+        this.viewControllerSetup.initRootLayout();
     }
 
     @Override
