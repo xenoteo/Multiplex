@@ -13,7 +13,8 @@ public class GenericController {
     /**
      * ViewControllerManager instance used for navigation and opening modal windows
      */
-    ViewControllerManager viewControllerManager;
+
+    protected ViewControllerManager viewControllerManager;
 
     /**
      * Sets app controller.

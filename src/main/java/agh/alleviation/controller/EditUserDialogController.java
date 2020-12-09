@@ -22,12 +22,12 @@ public class EditUserDialogController {
     /**
      * The User service.
      */
-    UserService userService;
+    private UserService userService;
 
     /**
      * User instance on which controller is operating
      */
-    User user;
+    private User user;
 
     /**
      * Stage on which modal is placed

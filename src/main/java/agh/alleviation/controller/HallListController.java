@@ -25,12 +25,12 @@ public class HallListController extends GenericController {
     /**
      * The Hall service.
      */
-    HallService hallService;
+    private HallService hallService;
 
     /**
      * ObservableList of halls used for TableView setup
      */
-    ObservableList<Hall> hallObservableList;
+    private ObservableList<Hall> hallObservableList;
 
     @FXML
     private TableView<Hall> hallTable;
