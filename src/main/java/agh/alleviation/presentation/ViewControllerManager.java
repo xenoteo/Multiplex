@@ -1,10 +1,11 @@
 package agh.alleviation.presentation;
 
 import agh.alleviation.controller.*;
+import agh.alleviation.controller.edit_dialog.EditDialogController;
+import agh.alleviation.controller.edit_dialog.EditHallDialogController;
+import agh.alleviation.controller.edit_dialog.EditUserDialogController;
 import agh.alleviation.model.Hall;
 import agh.alleviation.model.user.User;
-import agh.alleviation.presentation.Screen;
-import agh.alleviation.presentation.ScreenSwitcher;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;

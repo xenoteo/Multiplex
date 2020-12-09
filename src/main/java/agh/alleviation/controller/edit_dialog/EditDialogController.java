@@ -1,4 +1,4 @@
-package agh.alleviation.controller;
+package agh.alleviation.controller.edit_dialog;
 
 import javafx.stage.Stage;
 
