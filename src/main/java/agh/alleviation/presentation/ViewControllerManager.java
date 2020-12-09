@@ -6,6 +6,7 @@ import agh.alleviation.model.user.User;
 import agh.alleviation.presentation.Screen;
 import agh.alleviation.presentation.ScreenSwitcher;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -49,12 +50,20 @@ public class ViewControllerManager {
      * Loads controllers into the FxWeaver and sets them up with corresponding views.
      */
     public void setViewsAndControllers() {
-        this.screenSwitcher = new ScreenSwitcher();
+        BorderPane borderPane = new BorderPane();
+        Scene scene = new Scene(borderPane);
+        this.screenSwitcher = new ScreenSwitcher(borderPane);
+
+        borderPane.setPrefHeight(400);
+
+        var menuBar = fxWeaver.load(MenuController.class);
+        borderPane.setTop(menuBar.getView().get());
 
         var main = fxWeaver.load(MainController.class);
         var userList = fxWeaver.load(UserListController.class);
         var hallList = fxWeaver.load(HallListController.class);
 
+        menuBar.getController().setAppController(this);
         main.getController().setAppController(this);
         userList.getController().setAppController(this);
         hallList.getController().setAppController(this);
@@ -66,8 +75,8 @@ public class ViewControllerManager {
         Pane hallListRoot = (Pane) hallList.getView().get();
         screenSwitcher.addScreen(Screen.HALL_LIST, hallListRoot);
 
-        Scene scene = new Scene(mainRoot);
-        screenSwitcher.setMainScene(scene);
+        borderPane.setCenter(mainRoot);
+
         primaryStage.setScene(scene);
     }
 
@@ -87,7 +96,7 @@ public class ViewControllerManager {
      * @param title title of the window
      * @return a stage for the window
      */
-    public Stage setupStageAndScene(Pane root, String title) {
+    private Stage setupStageAndScene(Pane root, String title) {
         Stage dialogStage = new Stage();
         dialogStage.setTitle(title);
         dialogStage.initModality(Modality.WINDOW_MODAL);
