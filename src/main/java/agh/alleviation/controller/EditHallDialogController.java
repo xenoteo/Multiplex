@@ -16,27 +16,8 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @FxmlView("/views/EditHallDialog.fxml")
-public class EditHallDialogController {
+public class EditHallDialogController extends EditDialogController<Hall> {
     private final HallService hallService;
-
-    /**
-     * Hall instance on which controller is operating
-     */
-    private Hall hall;
-
-    /**
-     * Stage on which modal is placed
-     */
-    private Stage dialogStage;
-
-    /**
-     * Sets dialog stage.
-     *
-     * @param dialogStage the dialog stage
-     */
-    public void setDialogStage(Stage dialogStage) {
-        this.dialogStage = dialogStage;
-    }
 
     /**
      * Instantiates a new Edit hall dialog controller.
@@ -56,16 +37,7 @@ public class EditHallDialogController {
 
     @FXML
     private void addHall() {
-        this.hall = this.hallService.addHall(Integer.parseInt(capacityField.getText()), Integer.parseInt(numberField.getText()));
+        this.editedItem = this.hallService.addHall(Integer.parseInt(capacityField.getText()), Integer.parseInt(numberField.getText()));
         dialogStage.close();
-    }
-
-    /**
-     * Gets hall.
-     *
-     * @return the hall
-     */
-    public Hall getHall() {
-        return this.hall;
     }
 }

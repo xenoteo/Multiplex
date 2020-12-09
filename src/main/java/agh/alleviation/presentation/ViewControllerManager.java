@@ -107,18 +107,22 @@ public class ViewControllerManager {
         return dialogStage;
     }
 
+    private <Item, Controller extends EditDialogController<Item>> Item showEditItemDialog(Class<Controller> controllerClass, String title) {
+        FxControllerAndView<Controller, Pane> controllerAndView = fxWeaver.load(controllerClass);
+        Stage stage = setupStageAndScene(controllerAndView.getView().get(), title);
+        Controller controller = controllerAndView.getController();
+        controller.setDialogStage(stage);
+        stage.showAndWait();
+        return controller.getEditedItem();
+    }
+
     /**
      * Show add user dialog user.
      *
      * @return the user
      */
-    public User showAddUserDialog() {
-        FxControllerAndView<EditUserDialogController, Pane> controllerAndView = fxWeaver.load(EditUserDialogController.class);
-        Stage stage = setupStageAndScene(controllerAndView.getView().get(), "Add user");
-        EditUserDialogController controller = controllerAndView.getController();
-        controller.setDialogStage(stage);
-        stage.showAndWait();
-        return controller.getUser();
+    public User showEditUserDialog() {
+        return this.showEditItemDialog(EditUserDialogController.class, "Add user");
     }
 
     /**
@@ -126,12 +130,7 @@ public class ViewControllerManager {
      *
      * @return the hall
      */
-    public Hall showAddHallDialog() {
-        FxControllerAndView<EditHallDialogController, Pane> controllerAndView = fxWeaver.load(EditHallDialogController.class);
-        Stage stage = setupStageAndScene(controllerAndView.getView().get(), "Add hall");
-        EditHallDialogController controller = controllerAndView.getController();
-        controller.setDialogStage(stage);
-        stage.showAndWait();
-        return controller.getHall();
+    public Hall showEditHallDialog() {
+        return this.showEditItemDialog(EditHallDialogController.class, "Add hall");
     }
 }

@@ -66,7 +66,7 @@ public class UserListController extends GenericController {
      */
     @FXML
     public void handleAddAction(ActionEvent event) {
-        User user = this.viewControllerManager.showAddUserDialog();
+        User user = this.viewControllerManager.showEditUserDialog();
         if (user != null) {
             this.userObservableList.add(user);
         }

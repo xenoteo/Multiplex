@@ -25,7 +25,7 @@ public class HallListController extends GenericController {
     /**
      * The Hall service.
      */
-    private HallService hallService;
+    private final HallService hallService;
 
     /**
      * ObservableList of halls used for TableView setup
@@ -49,16 +49,25 @@ public class HallListController extends GenericController {
         capacityColumn.setCellValueFactory(dataValue -> dataValue.getValue().capacityProperty().asObject());
 
         this.hallObservableList = FXCollections.observableArrayList(hallService.getAllHalls());
-
         hallTable.setItems(hallObservableList);
     }
 
     @FXML
     private void handleAddAction(ActionEvent event) {
-        Hall hall = this.viewControllerManager.showAddHallDialog();
+        Hall hall = this.viewControllerManager.showEditHallDialog();
         if(hall != null) {
             this.hallObservableList.add(hall);
         }
+    }
+
+    @FXML
+    private void handleEditAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    private void handleDeleteAction(ActionEvent event) {
+
     }
 
     /**

@@ -18,30 +18,11 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @FxmlView("/views/EditUserDialog.fxml")
-public class EditUserDialogController {
+public class EditUserDialogController extends EditDialogController<User> {
     /**
      * The User service.
      */
-    private UserService userService;
-
-    /**
-     * User instance on which controller is operating
-     */
-    private User user;
-
-    /**
-     * Stage on which modal is placed
-     */
-    private Stage dialogStage;
-
-    /**
-     * Sets dialog stage.
-     *
-     * @param dialogStage the dialog stage
-     */
-    public void setDialogStage(Stage dialogStage) {
-        this.dialogStage = dialogStage;
-    }
+    private final UserService userService;
 
     /**
      * Instantiates a new Edit user dialog controller.
@@ -76,20 +57,11 @@ public class EditUserDialogController {
 
     @FXML
     private void addUser() {
-        this.user = this.userService.addUser(nameField.getText(),
+        this.editedItem = this.userService.addUser(nameField.getText(),
                                              loginField.getText(),
                                              emailField.getText(),
                                              userTypeDropdown.getValue()
         );
         dialogStage.close();
-    }
-
-    /**
-     * Gets user.
-     *
-     * @return the user
-     */
-    public User getUser() {
-        return this.user;
     }
 }
