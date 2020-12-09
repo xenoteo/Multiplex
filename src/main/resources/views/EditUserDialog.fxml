@@ -43,7 +43,7 @@
                     </GridPane.margin>
                 </TextField>
                 <Label text="Email" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-                <Button fx:id="addUserButton" mnemonicParsing="false" onAction="#addUser" text="Add user" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4" />
+                <Button fx:id="addUserButton" mnemonicParsing="false" onAction="#saveUser" text="Add user" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4" />
             <Label text="Login" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
             <TextField fx:id="loginField" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>

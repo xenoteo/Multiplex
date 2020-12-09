@@ -33,7 +33,7 @@ public class HallService {
     }
 
     /**
-     * Add hall hall.
+     * Add hall
      *
      * @param capacity the capacity
      * @param number   the number
@@ -43,6 +43,10 @@ public class HallService {
         Hall hall = new Hall(capacity, number);
         hallRepository.save(hall);
         return hall;
+    }
+
+    public void updateHall(Hall hall) {
+        hallRepository.save(hall);
     }
 
     /**

@@ -19,6 +19,7 @@ public class EditDialogController<T> {
         this.dialogStage = dialogStage;
     }
 
-    public T getEditedItem() { return this.editedItem; }
+    public T getEditedItem() { return this.editedItem; };
 
+    public void setEditedItem(T item) { this.editedItem = item; }
 }

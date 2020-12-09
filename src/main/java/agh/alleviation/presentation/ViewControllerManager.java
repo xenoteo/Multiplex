@@ -107,30 +107,29 @@ public class ViewControllerManager {
         return dialogStage;
     }
 
-    private <Item, Controller extends EditDialogController<Item>> Item showEditItemDialog(Class<Controller> controllerClass, String title) {
+    private <Item, Controller extends EditDialogController<Item>> Item showEditItemDialog(Class<Controller> controllerClass, String title, Item item) {
         FxControllerAndView<Controller, Pane> controllerAndView = fxWeaver.load(controllerClass);
         Stage stage = setupStageAndScene(controllerAndView.getView().get(), title);
         Controller controller = controllerAndView.getController();
         controller.setDialogStage(stage);
+        if(item != null) controller.setEditedItem(item);
         stage.showAndWait();
         return controller.getEditedItem();
     }
 
-    /**
-     * Show add user dialog user.
-     *
-     * @return the user
-     */
-    public User showEditUserDialog() {
-        return this.showEditItemDialog(EditUserDialogController.class, "Add user");
+    public User showAddUserDialog() {
+        return this.showEditItemDialog(EditUserDialogController.class, "Add user", null);
     }
 
-    /**
-     * Show add hall dialog hall.
-     *
-     * @return the hall
-     */
-    public Hall showEditHallDialog() {
-        return this.showEditItemDialog(EditHallDialogController.class, "Add hall");
+    public void showEditUserDialog(User user) {
+        this.showEditItemDialog(EditUserDialogController.class, "Add user", user);
+    }
+
+    public Hall showAddHallDialog() {
+        return this.showEditItemDialog(EditHallDialogController.class, "Add hall", null);
+    }
+
+    public void showEditHallDialog(Hall hall) {
+        this.showEditItemDialog(EditHallDialogController.class, "Edit hall", hall);
     }
 }

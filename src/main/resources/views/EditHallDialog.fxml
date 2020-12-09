@@ -28,7 +28,7 @@
                         <Insets right="10.0" />
                     </GridPane.margin>
                 </TextField>
-                <Button fx:id="addHallButton" mnemonicParsing="false" onAction="#addHall" text="Add hall" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
+                <Button mnemonicParsing="false" onAction="#saveHall" text="Save hall" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
             <Label text="Hall number" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
             <TextField fx:id="numberField" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>

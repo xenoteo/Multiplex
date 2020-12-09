@@ -1,5 +1,6 @@
 package agh.alleviation.controller;
 
+import agh.alleviation.model.Hall;
 import agh.alleviation.model.user.User;
 import agh.alleviation.service.UserService;
 import agh.alleviation.util.UserType;
@@ -55,13 +56,32 @@ public class EditUserDialogController extends EditDialogController<User> {
         userTypeDropdown.setValue(UserType.CUSTOMER);
     }
 
+    @Override
+    public void setEditedItem(User user) {
+        super.setEditedItem(user);
+
+        nameField.setText(user.getName());
+        loginField.setText(user.getLogin());
+        emailField.setText(user.getEmail());
+        userTypeDropdown.setValue(user.userTypeProperty().getValue());
+    }
+
     @FXML
-    private void addUser() {
-        this.editedItem = this.userService.addUser(nameField.getText(),
-                                             loginField.getText(),
-                                             emailField.getText(),
-                                             userTypeDropdown.getValue()
-        );
+    private void saveUser() {
+        String name = nameField.getText();
+        String login = loginField.getText();
+        String email = emailField.getText();
+        UserType userType = userTypeDropdown.getValue();
+
+        if(this.editedItem == null) {
+            this.editedItem = this.userService.addUser(name, login, email, userType);
+        } else {
+            this.editedItem.setName(name);
+            this.editedItem.setLogin(login);
+            this.editedItem.setEmail(email);
+            this.editedItem.setUserType(userType);
+            this.userService.updateUser(this.editedItem);
+        }
         dialogStage.close();
     }
 }

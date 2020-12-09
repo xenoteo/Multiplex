@@ -54,20 +54,26 @@ public class HallListController extends GenericController {
 
     @FXML
     private void handleAddAction(ActionEvent event) {
-        Hall hall = this.viewControllerManager.showEditHallDialog();
+        Hall hall = this.viewControllerManager.showAddHallDialog();
         if(hall != null) {
-            this.hallObservableList.add(hall);
+            hallObservableList.add(hall);
         }
     }
 
     @FXML
     private void handleEditAction(ActionEvent event) {
-
+        Hall hall = hallTable.getSelectionModel().getSelectedItem();
+        if(hall != null) {
+            this.viewControllerManager.showEditHallDialog(hall);
+        }
     }
 
     @FXML
     private void handleDeleteAction(ActionEvent event) {
-
+        Hall hall = hallTable.getSelectionModel().getSelectedItem();
+        if(hall != null) {
+            hallObservableList.remove(hall);
+        }
     }
 
     /**

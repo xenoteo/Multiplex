@@ -85,6 +85,10 @@ public class UserService {
         return newUser;
     }
 
+    public void updateUser(User user) {
+        userRepository.save(user);
+    }
+
     /**
      * Get all users list.
      *

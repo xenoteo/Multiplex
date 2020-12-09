@@ -1,5 +1,6 @@
 package agh.alleviation.controller;
 
+import agh.alleviation.model.Hall;
 import agh.alleviation.model.user.User;
 import agh.alleviation.service.UserService;
 import agh.alleviation.util.UserType;
@@ -66,11 +67,28 @@ public class UserListController extends GenericController {
      */
     @FXML
     public void handleAddAction(ActionEvent event) {
-        User user = this.viewControllerManager.showEditUserDialog();
+        User user = this.viewControllerManager.showAddUserDialog();
         if (user != null) {
             this.userObservableList.add(user);
         }
     }
+
+    @FXML
+    private void handleEditAction(ActionEvent event) {
+        User user = userTable.getSelectionModel().getSelectedItem();
+        if(user != null) {
+            this.viewControllerManager.showEditUserDialog(user);
+        }
+    }
+
+    @FXML
+    private void handleDeleteAction(ActionEvent event) {
+        User user = userTable.getSelectionModel().getSelectedItem();
+        if(user != null) {
+            userObservableList.remove(user);
+        }
+    }
+
 
     /**
      * Instantiates a new User list controller.

@@ -32,6 +32,24 @@
                         <Insets top="10.0"/>
                     </HBox.margin>
                 </Button>
+                <Button fx:id="editButton" mnemonicParsing="false" onAction="#handleEditAction" prefHeight="28.0"
+                        prefWidth="100.0" text="Edit">
+                    <opaqueInsets>
+                        <Insets/>
+                    </opaqueInsets>
+                    <HBox.margin>
+                        <Insets top="10.0"/>
+                    </HBox.margin>
+                </Button>
+                <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#handleDeleteAction" prefHeight="28.0"
+                        prefWidth="100.0" text="Delete">
+                    <opaqueInsets>
+                        <Insets/>
+                    </opaqueInsets>
+                    <HBox.margin>
+                        <Insets top="10.0"/>
+                    </HBox.margin>
+                </Button>
             </children>
             <opaqueInsets>
                 <Insets/>

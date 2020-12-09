@@ -35,9 +35,26 @@ public class EditHallDialogController extends EditDialogController<Hall> {
     @FXML
     private TextField numberField;
 
+    @Override
+    public void setEditedItem(Hall hall) {
+        super.setEditedItem(hall);
+
+        capacityField.setText(String.valueOf(hall.getCapacity()));
+        numberField.setText(String.valueOf(hall.getNumber()));
+    }
+
     @FXML
-    private void addHall() {
-        this.editedItem = this.hallService.addHall(Integer.parseInt(capacityField.getText()), Integer.parseInt(numberField.getText()));
+    private void saveHall() {
+        int capacity = Integer.parseInt(capacityField.getText());
+        int hallNumber = Integer.parseInt(numberField.getText());
+
+        if(this.editedItem == null) {
+            this.editedItem = this.hallService.addHall(capacity, hallNumber);
+        } else {
+            this.editedItem.setCapacity(capacity);
+            this.editedItem.setNumber(hallNumber);
+            this.hallService.updateHall(this.editedItem);
+        }
         dialogStage.close();
     }
 }
