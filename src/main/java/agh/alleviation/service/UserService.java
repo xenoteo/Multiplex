@@ -27,8 +27,9 @@ import java.util.stream.Collectors;
  */
 @Service
 @Transactional
-public class UserService extends EntityObjectService<User, UserRepository> {
+public class UserService {
 
+    private final UserRepository userRepository;
     private final CustomerRepository customerRepository;
 
     /**
@@ -39,7 +40,7 @@ public class UserService extends EntityObjectService<User, UserRepository> {
      */
     @Autowired
     public UserService(UserRepository userRepository, CustomerRepository customerRepository){
-        this.repository = userRepository;
+        this.userRepository = userRepository;
         this.customerRepository = customerRepository;
     }
 
@@ -70,19 +71,23 @@ public class UserService extends EntityObjectService<User, UserRepository> {
         User newUser;
 
         newUser = switch (type) {
-            case ADMIN -> new Admin(name, login, email);
-            case WORKER -> new Worker(name, login, email);
-            default -> new Customer(name, login, email);
+            case ADMIN -> new Admin();
+            case WORKER -> new Worker();
+            default -> new Customer();
         };
 
         newUser.setUserType(type);
-        repository.save(newUser);
+        newUser.setEmail(email);
+        newUser.setName(name);
+        newUser.setLogin(login);
+
+        userRepository.save(newUser);
 
         return newUser;
     }
 
     public void updateUser(User user) {
-        repository.save(user);
+        userRepository.save(user);
     }
 
     /**
@@ -91,7 +96,7 @@ public class UserService extends EntityObjectService<User, UserRepository> {
      * @return the list
      */
     public List<User> getAllUsers(){
-        return repository.findAll().stream().map(this::setUserType).collect(Collectors.toList());
+        return userRepository.findAll().stream().map(this::setUserType).collect(Collectors.toList());
     }
 
     /**
@@ -110,7 +115,55 @@ public class UserService extends EntityObjectService<User, UserRepository> {
      * @return the user
      */
     public User getUserByLogin(String login){
-        return setUserType(repository.findByLogin(login));
+        User user = userRepository.findByLogin(login);
+        if (user != null)
+            setUserType(user);
+        return user;
+    }
+
+    public void delete(User user){
+        userRepository.delete(user);
+    }
+
+    /**
+     * Validates whether input login and password are correct.
+     * @param login provided login
+     * @param password provided password
+     * @return whether input data is correct
+     */
+    public boolean validateUser(String login, String password){
+        User user = getUserByLogin(login);
+        if (user == null)
+            return false;
+        return password.equals(user.getPassword());
+    }
+
+    /**
+     * Adds new user to database.
+     * @param name user's name
+     * @param login user's login
+     * @param email user's email
+     * @param type user's type
+     * @param password user's password
+     * @return instance of newly added user
+     */
+    public User addUser(String name, String login, String email, UserType type, String password){
+        User user = addUser(name, login, email, type);
+        user.setPassword(password);
+        userRepository.save(user);
+        return user;
+    }
+
+    /**
+     * Gets user by email.
+     * @param email the email
+     * @return the user
+     */
+    public User getUserByEmail(String email){
+        User user = userRepository.findByEmail(email);
+        if (user != null)
+            setUserType(user);
+        return user;
     }
 
 }

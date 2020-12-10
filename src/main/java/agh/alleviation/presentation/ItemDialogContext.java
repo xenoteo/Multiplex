@@ -1,33 +1,20 @@
 package agh.alleviation.presentation;
 
 import agh.alleviation.controller.edit_dialog.EditDialogController;
-import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxControllerAndView;
 import net.rgielen.fxweaver.core.FxWeaver;
 
-public class ItemDialogContext<Item, Controller extends EditDialogController<Item>> {
+public class ItemDialogContext<Item, Controller extends EditDialogController<Item>> extends StageAndSceneSetupper {
     Class<Controller> controllerClass;
-    Stage primaryStage;
     FxWeaver fxWeaver;
 
     public ItemDialogContext(Class<Controller> controllerClass, Stage primaryStage, FxWeaver fxWeaver) {
+        super(primaryStage);
         this.controllerClass = controllerClass;
         this.primaryStage = primaryStage;
         this.fxWeaver = fxWeaver;
-    }
-
-    private Stage setupStageAndScene(Pane root, String title) {
-        Stage dialogStage = new Stage();
-        dialogStage.setTitle(title);
-        dialogStage.initModality(Modality.WINDOW_MODAL);
-        dialogStage.initOwner(primaryStage);
-
-        Scene scene = new Scene(root);
-        dialogStage.setScene(scene);
-        return dialogStage;
     }
 
     private Item showItemDialog(String title, Item item) {

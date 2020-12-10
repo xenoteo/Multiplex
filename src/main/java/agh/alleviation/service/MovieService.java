@@ -44,10 +44,16 @@ public class MovieService extends EntityObjectService<Movie, MovieRepository>{
      * @param genre the genre
      * @return the movie
      */
-    public Movie addMovie(String name, Genre genre) {
+    public Movie addMovie(String name, String genreName) {
+        Genre genre = genreRepository.findByName(genreName);
+        if(genre == null) genre = addGenre(genreName);
         Movie movie = new Movie(name, genre);
         repository.save(movie);
         return movie;
+    }
+
+    public void updateMovie(Movie movie) {
+        movieRepository.save(movie);
     }
 
     /**
