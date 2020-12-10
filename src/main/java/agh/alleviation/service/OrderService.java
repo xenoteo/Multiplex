@@ -51,12 +51,14 @@ public class OrderService extends EntityObjectService<Order, OrderRepository>{
      * @param tickets  the tickets
      * @param customer the customer
      */
-    public void addOrder(List<Ticket> tickets, Customer customer){
-        Order order = new Order(tickets, customer);
+    public Order addOrder(List<Ticket> tickets, Customer customer){
+        Order order = new Order(customer);
+        order.setTickets(tickets);
         customer = customerRepository.findByIdWithOrders(customer.getId());
         customer.addOrder(order);
         repository.save(order);
         userRepository.save(customer);
+        return order;
     }
 
     /**
@@ -99,10 +101,15 @@ public class OrderService extends EntityObjectService<Order, OrderRepository>{
      */
     public Ticket addTicket(Seance seance, double price){
         Ticket ticket = new Ticket(seance, price);
-        seance = seanceRepository.findByIdWitTickets(seance.getId());
+        seance = seanceRepository.findByIdWithTickets(seance.getId());
         seance.addTicket(ticket);
         ticketRepository.save(ticket);
         return ticket;
+    }
+
+    public void delete(Order order){
+        order = repository.findByIdWithTickets(order.getId());
+        super.delete(order);
     }
 
 

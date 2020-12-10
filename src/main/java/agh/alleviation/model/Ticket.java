@@ -37,10 +37,14 @@ public class Ticket extends EntityObject {
          * The constant PRICE.
          */
         public static final String PRICE = "price";
+
+        public static final String ORDER = "order";
+
     }
 
     private final ObjectProperty<Seance> seanceProperty = new SimpleObjectProperty<>();
     private final DoubleProperty priceProperty = new SimpleDoubleProperty(this, "price");
+    private final ObjectProperty<Order> orderProperty = new SimpleObjectProperty<>();
 
 
     /**
@@ -103,6 +107,12 @@ public class Ticket extends EntityObject {
         return priceProperty.get();
     }
 
+//    @JoinColumn(name = Columns.ORDER)
+    @ManyToOne
+    public Order getOrder(){ return orderProperty.get(); }
+
+    public void setOrder(Order order){ orderProperty.set(order); }
+
     /**
      * Set price.
      *
@@ -118,6 +128,7 @@ public class Ticket extends EntityObject {
         super.writeExternal(out);
         out.writeObject(getSeance());
         out.writeObject(getPrice());
+        out.writeObject(getOrder());
     }
 
     @Override
@@ -125,5 +136,6 @@ public class Ticket extends EntityObject {
         super.readExternal(in);
         setSeance((Seance) in.readObject());
         setPrice(in.readInt());
+        setOrder((Order) in.readObject());
     }
 }

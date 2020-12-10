@@ -39,7 +39,11 @@ public class UserListController extends GenericListController<User, UserService>
         loginColumn.setCellValueFactory(dataValue -> dataValue.getValue().loginProperty());
         emailColumn.setCellValueFactory(dataValue -> dataValue.getValue().emailProperty());
 
-        this.itemObservableList.addAll(service.getAllActive());
+    }
+
+    @Override
+    protected void resetContents(){
+        itemObservableList.addAll(service.getAllActive());
     }
 
     /**

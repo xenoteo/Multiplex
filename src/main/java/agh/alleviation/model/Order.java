@@ -65,6 +65,11 @@ public class Order extends EntityObject{
         setIsActive(true);
     }
 
+    public Order(Customer customer){
+        setCustomer(customer);
+        setIsActive(true);
+    }
+
 
     /**
      * Tickets property object property.
@@ -78,8 +83,8 @@ public class Order extends EntityObject{
      *
      * @return the list
      */
-    @Column(name = Columns.TICKETS)
-    @OneToMany(fetch = FetchType.EAGER)
+//    @Column(name = Columns.TICKETS)
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
     public List<Ticket> getTickets(){
         return ticketsProperty.getValue();
     }
@@ -121,10 +126,14 @@ public class Order extends EntityObject{
         customerProperty.setValue(customer);
     }
 
+    public void delete(){
+        super.delete();
+        getTickets().forEach(Ticket::delete);
+    }
+
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-//        out.writeInt(getId());
         super.writeExternal(out);
         out.writeObject(getTickets());
         out.writeObject(getCustomer());
@@ -132,7 +141,6 @@ public class Order extends EntityObject{
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-//        setId(in.readInt());
         super.readExternal(in);
         setTickets((List<Ticket>) in.readObject());
         setCustomer((Customer) in.readObject());

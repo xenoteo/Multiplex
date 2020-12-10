@@ -79,12 +79,10 @@ public class Seance extends EntityObject {
      * @param price the price
      */
     public Seance(Movie movie, Hall hall, LocalDateTime date, double price){
-        setMovie(movie);
+        this(movie);
         setHall(hall);
         setDate(date);
         setPrice(price);
-        setTickets(new ArrayList<>());
-        setIsActive(true);
     }
 
     /**

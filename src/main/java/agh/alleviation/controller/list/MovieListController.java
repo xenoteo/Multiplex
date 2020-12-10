@@ -47,6 +47,10 @@ public class MovieListController extends GenericListController<Movie, MovieServi
         directorColumn.setCellValueFactory(dataValue -> dataValue.getValue().directorProperty());
         actorsColumn.setCellValueFactory(dataValue -> dataValue.getValue().actorsProperty());
 
+    }
+
+    @Override
+    protected void resetContents(){
         itemObservableList.addAll(service.getAllActive());
     }
 

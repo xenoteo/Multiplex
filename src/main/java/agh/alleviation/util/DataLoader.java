@@ -100,11 +100,16 @@ public class DataLoader {
     /**
      * Populate orders.
      */
-    public void populateOrders(){
+    public void populateOrders() {
         Seance seance = seanceService.getAllSeances().get(0);
         Ticket ticket = orderService.addTicket(seance, seance.getPrice());
         Customer customer = userService.getAllCustomers().get(0);
-        orderService.addOrder(List.of(ticket), customer);
+        Order order = orderService.addOrder(List.of(ticket), customer);
+
+//        userService.delete(customer);
+//        orderService.delete(order);
+//        orderService.getAllTickets().forEach(o -> System.out.println(o.isActiveProperty()));
+
     }
 
 

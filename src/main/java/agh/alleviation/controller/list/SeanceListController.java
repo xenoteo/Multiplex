@@ -39,6 +39,11 @@ public class SeanceListController extends GenericListController<Seance, SeanceSe
         hallColumn.setCellValueFactory(dataValue -> dataValue.getValue().getHall().numberProperty());
         dateColumn.setCellValueFactory(dataValue -> dataValue.getValue().dateProperty());
         priceColumn.setCellValueFactory(dataValue -> dataValue.getValue().priceProperty());
+
+    }
+
+    @Override
+    protected void resetContents(){
         itemObservableList.addAll(service.getAllActive());
     }
 

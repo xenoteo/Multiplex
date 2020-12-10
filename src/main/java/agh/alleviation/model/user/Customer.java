@@ -6,10 +6,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import org.springframework.data.repository.cdi.Eager;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
@@ -46,7 +43,7 @@ public class Customer extends User{
      *
      * @return the list
      */
-    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.PERSIST)
     public List<Order> getOrders(){
         return ordersProperty.get();
     }
@@ -76,6 +73,11 @@ public class Customer extends User{
      */
     public void addOrder(Order order){
         getOrders().add(order);
+    }
+
+    public void delete(){
+        super.delete();
+        getOrders().forEach(Order::delete);
     }
 
     @Override

@@ -118,8 +118,9 @@ public class UserService extends  EntityObjectService<User, UserRepository>{
     }
 
     public void delete(User user){
-        if (user instanceof Customer)
+        if (user instanceof Customer){
             user = customerRepository.findByIdWithOrders(user.getId());
+        }
         super.delete(user);
     }
 

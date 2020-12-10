@@ -8,10 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 /**
  * Service responsible for manipulating the seance repository.
@@ -68,7 +65,7 @@ public class SeanceService extends EntityObjectService<Seance, SeanceRepository>
 
     @Override
     public void delete(Seance seance){
-        seance = repository.findByIdWitTickets(seance.getId());
+        seance = repository.findByIdWithTickets(seance.getId());
         super.delete(seance);
     }
 
