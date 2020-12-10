@@ -30,7 +30,7 @@ public class SeanceService extends EntityObjectService<Seance, SeanceRepository>
      * @param seanceRepository the seance repository
      */
     @Autowired
-    public SeanceService(SeanceRepository seanceRepository) {
+    public SeanceService(SeanceRepository seanceRepository, MovieRepository movieRepository) {
         this.repository = seanceRepository;
         this.movieRepository = movieRepository;
     }
