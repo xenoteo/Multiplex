@@ -197,7 +197,6 @@ public class Movie extends EntityObject {
     public void delete(){
         super.delete();
         getSeances().forEach(Seance::delete);
-        getSeances().forEach(s -> System.out.println(s.getIsActive()));
     }
 
     public void addSeance(Seance seance){
