@@ -10,6 +10,7 @@ import javafx.stage.Stage;
  *
  * @see ItemDialogContext
  * @see AccessDialogViewer
+ * @author Ksenia Fiodarava
  */
 public abstract class StageAndSceneSetupper {
     protected Stage primaryStage;
