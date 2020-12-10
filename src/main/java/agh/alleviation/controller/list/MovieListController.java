@@ -18,7 +18,7 @@ import java.sql.SQLOutput;
 
 @Component
 @FxmlView("/views/MovieList.fxml")
-public class MovieListController extends GenericController {
+public class MovieListController extends GenericListController<Movie, MovieService> {
 
     private final MovieService movieService;
 
@@ -37,7 +37,7 @@ public class MovieListController extends GenericController {
     public TableColumn<Movie, String> genreColumn;
 
     @FXML
-    private void initialize() {
+    public void initialize() {
         movieTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
         nameColumn.setCellValueFactory(dataValue -> dataValue.getValue().nameProperty());
@@ -50,7 +50,7 @@ public class MovieListController extends GenericController {
 
 
     @FXML
-    private void handleAddAction(ActionEvent event) {
+    public void handleAddAction(ActionEvent event) {
 
         Button button = (Button) event.getSource();
         String buttonId = button.getId();
@@ -59,6 +59,16 @@ public class MovieListController extends GenericController {
             case "addSeance" -> System.out.println("Add Seance");   //in the future viewControllerManager.showAddSeanceDialog();
             default -> System.out.println("");
         }
+
+    }
+
+    @Override
+    protected void handleEditAction(ActionEvent event) {
+
+    }
+
+    @Override
+    protected void handleDeleteAction(ActionEvent event) {
 
     }
 

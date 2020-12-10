@@ -12,6 +12,7 @@
               <ToggleButton fx:id="users" visible="false" onAction="#handleActiveButtonChanged" text="User List" />
               <ToggleButton fx:id="halls" visible="false" onAction="#handleActiveButtonChanged" selected="true" text="Hall List" />
               <ToggleButton fx:id="movies" visible="false" onAction="#handleActiveButtonChanged" text="Movie List" />
+              <ToggleButton fx:id="seances" visible="false" onAction="#handleActiveButtonChanged" text="Seance List" />
           </toggles>
       </ToggleButtonGroup>
    </children>

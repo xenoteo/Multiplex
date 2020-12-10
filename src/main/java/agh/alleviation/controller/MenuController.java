@@ -25,6 +25,9 @@ public class MenuController extends GenericController {
     @FXML
     private ToggleButton movies;
 
+    @FXML
+    private ToggleButton seances;
+
     private final HashMap<ToggleButton, Screen> screenHashMap = new HashMap<>();
 
     @FXML
@@ -32,6 +35,7 @@ public class MenuController extends GenericController {
         screenHashMap.put(users, Screen.USER_LIST);
         screenHashMap.put(halls, Screen.HALL_LIST);
         screenHashMap.put(movies, Screen.MOVIE_LIST);
+        screenHashMap.put(seances, Screen.SEANCE_LIST);
     }
 
     public void setActiveUserType(UserType userType) {

@@ -5,6 +5,7 @@ import agh.alleviation.controller.edit_dialog.EditHallDialogController;
 import agh.alleviation.controller.edit_dialog.EditUserDialogController;
 import agh.alleviation.controller.list.HallListController;
 import agh.alleviation.controller.list.MovieListController;
+import agh.alleviation.controller.list.SeanceListController;
 import agh.alleviation.controller.list.UserListController;
 import agh.alleviation.model.Hall;
 import agh.alleviation.model.user.User;
@@ -18,7 +19,9 @@ import net.rgielen.fxweaver.core.FxControllerAndView;
 import net.rgielen.fxweaver.core.FxWeaver;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * ViewControllerManager is responsible for setting up the controllers of the application.
@@ -32,7 +35,7 @@ public class ViewControllerManager {
     private FxWeaver fxWeaver;
     private Stage primaryStage;
     private ScreenSwitcher screenSwitcher;
-    private List<FxControllerAndView<? extends GenericController, Node>> controllersAndViews;
+    private Map<Screen, FxControllerAndView<? extends GenericController, Node>> controllersAndViews;
     private UserType activeUserType;
 
     /**
@@ -44,7 +47,7 @@ public class ViewControllerManager {
     public ViewControllerManager(FxWeaver fxWeaver, Stage primaryStage) {
         this.fxWeaver = fxWeaver;
         this.primaryStage = primaryStage;
-        this.activeUserType = UserType.WORKER;
+        this.activeUserType = UserType.ADMIN;
     }
 
     /**
@@ -60,9 +63,9 @@ public class ViewControllerManager {
      * Loads controllers into the FxWeaver and sets them up with corresponding views.
      */
 
-    private FxControllerAndView<? extends GenericController, Node> addToControllersAndViews(Class<? extends GenericController> controller){
+    private FxControllerAndView<? extends GenericController, Node> addToControllersAndViews(Screen screen, Class<? extends GenericController> controller){
         var controllerAndView = fxWeaver.load(controller);
-        controllersAndViews.add(controllerAndView);
+        controllersAndViews.put(screen, controllerAndView);
         return controllerAndView;
     }
 
@@ -73,29 +76,28 @@ public class ViewControllerManager {
 
         borderPane.setPrefHeight(400);
 
-        controllersAndViews = new ArrayList<>();
+        controllersAndViews = new HashMap<>();
 
-        var main  = addToControllersAndViews(MainController.class);
-        var userList = addToControllersAndViews(UserListController.class);
-        var hallList = addToControllersAndViews(HallListController.class);
-        var movieList = addToControllersAndViews(MovieListController.class);
+        addToControllersAndViews(Screen.MAIN, MainController.class);
+        addToControllersAndViews(Screen.USER_LIST, UserListController.class);
+        addToControllersAndViews(Screen.HALL_LIST, HallListController.class);
+        addToControllersAndViews(Screen.MOVIE_LIST, MovieListController.class);
+        addToControllersAndViews(Screen.SEANCE_LIST, SeanceListController.class);
 
-        controllersAndViews.forEach(cv -> cv.getController().setAppController(this));
+        controllersAndViews.forEach((screen, cv) -> cv.getController().setAppController(this));
 
         var menuBar= fxWeaver.load(MenuController.class);
         menuBar.getController().setAppController(this);
         menuBar.getController().setActiveUserType(activeUserType);
         borderPane.setTop(menuBar.getView().get());
 
-        Pane mainRoot = (Pane) main.getView().get();
-        screenSwitcher.addScreen(Screen.MAIN, mainRoot);
-        Pane userListRoot = (Pane) userList.getView().get();
-        screenSwitcher.addScreen(Screen.USER_LIST, userListRoot);
-        Pane hallListRoot = (Pane) hallList.getView().get();
-        screenSwitcher.addScreen(Screen.HALL_LIST, hallListRoot);
-        Pane movieListRoot = (Pane) movieList.getView().get();
-        screenSwitcher.addScreen(Screen.MOVIE_LIST, movieListRoot);
-        borderPane.setCenter(mainRoot);
+        controllersAndViews.forEach((screen, controllerAndView) -> {
+            Pane rootPane = (Pane) controllerAndView.getView().get();
+            screenSwitcher.addScreen(screen, rootPane);
+        });
+
+//        borderPane.setCenter(mainRoot);
+
 
         primaryStage.setScene(scene);
     }

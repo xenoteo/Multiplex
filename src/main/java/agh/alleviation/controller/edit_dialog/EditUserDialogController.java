@@ -49,7 +49,8 @@ public class EditUserDialogController extends EditDialogController<User> {
      * Initialize fields of form
      */
     @FXML
-    private void initialize() {
+    protected void initialize() {
+        super.initialize();
         userTypeDropdown.getItems().addAll(UserType.values());
         userTypeDropdown.setValue(UserType.CUSTOMER);
     }

@@ -9,7 +9,7 @@ import javafx.fxml.FXML;
  *
  * @author Kamil Krzempek
  */
-public class GenericController {
+public abstract class GenericController {
     /**
      * ViewControllerManager instance used for navigation and opening modal windows
      */
@@ -25,19 +25,4 @@ public class GenericController {
         this.viewControllerManager = viewControllerManager;
     }
 
-    /**
-     * Navigation stub, will be replaced by more scalable solution in the future
-     */
-    @FXML
-    public void switchToUserListView() {
-        this.viewControllerManager.switchView(Screen.USER_LIST);
-    }
-
-    /**
-     * Navigation stub, will be replaced by more scalable solution in the future
-     */
-    @FXML
-    public void switchToHallListView() {
-        this.viewControllerManager.switchView(Screen.HALL_LIST);
-    }
 }

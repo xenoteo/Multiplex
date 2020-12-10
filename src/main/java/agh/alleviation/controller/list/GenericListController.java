@@ -19,7 +19,6 @@ public abstract class GenericListController<Item, Service> extends GenericContro
     @FXML
     protected TableView<Item> itemTable;
 
-    @FXML
     protected void initialize() {
         itemTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         this.itemObservableList = FXCollections.observableArrayList();

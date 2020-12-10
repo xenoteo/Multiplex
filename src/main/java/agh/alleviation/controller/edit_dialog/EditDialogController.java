@@ -1,14 +1,20 @@
 package agh.alleviation.controller.edit_dialog;
 
+import javafx.fxml.FXML;
 import javafx.stage.Stage;
 
-public class EditDialogController<T> {
+public abstract class EditDialogController<T> {
     /**
      * Stage on which modal is placed
      */
     protected Stage dialogStage;
 
     protected T editedItem;
+
+    @FXML
+    protected void initialize() {
+        this.editedItem = null;
+    }
 
     /**
      * Sets dialog stage.

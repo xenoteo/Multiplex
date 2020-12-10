@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agh.alleviation.controller.list.SeanceListController">
+    <center>
+        <TableView fx:id="movieTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <columns>
+                <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Movie" />
+                <TableColumn fx:id="genreColumn" prefWidth="75.0" text="Hall" />
+                <TableColumn fx:id="directorColumn" prefWidth="75.0" text="Date" />
+            <TableColumn fx:id="directorColumn1" prefWidth="75.0" text="Price" />
+            </columns>
+        </TableView>
+    </center>
+    <right>
+        <VBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <children>
+                <Button fx:id="delete" mnemonicParsing="false" onAction="#handleDeleteAction" text="Edit" textAlignment="CENTER" />
+            <Button fx:id="delete1" mnemonicParsing="false" onAction="#handleDeleteAction" text="Delete" textAlignment="CENTER" />
+            </children>
+            <BorderPane.margin>
+                <Insets top="10.0" />
+            </BorderPane.margin>
+        </VBox>
+    </right>
+</BorderPane>
