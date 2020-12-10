@@ -115,11 +115,55 @@ public class UserService {
      * @return the user
      */
     public User getUserByLogin(String login){
-        return setUserType(userRepository.findByLogin(login));
+        User user = userRepository.findByLogin(login);
+        if (user != null)
+            setUserType(user);
+        return user;
     }
 
     public void delete(User user){
         userRepository.delete(user);
+    }
+
+    /**
+     * Validates whether input login and password are correct.
+     * @param login provided login
+     * @param password provided password
+     * @return whether input data is correct
+     */
+    public boolean validateUser(String login, String password){
+        User user = getUserByLogin(login);
+        if (user == null)
+            return false;
+        return password.equals(user.getPassword());
+    }
+
+    /**
+     * Adds new user to database.
+     * @param name user's name
+     * @param login user's login
+     * @param email user's email
+     * @param type user's type
+     * @param password user's password
+     * @return instance of newly added user
+     */
+    public User addUser(String name, String login, String email, UserType type, String password){
+        User user = addUser(name, login, email, type);
+        user.setPassword(password);
+        userRepository.save(user);
+        return user;
+    }
+
+    /**
+     * Gets user by email.
+     * @param email the email
+     * @return the user
+     */
+    public User getUserByEmail(String email){
+        User user = userRepository.findByEmail(email);
+        if (user != null)
+            setUserType(user);
+        return user;
     }
 
 }

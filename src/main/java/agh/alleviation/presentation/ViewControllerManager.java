@@ -1,6 +1,7 @@
 package agh.alleviation.presentation;
 
 import agh.alleviation.controller.*;
+import agh.alleviation.controller.access_dialog.LoginDialogController;
 import agh.alleviation.controller.edit_dialog.EditHallDialogController;
 import agh.alleviation.controller.edit_dialog.EditUserDialogController;
 import agh.alleviation.controller.list.HallListController;
@@ -18,9 +19,7 @@ import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxControllerAndView;
 import net.rgielen.fxweaver.core.FxWeaver;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -37,6 +36,7 @@ public class ViewControllerManager {
     private ScreenSwitcher screenSwitcher;
     private Map<Screen, FxControllerAndView<? extends GenericController, Node>> controllersAndViews;
     private UserType activeUserType;
+    private User activeUser;
 
     /**
      * Instantiates a new View controller manager.
@@ -117,5 +117,20 @@ public class ViewControllerManager {
 
     public ItemDialogContext<Hall, EditHallDialogController> getHallDialogContext() {
         return new ItemDialogContext<>(EditHallDialogController.class, primaryStage, fxWeaver);
+    }
+
+    public void logout(){
+        activeUser = null;
+        activeUserType = null;
+    }
+
+    public boolean showLoginDialog(){
+        activeUser = new AccessDialog(primaryStage, fxWeaver).showLoginDialog();
+        activeUserType = activeUser.getUserType();
+        return activeUser != null;
+    }
+
+    public void showRegistrationDialog(){
+        new AccessDialog(primaryStage, fxWeaver).showRegisterDialog();
     }
 }

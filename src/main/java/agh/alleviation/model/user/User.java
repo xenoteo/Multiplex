@@ -48,6 +48,10 @@ public abstract class User implements Externalizable {
          * The constant EMAIL.
          */
         public static final String EMAIL = "email";
+        /**
+         * The constant PASSWORD.
+         */
+        public static final String PASSWORD = "password";
     }
 
     /**
@@ -68,13 +72,27 @@ public abstract class User implements Externalizable {
         setEmail(email);
     }
 
+    /**
+     * Instantiates a new User.
+     *
+     * @param name  name and surname of the user (personal info)
+     * @param login unique login of the user
+     * @param email email of the user
+     * @param password user's password
+     */
+    public User(final String name, final String login, final String email, final String password){
+        setName(name);
+        setLogin(login);
+        setEmail(email);
+        this.password = password;
+    }
 
     private final IntegerProperty id = new SimpleIntegerProperty(this, "id");
     private final ObjectProperty<UserType> userType = new SimpleObjectProperty<>(this, "usertype");
     private final StringProperty name = new SimpleStringProperty(this, "name");
     private final StringProperty login = new SimpleStringProperty(this, "login");
     private final StringProperty email = new SimpleStringProperty(this, "email");
-
+    private String password;
 
     /**
      * Gets id.
@@ -102,6 +120,14 @@ public abstract class User implements Externalizable {
      */
     public IntegerProperty idProperty() { return id; }
 
+
+    /**
+     * Gets user type.
+     * @return user type
+     */
+    public UserType getUserType(){
+        return userTypeProperty().get();
+    }
 
     /**
      * Sets user type.
@@ -193,6 +219,25 @@ public abstract class User implements Externalizable {
      * @return the string property
      */
     public StringProperty emailProperty(){ return this.email; }
+
+    /**
+     * Get password.
+     *
+     * @return password string
+     */
+    @Column(name = Columns.PASSWORD)
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * Set new password.
+     *
+     * @param password new password
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
