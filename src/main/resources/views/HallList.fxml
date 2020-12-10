@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 
 <BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="agh.alleviation.controller.HallListController">
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="agh.alleviation.controller.list.HallListController">
     <center>
         <TableView fx:id="itemTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <columns>

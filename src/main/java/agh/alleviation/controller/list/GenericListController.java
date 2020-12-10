@@ -1,5 +1,6 @@
-package agh.alleviation.controller;
+package agh.alleviation.controller.list;
 
+import agh.alleviation.controller.GenericController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

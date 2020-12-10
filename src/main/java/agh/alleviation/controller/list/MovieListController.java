@@ -1,5 +1,6 @@
-package agh.alleviation.controller;
+package agh.alleviation.controller.list;
 
+import agh.alleviation.controller.GenericController;
 import agh.alleviation.model.Hall;
 import agh.alleviation.presentation.Screen;
 import javafx.event.ActionEvent;
@@ -13,7 +14,7 @@ import java.sql.SQLOutput;
 
 @Component
 @FxmlView("/views/MovieList.fxml")
-public class MovieListController extends GenericController{
+public class MovieListController extends GenericController {
 
     @FXML
     private void handleAddAction(ActionEvent event) {

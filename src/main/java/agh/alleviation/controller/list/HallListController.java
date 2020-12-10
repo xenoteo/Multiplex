@@ -1,14 +1,10 @@
-package agh.alleviation.controller;
+package agh.alleviation.controller.list;
 
 import agh.alleviation.model.Hall;
 import agh.alleviation.service.HallService;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

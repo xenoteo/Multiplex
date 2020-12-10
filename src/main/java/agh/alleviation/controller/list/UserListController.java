@@ -1,11 +1,8 @@
-package agh.alleviation.controller;
+package agh.alleviation.controller.list;
 
-import agh.alleviation.model.Hall;
 import agh.alleviation.model.user.User;
 import agh.alleviation.service.UserService;
 import agh.alleviation.util.UserType;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
