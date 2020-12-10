@@ -39,7 +39,7 @@ public class SeanceService extends EntityObjectService<Seance, SeanceRepository>
     public Seance addSeance(Movie movie) {
         Seance seance = new Seance();
         seance.setMovie(movie);
-        movie = movieRepository.findByIdWithSeances(movie.getId()).get(0);
+        movie = movieRepository.findByIdWithSeances(movie.getId());
         movie.addSeance(seance);
         repository.save(seance);
         return seance;
@@ -69,8 +69,8 @@ public class SeanceService extends EntityObjectService<Seance, SeanceRepository>
 
     @Override
     public void delete(Seance seance){
-        seance = repository.findByIdWitTickets(seance.getId()).get(0);
-        seance.delete();
+        seance = repository.findByIdWitTickets(seance.getId());
+        super.delete(seance);
     }
 
 }

@@ -4,9 +4,7 @@ import agh.alleviation.model.Order;
 import agh.alleviation.model.Seance;
 import agh.alleviation.model.Ticket;
 import agh.alleviation.model.user.Customer;
-import agh.alleviation.persistence.OrderRepository;
-import agh.alleviation.persistence.TicketRepository;
-import agh.alleviation.persistence.UserRepository;
+import agh.alleviation.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,9 +24,10 @@ import java.util.stream.StreamSupport;
 @Service
 @Transactional
 public class OrderService extends EntityObjectService<Order, OrderRepository>{
-//    private final OrderRepository orderRepository;
     private final TicketRepository ticketRepository;
     private final UserRepository userRepository;
+    private final SeanceRepository seanceRepository;
+    private final CustomerRepository customerRepository;
 
     /**
      * Instantiates a new Order service.
@@ -38,10 +37,12 @@ public class OrderService extends EntityObjectService<Order, OrderRepository>{
      * @param userRepository   the user repository
      */
     @Autowired
-    public OrderService(OrderRepository orderRepository, TicketRepository ticketRepository, UserRepository userRepository) {
+    public OrderService(OrderRepository orderRepository, TicketRepository ticketRepository, UserRepository userRepository, SeanceRepository seanceRepository, CustomerRepository customerRepository) {
         this.repository = orderRepository;
         this.ticketRepository = ticketRepository;
         this.userRepository = userRepository;
+        this.seanceRepository = seanceRepository;
+        this.customerRepository = customerRepository;
     }
 
     /**
@@ -52,6 +53,7 @@ public class OrderService extends EntityObjectService<Order, OrderRepository>{
      */
     public void addOrder(List<Ticket> tickets, Customer customer){
         Order order = new Order(tickets, customer);
+        customer = customerRepository.findByIdWithOrders(customer.getId());
         customer.addOrder(order);
         repository.save(order);
         userRepository.save(customer);
@@ -97,6 +99,8 @@ public class OrderService extends EntityObjectService<Order, OrderRepository>{
      */
     public Ticket addTicket(Seance seance, double price){
         Ticket ticket = new Ticket(seance, price);
+        seance = seanceRepository.findByIdWitTickets(seance.getId());
+        seance.addTicket(ticket);
         ticketRepository.save(ticket);
         return ticket;
     }

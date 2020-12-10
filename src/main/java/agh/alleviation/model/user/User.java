@@ -1,5 +1,6 @@
 package agh.alleviation.model.user;
 
+import agh.alleviation.model.EntityObject;
 import agh.alleviation.util.UserType;
 import javafx.beans.property.*;
 
@@ -20,7 +21,7 @@ import java.io.*;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = User.TABLE_NAME)
-public abstract class User implements Externalizable {
+public abstract class User extends EntityObject implements Externalizable {
 
     /**
      * The constant TABLE_NAME.
@@ -70,6 +71,7 @@ public abstract class User implements Externalizable {
         setName(name);
         setLogin(login);
         setEmail(email);
+        setIsActive(true);
     }
 
     /**
@@ -84,6 +86,7 @@ public abstract class User implements Externalizable {
         setName(name);
         setLogin(login);
         setEmail(email);
+        setIsActive(true);
         this.password = password;
     }
 

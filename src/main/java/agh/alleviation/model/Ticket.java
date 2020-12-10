@@ -116,7 +116,6 @@ public class Ticket extends EntityObject {
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         super.writeExternal(out);
-//        out.writeInt(getId());
         out.writeObject(getSeance());
         out.writeObject(getPrice());
     }
@@ -124,8 +123,6 @@ public class Ticket extends EntityObject {
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         super.readExternal(in);
-//        setId(in.readInt());
-//        setIsActive(in.readBoolean());
         setSeance((Seance) in.readObject());
         setPrice(in.readInt());
     }

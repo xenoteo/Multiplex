@@ -204,10 +204,13 @@ public class Seance extends EntityObject {
 
     public void setTickets(List<Ticket> tickets){ this.tickets.set(tickets);}
 
+    public void addTicket(Ticket ticket){
+        getTickets().add(ticket);
+    }
+
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-//        out.writeObject(getId());
         super.writeExternal(out);
         out.writeObject(getMovie());
         out.writeObject(getDate());
