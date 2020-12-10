@@ -14,6 +14,8 @@ import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxControllerAndView;
 import net.rgielen.fxweaver.core.FxWeaver;
 
+import java.io.Externalizable;
+
 /**
  * ViewControllerManager is responsible for setting up the controllers of the application.
  * It heavily relies on FxWeaver in order to maintain cooperation between JavaFX and Spring Boot.
@@ -90,47 +92,19 @@ public class ViewControllerManager {
         this.screenSwitcher.activate(screen);
     }
 
-    /**
-     * A helper function for showAddUserDialog and showAddDialog.
-     *
-     * @param root  root pane
-     * @param title title of the window
-     * @return a stage for the window
-     */
-    private Stage setupStageAndScene(Pane root, String title) {
-        Stage dialogStage = new Stage();
-        dialogStage.setTitle(title);
-        dialogStage.initModality(Modality.WINDOW_MODAL);
-        dialogStage.initOwner(primaryStage);
+//    public ItemDialogContext<? extends Externalizable, ?> getItemDialogContext(Class<?> itemClass) {
+//        if(itemClass.equals(User.class)) {
+//            return new ItemDialogContext<>(EditUserDialogController.class, primaryStage, fxWeaver);
+//        } else if(itemClass.equals(Hall.class)) {
+//            return new ItemDialogContext<>(EditHallDialogController.class, primaryStage, fxWeaver);
+//        }
+//    }
 
-        Scene scene = new Scene(root);
-        dialogStage.setScene(scene);
-        return dialogStage;
+    public ItemDialogContext<User, EditUserDialogController> getUserDialogContext() {
+        return new ItemDialogContext<>(EditUserDialogController.class, primaryStage, fxWeaver);
     }
 
-    private <Item, Controller extends EditDialogController<Item>> Item showEditItemDialog(Class<Controller> controllerClass, String title, Item item) {
-        FxControllerAndView<Controller, Pane> controllerAndView = fxWeaver.load(controllerClass);
-        Stage stage = setupStageAndScene(controllerAndView.getView().get(), title);
-        Controller controller = controllerAndView.getController();
-        controller.setDialogStage(stage);
-        if(item != null) controller.setEditedItem(item);
-        stage.showAndWait();
-        return controller.getEditedItem();
-    }
-
-    public User showAddUserDialog() {
-        return this.showEditItemDialog(EditUserDialogController.class, "Add user", null);
-    }
-
-    public void showEditUserDialog(User user) {
-        this.showEditItemDialog(EditUserDialogController.class, "Add user", user);
-    }
-
-    public Hall showAddHallDialog() {
-        return this.showEditItemDialog(EditHallDialogController.class, "Add hall", null);
-    }
-
-    public void showEditHallDialog(Hall hall) {
-        this.showEditItemDialog(EditHallDialogController.class, "Edit hall", hall);
+    public ItemDialogContext<Hall, EditHallDialogController> getHallDialogContext() {
+        return new ItemDialogContext<>(EditHallDialogController.class, primaryStage, fxWeaver);
     }
 }

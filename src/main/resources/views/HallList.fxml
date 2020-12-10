@@ -13,7 +13,7 @@
 <BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="agh.alleviation.controller.HallListController">
     <center>
-        <TableView fx:id="hallTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <TableView fx:id="itemTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <columns>
                 <TableColumn fx:id="numberColumn" prefWidth="75.0" text="Hall number"/>
                 <TableColumn fx:id="capacityColumn" prefWidth="75.0" text="Capacity"/>

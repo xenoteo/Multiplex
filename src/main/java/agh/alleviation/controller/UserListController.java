@@ -20,20 +20,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @FxmlView("/views/UserList.fxml")
-public class UserListController extends GenericController {
-    /**
-     * The User service.
-     */
-    UserService userService;
-
-    /**
-     * ObservableList of users used for TableView setup
-     */
-    ObservableList<User> userObservableList;
-
-    @FXML
-    private TableView<User> userTable;
-
+public class UserListController extends GenericListController<User, UserService> {
     @FXML
     private TableColumn<User, UserType> typeColumn;
 
@@ -47,17 +34,15 @@ public class UserListController extends GenericController {
     private TableColumn<User, String> emailColumn;
 
     @FXML
-    private void initialize() {
-        userTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+    protected void initialize() {
+        super.initialize();
 
         typeColumn.setCellValueFactory(dataValue -> dataValue.getValue().userTypeProperty());
         nameColumn.setCellValueFactory(dataValue -> dataValue.getValue().nameProperty());
         loginColumn.setCellValueFactory(dataValue -> dataValue.getValue().loginProperty());
         emailColumn.setCellValueFactory(dataValue -> dataValue.getValue().emailProperty());
 
-        this.userObservableList = FXCollections.observableArrayList(userService.getAllUsers());
-
-        userTable.setItems(userObservableList);
+        this.itemObservableList.addAll(service.getAllUsers());
     }
 
     /**
@@ -66,26 +51,26 @@ public class UserListController extends GenericController {
      * @param event the event
      */
     @FXML
-    public void handleAddAction(ActionEvent event) {
-        User user = this.viewControllerManager.showAddUserDialog();
+    protected void handleAddAction(ActionEvent event) {
+        User user = this.viewControllerManager.getUserDialogContext().showAddItemDialog();
         if (user != null) {
-            this.userObservableList.add(user);
+            this.itemObservableList.add(user);
         }
     }
 
     @FXML
-    private void handleEditAction(ActionEvent event) {
-        User user = userTable.getSelectionModel().getSelectedItem();
+    protected void handleEditAction(ActionEvent event) {
+        User user = itemTable.getSelectionModel().getSelectedItem();
         if(user != null) {
-            this.viewControllerManager.showEditUserDialog(user);
+            this.viewControllerManager.getUserDialogContext().showEditItemDialog(user);
         }
     }
 
     @FXML
-    private void handleDeleteAction(ActionEvent event) {
-        User user = userTable.getSelectionModel().getSelectedItem();
+    protected void handleDeleteAction(ActionEvent event) {
+        User user = itemTable.getSelectionModel().getSelectedItem();
         if(user != null) {
-            userObservableList.remove(user);
+            itemObservableList.remove(user);
         }
     }
 
@@ -97,6 +82,6 @@ public class UserListController extends GenericController {
      */
     @Autowired
     public UserListController(UserService userService) {
-        this.userService = userService;
+        this.service = userService;
     }
 }
