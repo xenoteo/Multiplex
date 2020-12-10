@@ -113,8 +113,4 @@ public class UserService extends EntityObjectService<User, UserRepository> {
         return setUserType(repository.findByLogin(login));
     }
 
-    public void delete(User user){
-        repository.delete(user);
-    }
-
 }

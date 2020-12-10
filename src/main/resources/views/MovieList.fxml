@@ -25,7 +25,8 @@
                         <Insets />
                     </opaqueInsets>
                 </Button>
-            <Button fx:id="addSeance" mnemonicParsing="false" onAction="#handleAddAction" text="Add Seance" textAlignment="CENTER" />
+             <Button fx:id="delete" mnemonicParsing="false" onAction="#handleDeleteAction" text="Remove" textAlignment="CENTER" />
+             <Button fx:id="addSeance" mnemonicParsing="false" onAction="#handleAddAction" text="Add Seance" textAlignment="CENTER" />
          </children>
          <BorderPane.margin>
             <Insets top="10.0" />

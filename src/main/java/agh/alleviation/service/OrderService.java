@@ -101,8 +101,5 @@ public class OrderService extends EntityObjectService<Order, OrderRepository>{
         return ticket;
     }
 
-    public void delete(Order order){
-        repository.delete(order);
-    }
 
 }

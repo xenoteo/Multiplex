@@ -82,9 +82,6 @@ public class MovieService extends EntityObjectService<Movie, MovieRepository>{
         return repository.findAll();
     }
 
-    public void delete(Movie movie){
-        movie.setIsActive(false);
-    }
 
     public List<Movie> getActiveMovies(){ return repository.findAll().stream().filter(Movie::getIsActive).collect(Collectors.toList()); }
 }
