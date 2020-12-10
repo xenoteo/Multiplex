@@ -74,11 +74,8 @@ public class DataLoader {
      * Populate movies.
      */
     public void populateMovies(){
-        Genre genre1 = movieService.addGenre("fantasy");
-        Genre genre2 = movieService.addGenre("musical");
-
-        Movie movie1 = movieService.addMovie("Erlang: the movie", genre1);
-        Movie movie2 = movieService.addMovie("Erlang: the musical", genre2);
+        Movie movie1 = movieService.addMovie("Erlang: the movie", "fantasy");
+        Movie movie2 = movieService.addMovie("Erlang: the musical", "musical");
     }
 
     /**

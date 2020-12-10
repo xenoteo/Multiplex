@@ -25,8 +25,8 @@ import java.util.stream.StreamSupport;
  */
 @Service
 @Transactional
-public class OrderService {
-    private final OrderRepository orderRepository;
+public class OrderService extends EntityObjectService<Order, OrderRepository>{
+//    private final OrderRepository orderRepository;
     private final TicketRepository ticketRepository;
     private final UserRepository userRepository;
 
@@ -39,7 +39,7 @@ public class OrderService {
      */
     @Autowired
     public OrderService(OrderRepository orderRepository, TicketRepository ticketRepository, UserRepository userRepository) {
-        this.orderRepository = orderRepository;
+        this.repository = orderRepository;
         this.ticketRepository = ticketRepository;
         this.userRepository = userRepository;
     }
@@ -53,7 +53,7 @@ public class OrderService {
     public void addOrder(List<Ticket> tickets, Customer customer){
         Order order = new Order(tickets, customer);
         customer.addOrder(order);
-        orderRepository.save(order);
+        repository.save(order);
         userRepository.save(customer);
     }
 
@@ -63,7 +63,7 @@ public class OrderService {
      * @return the list
      */
     public List<Order> getAllOrders(){
-        return StreamSupport.stream(orderRepository.findAll().spliterator(), false)
+        return StreamSupport.stream(repository.findAll().spliterator(), false)
                 .collect(Collectors.toList());
     }
 
@@ -74,7 +74,7 @@ public class OrderService {
      * @return the list
      */
     public List<Order> getOrdersByCustomers(Customer customer){
-        return orderRepository.findAllByCustomer(customer);
+        return repository.findAllByCustomer(customer);
     }
 
 
@@ -101,8 +101,5 @@ public class OrderService {
         return ticket;
     }
 
-    public void delete(Order order){
-        orderRepository.delete(order);
-    }
 
 }

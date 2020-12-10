@@ -20,8 +20,8 @@ import java.util.stream.StreamSupport;
  */
 @Service
 @Transactional
-public class HallService {
-    private final HallRepository hallRepository;
+public class HallService extends EntityObjectService<Hall, HallRepository> {
+//    private final HallRepository hallRepository;
 
     /**
      * Instantiates a new Hall service.
@@ -30,7 +30,7 @@ public class HallService {
      */
     @Autowired
     public HallService(HallRepository hallRepository) {
-        this.hallRepository = hallRepository;
+        this.repository = hallRepository;
     }
 
     /**
@@ -42,12 +42,12 @@ public class HallService {
      */
     public Hall addHall(int capacity, int number){
         Hall hall = new Hall(capacity, number);
-        hallRepository.save(hall);
+        repository.save(hall);
         return hall;
     }
 
     public void updateHall(Hall hall) {
-        hallRepository.save(hall);
+        repository.save(hall);
     }
 
     /**
@@ -56,7 +56,7 @@ public class HallService {
      * @return the list
      */
     public List<Hall> getAllHalls(){
-        return StreamSupport.stream(hallRepository.findAll().spliterator(), false)
+        return StreamSupport.stream(repository.findAll().spliterator(), false)
                 .collect(Collectors.toList());
     }
 
@@ -67,7 +67,7 @@ public class HallService {
      * @return the list
      */
     public List<Hall> findHallsByCapacityGreaterThan(int capacity){
-        return hallRepository.findByCapacityGreaterThanEqual(capacity);
+        return repository.findByCapacityGreaterThanEqual(capacity);
     }
 
     /**
@@ -77,10 +77,6 @@ public class HallService {
      * @return the list
      */
     public List<Hall> findHallsByCapacity(int capacity){
-        return hallRepository.findAllByCapacity(capacity);
-    }
-
-    public void delete(Hall hall){
-        hallRepository.delete(hall);
+        return repository.findAllByCapacity(capacity);
     }
 }

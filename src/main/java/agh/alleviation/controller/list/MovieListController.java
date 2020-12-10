@@ -14,8 +14,6 @@ import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.sql.SQLOutput;
-
 @Component
 @FxmlView("/views/MovieList.fxml")
 public class MovieListController extends GenericListController<Movie, MovieService> {
@@ -36,20 +34,24 @@ public class MovieListController extends GenericListController<Movie, MovieServi
         directorColumn.setCellValueFactory(dataValue -> dataValue.getValue().directorProperty());
         genreColumn.setCellValueFactory(dataValue -> dataValue.getValue().getGenre().nameProperty());
 
-        itemObservableList.addAll(service.getAllMovies());
+        itemObservableList.addAll(service.getAllActive());
 
     }
 
 
     @FXML
     public void handleAddAction(ActionEvent event) {
-
         Button button = (Button) event.getSource();
         String buttonId = button.getId();
         switch (buttonId) {
-            case "addMovie" -> System.out.println("Add Movie");     //in the future viewControllerManager.showAddMovieDialog();
+            case "addMovie" -> {
+                Movie movie = viewControllerManager.getMovieDialogContext().showAddItemDialog();
+                if(movie != null) {
+                    itemObservableList.add(movie);
+                }
+            }
             case "addSeance" -> System.out.println("Add Seance");   //in the future viewControllerManager.showAddSeanceDialog();
-            default -> System.out.println("");
+            default -> System.out.println("No action");
         }
 
     }
@@ -61,7 +63,11 @@ public class MovieListController extends GenericListController<Movie, MovieServi
 
     @Override
     protected void handleDeleteAction(ActionEvent event) {
-
+        Movie movie = itemTable.getSelectionModel().getSelectedItem();
+        if(movie != null) {
+            itemObservableList.remove(movie);
+            service.delete(movie);
+        }
     }
 
     @Autowired

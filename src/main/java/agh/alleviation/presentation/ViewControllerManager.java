@@ -3,12 +3,14 @@ package agh.alleviation.presentation;
 import agh.alleviation.controller.*;
 import agh.alleviation.controller.access_dialog.LoginDialogController;
 import agh.alleviation.controller.edit_dialog.EditHallDialogController;
+import agh.alleviation.controller.edit_dialog.EditMovieDialogController;
 import agh.alleviation.controller.edit_dialog.EditUserDialogController;
 import agh.alleviation.controller.list.HallListController;
 import agh.alleviation.controller.list.MovieListController;
 import agh.alleviation.controller.list.SeanceListController;
 import agh.alleviation.controller.list.UserListController;
 import agh.alleviation.model.Hall;
+import agh.alleviation.model.Movie;
 import agh.alleviation.model.user.User;
 import agh.alleviation.util.UserType;
 import javafx.scene.Node;
@@ -112,11 +114,15 @@ public class ViewControllerManager {
     }
 
     public ItemDialogContext<User, EditUserDialogController> getUserDialogContext() {
-        return new ItemDialogContext<>(EditUserDialogController.class, primaryStage, fxWeaver);
+        return new ItemDialogContext<>(primaryStage, fxWeaver.load(EditUserDialogController.class));
     }
 
     public ItemDialogContext<Hall, EditHallDialogController> getHallDialogContext() {
-        return new ItemDialogContext<>(EditHallDialogController.class, primaryStage, fxWeaver);
+        return new ItemDialogContext<>(primaryStage, fxWeaver.load(EditHallDialogController.class));
+    }
+
+    public ItemDialogContext<Movie, EditMovieDialogController> getMovieDialogContext() {
+        return new ItemDialogContext<>(primaryStage, fxWeaver.load(EditMovieDialogController.class));
     }
 
     public void logout(){

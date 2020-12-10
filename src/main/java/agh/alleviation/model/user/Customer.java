@@ -1,6 +1,7 @@
 package agh.alleviation.model.user;
 
 import agh.alleviation.model.Order;
+import agh.alleviation.util.UserType;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import org.springframework.data.repository.cdi.Eager;
@@ -28,6 +29,14 @@ public class Customer extends User{
      * The constant TABLE_NAME.
      */
     public static final String TABLE_NAME = "customer";
+
+    public Customer(){
+        setUserType(UserType.CUSTOMER);
+    }
+
+    public Customer(final String name, final String login, final String email){
+        super(name, login, email);
+    }
 
 
     private final ObjectProperty<List<Order>> ordersProperty = new SimpleObjectProperty<>();

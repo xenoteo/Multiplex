@@ -1,5 +1,7 @@
 package agh.alleviation.model.user;
 
+import agh.alleviation.util.UserType;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -16,4 +18,12 @@ public class Admin extends User {
      * The constant TABLE_NAME.
      */
     public static final String TABLE_NAME = "admin";
+
+    public Admin(){
+        setUserType(UserType.ADMIN);
+    }
+
+    public Admin(final String name, final String login, final String email){
+        super(name, login, email);
+    }
 }

@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Class responsible for representation of a movie's seance.
@@ -21,7 +22,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = Seance.TABLE_NAME)
-public class Seance implements Externalizable {
+public class Seance extends EntityObject {
     /**
      * The constant TABLE_NAME.
      */
@@ -32,10 +33,6 @@ public class Seance implements Externalizable {
      * The type Columns.
      */
     public static class Columns {
-        /**
-         * The constant ID.
-         */
-        public static final String ID = "id";
         /**
          * The constant MOVIE.
          */
@@ -54,12 +51,11 @@ public class Seance implements Externalizable {
         public static final String PRICE = "price";
     }
 
-    private final IntegerProperty idProperty = new SimpleIntegerProperty(this, "id");
     private final ObjectProperty<Movie> movieProperty = new SimpleObjectProperty<>();
     private final ObjectProperty<Hall> hallProperty = new SimpleObjectProperty<>();
     private final ObjectProperty<Date> dateProperty = new SimpleObjectProperty<>();
     private final DoubleProperty priceProperty = new SimpleDoubleProperty(this, "price");
-
+    private final ObjectProperty<List<Ticket>> tickets = new SimpleObjectProperty<>();
 
     /**
      * Instantiates a new Seance.
@@ -81,35 +77,8 @@ public class Seance implements Externalizable {
         setHall(hall);
         setDate(date);
         setPrice(price);
+        setIsActive(true);
     }
-
-
-    /**
-     * Id property integer property.
-     *
-     * @return the integer property
-     */
-    public IntegerProperty idProperty() { return idProperty; }
-
-    /**
-     * Gets id.
-     *
-     * @return the id
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = Columns.ID)
-    public int getId() {
-        return idProperty.get();
-    }
-
-    /**
-     * Sets id.
-     *
-     * @param id the id
-     */
-    public void setId(int id) { idProperty.set(id);}
-
 
     /**
      * Movie property object property.
@@ -226,10 +195,19 @@ public class Seance implements Externalizable {
         priceProperty.set(price);
     }
 
+    public ObjectProperty<List<Ticket>> ticketsProperty(){ return tickets; }
+
+    @OneToMany(orphanRemoval = true)
+    public List<Ticket> getTickets(){ return tickets.get(); }
+
+    public void setTickets(List<Ticket> tickets){ this.tickets.set(tickets);}
+
+
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeObject(getId());
+//        out.writeObject(getId());
+        super.writeExternal(out);
         out.writeObject(getMovie());
         out.writeObject(getDate());
         out.writeObject(getPrice());
@@ -237,7 +215,7 @@ public class Seance implements Externalizable {
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        setId(in.readInt());
+        super.readExternal(in);
         setMovie((Movie) in.readObject());
         setDate((Date) in.readObject());
         setPrice(in.readDouble());

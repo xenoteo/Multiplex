@@ -34,8 +34,6 @@ public class EditHallDialogController extends EditDialogController<Hall> {
     @FXML
     private TextField numberField;
 
-
-
     @Override
     public void setEditedItem(Hall hall) {
         super.setEditedItem(hall);
