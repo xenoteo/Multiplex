@@ -1,11 +1,13 @@
 package agh.alleviation.service;
 
 import agh.alleviation.model.*;
+import agh.alleviation.persistence.MovieRepository;
 import agh.alleviation.persistence.SeanceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,14 +24,16 @@ import java.util.stream.StreamSupport;
 @Transactional
 public class SeanceService extends EntityObjectService<Seance, SeanceRepository> {
 
+    private MovieRepository movieRepository;
     /**
      * Instantiates a new Seance service.
      *
      * @param seanceRepository the seance repository
      */
     @Autowired
-    public SeanceService(SeanceRepository seanceRepository) {
+    public SeanceService(SeanceRepository seanceRepository, MovieRepository movieRepository) {
         this.repository = seanceRepository;
+        this.movieRepository = movieRepository;
     }
 
     /**
@@ -40,8 +44,10 @@ public class SeanceService extends EntityObjectService<Seance, SeanceRepository>
      * @param date  the date
      * @param price the price
      */
-    public void addSeance(Movie movie, Hall hall, Date date, double price){
+    public void addSeance(Movie movie, Hall hall, LocalDateTime date, double price){
         Seance seance = new Seance(movie, hall, date, price);
+        movie = movieRepository.findByIdWithSeances(movie.getId()).get(0);
+        movie.addSeance(seance);
         repository.save(seance);
     }
 
@@ -52,6 +58,12 @@ public class SeanceService extends EntityObjectService<Seance, SeanceRepository>
      */
     public List<Seance> getAllSeances(){
         return (List<Seance>) repository.findAll();
+    }
+
+    @Override
+    public void delete(Seance seance){
+        seance = repository.findByIdWitTickets(seance.getId()).get(0);
+        seance.delete();
     }
 
 }

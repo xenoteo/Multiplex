@@ -5,6 +5,7 @@
 <?import javafx.scene.layout.HBox?>
 
 
+<?import javafx.scene.control.Button?>
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agh.alleviation.controller.MenuController">
    <children>
       <ToggleButtonGroup selectionType="SINGLE">
@@ -15,5 +16,9 @@
               <ToggleButton fx:id="seances" visible="false" onAction="#handleActiveButtonChanged" text="Seance List" />
           </toggles>
       </ToggleButtonGroup>
+       <Button fx:id="loginButton" mnemonicParsing="false" onAction="#handleLoginButton" text="Login">
+       </Button>
+       <Button fx:id="registerButton" mnemonicParsing="false" onAction="#register" text="Register">
+       </Button>
    </children>
 </HBox>

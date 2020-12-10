@@ -61,8 +61,6 @@ public class Ticket extends EntityObject {
         setIsActive(true);
     }
 
-
-
     /**
      * Seance property object property.
      *

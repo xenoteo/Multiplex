@@ -1,6 +1,8 @@
 package agh.alleviation.presentation;
 
 import agh.alleviation.controller.*;
+import agh.alleviation.controller.access_dialog.LoginDialogController;
+import agh.alleviation.controller.access_dialog.RegistrationDialogController;
 import agh.alleviation.controller.edit_dialog.EditHallDialogController;
 import agh.alleviation.controller.edit_dialog.EditMovieDialogController;
 import agh.alleviation.controller.edit_dialog.EditUserDialogController;
@@ -20,9 +22,7 @@ import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxControllerAndView;
 import net.rgielen.fxweaver.core.FxWeaver;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -39,6 +39,7 @@ public class ViewControllerManager {
     private ScreenSwitcher screenSwitcher;
     private Map<Screen, FxControllerAndView<? extends GenericController, Node>> controllersAndViews;
     private UserType activeUserType;
+    private User activeUser;
 
     /**
      * Instantiates a new View controller manager.
@@ -123,5 +124,39 @@ public class ViewControllerManager {
 
     public ItemDialogContext<Movie, EditMovieDialogController> getMovieDialogContext() {
         return new ItemDialogContext<>(primaryStage, fxWeaver.load(EditMovieDialogController.class));
+    }
+
+    /**
+     * Logs out a user.
+     */
+    public void logout(){
+        activeUser = null;
+        activeUserType = null;
+    }
+
+    /**
+     * Shows login dialog.
+     * @return whether user was successfully logged in
+     */
+    public boolean showLoginDialog(){
+        updateActiveUser(
+                new AccessDialogViewer<>(primaryStage, fxWeaver.load(LoginDialogController.class)).showLoginDialog());
+        return (activeUser != null);
+    }
+
+    /**
+     * Updates active user.
+     * @param user new user
+     */
+    private void updateActiveUser(User user){
+        activeUser = user;
+        activeUserType = (activeUser != null) ? activeUser.getUserType() : null;
+    }
+
+    /**
+     * Shows registration dialog.
+     */
+    public void showRegistrationDialog(){
+        new AccessDialogViewer<>(primaryStage, fxWeaver.load(RegistrationDialogController.class)).showRegisterDialog();
     }
 }

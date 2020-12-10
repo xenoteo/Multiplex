@@ -191,7 +191,7 @@ public class Movie extends EntityObject {
 
     public StringProperty actorsProperty() { return this.actors; }
 
-    @OneToMany(orphanRemoval = true)
+    @OneToMany(orphanRemoval = true, cascade = {CascadeType.PERSIST})
     public List<Seance> getSeances(){ return seances.get(); }
 
     public void setSeances(List<Seance> seances){ this.seances.set(seances); }
@@ -204,19 +204,23 @@ public class Movie extends EntityObject {
         getSeances().forEach(Seance::delete);
     }
 
+    public void addSeance(Seance seance){
+        this.getSeances().add(seance);
+    }
+
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         super.writeExternal(out);
-//        out.writeInt(getId());
         out.writeObject(getName());
+        out.writeObject(getSeances());
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         super.readExternal(in);
-//        setId(in.readInt());
         setName((String) in.readObject());
+        setSeances((List<Seance>) seances);
     }
 
     @Override
