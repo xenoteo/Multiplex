@@ -9,9 +9,9 @@
    <children>
       <ToggleButtonGroup selectionType="SINGLE">
           <toggles>
-              <ToggleButton id="users" onAction="#handleActiveButtonChanged" text="User List" />
-              <ToggleButton id="halls" onAction="#handleActiveButtonChanged" selected="true" text="Hall List" />
-              <ToggleButton id="movies" onAction="#handleActiveButtonChanged" text="Movie List" />
+              <ToggleButton fx:id="users" visible="false" onAction="#handleActiveButtonChanged" text="User List" />
+              <ToggleButton fx:id="halls" visible="false" onAction="#handleActiveButtonChanged" selected="true" text="Hall List" />
+              <ToggleButton fx:id="movies" visible="false" onAction="#handleActiveButtonChanged" text="Movie List" />
           </toggles>
       </ToggleButtonGroup>
    </children>

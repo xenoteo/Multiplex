@@ -8,6 +8,7 @@ import agh.alleviation.controller.list.MovieListController;
 import agh.alleviation.controller.list.UserListController;
 import agh.alleviation.model.Hall;
 import agh.alleviation.model.user.User;
+import agh.alleviation.util.UserType;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -32,6 +33,7 @@ public class ViewControllerManager {
     private Stage primaryStage;
     private ScreenSwitcher screenSwitcher;
     private List<FxControllerAndView<? extends GenericController, Node>> controllersAndViews;
+    private UserType activeUserType;
 
     /**
      * Instantiates a new View controller manager.
@@ -42,6 +44,7 @@ public class ViewControllerManager {
     public ViewControllerManager(FxWeaver fxWeaver, Stage primaryStage) {
         this.fxWeaver = fxWeaver;
         this.primaryStage = primaryStage;
+        this.activeUserType = UserType.WORKER;
     }
 
     /**
@@ -72,7 +75,6 @@ public class ViewControllerManager {
 
         controllersAndViews = new ArrayList<>();
 
-        var menuBar= addToControllersAndViews(MenuController.class);
         var main  = addToControllersAndViews(MainController.class);
         var userList = addToControllersAndViews(UserListController.class);
         var hallList = addToControllersAndViews(HallListController.class);
@@ -80,6 +82,9 @@ public class ViewControllerManager {
 
         controllersAndViews.forEach(cv -> cv.getController().setAppController(this));
 
+        var menuBar= fxWeaver.load(MenuController.class);
+        menuBar.getController().setAppController(this);
+        menuBar.getController().setActiveUserType(activeUserType);
         borderPane.setTop(menuBar.getView().get());
 
         Pane mainRoot = (Pane) main.getView().get();

@@ -33,4 +33,12 @@ public enum UserType {
     public String toString() {
         return this.name;
     }
+
+    public int getPrivilegeLevel() {
+        return switch (this) {
+            case CUSTOMER -> 0;
+            case WORKER -> 1;
+            case ADMIN -> 2;
+        };
+    }
 }
