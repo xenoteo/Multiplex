@@ -1,37 +1,36 @@
 package agh.alleviation.presentation;
 
+import agh.alleviation.controller.access_dialog.AccessController;
 import agh.alleviation.controller.access_dialog.LoginDialogController;
-import agh.alleviation.controller.access_dialog.RegistrationDialogController;
 import agh.alleviation.model.user.User;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxControllerAndView;
-import net.rgielen.fxweaver.core.FxWeaver;
 
-public class AccessDialog extends StageAndSceneSetupper{
-    private FxWeaver fxWeaver;
+public class AccessDialog<Controller extends AccessController> extends StageAndSceneSetupper{
+    FxControllerAndView<Controller, Pane> controllerAndView;
+    Controller controller;
 
-    public AccessDialog(Stage primaryStage, FxWeaver fxWeaver) {
+    public AccessDialog(Stage primaryStage, FxControllerAndView<Controller, Pane> controllerAndView) {
         super(primaryStage);
-        this.fxWeaver = fxWeaver;
+        this.controllerAndView = controllerAndView;
+    }
+
+    private void showDialog(String title){
+        Stage stage = setupStageAndScene(controllerAndView.getView().get(), title);
+        controller = controllerAndView.getController();
+        controller.setDialogStage(stage);
+        stage.showAndWait();
     }
 
     public User showLoginDialog(){
-        FxControllerAndView<LoginDialogController, Pane> controllerAndView = fxWeaver.load(LoginDialogController.class);
-        Stage stage = setupStageAndScene(controllerAndView.getView().get(), "Login");
-        LoginDialogController controller = controllerAndView.getController();
-        controller.setDialogStage(stage);
-        stage.showAndWait();
-        if (controller.isLoggedIn())
+        showDialog("Login");
+        if (((LoginDialogController)controller).isLoggedIn())
             return controller.getUser();
         return null;
     }
 
     public void showRegisterDialog() {
-        FxControllerAndView<RegistrationDialogController, Pane> controllerAndView = fxWeaver.load(RegistrationDialogController.class);
-        Stage stage = setupStageAndScene(controllerAndView.getView().get(), "Registration");
-        RegistrationDialogController controller = controllerAndView.getController();
-        controller.setDialogStage(stage);
-        stage.showAndWait();
+        showDialog("Registration");
     }
 }

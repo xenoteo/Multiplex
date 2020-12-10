@@ -1,24 +1,18 @@
 package agh.alleviation.controller.access_dialog;
 
-import agh.alleviation.model.user.User;
 import agh.alleviation.service.UserService;
 import agh.alleviation.util.UserType;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxmlView;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 @FxmlView("/views/RegistrationDialog.fxml")
-public class RegistrationDialogController {
-
-    @FXML
-    private ChoiceBox<UserType> userTypeDropdown;
+public class RegistrationDialogController extends AccessController{
 
     @FXML
     private TextField nameField;
@@ -32,37 +26,13 @@ public class RegistrationDialogController {
     @FXML
     private PasswordField passwordField;
 
-    /**
-     * Stage on which modal is placed.
-     */
-    private Stage dialogStage;
-
-    /**
-     * User service.
-     */
-    private final UserService userService;
-
-    /**
-     * Instance of user, where newly registered user is saved.
-     */
-    private User user;
-
-    /**
-     * Initializes fields of form.
-     */
-    @FXML
-    private void initialize() {
-        userTypeDropdown.getItems().addAll(UserType.values());
-        userTypeDropdown.setValue(UserType.CUSTOMER);
-    }
 
     /**
      * Instantiates a new register dialog controller.
      * @param userService the user service
      */
-    @Autowired
     public RegistrationDialogController(UserService userService) {
-        this.userService = userService;
+        super(userService);
     }
 
     /**
@@ -71,14 +41,6 @@ public class RegistrationDialogController {
      */
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
-    }
-
-    /**
-     * Gets newly registered user.
-     * @return registered user
-     */
-    public User getUser() {
-        return user;
     }
 
     /**
@@ -105,7 +67,7 @@ public class RegistrationDialogController {
             return;
         }
 
-        this.user = userService.addUser(name, login, email, userTypeDropdown.getValue(), password);
+        this.user = userService.addUser(name, login, email, UserType.CUSTOMER, password);
         if (user != null){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Registration completed successfully");

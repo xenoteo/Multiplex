@@ -1,16 +1,12 @@
 package agh.alleviation.controller.access_dialog;
 
-import agh.alleviation.controller.GenericController;
 import agh.alleviation.model.user.User;
-import agh.alleviation.model.user.UserDTO;
 import agh.alleviation.service.UserService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxmlView;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -20,7 +16,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @FxmlView("/views/LoginDialog.fxml")
-public class LoginDialogController extends GenericController {
+public class LoginDialogController extends AccessController{
 
     @FXML
     private TextField loginField;
@@ -28,20 +24,6 @@ public class LoginDialogController extends GenericController {
     @FXML
     private PasswordField passwordField;
 
-    /**
-     * Stage on which modal is placed.
-     */
-    private Stage dialogStage;
-
-    /**
-     * User service.
-     */
-    private final UserService userService;
-
-    /**
-     * Instance of user, where newly logged in user is saved.
-     */
-    private User user;
 
     /**
      * Boolean variable indicating whether login operation was successful.
@@ -52,25 +34,8 @@ public class LoginDialogController extends GenericController {
      * Instantiates a new login dialog controller.
      * @param userService the user service
      */
-    @Autowired
     public LoginDialogController(UserService userService) {
-        this.userService = userService;
-    }
-
-    /**
-     * Sets dialog stage.
-     * @param dialogStage the dialog stage
-     */
-    public void setDialogStage(Stage dialogStage) {
-        this.dialogStage = dialogStage;
-    }
-
-    /**
-     * Gets newly logged in user.
-     * @return logged in user
-     */
-    public User getUser() {
-        return user;
+        super(userService);
     }
 
     /**
@@ -86,14 +51,15 @@ public class LoginDialogController extends GenericController {
      */
     @FXML
     public void login() {
-        UserDTO userDTO = new UserDTO(loginField.getText(), passwordField.getText());
-        if (!userService.validateUser(userDTO.getLogin(), userDTO.getPassword())) {
+        String login = loginField.getText();
+        String password = passwordField.getText();
+        if (!userService.validateUser(login, password)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Invalid login or password");
             alert.show();
             return;
         }
-        user = userService.getUserByLogin(userDTO.getLogin());
+        user = userService.getUserByLogin(login);
         loggedIn = true;
         dialogStage.close();
     }
