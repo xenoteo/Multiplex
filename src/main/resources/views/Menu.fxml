@@ -9,9 +9,9 @@
    <children>
       <ToggleButtonGroup selectionType="SINGLE">
           <toggles>
-              <ToggleButton onMouseClicked="#switchToUserListView" text="User List" />
-              <ToggleButton onMouseClicked="#switchToHallListView" selected="true" text="Hall List" />
-              <ToggleButton text="Movie List" />
+              <ToggleButton id="users" onAction="#handleActiveButtonChanged" text="User List" />
+              <ToggleButton id="halls" onAction="#handleActiveButtonChanged" selected="true" text="Hall List" />
+              <ToggleButton id="movies" onAction="#handleActiveButtonChanged" text="Movie List" />
           </toggles>
       </ToggleButtonGroup>
    </children>
