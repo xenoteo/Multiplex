@@ -54,8 +54,4 @@ public class SeanceService extends EntityObjectService<Seance, SeanceRepository>
         return (List<Seance>) repository.findAll();
     }
 
-    public void delete(Seance seance){
-        repository.delete(seance);
-    }
-
 }
