@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane prefHeight="100.0" prefWidth="275.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agh.alleviation.controller.EditHallDialogController">
+<BorderPane prefHeight="100.0" prefWidth="275.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agh.alleviation.controller.edit_dialog.EditHallDialogController">
     <center>
         <GridPane prefHeight="182.0" prefWidth="275.0" BorderPane.alignment="CENTER">
             <columnConstraints>
