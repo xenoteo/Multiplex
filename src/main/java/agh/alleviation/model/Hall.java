@@ -110,7 +110,10 @@ public class Hall extends EntityObject{
      */
     public void setNumber(int number){ numberProperty.set(number); }
 
-
+    @Override
+    public String toString() {
+        return "Hall " + getNumber();
+    }
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {

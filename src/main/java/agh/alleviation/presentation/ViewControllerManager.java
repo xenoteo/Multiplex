@@ -5,6 +5,7 @@ import agh.alleviation.controller.access_dialog.LoginDialogController;
 import agh.alleviation.controller.access_dialog.RegistrationDialogController;
 import agh.alleviation.controller.edit_dialog.EditHallDialogController;
 import agh.alleviation.controller.edit_dialog.EditMovieDialogController;
+import agh.alleviation.controller.edit_dialog.EditSeanceDialogController;
 import agh.alleviation.controller.edit_dialog.EditUserDialogController;
 import agh.alleviation.controller.list.HallListController;
 import agh.alleviation.controller.list.MovieListController;
@@ -12,6 +13,7 @@ import agh.alleviation.controller.list.SeanceListController;
 import agh.alleviation.controller.list.UserListController;
 import agh.alleviation.model.Hall;
 import agh.alleviation.model.Movie;
+import agh.alleviation.model.Seance;
 import agh.alleviation.model.user.User;
 import agh.alleviation.util.UserType;
 import javafx.scene.Node;
@@ -124,6 +126,10 @@ public class ViewControllerManager {
 
     public ItemDialogContext<Movie, EditMovieDialogController> getMovieDialogContext() {
         return new ItemDialogContext<>(primaryStage, fxWeaver.load(EditMovieDialogController.class));
+    }
+
+    public ItemDialogContext<Seance, EditSeanceDialogController> getSeanceDialogContext() {
+        return new ItemDialogContext<>(primaryStage, fxWeaver.load(EditSeanceDialogController.class));
     }
 
     /**

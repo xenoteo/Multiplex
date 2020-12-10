@@ -1,7 +1,9 @@
 package agh.alleviation.controller.list;
 
 import agh.alleviation.model.Movie;
+import agh.alleviation.model.Seance;
 import agh.alleviation.service.MovieService;
+import agh.alleviation.service.SeanceService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 @FxmlView("/views/MovieList.fxml")
 public class MovieListController extends GenericListController<Movie, MovieService> {
+    private SeanceService seanceService;
 
     @FXML
     public Button addMovie;
@@ -59,7 +62,13 @@ public class MovieListController extends GenericListController<Movie, MovieServi
                     itemObservableList.add(movie);
                 }
             }
-            case "addSeance" -> System.out.println("Add Seance");   //in the future viewControllerManager.showAddSeanceDialog();
+            case "addSeance" -> {
+                Movie movie = itemTable.getSelectionModel().getSelectedItem();
+                if(movie != null) {
+                    Seance seance = seanceService.addSeance(movie);
+                    viewControllerManager.getSeanceDialogContext().showEditItemDialog(seance);
+                }
+            }
             default -> System.out.println("No action");
         }
     }
@@ -82,7 +91,10 @@ public class MovieListController extends GenericListController<Movie, MovieServi
     }
 
     @Autowired
-    public MovieListController(MovieService movieService){ this.service = movieService; }
+    public MovieListController(MovieService movieService, SeanceService seanceService){
+        this.service = movieService;
+        this.seanceService = seanceService;
+    }
 
 
 }

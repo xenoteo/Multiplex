@@ -36,18 +36,25 @@ public class SeanceService extends EntityObjectService<Seance, SeanceRepository>
         this.movieRepository = movieRepository;
     }
 
-    /**
-     * Add seance.
-     *
-     * @param movie the movie
-     * @param hall  the hall
-     * @param date  the date
-     * @param price the price
-     */
-    public void addSeance(Movie movie, Hall hall, LocalDateTime date, double price){
-        Seance seance = new Seance(movie, hall, date, price);
+    public Seance addSeance(Movie movie) {
+        Seance seance = new Seance();
+        seance.setMovie(movie);
         movie = movieRepository.findByIdWithSeances(movie.getId()).get(0);
         movie.addSeance(seance);
+        repository.save(seance);
+        return seance;
+    }
+
+    public Seance addSeance(Movie movie, Hall hall, LocalDateTime date, double price){
+        Seance seance = addSeance(movie);
+        seance.setHall(hall);
+        seance.setDate(date);
+        seance.setPrice(price);
+        repository.save(seance);
+        return seance;
+    }
+
+    public void updateSeance(Seance seance) {
         repository.save(seance);
     }
 

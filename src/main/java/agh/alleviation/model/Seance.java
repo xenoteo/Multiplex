@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -61,7 +62,7 @@ public class Seance extends EntityObject {
      * Instantiates a new Seance.
      */
     public Seance() {
-
+        setTickets(new ArrayList<>());
     }
 
     /**
@@ -73,6 +74,7 @@ public class Seance extends EntityObject {
      * @param price the price
      */
     public Seance(Movie movie, Hall hall, LocalDateTime date, double price){
+        this();
         setMovie(movie);
         setHall(hall);
         setDate(date);
