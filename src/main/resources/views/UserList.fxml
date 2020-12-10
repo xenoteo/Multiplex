@@ -13,7 +13,7 @@
 <BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="agh.alleviation.controller.UserListController">
     <center>
-        <TableView fx:id="userTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <TableView fx:id="itemTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <columns>
                 <TableColumn fx:id="typeColumn" prefWidth="75.0" text="Type"/>
                 <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Name"/>

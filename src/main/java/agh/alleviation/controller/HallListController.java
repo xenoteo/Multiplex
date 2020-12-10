@@ -21,20 +21,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @FxmlView("/views/HallList.fxml")
-public class HallListController extends GenericController {
-    /**
-     * The Hall service.
-     */
-    private final HallService hallService;
-
-    /**
-     * ObservableList of halls used for TableView setup
-     */
-    private ObservableList<Hall> hallObservableList;
-
-    @FXML
-    private TableView<Hall> hallTable;
-
+public class HallListController extends GenericListController<Hall, HallService> {
     @FXML
     private TableColumn<Hall, Integer> numberColumn;
 
@@ -42,37 +29,36 @@ public class HallListController extends GenericController {
     private TableColumn<Hall, Integer> capacityColumn;
 
     @FXML
-    private void initialize() {
-        hallTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+    protected void initialize() {
+        super.initialize();
 
         numberColumn.setCellValueFactory(dataValue -> dataValue.getValue().numberProperty().asObject());
         capacityColumn.setCellValueFactory(dataValue -> dataValue.getValue().capacityProperty().asObject());
 
-        this.hallObservableList = FXCollections.observableArrayList(hallService.getAllHalls());
-        hallTable.setItems(hallObservableList);
+        this.itemObservableList.addAll(service.getAllHalls());
     }
 
     @FXML
-    private void handleAddAction(ActionEvent event) {
-        Hall hall = this.viewControllerManager.showAddHallDialog();
+    protected void handleAddAction(ActionEvent event) {
+        Hall hall = this.viewControllerManager.getHallDialogContext().showAddItemDialog();
         if(hall != null) {
-            hallObservableList.add(hall);
+            itemObservableList.add(hall);
         }
     }
 
     @FXML
-    private void handleEditAction(ActionEvent event) {
-        Hall hall = hallTable.getSelectionModel().getSelectedItem();
+    protected void handleEditAction(ActionEvent event) {
+        Hall hall = itemTable.getSelectionModel().getSelectedItem();
         if(hall != null) {
-            this.viewControllerManager.showEditHallDialog(hall);
+            this.viewControllerManager.getHallDialogContext().showEditItemDialog(hall);
         }
     }
 
     @FXML
-    private void handleDeleteAction(ActionEvent event) {
-        Hall hall = hallTable.getSelectionModel().getSelectedItem();
+    protected void handleDeleteAction(ActionEvent event) {
+        Hall hall = itemTable.getSelectionModel().getSelectedItem();
         if(hall != null) {
-            hallObservableList.remove(hall);
+            itemObservableList.remove(hall);
         }
     }
 
@@ -83,6 +69,6 @@ public class HallListController extends GenericController {
      */
     @Autowired
     public HallListController(HallService hallService) {
-        this.hallService = hallService;
+        this.service = hallService;
     }
 }
