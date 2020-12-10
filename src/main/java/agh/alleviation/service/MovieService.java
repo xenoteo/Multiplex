@@ -2,6 +2,7 @@ package agh.alleviation.service;
 
 import agh.alleviation.model.Genre;
 import agh.alleviation.model.Movie;
+import agh.alleviation.model.Seance;
 import agh.alleviation.persistence.GenreRepository;
 import agh.alleviation.persistence.MovieRepository;
 import javafx.collections.ObservableList;
@@ -79,5 +80,9 @@ public class MovieService {
      */
     public List<Movie> getAllMovies() {
         return movieRepository.findAll();
+    }
+
+    public void delete(Movie movie){
+        movieRepository.delete(movie);
     }
 }

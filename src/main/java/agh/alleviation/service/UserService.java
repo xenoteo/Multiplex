@@ -1,6 +1,7 @@
 package agh.alleviation.service;
 
 import agh.alleviation.model.Hall;
+import agh.alleviation.model.Seance;
 import agh.alleviation.model.user.Admin;
 import agh.alleviation.model.user.Customer;
 import agh.alleviation.model.user.User;
@@ -117,5 +118,8 @@ public class UserService {
         return setUserType(userRepository.findByLogin(login));
     }
 
+    public void delete(User user){
+        userRepository.delete(user);
+    }
 
 }

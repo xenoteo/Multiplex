@@ -1,6 +1,7 @@
 package agh.alleviation.service;
 
 import agh.alleviation.model.Hall;
+import agh.alleviation.model.Seance;
 import agh.alleviation.persistence.HallRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -77,5 +78,9 @@ public class HallService {
      */
     public List<Hall> findHallsByCapacity(int capacity){
         return hallRepository.findAllByCapacity(capacity);
+    }
+
+    public void delete(Hall hall){
+        hallRepository.delete(hall);
     }
 }

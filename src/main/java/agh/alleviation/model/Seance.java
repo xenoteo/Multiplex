@@ -116,7 +116,7 @@ public class Seance implements Externalizable {
      *
      * @return the object property
      */
-    ObjectProperty<Movie> movieProperty(){
+    public ObjectProperty<Movie> movieProperty(){
         return movieProperty;
     }
 
@@ -145,7 +145,7 @@ public class Seance implements Externalizable {
      *
      * @return the object property
      */
-    ObjectProperty<Hall> hallProperty(){
+    public ObjectProperty<Hall> hallProperty(){
         return hallProperty;
     }
 
@@ -174,7 +174,7 @@ public class Seance implements Externalizable {
      *
      * @return the object property
      */
-    ObjectProperty<Date> dateProperty(){
+    public ObjectProperty<Date> dateProperty(){
         return dateProperty;
     }
 

@@ -101,4 +101,8 @@ public class OrderService {
         return ticket;
     }
 
+    public void delete(Order order){
+        orderRepository.delete(order);
+    }
+
 }

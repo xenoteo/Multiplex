@@ -52,7 +52,11 @@ public class SeanceService {
      * @return the list
      */
     public List<Seance> getAllSeances(){
-        return StreamSupport.stream(seanceRepository.findAll().spliterator(), false)
-                .collect(Collectors.toList());
+        return (List<Seance>) seanceRepository.findAll();
     }
+
+    public void delete(Seance seance){
+        seanceRepository.delete(seance);
+    }
+
 }

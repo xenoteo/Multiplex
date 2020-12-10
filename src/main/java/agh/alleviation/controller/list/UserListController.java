@@ -68,6 +68,7 @@ public class UserListController extends GenericListController<User, UserService>
         User user = itemTable.getSelectionModel().getSelectedItem();
         if(user != null) {
             itemObservableList.remove(user);
+            service.delete(user);
         }
     }
 

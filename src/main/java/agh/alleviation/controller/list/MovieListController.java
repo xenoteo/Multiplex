@@ -20,13 +20,6 @@ import java.sql.SQLOutput;
 @FxmlView("/views/MovieList.fxml")
 public class MovieListController extends GenericListController<Movie, MovieService> {
 
-    private final MovieService movieService;
-
-    private ObservableList<Movie> movieObservableList;
-
-    @FXML
-    public TableView<Movie> movieTable;
-
     @FXML
     public TableColumn<Movie, String> nameColumn;
 
@@ -38,14 +31,13 @@ public class MovieListController extends GenericListController<Movie, MovieServi
 
     @FXML
     public void initialize() {
-        movieTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-
+        super.initialize();
         nameColumn.setCellValueFactory(dataValue -> dataValue.getValue().nameProperty());
         directorColumn.setCellValueFactory(dataValue -> dataValue.getValue().directorProperty());
         genreColumn.setCellValueFactory(dataValue -> dataValue.getValue().getGenre().nameProperty());
 
-        movieObservableList = FXCollections.observableArrayList(movieService.getAllMovies());
-        movieTable.setItems(movieObservableList);
+        itemObservableList.addAll(service.getAllMovies());
+
     }
 
 
@@ -73,7 +65,7 @@ public class MovieListController extends GenericListController<Movie, MovieServi
     }
 
     @Autowired
-    public MovieListController(MovieService movieService){ this.movieService = movieService; }
+    public MovieListController(MovieService movieService){ this.service = movieService; }
 
 
 }
