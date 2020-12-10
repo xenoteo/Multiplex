@@ -37,8 +37,7 @@ public class SeanceService extends EntityObjectService<Seance, SeanceRepository>
     }
 
     public Seance addSeance(Movie movie) {
-        Seance seance = new Seance();
-        seance.setMovie(movie);
+        Seance seance = new Seance(movie);
         movie = movieRepository.findByIdWithSeances(movie.getId());
         movie.addSeance(seance);
         repository.save(seance);
