@@ -36,11 +36,7 @@ public class MenuController extends GenericController {
 
     public void setActiveUserType(UserType userType) {
         this.activeUserType = userType;
-        screenHashMap.entrySet().forEach(screenEntry -> {
-            ToggleButton button = screenEntry.getKey();
-            Screen screen = screenEntry.getValue();
-            button.setVisible(screen.getPrivilegeLevel() <= activeUserType.getPrivilegeLevel());
-        });
+        screenHashMap.forEach((button, screen) -> button.setVisible(screen.getPrivilegeLevel() <= activeUserType.getPrivilegeLevel()));
     }
 
     @FXML
