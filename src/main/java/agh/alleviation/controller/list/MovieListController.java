@@ -36,7 +36,7 @@ public class MovieListController extends GenericListController<Movie, MovieServi
         directorColumn.setCellValueFactory(dataValue -> dataValue.getValue().directorProperty());
         genreColumn.setCellValueFactory(dataValue -> dataValue.getValue().getGenre().nameProperty());
 
-        itemObservableList.addAll(service.getAllMovies());
+        itemObservableList.addAll(service.getAllActive());
 
     }
 
@@ -61,7 +61,11 @@ public class MovieListController extends GenericListController<Movie, MovieServi
 
     @Override
     protected void handleDeleteAction(ActionEvent event) {
-
+        Movie movie = itemTable.getSelectionModel().getSelectedItem();
+        if(movie != null) {
+            itemObservableList.remove(movie);
+            service.delete(movie);
+        }
     }
 
     @Autowired

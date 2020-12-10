@@ -1,5 +1,6 @@
 package agh.alleviation.model.user;
 
+import agh.alleviation.model.EntityObject;
 import agh.alleviation.util.UserType;
 import javafx.beans.property.*;
 
@@ -20,7 +21,7 @@ import java.io.*;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = User.TABLE_NAME)
-public abstract class User implements Externalizable {
+public abstract class User extends EntityObject {
 
     /**
      * The constant TABLE_NAME.
@@ -32,10 +33,6 @@ public abstract class User implements Externalizable {
      * The type Columns.
      */
     public static class Columns {
-        /**
-         * The constant ID.
-         */
-        public static final String ID = "id";
         /**
          * The constant NAME.
          */
@@ -53,7 +50,9 @@ public abstract class User implements Externalizable {
     /**
      * Instantiates a new User.
      */
-    public User() {}
+    public User() {
+
+    }
 
     /**
      * Instantiates a new User.
@@ -66,42 +65,19 @@ public abstract class User implements Externalizable {
         setName(name);
         setLogin(login);
         setEmail(email);
+        setIsActive(true);
     }
 
-
-    private final IntegerProperty id = new SimpleIntegerProperty(this, "id");
+    @Transient
     private final ObjectProperty<UserType> userType = new SimpleObjectProperty<>(this, "usertype");
     private final StringProperty name = new SimpleStringProperty(this, "name");
     private final StringProperty login = new SimpleStringProperty(this, "login");
     private final StringProperty email = new SimpleStringProperty(this, "email");
 
-
-    /**
-     * Gets id.
-     *
-     * @return the id
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = Columns.ID)
-    public int getId() {
-        return id.get();
+    @Transient
+    public UserType getUserType() {
+        return userType.get();
     }
-
-    /**
-     * Sets id.
-     *
-     * @param newId the new id
-     */
-    public void setId(int newId) { id.set(newId);}
-
-    /**
-     * Id property integer property.
-     *
-     * @return the integer property
-     */
-    public IntegerProperty idProperty() { return id; }
-
 
     /**
      * Sets user type.
@@ -196,7 +172,8 @@ public abstract class User implements Externalizable {
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeInt(getId());
+//        out.writeInt(getId());
+        super.writeExternal(out);
         out.writeObject(getName());
         out.writeObject(getLogin());
         out.writeObject(getEmail());
@@ -204,6 +181,7 @@ public abstract class User implements Externalizable {
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        super.readExternal(in);
         setId(in.readInt());
         setName((String) in.readObject());
         setLogin((String) in.readObject());

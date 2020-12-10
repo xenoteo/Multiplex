@@ -23,7 +23,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = Order.TABLE_NAME)
-public class Order implements Externalizable {
+public class Order extends EntityObject{
     /**
      * The constant TABLE_NAME.
      */
@@ -33,10 +33,6 @@ public class Order implements Externalizable {
      * The type Columns.
      */
     public static class Columns {
-        /**
-         * The constant ID.
-         */
-        public static final String ID = "id";
         /**
          * The constant TICKETS.
          */
@@ -53,7 +49,6 @@ public class Order implements Externalizable {
     public Order() {
     }
 
-    private final IntegerProperty idProperty = new SimpleIntegerProperty(this, "id");
     private final ObjectProperty<List<Ticket>> ticketsProperty = new SimpleObjectProperty<>();
     private final ObjectProperty<Customer> customerProperty = new SimpleObjectProperty<>();
 
@@ -67,34 +62,8 @@ public class Order implements Externalizable {
     public Order(List<Ticket> tickets, Customer customer){
         setTickets(tickets);
         setCustomer(customer);
+        setIsActive(true);
     }
-
-
-    /**
-     * Id property integer property.
-     *
-     * @return the integer property
-     */
-    public IntegerProperty idProperty() { return idProperty; }
-
-    /**
-     * Gets id.
-     *
-     * @return the id
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = Columns.ID)
-    public int getId() {
-        return idProperty.get();
-    }
-
-    /**
-     * Sets id.
-     *
-     * @param id the id
-     */
-    public void setId(int id) { idProperty.set(id);}
 
 
     /**
@@ -155,14 +124,16 @@ public class Order implements Externalizable {
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeInt(getId());
+//        out.writeInt(getId());
+        super.writeExternal(out);
         out.writeObject(getTickets());
         out.writeObject(getCustomer());
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        setId(in.readInt());
+//        setId(in.readInt());
+        super.readExternal(in);
         setTickets((List<Ticket>) in.readObject());
         setCustomer((Customer) in.readObject());
     }

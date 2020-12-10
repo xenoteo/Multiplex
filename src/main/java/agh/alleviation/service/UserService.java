@@ -27,9 +27,8 @@ import java.util.stream.Collectors;
  */
 @Service
 @Transactional
-public class UserService {
+public class UserService extends EntityObjectService<User, UserRepository> {
 
-    private final UserRepository userRepository;
     private final CustomerRepository customerRepository;
 
     /**
@@ -40,7 +39,7 @@ public class UserService {
      */
     @Autowired
     public UserService(UserRepository userRepository, CustomerRepository customerRepository){
-        this.userRepository = userRepository;
+        this.repository = userRepository;
         this.customerRepository = customerRepository;
     }
 
@@ -71,23 +70,19 @@ public class UserService {
         User newUser;
 
         newUser = switch (type) {
-            case ADMIN -> new Admin();
-            case WORKER -> new Worker();
-            default -> new Customer();
+            case ADMIN -> new Admin(name, login, email);
+            case WORKER -> new Worker(name, login, email);
+            default -> new Customer(name, login, email);
         };
 
         newUser.setUserType(type);
-        newUser.setEmail(email);
-        newUser.setName(name);
-        newUser.setLogin(login);
-
-        userRepository.save(newUser);
+        repository.save(newUser);
 
         return newUser;
     }
 
     public void updateUser(User user) {
-        userRepository.save(user);
+        repository.save(user);
     }
 
     /**
@@ -96,7 +91,7 @@ public class UserService {
      * @return the list
      */
     public List<User> getAllUsers(){
-        return userRepository.findAll().stream().map(this::setUserType).collect(Collectors.toList());
+        return repository.findAll().stream().map(this::setUserType).collect(Collectors.toList());
     }
 
     /**
@@ -115,11 +110,11 @@ public class UserService {
      * @return the user
      */
     public User getUserByLogin(String login){
-        return setUserType(userRepository.findByLogin(login));
+        return setUserType(repository.findByLogin(login));
     }
 
     public void delete(User user){
-        userRepository.delete(user);
+        repository.delete(user);
     }
 
 }

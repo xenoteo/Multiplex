@@ -1,5 +1,7 @@
 package agh.alleviation.model.user;
 
+import agh.alleviation.util.UserType;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -17,5 +19,13 @@ public class Worker extends User {
      * The constant TABLE_NAME.
      */
     public static final String TABLE_NAME = "worker";
+
+    public Worker(){
+        setUserType(UserType.WORKER);
+    }
+
+    public Worker(final String name, final String login, final String email){
+        super(name, login, email);
+    }
 
 }

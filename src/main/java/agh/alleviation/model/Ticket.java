@@ -18,7 +18,7 @@ import java.io.ObjectOutput;
  */
 @Entity
 @Table(name = Ticket.TABLE_NAME)
-public class Ticket implements Externalizable {
+public class Ticket extends EntityObject {
     /**
      * The constant TABLE_NAME.
      */
@@ -30,10 +30,6 @@ public class Ticket implements Externalizable {
      */
     public static class Columns {
         /**
-         * The constant ID.
-         */
-        public static final String ID = "id";
-        /**
          * The constant SEANCE.
          */
         public static final String SEANCE = "seance";
@@ -43,7 +39,6 @@ public class Ticket implements Externalizable {
         public static final String PRICE = "price";
     }
 
-    private final IntegerProperty idProperty = new SimpleIntegerProperty(this, "id");
     private final ObjectProperty<Seance> seanceProperty = new SimpleObjectProperty<>();
     private final DoubleProperty priceProperty = new SimpleDoubleProperty(this, "price");
 
@@ -63,34 +58,9 @@ public class Ticket implements Externalizable {
     public Ticket(Seance seance, double price) {
         setSeance(seance);
         setPrice(price);
+        setIsActive(true);
     }
 
-
-    /**
-     * Id property integer property.
-     *
-     * @return the integer property
-     */
-    public IntegerProperty idProperty() { return idProperty; }
-
-    /**
-     * Gets id.
-     *
-     * @return the id
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = Columns.ID)
-    public int getId() {
-        return idProperty.get();
-    }
-
-    /**
-     * Sets id.
-     *
-     * @param id the id
-     */
-    public void setId(int id) { idProperty.set(id);}
 
 
     /**
@@ -147,14 +117,17 @@ public class Ticket implements Externalizable {
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeInt(getId());
+        super.writeExternal(out);
+//        out.writeInt(getId());
         out.writeObject(getSeance());
         out.writeObject(getPrice());
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        setId(in.readInt());
+        super.readExternal(in);
+//        setId(in.readInt());
+//        setIsActive(in.readBoolean());
         setSeance((Seance) in.readObject());
         setPrice(in.readInt());
     }
