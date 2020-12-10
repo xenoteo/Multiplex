@@ -12,6 +12,7 @@ import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Component
@@ -26,7 +27,7 @@ public class SeanceListController extends GenericListController<Seance, SeanceSe
     public TableColumn<Seance, Number> hallColumn;
 
     @FXML
-    public TableColumn<Seance, Date> dateColumn;
+    public TableColumn<Seance, LocalDateTime> dateColumn;
 
     @FXML
     public TableColumn<Seance, Number> priceColumn;
@@ -38,7 +39,6 @@ public class SeanceListController extends GenericListController<Seance, SeanceSe
         hallColumn.setCellValueFactory(dataValue -> dataValue.getValue().getHall().numberProperty());
         dateColumn.setCellValueFactory(dataValue -> dataValue.getValue().dateProperty());
         priceColumn.setCellValueFactory(dataValue -> dataValue.getValue().priceProperty());
-
         itemObservableList.addAll(service.getAllActive());
     }
 
@@ -51,6 +51,7 @@ public class SeanceListController extends GenericListController<Seance, SeanceSe
     protected void handleEditAction(ActionEvent event) {
 
     }
+
 
     @Override
     protected void handleDeleteAction(ActionEvent event) {

@@ -6,6 +6,10 @@ import agh.alleviation.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.Month;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -83,7 +87,7 @@ public class DataLoader {
      */
     public void populateSeances(){
 
-        Date date = new Date(2020, Calendar.DECEMBER, 12, 12, 0);
+        LocalDateTime date = LocalDateTime.of(2020, Month.DECEMBER, 12, 12, 0);
         double price = 25.00;
 
         Movie movie1 = movieService.getAllMovies().get(0);

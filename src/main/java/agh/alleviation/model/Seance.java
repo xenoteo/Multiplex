@@ -3,10 +3,10 @@ package agh.alleviation.model;
 import javafx.beans.property.*;
 
 import javax.persistence.*;
-import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -53,7 +53,7 @@ public class Seance extends EntityObject {
 
     private final ObjectProperty<Movie> movieProperty = new SimpleObjectProperty<>();
     private final ObjectProperty<Hall> hallProperty = new SimpleObjectProperty<>();
-    private final ObjectProperty<Date> dateProperty = new SimpleObjectProperty<>();
+    private final ObjectProperty<LocalDateTime> dateProperty = new SimpleObjectProperty<>();
     private final DoubleProperty priceProperty = new SimpleDoubleProperty(this, "price");
     private final ObjectProperty<List<Ticket>> tickets = new SimpleObjectProperty<>();
 
@@ -72,7 +72,7 @@ public class Seance extends EntityObject {
      * @param date  the date
      * @param price the price
      */
-    public Seance(Movie movie, Hall hall, Date date, double price){
+    public Seance(Movie movie, Hall hall, LocalDateTime date, double price){
         setMovie(movie);
         setHall(hall);
         setDate(date);
@@ -143,7 +143,7 @@ public class Seance extends EntityObject {
      *
      * @return the object property
      */
-    public ObjectProperty<Date> dateProperty(){
+    public ObjectProperty<LocalDateTime> dateProperty(){
         return dateProperty;
     }
 
@@ -153,7 +153,7 @@ public class Seance extends EntityObject {
      * @return the date
      */
     @Column(name = Columns.DATE)
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return dateProperty.getValue();
     }
 
@@ -162,7 +162,7 @@ public class Seance extends EntityObject {
      *
      * @param date the date
      */
-    public void setDate(Date date){
+    public void setDate(LocalDateTime date){
         dateProperty.setValue(date);
     }
 
@@ -197,11 +197,10 @@ public class Seance extends EntityObject {
 
     public ObjectProperty<List<Ticket>> ticketsProperty(){ return tickets; }
 
-    @OneToMany(orphanRemoval = true)
+    @OneToMany(orphanRemoval = true, cascade = {CascadeType.PERSIST})
     public List<Ticket> getTickets(){ return tickets.get(); }
 
     public void setTickets(List<Ticket> tickets){ this.tickets.set(tickets);}
-
 
 
     @Override
@@ -211,14 +210,21 @@ public class Seance extends EntityObject {
         out.writeObject(getMovie());
         out.writeObject(getDate());
         out.writeObject(getPrice());
+        out.writeObject(getTickets());
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         super.readExternal(in);
         setMovie((Movie) in.readObject());
-        setDate((Date) in.readObject());
+        setDate((LocalDateTime) in.readObject());
         setPrice(in.readDouble());
+        setTickets((List<Ticket>) in.readObject());
+    }
 
+    @Override
+    public void delete(){
+        super.delete();
+        getTickets().forEach(Ticket::delete);
     }
 }
