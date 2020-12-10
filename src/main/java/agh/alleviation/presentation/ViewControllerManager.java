@@ -132,8 +132,14 @@ public class ViewControllerManager {
 
     public boolean showLoginDialog(){
         activeUser = new AccessDialog(primaryStage, fxWeaver).showLoginDialog();
-        activeUserType = activeUser.getUserType();
-        return activeUser != null;
+        if (activeUser != null){
+            activeUserType = activeUser.getUserType();
+            return true;
+        }
+        else {
+            activeUserType = null;
+            return false;
+        }
     }
 
     public void showRegistrationDialog(){
