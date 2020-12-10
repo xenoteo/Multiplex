@@ -9,11 +9,11 @@
 
 <BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agh.alleviation.controller.MovieListController">
     <center>
-        <TableView fx:id="hallTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <TableView fx:id="movieTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <columns>
-                <TableColumn fx:id="numberColumn" prefWidth="75.0" text="Name" />
-                <TableColumn fx:id="capacityColumn" prefWidth="75.0" text="Genre" />
-            <TableColumn fx:id="numberColumn1" prefWidth="75.0" text="Director" />
+                <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Name" />
+                <TableColumn fx:id="genreColumn" prefWidth="75.0" text="Genre" />
+            <TableColumn fx:id="directorColumn" prefWidth="75.0" text="Director" />
             </columns>
         </TableView>
     </center>
