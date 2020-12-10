@@ -1,6 +1,5 @@
 package agh.alleviation.controller.access_dialog;
 
-import agh.alleviation.model.user.User;
 import agh.alleviation.service.UserService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -16,7 +15,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @FxmlView("/views/LoginDialog.fxml")
-public class LoginDialogController extends AccessController{
+public class LoginDialogController extends AccessDialogController {
 
     @FXML
     private TextField loginField;

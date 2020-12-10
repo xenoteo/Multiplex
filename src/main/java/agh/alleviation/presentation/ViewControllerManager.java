@@ -140,10 +140,14 @@ public class ViewControllerManager {
      */
     public boolean showLoginDialog(){
         updateActiveUser(
-                new AccessDialog<>(primaryStage, fxWeaver.load(LoginDialogController.class)).showLoginDialog());
+                new AccessDialogViewer<>(primaryStage, fxWeaver.load(LoginDialogController.class)).showLoginDialog());
         return (activeUser != null);
     }
 
+    /**
+     * Updates active user.
+     * @param user new user
+     */
     private void updateActiveUser(User user){
         activeUser = user;
         activeUserType = (activeUser != null) ? activeUser.getUserType() : null;
@@ -153,6 +157,6 @@ public class ViewControllerManager {
      * Shows registration dialog.
      */
     public void showRegistrationDialog(){
-        new AccessDialog<>(primaryStage, fxWeaver.load(RegistrationDialogController.class)).showRegisterDialog();
+        new AccessDialogViewer<>(primaryStage, fxWeaver.load(RegistrationDialogController.class)).showRegisterDialog();
     }
 }

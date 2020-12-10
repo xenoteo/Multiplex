@@ -5,7 +5,14 @@ import agh.alleviation.service.UserService;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public abstract class AccessController {
+/**
+ * Abstract access controller.
+ * 
+ * @see LoginDialogController
+ * @see RegistrationDialogController
+ * @author Ksenia Fiodarava
+ */
+public abstract class AccessDialogController {
     /**
      * Stage on which modal is placed.
      */
@@ -21,8 +28,12 @@ public abstract class AccessController {
      */
     protected User user;
 
+    /**
+     * Instantiates a new access dialog controller.
+     * @param userService the user service
+     */
     @Autowired
-    public AccessController(UserService userService) {
+    public AccessDialogController(UserService userService) {
         this.userService = userService;
     }
 

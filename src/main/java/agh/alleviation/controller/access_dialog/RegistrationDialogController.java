@@ -10,9 +10,14 @@ import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
 
+/**
+ * Controller responsible for user's registration.
+ *
+ * @author Ksenia Fiodarava
+ */
 @Component
 @FxmlView("/views/RegistrationDialog.fxml")
-public class RegistrationDialogController extends AccessController{
+public class RegistrationDialogController extends AccessDialogController {
 
     @FXML
     private TextField nameField;

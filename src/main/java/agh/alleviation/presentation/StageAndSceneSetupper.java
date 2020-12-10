@@ -5,6 +5,12 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * Helper class responsible for setting up a stage and a scene.
+ *
+ * @see ItemDialogContext
+ * @see AccessDialogViewer
+ */
 public abstract class StageAndSceneSetupper {
     protected Stage primaryStage;
 
