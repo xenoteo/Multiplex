@@ -68,9 +68,12 @@ public class Movie extends EntityObject {
      * @param name  the name
      * @param genre the genre
      */
-    public Movie(final String name, Genre genre) {
+    public Movie(final String name, Genre genre, String description, String director, String actors) {
         setName(name);
         setGenre(genre);
+        setDescription(description);
+        setDirector(director);
+        setActors(actors);
         setIsActive(true);
     }
 
@@ -185,6 +188,8 @@ public class Movie extends EntityObject {
      * @param actors the actors
      */
     public void setActors(String actors){ this.actors.set(actors); }
+
+    public StringProperty actorsProperty() { return this.actors; }
 
     @OneToMany(orphanRemoval = true)
     public List<Seance> getSeances(){ return seances.get(); }

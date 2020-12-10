@@ -1,12 +1,7 @@
 package agh.alleviation.controller.list;
 
-import agh.alleviation.controller.GenericController;
-import agh.alleviation.model.Hall;
 import agh.alleviation.model.Movie;
-import agh.alleviation.presentation.Screen;
 import agh.alleviation.service.MovieService;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -19,28 +14,42 @@ import org.springframework.stereotype.Component;
 public class MovieListController extends GenericListController<Movie, MovieService> {
 
     @FXML
-    public TableColumn<Movie, String> nameColumn;
+    public Button addMovie;
 
     @FXML
-    public TableColumn<Movie, String> directorColumn;
+    public Button addSeance;
+
+    @FXML
+    public TableColumn<Movie, String> nameColumn;
 
     @FXML
     public TableColumn<Movie, String> genreColumn;
 
     @FXML
+    public TableColumn<Movie, String> descriptionColumn;
+
+    @FXML
+    public TableColumn<Movie, String> directorColumn;
+
+    @FXML
+    public TableColumn<Movie, String> actorsColumn;
+
+    @FXML
     public void initialize() {
         super.initialize();
+
         nameColumn.setCellValueFactory(dataValue -> dataValue.getValue().nameProperty());
+        genreColumn.setCellValueFactory(dataValue -> dataValue.getValue().genreProperty().asString());
+        descriptionColumn.setCellValueFactory(dataValue -> dataValue.getValue().descriptionProperty());
         directorColumn.setCellValueFactory(dataValue -> dataValue.getValue().directorProperty());
-        genreColumn.setCellValueFactory(dataValue -> dataValue.getValue().getGenre().nameProperty());
+        actorsColumn.setCellValueFactory(dataValue -> dataValue.getValue().actorsProperty());
 
         itemObservableList.addAll(service.getAllActive());
-
     }
 
 
-    @FXML
-    public void handleAddAction(ActionEvent event) {
+    @Override
+    protected void handleAddAction(ActionEvent event) {
         Button button = (Button) event.getSource();
         String buttonId = button.getId();
         switch (buttonId) {
@@ -53,12 +62,14 @@ public class MovieListController extends GenericListController<Movie, MovieServi
             case "addSeance" -> System.out.println("Add Seance");   //in the future viewControllerManager.showAddSeanceDialog();
             default -> System.out.println("No action");
         }
-
     }
 
     @Override
     protected void handleEditAction(ActionEvent event) {
-
+        Movie movie = itemTable.getSelectionModel().getSelectedItem();
+        if(movie != null) {
+            viewControllerManager.getMovieDialogContext().showEditItemDialog(movie);
+        }
     }
 
     @Override

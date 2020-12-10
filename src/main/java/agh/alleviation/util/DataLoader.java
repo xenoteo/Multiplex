@@ -74,8 +74,8 @@ public class DataLoader {
      * Populate movies.
      */
     public void populateMovies(){
-        Movie movie1 = movieService.addMovie("Erlang: the movie", "fantasy");
-        Movie movie2 = movieService.addMovie("Erlang: the musical", "musical");
+        Movie movie1 = movieService.addMovie("Erlang: the movie", "fantasy", "Great movie", "Joe", "Mike,Robert");
+        Movie movie2 = movieService.addMovie("Erlang: the musical", "musical", "Even greater movie", "Mike", "Joe,Robert");
     }
 
     /**

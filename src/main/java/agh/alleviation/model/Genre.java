@@ -85,6 +85,11 @@ public class Genre extends EntityObject  {
     public StringProperty nameProperty(){ return  this.name; }
 
     @Override
+    public String toString() {
+        return name.get();
+    }
+
+    @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         super.writeExternal(out);
 //        out.writeInt(getId());

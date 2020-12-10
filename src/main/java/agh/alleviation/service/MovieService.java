@@ -22,7 +22,6 @@ import java.util.stream.StreamSupport;
 @Service
 @Transactional
 public class MovieService extends EntityObjectService<Movie, MovieRepository>{
-//    private final MovieRepository movieRepository;
     private final GenreRepository genreRepository;
 
     /**
@@ -41,29 +40,29 @@ public class MovieService extends EntityObjectService<Movie, MovieRepository>{
      * Add movie movie.
      *
      * @param name  the name
-     * @param genre the genre
+     * @param genreName the genre
      * @return the movie
      */
-    public Movie addMovie(String name, String genreName) {
-        Genre genre = genreRepository.findByName(genreName);
-        if(genre == null) genre = addGenre(genreName);
-        Movie movie = new Movie(name, genre);
+    public Movie addMovie(String name, String genreName, String description, String director, String actors) {
+        Genre genre = getGenre(genreName);
+        Movie movie = new Movie(name, genre, description, director, actors);
         repository.save(movie);
         return movie;
     }
 
     public void updateMovie(Movie movie) {
-        movieRepository.save(movie);
+        repository.save(movie);
     }
 
     /**
-     * Add genre genre.
+     * Add genre
      *
      * @param name the name
      * @return the genre
      */
-    public Genre addGenre(String name){
-        Genre genre = new Genre(name);
+    public Genre getGenre(String name){
+        Genre genre = genreRepository.findByName(name);
+        if(genre == null) genre = new Genre(name);
         genreRepository.save(genre);
         return genre;
     }
