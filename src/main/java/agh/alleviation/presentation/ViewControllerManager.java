@@ -1,9 +1,9 @@
 package agh.alleviation.presentation;
 
 import agh.alleviation.controller.*;
-//import agh.alleviation.controller.edit_dialog.EditDialogController;
-//import agh.alleviation.controller.edit_dialog.EditHallDialogController;
-//import agh.alleviation.controller.edit_dialog.EditUserDialogController;
+import agh.alleviation.controller.edit_dialog.EditDialogController;
+import agh.alleviation.controller.edit_dialog.EditHallDialogController;
+import agh.alleviation.controller.edit_dialog.EditUserDialogController;
 import agh.alleviation.model.Hall;
 import agh.alleviation.model.user.User;
 import javafx.scene.Node;

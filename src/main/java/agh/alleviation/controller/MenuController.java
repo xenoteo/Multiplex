@@ -17,9 +17,9 @@ public class MenuController extends GenericController {
 
     @FXML
     public void handleActiveButtonChanged(ActionEvent event){
-        ToggleButton command = (ToggleButton) event.getSource();
-        String id = command.getId();
-        Screen newScreen = switch (id) {
+        ToggleButton button = (ToggleButton) event.getSource();
+        String buttonId = button.getId();
+        Screen newScreen = switch (buttonId) {
             case "users" -> Screen.USER_LIST;
             case "halls" -> Screen.HALL_LIST;
             case "movies" -> Screen.MOVIE_LIST;
