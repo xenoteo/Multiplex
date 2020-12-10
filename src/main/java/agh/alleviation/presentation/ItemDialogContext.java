@@ -9,14 +9,12 @@ import net.rgielen.fxweaver.core.FxControllerAndView;
 import net.rgielen.fxweaver.core.FxWeaver;
 
 public class ItemDialogContext<Item, Controller extends EditDialogController<Item>> {
-    Class<Controller> controllerClass;
     Stage primaryStage;
-    FxWeaver fxWeaver;
+    FxControllerAndView<Controller, Pane> controllerAndView;
 
-    public ItemDialogContext(Class<Controller> controllerClass, Stage primaryStage, FxWeaver fxWeaver) {
-        this.controllerClass = controllerClass;
+    public ItemDialogContext(Stage primaryStage, FxControllerAndView<Controller, Pane> controllerAndView) {
         this.primaryStage = primaryStage;
-        this.fxWeaver = fxWeaver;
+        this.controllerAndView = controllerAndView;
     }
 
     private Stage setupStageAndScene(Pane root, String title) {
@@ -31,7 +29,6 @@ public class ItemDialogContext<Item, Controller extends EditDialogController<Ite
     }
 
     private Item showItemDialog(String title, Item item) {
-        FxControllerAndView<Controller, Pane> controllerAndView = fxWeaver.load(controllerClass);
         Stage stage = setupStageAndScene(controllerAndView.getView().get(), title);
         Controller controller = controllerAndView.getController();
         controller.setDialogStage(stage);

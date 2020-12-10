@@ -37,19 +37,22 @@ public class MovieListController extends GenericListController<Movie, MovieServi
         genreColumn.setCellValueFactory(dataValue -> dataValue.getValue().getGenre().nameProperty());
 
         itemObservableList.addAll(service.getAllMovies());
-
     }
 
 
     @FXML
     public void handleAddAction(ActionEvent event) {
-
         Button button = (Button) event.getSource();
         String buttonId = button.getId();
         switch (buttonId) {
-            case "addMovie" -> System.out.println("Add Movie");     //in the future viewControllerManager.showAddMovieDialog();
+            case "addMovie" -> {
+                Movie movie = viewControllerManager.getMovieDialogContext().showAddItemDialog();
+                if(movie != null) {
+                    itemObservableList.add(movie);
+                }
+            }
             case "addSeance" -> System.out.println("Add Seance");   //in the future viewControllerManager.showAddSeanceDialog();
-            default -> System.out.println("");
+            default -> System.out.println("No action");
         }
 
     }
