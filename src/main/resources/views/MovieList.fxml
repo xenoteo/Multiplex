@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agh.alleviation.controller.MovieListController">
+    <center>
+        <TableView fx:id="hallTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <columns>
+                <TableColumn fx:id="numberColumn" prefWidth="75.0" text="Name" />
+                <TableColumn fx:id="capacityColumn" prefWidth="75.0" text="Genre" />
+            <TableColumn fx:id="numberColumn1" prefWidth="75.0" text="Director" />
+            </columns>
+        </TableView>
+    </center>
+   <right>
+      <VBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+                <Button fx:id="addMovie" mnemonicParsing="false" onAction="#handleAddAction" prefHeight="28.0" prefWidth="100.0" text="Add" textAlignment="CENTER">
+                    <opaqueInsets>
+                        <Insets />
+                    </opaqueInsets>
+                </Button>
+            <Button fx:id="addSeance" mnemonicParsing="false" onAction="#handleAddAction" text="Add Seance" textAlignment="CENTER" />
+         </children>
+         <BorderPane.margin>
+            <Insets top="10.0" />
+         </BorderPane.margin>
+      </VBox>
+   </right>
+</BorderPane>

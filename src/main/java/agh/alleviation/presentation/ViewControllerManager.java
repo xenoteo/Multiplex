@@ -1,20 +1,20 @@
 package agh.alleviation.presentation;
 
 import agh.alleviation.controller.*;
-import agh.alleviation.controller.edit_dialog.EditDialogController;
 import agh.alleviation.controller.edit_dialog.EditHallDialogController;
 import agh.alleviation.controller.edit_dialog.EditUserDialogController;
 import agh.alleviation.model.Hall;
 import agh.alleviation.model.user.User;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxControllerAndView;
 import net.rgielen.fxweaver.core.FxWeaver;
 
-import java.io.Externalizable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * ViewControllerManager is responsible for setting up the controllers of the application.
@@ -28,6 +28,7 @@ public class ViewControllerManager {
     private FxWeaver fxWeaver;
     private Stage primaryStage;
     private ScreenSwitcher screenSwitcher;
+    private List<FxControllerAndView<? extends GenericController, Node>> controllersAndViews;
 
     /**
      * Instantiates a new View controller manager.
@@ -52,6 +53,13 @@ public class ViewControllerManager {
     /**
      * Loads controllers into the FxWeaver and sets them up with corresponding views.
      */
+
+    private FxControllerAndView<? extends GenericController, Node> addToControllersAndViews(Class<? extends GenericController> controller){
+        var controllerAndView = fxWeaver.load(controller);
+        controllersAndViews.add(controllerAndView);
+        return controllerAndView;
+    }
+
     public void setViewsAndControllers() {
         BorderPane borderPane = new BorderPane();
         Scene scene = new Scene(borderPane);
@@ -59,17 +67,17 @@ public class ViewControllerManager {
 
         borderPane.setPrefHeight(400);
 
-        var menuBar = fxWeaver.load(MenuController.class);
+        controllersAndViews = new ArrayList<>();
+
+        var menuBar= addToControllersAndViews(MenuController.class);
+        var main  = addToControllersAndViews(MainController.class);
+        var userList = addToControllersAndViews(UserListController.class);
+        var hallList = addToControllersAndViews(HallListController.class);
+        var movieList = addToControllersAndViews(MovieListController.class);
+
+        controllersAndViews.forEach(cv -> cv.getController().setAppController(this));
+
         borderPane.setTop(menuBar.getView().get());
-
-        var main = fxWeaver.load(MainController.class);
-        var userList = fxWeaver.load(UserListController.class);
-        var hallList = fxWeaver.load(HallListController.class);
-
-        menuBar.getController().setAppController(this);
-        main.getController().setAppController(this);
-        userList.getController().setAppController(this);
-        hallList.getController().setAppController(this);
 
         Pane mainRoot = (Pane) main.getView().get();
         screenSwitcher.addScreen(Screen.MAIN, mainRoot);
@@ -77,7 +85,8 @@ public class ViewControllerManager {
         screenSwitcher.addScreen(Screen.USER_LIST, userListRoot);
         Pane hallListRoot = (Pane) hallList.getView().get();
         screenSwitcher.addScreen(Screen.HALL_LIST, hallListRoot);
-
+        Pane movieListRoot = (Pane) movieList.getView().get();
+        screenSwitcher.addScreen(Screen.MOVIE_LIST, movieListRoot);
         borderPane.setCenter(mainRoot);
 
         primaryStage.setScene(scene);
@@ -91,14 +100,6 @@ public class ViewControllerManager {
     public void switchView(Screen screen) {
         this.screenSwitcher.activate(screen);
     }
-
-//    public ItemDialogContext<? extends Externalizable, ?> getItemDialogContext(Class<?> itemClass) {
-//        if(itemClass.equals(User.class)) {
-//            return new ItemDialogContext<>(EditUserDialogController.class, primaryStage, fxWeaver);
-//        } else if(itemClass.equals(Hall.class)) {
-//            return new ItemDialogContext<>(EditHallDialogController.class, primaryStage, fxWeaver);
-//        }
-//    }
 
     public ItemDialogContext<User, EditUserDialogController> getUserDialogContext() {
         return new ItemDialogContext<>(EditUserDialogController.class, primaryStage, fxWeaver);

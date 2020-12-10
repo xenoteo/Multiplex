@@ -3,7 +3,7 @@ package agh.alleviation.presentation;
 /**
  * Enum representing navigable screens in application
  *
- * @author Kamil Krzempek
+ * @author Kamil Krzempek, Anna Nosek
  */
 public enum Screen {
     /**
@@ -17,5 +17,11 @@ public enum Screen {
     /**
      * Hall list screen.
      */
-    HALL_LIST
+    HALL_LIST,
+
+
+    MOVIE_LIST,
+
+    SEANCE_LIST
+
 }
