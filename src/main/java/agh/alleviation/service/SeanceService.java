@@ -1,6 +1,7 @@
 package agh.alleviation.service;
 
 import agh.alleviation.model.*;
+import agh.alleviation.persistence.MovieRepository;
 import agh.alleviation.persistence.SeanceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ import java.util.stream.StreamSupport;
 @Transactional
 public class SeanceService extends EntityObjectService<Seance, SeanceRepository> {
 
+    private MovieRepository movieRepository;
     /**
      * Instantiates a new Seance service.
      *
@@ -30,6 +32,7 @@ public class SeanceService extends EntityObjectService<Seance, SeanceRepository>
     @Autowired
     public SeanceService(SeanceRepository seanceRepository) {
         this.repository = seanceRepository;
+        this.movieRepository = movieRepository;
     }
 
     /**
@@ -42,6 +45,8 @@ public class SeanceService extends EntityObjectService<Seance, SeanceRepository>
      */
     public void addSeance(Movie movie, Hall hall, Date date, double price){
         Seance seance = new Seance(movie, hall, date, price);
+        movie = movieRepository.findByIdWithSeances(movie.getId()).get(0);
+        movie.addSeance(seance);
         repository.save(seance);
     }
 

@@ -84,4 +84,9 @@ public class MovieService extends EntityObjectService<Movie, MovieRepository>{
 
 
     public List<Movie> getActiveMovies(){ return repository.findAll().stream().filter(Movie::getIsActive).collect(Collectors.toList()); }
+
+    public void delete(Movie movie){
+        movie = repository.findByIdWithSeances(movie.getId()).get(0);
+        super.delete(movie);
+    }
 }
