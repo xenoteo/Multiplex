@@ -21,8 +21,8 @@ import java.util.stream.StreamSupport;
  */
 @Service
 @Transactional
-public class MovieService {
-    private final MovieRepository movieRepository;
+public class MovieService extends EntityObjectService<Movie, MovieRepository>{
+//    private final MovieRepository movieRepository;
     private final GenreRepository genreRepository;
 
     /**
@@ -33,7 +33,7 @@ public class MovieService {
      */
     @Autowired
     public MovieService(MovieRepository movieRepository, GenreRepository genreRepository) {
-        this.movieRepository = movieRepository;
+        this.repository = movieRepository;
         this.genreRepository = genreRepository;
     }
 
@@ -48,7 +48,7 @@ public class MovieService {
         Genre genre = genreRepository.findByName(genreName);
         if(genre == null) genre = addGenre(genreName);
         Movie movie = new Movie(name, genre);
-        movieRepository.save(movie);
+        repository.save(movie);
         return movie;
     }
 
@@ -76,7 +76,7 @@ public class MovieService {
      * @return the movie
      */
     public Movie findMovie(String name) {
-        return movieRepository.findByName(name);
+        return repository.findByName(name);
     }
 
     /**
@@ -85,10 +85,9 @@ public class MovieService {
      * @return the all movies
      */
     public List<Movie> getAllMovies() {
-        return movieRepository.findAll();
+        return repository.findAll();
     }
 
-    public void delete(Movie movie){
-        movieRepository.delete(movie);
-    }
+
+    public List<Movie> getActiveMovies(){ return repository.findAll().stream().filter(Movie::getIsActive).collect(Collectors.toList()); }
 }

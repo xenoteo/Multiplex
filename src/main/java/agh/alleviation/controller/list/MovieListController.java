@@ -14,8 +14,6 @@ import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.sql.SQLOutput;
-
 @Component
 @FxmlView("/views/MovieList.fxml")
 public class MovieListController extends GenericListController<Movie, MovieService> {
@@ -36,7 +34,8 @@ public class MovieListController extends GenericListController<Movie, MovieServi
         directorColumn.setCellValueFactory(dataValue -> dataValue.getValue().directorProperty());
         genreColumn.setCellValueFactory(dataValue -> dataValue.getValue().getGenre().nameProperty());
 
-        itemObservableList.addAll(service.getAllMovies());
+        itemObservableList.addAll(service.getAllActive());
+
     }
 
 
@@ -64,7 +63,11 @@ public class MovieListController extends GenericListController<Movie, MovieServi
 
     @Override
     protected void handleDeleteAction(ActionEvent event) {
-
+        Movie movie = itemTable.getSelectionModel().getSelectedItem();
+        if(movie != null) {
+            itemObservableList.remove(movie);
+            service.delete(movie);
+        }
     }
 
     @Autowired

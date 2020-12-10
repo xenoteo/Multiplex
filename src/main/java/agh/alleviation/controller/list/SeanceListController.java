@@ -1,6 +1,7 @@
 package agh.alleviation.controller.list;
 
 import agh.alleviation.controller.GenericController;
+import agh.alleviation.model.Hall;
 import agh.alleviation.model.Seance;
 import agh.alleviation.presentation.Screen;
 import agh.alleviation.service.SeanceService;
@@ -38,7 +39,7 @@ public class SeanceListController extends GenericListController<Seance, SeanceSe
         dateColumn.setCellValueFactory(dataValue -> dataValue.getValue().dateProperty());
         priceColumn.setCellValueFactory(dataValue -> dataValue.getValue().priceProperty());
 
-        itemObservableList.addAll(service.getAllSeances());
+        itemObservableList.addAll(service.getAllActive());
     }
 
     @Override
@@ -53,7 +54,11 @@ public class SeanceListController extends GenericListController<Seance, SeanceSe
 
     @Override
     protected void handleDeleteAction(ActionEvent event) {
-
+        Seance seance = itemTable.getSelectionModel().getSelectedItem();
+        if(seance != null) {
+            itemObservableList.remove(seance);
+            service.delete(seance);
+        }
     }
 
     @Autowired

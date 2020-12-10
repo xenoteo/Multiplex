@@ -17,7 +17,7 @@ import java.io.ObjectOutput;
  * */
 @Entity
 @Table(name = Hall.TABLE_NAME)
-public class Hall implements Externalizable {
+public class Hall extends EntityObject{
     /**
      * The constant TABLE_NAME.
      */
@@ -28,10 +28,6 @@ public class Hall implements Externalizable {
      */
     public static class Columns {
         /**
-         * The constant ID.
-         */
-        public static final String ID = "id";
-        /**
          * The constant CAPACITY.
          */
         public static final String CAPACITY = "capacity";
@@ -41,7 +37,6 @@ public class Hall implements Externalizable {
         public static final String NUMBER = "number";
     }
 
-    private final IntegerProperty idProperty = new SimpleIntegerProperty(this, "id");
     private final IntegerProperty capacityProperty = new SimpleIntegerProperty(this, "capacity");
     private final IntegerProperty numberProperty = new SimpleIntegerProperty(this, "number");
 
@@ -59,37 +54,10 @@ public class Hall implements Externalizable {
      * @param number   the number
      */
     public Hall(int capacity, int number) {
-
         setCapacity(capacity);
         setNumber(number);
+        setIsActive(true);
     }
-
-
-    /**
-     * Id property integer property.
-     *
-     * @return the integer property
-     */
-    public IntegerProperty idProperty() { return idProperty; }
-
-    /**
-     * Gets id.
-     *
-     * @return the id
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = Columns.ID)
-    public int getId() {
-        return idProperty.get();
-    }
-
-    /**
-     * Sets id.
-     *
-     * @param id the id
-     */
-    public void setId(int id) { idProperty.set(id);}
 
 
     /**
@@ -146,14 +114,16 @@ public class Hall implements Externalizable {
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeInt(getId());
+        super.writeExternal(out);
+//        out.writeInt(getId());
         out.writeInt(getCapacity());
         out.writeInt(getNumber());
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        setId(in.readInt());
+        super.readExternal(in);
+//        setId(in.readInt());
         setCapacity(in.readInt());
         setCapacity(in.readInt());
     }

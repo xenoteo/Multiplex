@@ -20,8 +20,7 @@ import java.util.stream.StreamSupport;
  */
 @Service
 @Transactional
-public class SeanceService {
-    private final SeanceRepository seanceRepository;
+public class SeanceService extends EntityObjectService<Seance, SeanceRepository> {
 
     /**
      * Instantiates a new Seance service.
@@ -30,7 +29,7 @@ public class SeanceService {
      */
     @Autowired
     public SeanceService(SeanceRepository seanceRepository) {
-        this.seanceRepository = seanceRepository;
+        this.repository = seanceRepository;
     }
 
     /**
@@ -43,7 +42,7 @@ public class SeanceService {
      */
     public void addSeance(Movie movie, Hall hall, Date date, double price){
         Seance seance = new Seance(movie, hall, date, price);
-        seanceRepository.save(seance);
+        repository.save(seance);
     }
 
     /**
@@ -52,11 +51,7 @@ public class SeanceService {
      * @return the list
      */
     public List<Seance> getAllSeances(){
-        return (List<Seance>) seanceRepository.findAll();
-    }
-
-    public void delete(Seance seance){
-        seanceRepository.delete(seance);
+        return (List<Seance>) repository.findAll();
     }
 
 }

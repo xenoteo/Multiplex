@@ -31,7 +31,7 @@ public class HallListController extends GenericListController<Hall, HallService>
         numberColumn.setCellValueFactory(dataValue -> dataValue.getValue().numberProperty().asObject());
         capacityColumn.setCellValueFactory(dataValue -> dataValue.getValue().capacityProperty().asObject());
 
-        itemObservableList.addAll(service.getAllHalls());
+        itemObservableList.addAll(service.getAllActive());
     }
 
     @FXML
