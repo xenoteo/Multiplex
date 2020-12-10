@@ -46,7 +46,7 @@ public class SeanceService extends EntityObjectService<Seance, SeanceRepository>
      */
     public void addSeance(Movie movie, Hall hall, LocalDateTime date, double price){
         Seance seance = new Seance(movie, hall, date, price);
-        movie = movieRepository.findByIdWithSeances(movie.getId()).get(0);
+        movie = movieRepository.findByIdWithSeances(movie.getId());
         movie.addSeance(seance);
         repository.save(seance);
     }
@@ -62,8 +62,8 @@ public class SeanceService extends EntityObjectService<Seance, SeanceRepository>
 
     @Override
     public void delete(Seance seance){
-        seance = repository.findByIdWitTickets(seance.getId()).get(0);
-        seance.delete();
+        seance = repository.findByIdWitTickets(seance.getId());
+        super.delete(seance);
     }
 
 }

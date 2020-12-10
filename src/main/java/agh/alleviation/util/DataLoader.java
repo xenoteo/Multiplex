@@ -105,7 +105,6 @@ public class DataLoader {
         Ticket ticket = orderService.addTicket(seance, seance.getPrice());
         Customer customer = userService.getAllCustomers().get(0);
         orderService.addOrder(List.of(ticket), customer);
-
     }
 
 

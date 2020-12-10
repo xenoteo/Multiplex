@@ -46,7 +46,7 @@ public class Customer extends User{
      *
      * @return the list
      */
-    @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
     public List<Order> getOrders(){
         return ordersProperty.get();
     }

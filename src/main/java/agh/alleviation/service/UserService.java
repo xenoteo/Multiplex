@@ -27,9 +27,8 @@ import java.util.stream.Collectors;
  */
 @Service
 @Transactional
-public class UserService {
+public class UserService extends  EntityObjectService<User, UserRepository>{
 
-    private final UserRepository userRepository;
     private final CustomerRepository customerRepository;
 
     /**
@@ -40,7 +39,7 @@ public class UserService {
      */
     @Autowired
     public UserService(UserRepository userRepository, CustomerRepository customerRepository){
-        this.userRepository = userRepository;
+        this.repository = userRepository;
         this.customerRepository = customerRepository;
     }
 
@@ -71,23 +70,20 @@ public class UserService {
         User newUser;
 
         newUser = switch (type) {
-            case ADMIN -> new Admin();
-            case WORKER -> new Worker();
-            default -> new Customer();
+            case ADMIN -> new Admin(name, login, email);
+            case WORKER -> new Worker(name, login, email);
+            default -> new Customer(name, login, email);
         };
 
         newUser.setUserType(type);
-        newUser.setEmail(email);
-        newUser.setName(name);
-        newUser.setLogin(login);
 
-        userRepository.save(newUser);
+        repository.save(newUser);
 
         return newUser;
     }
 
     public void updateUser(User user) {
-        userRepository.save(user);
+        repository.save(user);
     }
 
     /**
@@ -96,7 +92,7 @@ public class UserService {
      * @return the list
      */
     public List<User> getAllUsers(){
-        return userRepository.findAll().stream().map(this::setUserType).collect(Collectors.toList());
+        return repository.findAll().stream().map(this::setUserType).collect(Collectors.toList());
     }
 
     /**
@@ -115,14 +111,16 @@ public class UserService {
      * @return the user
      */
     public User getUserByLogin(String login){
-        User user = userRepository.findByLogin(login);
+        User user = repository.findByLogin(login);
         if (user != null)
             setUserType(user);
         return user;
     }
 
     public void delete(User user){
-        userRepository.delete(user);
+        if (user instanceof Customer)
+            user = customerRepository.findByIdWithOrders(user.getId());
+        super.delete(user);
     }
 
     /**
@@ -150,9 +148,10 @@ public class UserService {
     public User addUser(String name, String login, String email, UserType type, String password){
         User user = addUser(name, login, email, type);
         user.setPassword(password);
-        userRepository.save(user);
+        repository.save(user);
         return user;
     }
+
 
     /**
      * Gets user by email.
@@ -160,7 +159,7 @@ public class UserService {
      * @return the user
      */
     public User getUserByEmail(String email){
-        User user = userRepository.findByEmail(email);
+        User user = repository.findByEmail(email);
         if (user != null)
             setUserType(user);
         return user;
