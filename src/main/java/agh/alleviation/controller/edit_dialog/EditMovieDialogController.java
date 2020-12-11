@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 @Component
 @FxmlView("/views/EditMovieDialog.fxml")
 public class EditMovieDialogController extends EditDialogController<Movie> {
-    private final MovieService movieService;
 
     @FXML
     private TextField nameField;
@@ -29,10 +28,6 @@ public class EditMovieDialogController extends EditDialogController<Movie> {
     @FXML
     private TextField actorsField;
 
-    @Autowired
-    public EditMovieDialogController(MovieService movieService) {
-        this.movieService = movieService;
-    }
 
     @Override
     public void setEditedItem(Movie movie) {

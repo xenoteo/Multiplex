@@ -1,13 +1,13 @@
 package agh.alleviation.model;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.*;
 
 import javax.persistence.*;
 import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
+import java.util.List;
 
 /**
  * Class responsible for representation of cinema hall. It keeps the number of a hall and its capacity.
@@ -17,7 +17,7 @@ import java.io.ObjectOutput;
  * */
 @Entity
 @Table(name = Hall.TABLE_NAME)
-public class Hall extends EntityObject{
+public class Hall extends EntityObject {
     /**
      * The constant TABLE_NAME.
      */
@@ -35,12 +35,14 @@ public class Hall extends EntityObject{
          * The constant NUMBER.
          */
         public static final String NUMBER = "number";
+
+        public static final String SEANCES = "seances";
     }
 
-    private final IntegerProperty capacityProperty = new SimpleIntegerProperty(this, "capacity");
-    private final IntegerProperty numberProperty = new SimpleIntegerProperty(this, "number");
-
-
+    private final IntegerProperty capacityProperty = new SimpleIntegerProperty(this, Columns.CAPACITY);
+    private final IntegerProperty numberProperty = new SimpleIntegerProperty(this, Columns.NUMBER);
+    private final ObjectProperty<List<Seance>> seancesProperty = new SimpleObjectProperty<>(this, Columns.SEANCES);
+//
     /**
      * Instantiates a new Hall.
      */
@@ -110,6 +112,21 @@ public class Hall extends EntityObject{
      */
     public void setNumber(int number){ numberProperty.set(number); }
 
+    @OneToMany(orphanRemoval = true, cascade = {CascadeType.PERSIST})
+    public List<Seance> getSeances(){ return seancesProperty.get(); }
+
+    public void setSeances(List<Seance> seances){ seancesProperty.set(seances); }
+
+    public void addSeance(Seance seance) { this.getSeances().add(seance); }
+
+    @Override
+    public void delete(){
+        super.delete();
+        getSeances().forEach(System.out::println);
+
+        getSeances().forEach(Seance::delete);
+    }
+
     @Override
     public String toString() {
         return "Hall " + getNumber();
@@ -118,16 +135,16 @@ public class Hall extends EntityObject{
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         super.writeExternal(out);
-//        out.writeInt(getId());
         out.writeInt(getCapacity());
         out.writeInt(getNumber());
+        out.writeObject(getSeances());
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         super.readExternal(in);
-//        setId(in.readInt());
         setCapacity(in.readInt());
         setCapacity(in.readInt());
+        setSeances((List<Seance>) in.readObject());
     }
 }

@@ -1,6 +1,7 @@
 package agh.alleviation.service;
 
 import agh.alleviation.model.*;
+import agh.alleviation.persistence.HallRepository;
 import agh.alleviation.persistence.MovieRepository;
 import agh.alleviation.persistence.SeanceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,15 +23,17 @@ import java.util.List;
 public class SeanceService extends EntityObjectService<Seance, SeanceRepository> {
 
     private MovieRepository movieRepository;
+    private HallRepository hallRepository;
     /**
      * Instantiates a new Seance service.
      *
      * @param seanceRepository the seance repository
      */
     @Autowired
-    public SeanceService(SeanceRepository seanceRepository, MovieRepository movieRepository) {
+    public SeanceService(SeanceRepository seanceRepository, MovieRepository movieRepository, HallRepository hallRepository) {
         this.repository = seanceRepository;
         this.movieRepository = movieRepository;
+        this.hallRepository = hallRepository;
     }
 
     public Seance addSeance(Movie movie) {
@@ -46,7 +49,10 @@ public class SeanceService extends EntityObjectService<Seance, SeanceRepository>
         seance.setHall(hall);
         seance.setDate(date);
         seance.setPrice(price);
+        hall = hallRepository.findByIdWithSeances(hall.getId());
+        hall.addSeance(seance);
         repository.save(seance);
+        hallRepository.save(hall);
         return seance;
     }
 

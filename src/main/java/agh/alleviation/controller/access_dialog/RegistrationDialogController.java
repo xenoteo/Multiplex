@@ -53,6 +53,7 @@ public class RegistrationDialogController extends AccessDialogController {
      */
     @FXML
     public void register(){
+
         String name = nameField.getText();
         String login = loginField.getText();
         String email = emailField.getText();
@@ -77,6 +78,7 @@ public class RegistrationDialogController extends AccessDialogController {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Registration completed successfully");
             alert.show();
+            observableComposite.addToObservable(user);
         }
         dialogStage.close();
     }

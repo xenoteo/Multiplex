@@ -1,6 +1,7 @@
 package agh.alleviation.presentation;
 
 import agh.alleviation.controller.edit_dialog.EditDialogController;
+import agh.alleviation.model.EntityObject;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxControllerAndView;

@@ -1,5 +1,6 @@
 package agh.alleviation.service;
 
+import agh.alleviation.model.EntityObject;
 import agh.alleviation.model.Hall;
 import agh.alleviation.model.Seance;
 import agh.alleviation.persistence.HallRepository;
@@ -58,6 +59,12 @@ public class HallService extends EntityObjectService<Hall, HallRepository> {
     public List<Hall> getAllHalls(){
         return StreamSupport.stream(repository.findAll().spliterator(), false)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void delete(EntityObject hall){
+        hall = repository.findByIdWithSeances(hall.getId());
+        super.delete(hall);
     }
 
     /**

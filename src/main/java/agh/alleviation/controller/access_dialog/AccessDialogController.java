@@ -1,5 +1,6 @@
 package agh.alleviation.controller.access_dialog;
 
+import agh.alleviation.controller.GenericController;
 import agh.alleviation.model.user.User;
 import agh.alleviation.service.UserService;
 import javafx.stage.Stage;
@@ -12,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @see RegistrationDialogController
  * @author Ksenia Fiodarava
  */
-public abstract class AccessDialogController {
+public abstract class AccessDialogController extends GenericController {
     /**
      * Stage on which modal is placed.
      */

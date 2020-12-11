@@ -61,17 +61,14 @@ public class MovieListController extends GenericListController<Movie, MovieServi
         String buttonId = button.getId();
         switch (buttonId) {
             case "addMovie" -> {
-                Movie movie = viewControllerManager.getMovieDialogContext().showAddItemDialog();
-//                if(movie != null) {
-//                    itemObservableList.add(movie);
-//                }
+                viewControllerManager.getMovieDialogContext().showAddItemDialog();
             }
             case "addSeance" -> {
                 Movie movie = (Movie) itemTable.getSelectionModel().getSelectedItem();
-//                if(movie != null) {
-//                    Seance seance = seanceService.addSeance(movie);
-//                    viewControllerManager.getSeanceDialogContext().showEditItemDialog(seance);
-//                }
+                if(movie != null) {
+                    Seance seance = seanceService.addSeance(movie);  // TODO: sad panda, maybe instead accept a movie in show editItemDialog
+                    viewControllerManager.getSeanceDialogContext().showEditItemDialog(seance);
+                }
             }
             default -> System.out.println("No action");
         }

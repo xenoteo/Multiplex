@@ -54,10 +54,7 @@ public class UserListController extends GenericListController<User, UserService>
      */
     @FXML
     protected void handleAddAction(ActionEvent event) {
-        User user = this.viewControllerManager.getUserDialogContext().showAddItemDialog();
-//        if (user != null) {
-//            this.itemObservableList.add(user);
-//        }
+        viewControllerManager.getUserDialogContext().showAddItemDialog();
     }
 
     @FXML
@@ -72,10 +69,6 @@ public class UserListController extends GenericListController<User, UserService>
     protected void handleDeleteAction(ActionEvent event) {
         User user = (User) itemTable.getSelectionModel().getSelectedItem();
         observableComposite.delete(user);
-//        if(user != null) {
-//            itemObservableList.remove(user);
-//            service.delete(user);
-//        }
     }
 
 

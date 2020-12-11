@@ -95,6 +95,7 @@ public class DataLoader {
         Hall hall1 = hallService.getAllHalls().get(0);
 
         seanceService.addSeance(movie1, hall1, date, price);
+
     }
 
     /**
