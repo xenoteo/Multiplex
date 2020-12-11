@@ -99,4 +99,8 @@ public class AlleviationApplication {
             dataLoader.populateOrders();
 		};
 	}
+
+	//TODO: refreshing
+    //TODO: context menu
+    //TODO: removing halls
 }

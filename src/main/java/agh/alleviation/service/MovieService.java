@@ -1,5 +1,6 @@
 package agh.alleviation.service;
 
+import agh.alleviation.model.EntityObject;
 import agh.alleviation.model.Genre;
 import agh.alleviation.model.Movie;
 import agh.alleviation.model.Seance;
@@ -90,7 +91,8 @@ public class MovieService extends EntityObjectService<Movie, MovieRepository>{
 
     public List<Movie> getActiveMovies(){ return repository.findAll().stream().filter(Movie::getIsActive).collect(Collectors.toList()); }
 
-    public void delete(Movie movie){
+    @Override
+    public void delete(EntityObject movie){
         movie = repository.findByIdWithSeances(movie.getId());
         super.delete(movie);
     }

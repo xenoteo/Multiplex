@@ -42,7 +42,10 @@ public class EditSeanceDialogController extends EditDialogController<Seance> {
     protected void initialize() {
         super.initialize();
 
-        hallChoiceBox.getItems().addAll(hallService.getAllHalls());
+        observableComposite.getList(Hall.class).forEach( hall ->
+                hallChoiceBox.getItems().add((Hall) hall)
+        );
+
     }
 
     @Override
@@ -65,7 +68,7 @@ public class EditSeanceDialogController extends EditDialogController<Seance> {
         editedItem.setDate(date);
         editedItem.setPrice(price);
 
-        seanceService.updateSeance(editedItem);
+        observableComposite.update(editedItem);
         dialogStage.close();
     }
 }

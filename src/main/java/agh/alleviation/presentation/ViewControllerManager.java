@@ -23,6 +23,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxControllerAndView;
 import net.rgielen.fxweaver.core.FxWeaver;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -42,6 +43,7 @@ public class ViewControllerManager {
     private Map<Screen, FxControllerAndView<? extends GenericController, Node>> controllersAndViews;
     private UserType activeUserType;
     private User activeUser;
+
 
     /**
      * Instantiates a new View controller manager.
@@ -81,6 +83,7 @@ public class ViewControllerManager {
 
         borderPane.setPrefHeight(400);
 
+
         controllersAndViews = new HashMap<>();
 
         addToControllersAndViews(Screen.MAIN, MainController.class);
@@ -88,6 +91,8 @@ public class ViewControllerManager {
         addToControllersAndViews(Screen.HALL_LIST, HallListController.class);
         addToControllersAndViews(Screen.MOVIE_LIST, MovieListController.class);
         addToControllersAndViews(Screen.SEANCE_LIST, SeanceListController.class);
+
+
 
         controllersAndViews.forEach((screen, cv) -> cv.getController().setAppController(this));
 

@@ -1,5 +1,6 @@
 package agh.alleviation.service;
 
+import agh.alleviation.model.EntityObject;
 import agh.alleviation.model.Hall;
 import agh.alleviation.model.Seance;
 import agh.alleviation.model.user.Admin;
@@ -117,7 +118,8 @@ public class UserService extends  EntityObjectService<User, UserRepository>{
         return user;
     }
 
-    public void delete(User user){
+    @Override
+    public void delete(EntityObject user){
         if (user instanceof Customer){
             user = customerRepository.findByIdWithOrders(user.getId());
         }

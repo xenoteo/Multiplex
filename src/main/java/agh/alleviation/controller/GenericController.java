@@ -1,8 +1,7 @@
 package agh.alleviation.controller;
 
-import agh.alleviation.presentation.Screen;
 import agh.alleviation.presentation.ViewControllerManager;
-import javafx.fxml.FXML;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Base class for non-modal controllers
@@ -16,6 +15,8 @@ public abstract class GenericController {
 
     protected ViewControllerManager viewControllerManager;
 
+    protected ObservableComposite observableComposite;
+
     /**
      * Sets app controller.
      *
@@ -23,6 +24,11 @@ public abstract class GenericController {
      */
     public void setAppController(ViewControllerManager viewControllerManager) {
         this.viewControllerManager = viewControllerManager;
+    }
+
+    @Autowired
+    public void setObservableComposite(ObservableComposite observableComposite){
+        this.observableComposite = observableComposite;
     }
 
 }

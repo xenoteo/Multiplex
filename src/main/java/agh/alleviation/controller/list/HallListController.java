@@ -28,40 +28,30 @@ public class HallListController extends GenericListController<Hall, HallService>
     protected void initialize() {
         super.initialize();
 
+        observableComposite.fillFromService(Hall.class);
+        itemTable.setItems(observableComposite.getList(Hall.class));
+
         numberColumn.setCellValueFactory(dataValue -> dataValue.getValue().numberProperty().asObject());
         capacityColumn.setCellValueFactory(dataValue -> dataValue.getValue().capacityProperty().asObject());
 
     }
 
-    @Override
-    protected void resetContents(){
-        itemObservableList.addAll(service.getAllActive());
-    }
-
     @FXML
     protected void handleAddAction(ActionEvent event) {
         Hall hall = this.viewControllerManager.getHallDialogContext().showAddItemDialog();
-        if(hall != null) {
-            itemObservableList.add(hall);
-        }
+//        if(hall != null) {
+//            itemObservableList.add(hall);
+//        }
     }
 
     @FXML
     protected void handleEditAction(ActionEvent event) {
-        Hall hall = itemTable.getSelectionModel().getSelectedItem();
+        Hall hall = (Hall) itemTable.getSelectionModel().getSelectedItem();
         if(hall != null) {
             this.viewControllerManager.getHallDialogContext().showEditItemDialog(hall);
         }
     }
 
-    @FXML
-    protected void handleDeleteAction(ActionEvent event) {
-        Hall hall = itemTable.getSelectionModel().getSelectedItem();
-        if(hall != null) {
-            itemObservableList.remove(hall);
-            service.delete(hall);
-        }
-    }
 
     /**
      * Instantiates a new Hall list controller.

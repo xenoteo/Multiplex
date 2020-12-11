@@ -53,16 +53,19 @@ public class EditMovieDialogController extends EditDialogController<Movie> {
         String director = directorField.getText();
         String actors = actorsField.getText();
 
-        if(this.editedItem == null) {
-            this.editedItem = this.movieService.addMovie(name, genreName, description, director, actors);
+        MovieService service = (MovieService) observableComposite.getService(Movie.class);
+
+        if(editedItem == null) {
+            Movie movie = service.addMovie(name, genreName, description, director, actors);
+            observableComposite.addToObservable(movie);
         } else {
-            this.editedItem.setName(name);
-            Genre genre = this.movieService.getGenre(genreName);
-            this.editedItem.setGenre(genre);
-            this.editedItem.setDescription(description);
-            this.editedItem.setDirector(director);
-            this.editedItem.setActors(actors);
-            this.movieService.updateMovie(this.editedItem);
+            editedItem.setName(name);
+            Genre genre = service.getGenre(genreName);
+            editedItem.setGenre(genre);
+            editedItem.setDescription(description);
+            editedItem.setDirector(director);
+            editedItem.setActors(actors);
+            observableComposite.update(editedItem);
         }
         dialogStage.close();
     }

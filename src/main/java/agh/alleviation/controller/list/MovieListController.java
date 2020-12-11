@@ -1,5 +1,6 @@
 package agh.alleviation.controller.list;
 
+import agh.alleviation.model.Hall;
 import agh.alleviation.model.Movie;
 import agh.alleviation.model.Seance;
 import agh.alleviation.service.MovieService;
@@ -41,6 +42,9 @@ public class MovieListController extends GenericListController<Movie, MovieServi
     public void initialize() {
         super.initialize();
 
+        observableComposite.fillFromService(Movie.class);
+        itemTable.setItems(observableComposite.getList(Movie.class));
+
         nameColumn.setCellValueFactory(dataValue -> dataValue.getValue().nameProperty());
         genreColumn.setCellValueFactory(dataValue -> dataValue.getValue().genreProperty().asString());
         descriptionColumn.setCellValueFactory(dataValue -> dataValue.getValue().descriptionProperty());
@@ -49,10 +53,6 @@ public class MovieListController extends GenericListController<Movie, MovieServi
 
     }
 
-    @Override
-    protected void resetContents(){
-        itemObservableList.addAll(service.getAllActive());
-    }
 
 
     @Override
@@ -62,16 +62,16 @@ public class MovieListController extends GenericListController<Movie, MovieServi
         switch (buttonId) {
             case "addMovie" -> {
                 Movie movie = viewControllerManager.getMovieDialogContext().showAddItemDialog();
-                if(movie != null) {
-                    itemObservableList.add(movie);
-                }
+//                if(movie != null) {
+//                    itemObservableList.add(movie);
+//                }
             }
             case "addSeance" -> {
-                Movie movie = itemTable.getSelectionModel().getSelectedItem();
-                if(movie != null) {
-                    Seance seance = seanceService.addSeance(movie);
-                    viewControllerManager.getSeanceDialogContext().showEditItemDialog(seance);
-                }
+                Movie movie = (Movie) itemTable.getSelectionModel().getSelectedItem();
+//                if(movie != null) {
+//                    Seance seance = seanceService.addSeance(movie);
+//                    viewControllerManager.getSeanceDialogContext().showEditItemDialog(seance);
+//                }
             }
             default -> System.out.println("No action");
         }
@@ -79,7 +79,7 @@ public class MovieListController extends GenericListController<Movie, MovieServi
 
     @Override
     protected void handleEditAction(ActionEvent event) {
-        Movie movie = itemTable.getSelectionModel().getSelectedItem();
+        Movie movie = (Movie) itemTable.getSelectionModel().getSelectedItem();
         if(movie != null) {
             viewControllerManager.getMovieDialogContext().showEditItemDialog(movie);
         }
@@ -87,11 +87,8 @@ public class MovieListController extends GenericListController<Movie, MovieServi
 
     @Override
     protected void handleDeleteAction(ActionEvent event) {
-        Movie movie = itemTable.getSelectionModel().getSelectedItem();
-        if(movie != null) {
-            itemObservableList.remove(movie);
-            service.delete(movie);
-        }
+        Movie movie = (Movie) itemTable.getSelectionModel().getSelectedItem();
+        observableComposite.delete(movie);
     }
 
     @Autowired

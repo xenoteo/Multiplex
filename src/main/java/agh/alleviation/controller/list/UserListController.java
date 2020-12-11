@@ -33,7 +33,8 @@ public class UserListController extends GenericListController<User, UserService>
     @FXML
     protected void initialize() {
         super.initialize();
-
+        observableComposite.fillFromService(User.class);
+        itemTable.setItems(observableComposite.getList(User.class));
         typeColumn.setCellValueFactory(dataValue -> dataValue.getValue().userTypeProperty());
         nameColumn.setCellValueFactory(dataValue -> dataValue.getValue().nameProperty());
         loginColumn.setCellValueFactory(dataValue -> dataValue.getValue().loginProperty());
@@ -41,10 +42,10 @@ public class UserListController extends GenericListController<User, UserService>
 
     }
 
-    @Override
-    protected void resetContents(){
-        itemObservableList.addAll(service.getAllActive());
-    }
+//    @Override
+//    protected void resetContents(){
+//        itemObservableList.addAll(service.getAllActive());
+//    }
 
     /**
      * Handle add action.
@@ -54,14 +55,14 @@ public class UserListController extends GenericListController<User, UserService>
     @FXML
     protected void handleAddAction(ActionEvent event) {
         User user = this.viewControllerManager.getUserDialogContext().showAddItemDialog();
-        if (user != null) {
-            this.itemObservableList.add(user);
-        }
+//        if (user != null) {
+//            this.itemObservableList.add(user);
+//        }
     }
 
     @FXML
     protected void handleEditAction(ActionEvent event) {
-        User user = itemTable.getSelectionModel().getSelectedItem();
+        User user = (User) itemTable.getSelectionModel().getSelectedItem();
         if(user != null) {
             this.viewControllerManager.getUserDialogContext().showEditItemDialog(user);
         }
@@ -69,11 +70,12 @@ public class UserListController extends GenericListController<User, UserService>
 
     @FXML
     protected void handleDeleteAction(ActionEvent event) {
-        User user = itemTable.getSelectionModel().getSelectedItem();
-        if(user != null) {
-            itemObservableList.remove(user);
-            service.delete(user);
-        }
+        User user = (User) itemTable.getSelectionModel().getSelectedItem();
+        observableComposite.delete(user);
+//        if(user != null) {
+//            itemObservableList.remove(user);
+//            service.delete(user);
+//        }
     }
 
 

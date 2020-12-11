@@ -14,19 +14,29 @@ public abstract class EntityObjectService<E extends EntityObject, R extends Crud
 
     protected R repository;
 
-    public void delete(E e){
+    public void delete(EntityObject e){
         e.delete();
-        repository.save(e);
+        repository.save((E) e);
+    }
+
+    public void add(EntityObject e){
+        repository.save((E) e);
     }
 
     public List<E> getAll(){
         return (List<E>) repository.findAll();
     }
 
-    public List<E> getAllActive(){
+    public List<EntityObject> getAllActive(){
         var allItems = getAll();
-        return allItems.stream().filter(EntityObject::getIsActive).collect(Collectors.toList());
+        List<EntityObject> filtered = allItems.stream().filter(EntityObject::getIsActive).collect(Collectors.toList());
+        return filtered;
     }
+
+    public void update(EntityObject item){
+        repository.save((E) item);
+    }
+
 
 
 }

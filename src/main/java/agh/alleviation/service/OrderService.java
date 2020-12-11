@@ -1,5 +1,6 @@
 package agh.alleviation.service;
 
+import agh.alleviation.model.EntityObject;
 import agh.alleviation.model.Order;
 import agh.alleviation.model.Seance;
 import agh.alleviation.model.Ticket;
@@ -107,7 +108,7 @@ public class OrderService extends EntityObjectService<Order, OrderRepository>{
         return ticket;
     }
 
-    public void delete(Order order){
+    public void delete(EntityObject order){
         order = repository.findByIdWithTickets(order.getId());
         super.delete(order);
     }

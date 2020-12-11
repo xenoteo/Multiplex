@@ -35,16 +35,13 @@ public class SeanceListController extends GenericListController<Seance, SeanceSe
     @FXML
     protected void initialize() {
         super.initialize();
+        observableComposite.fillFromService(Seance.class);
+        itemTable.setItems(observableComposite.getList(Seance.class));
         movieColumn.setCellValueFactory(dataValue -> dataValue.getValue().getMovie().nameProperty());
         hallColumn.setCellValueFactory(dataValue -> dataValue.getValue().getHall().numberProperty());
         dateColumn.setCellValueFactory(dataValue -> dataValue.getValue().dateProperty());
         priceColumn.setCellValueFactory(dataValue -> dataValue.getValue().priceProperty());
 
-    }
-
-    @Override
-    protected void resetContents(){
-        itemObservableList.addAll(service.getAllActive());
     }
 
     @Override
@@ -58,14 +55,6 @@ public class SeanceListController extends GenericListController<Seance, SeanceSe
     }
 
 
-    @Override
-    protected void handleDeleteAction(ActionEvent event) {
-        Seance seance = itemTable.getSelectionModel().getSelectedItem();
-        if(seance != null) {
-            itemObservableList.remove(seance);
-            service.delete(seance);
-        }
-    }
 
     @Autowired
     public SeanceListController(SeanceService seanceService){ this.service = seanceService; }

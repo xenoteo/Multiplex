@@ -1,9 +1,10 @@
 package agh.alleviation.controller.edit_dialog;
 
+import agh.alleviation.controller.GenericController;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
 
-public abstract class EditDialogController<T> {
+public abstract class EditDialogController<T> extends GenericController {
     /**
      * Stage on which modal is placed
      */

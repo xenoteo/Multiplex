@@ -16,17 +16,12 @@ import org.springframework.stereotype.Component;
 @Component
 @FxmlView("/views/EditHallDialog.fxml")
 public class EditHallDialogController extends EditDialogController<Hall> {
-    private final HallService hallService;
 
     /**
      * Instantiates a new Edit hall dialog controller.
      *
      * @param hallService the hall service
      */
-    @Autowired
-    public EditHallDialogController(HallService hallService) {
-        this.hallService = hallService;
-    }
 
     @FXML
     private TextField capacityField;
@@ -47,12 +42,17 @@ public class EditHallDialogController extends EditDialogController<Hall> {
         int capacity = Integer.parseInt(capacityField.getText());
         int hallNumber = Integer.parseInt(numberField.getText());
 
-        if(this.editedItem == null) {
-            this.editedItem = this.hallService.addHall(capacity, hallNumber);
+        HallService service = (HallService) observableComposite.getService(Hall.class);
+        if(editedItem == null) {
+
+           Hall hall = service.addHall(capacity, hallNumber);
+           observableComposite.addToObservable(hall);
+
         } else {
-            this.editedItem.setCapacity(capacity);
-            this.editedItem.setNumber(hallNumber);
-            this.hallService.updateHall(this.editedItem);
+            editedItem.setCapacity(capacity);
+            editedItem.setNumber(hallNumber);
+
+            observableComposite.update(editedItem);
         }
         dialogStage.close();
     }
