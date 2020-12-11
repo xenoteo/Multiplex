@@ -1,10 +1,6 @@
 package agh.alleviation.controller.list;
 
-import agh.alleviation.controller.GenericController;
-import agh.alleviation.model.Hall;
-import agh.alleviation.model.Movie;
 import agh.alleviation.model.Seance;
-import agh.alleviation.presentation.Screen;
 import agh.alleviation.service.SeanceService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,12 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Component
 @FxmlView("/views/SeanceList.fxml")
 public class SeanceListController extends GenericListController<Seance, SeanceService> {
-
 
     @FXML
     public TableColumn<Seance, String> movieColumn;
@@ -37,12 +31,11 @@ public class SeanceListController extends GenericListController<Seance, SeanceSe
     protected void initialize() {
         super.initialize();
         observableComposite.fillFromService(Seance.class);
-        itemTable.setItems(observableComposite.getList(Seance.class));
+        itemTable.setItems(observableComposite.getActiveElementsList(Seance.class));
         movieColumn.setCellValueFactory(dataValue -> dataValue.getValue().getMovie().nameProperty());
         hallColumn.setCellValueFactory(dataValue -> dataValue.getValue().getHall().numberProperty());
         dateColumn.setCellValueFactory(dataValue -> dataValue.getValue().dateProperty());
         priceColumn.setCellValueFactory(dataValue -> dataValue.getValue().priceProperty());
-
     }
 
     @Override
@@ -53,13 +46,11 @@ public class SeanceListController extends GenericListController<Seance, SeanceSe
     @Override
     protected void handleEditAction(ActionEvent event) {
         Seance seance = (Seance) itemTable.getSelectionModel().getSelectedItem();
-        if(seance != null) {
+        if (seance != null) {
             viewControllerManager.getSeanceDialogContext().showEditItemDialog(seance);
         }
     }
 
-
-
     @Autowired
-    public SeanceListController(SeanceService seanceService){ this.service = seanceService; }
+    public SeanceListController(SeanceService seanceService) { this.service = seanceService; }
 }

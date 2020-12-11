@@ -20,12 +20,11 @@ public class Worker extends User {
      */
     public static final String TABLE_NAME = "worker";
 
-    public Worker(){
+    public Worker() {
         setUserType(UserType.WORKER);
     }
 
-    public Worker(final String name, final String login, final String email){
+    public Worker(final String name, final String login, final String email) {
         super(name, login, email);
     }
-
 }

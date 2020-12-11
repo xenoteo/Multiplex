@@ -43,7 +43,7 @@ public class MovieListController extends GenericListController<Movie, MovieServi
         super.initialize();
 
         observableComposite.fillFromService(Movie.class);
-        itemTable.setItems(observableComposite.getList(Movie.class));
+        itemTable.setItems(observableComposite.getActiveElementsList(Movie.class));
 
         nameColumn.setCellValueFactory(dataValue -> dataValue.getValue().nameProperty());
         genreColumn.setCellValueFactory(dataValue -> dataValue.getValue().genreProperty().asString());
@@ -52,8 +52,6 @@ public class MovieListController extends GenericListController<Movie, MovieServi
         actorsColumn.setCellValueFactory(dataValue -> dataValue.getValue().actorsProperty());
 
     }
-
-
 
     @Override
     protected void handleAddAction(ActionEvent event) {
@@ -65,8 +63,9 @@ public class MovieListController extends GenericListController<Movie, MovieServi
             }
             case "addSeance" -> {
                 Movie movie = (Movie) itemTable.getSelectionModel().getSelectedItem();
-                if(movie != null) {
-                    Seance seance = seanceService.addSeance(movie);  // TODO: sad panda, maybe instead accept a movie in show editItemDialog
+                if (movie != null) {
+                    Seance seance =
+                        seanceService.addSeance(movie);  // TODO: sad panda, maybe instead accept a movie in show editItemDialog
                     viewControllerManager.getSeanceDialogContext().showEditItemDialog(seance);
                 }
             }
@@ -77,7 +76,7 @@ public class MovieListController extends GenericListController<Movie, MovieServi
     @Override
     protected void handleEditAction(ActionEvent event) {
         Movie movie = (Movie) itemTable.getSelectionModel().getSelectedItem();
-        if(movie != null) {
+        if (movie != null) {
             viewControllerManager.getMovieDialogContext().showEditItemDialog(movie);
         }
     }
@@ -89,10 +88,9 @@ public class MovieListController extends GenericListController<Movie, MovieServi
     }
 
     @Autowired
-    public MovieListController(MovieService movieService, SeanceService seanceService){
+    public MovieListController(MovieService movieService, SeanceService seanceService) {
         this.service = movieService;
         this.seanceService = seanceService;
     }
-
 
 }

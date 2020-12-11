@@ -11,32 +11,30 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public abstract class EntityObjectService<E extends EntityObject, R extends CrudRepository<E, Integer>> {
-
     protected R repository;
 
-    public void delete(EntityObject e){
-        e.delete();
+    public List<EntityObject> delete(EntityObject e) {
+        List<EntityObject> deletedObjectList = e.delete();
+        repository.save((E) e);
+        return deletedObjectList;
+    }
+
+    public void add(EntityObject e) {
         repository.save((E) e);
     }
 
-    public void add(EntityObject e){
-        repository.save((E) e);
-    }
-
-    public List<E> getAll(){
+    public List<E> getAll() {
         return (List<E>) repository.findAll();
     }
 
-    public List<EntityObject> getAllActive(){
+    public List<EntityObject> getAllActive() {
         var allItems = getAll();
         List<EntityObject> filtered = allItems.stream().filter(EntityObject::getIsActive).collect(Collectors.toList());
         return filtered;
     }
 
-    public void update(EntityObject item){
+    public void update(EntityObject item) {
         repository.save((E) item);
     }
-
-
 
 }

@@ -5,7 +5,6 @@ import agh.alleviation.service.HallService;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import net.rgielen.fxweaver.core.FxmlView;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -43,10 +42,10 @@ public class EditHallDialogController extends EditDialogController<Hall> {
         int hallNumber = Integer.parseInt(numberField.getText());
 
         HallService service = (HallService) observableComposite.getService(Hall.class);
-        if(editedItem == null) {
+        if (editedItem == null) {
 
-           Hall hall = service.addHall(capacity, hallNumber);
-           observableComposite.addToObservable(hall);
+            Hall hall = service.addHall(capacity, hallNumber);
+            observableComposite.addToObservable(hall);
 
         } else {
             editedItem.setCapacity(capacity);

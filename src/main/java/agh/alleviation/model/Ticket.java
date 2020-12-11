@@ -7,6 +7,7 @@ import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
+import java.util.Objects;
 
 /**
  * Class responsible for representation of a ticket.
@@ -23,7 +24,6 @@ public class Ticket extends EntityObject {
      * The constant TABLE_NAME.
      */
     public static final String TABLE_NAME = "ticket";
-
 
     /**
      * The type Columns.
@@ -45,7 +45,6 @@ public class Ticket extends EntityObject {
     private final ObjectProperty<Seance> seanceProperty = new SimpleObjectProperty<>();
     private final DoubleProperty priceProperty = new SimpleDoubleProperty(this, "price");
     private final ObjectProperty<Order> orderProperty = new SimpleObjectProperty<>();
-
 
     /**
      * Instantiates a new Ticket.
@@ -89,7 +88,6 @@ public class Ticket extends EntityObject {
      */
     public void setSeance(Seance seance) { seanceProperty.setValue(seance);}
 
-
     /**
      * Price property double property.
      *
@@ -103,25 +101,24 @@ public class Ticket extends EntityObject {
      * @return the double
      */
     @Column(name = Columns.PRICE)
-    public double getPrice(){
+    public double getPrice() {
         return priceProperty.get();
     }
 
-//    @JoinColumn(name = Columns.ORDER)
+    //    @JoinColumn(name = Columns.ORDER)
     @ManyToOne
-    public Order getOrder(){ return orderProperty.get(); }
+    public Order getOrder() { return orderProperty.get(); }
 
-    public void setOrder(Order order){ orderProperty.set(order); }
+    public void setOrder(Order order) { orderProperty.set(order); }
 
     /**
      * Set price.
      *
      * @param price the price
      */
-    public void setPrice(double price){
+    public void setPrice(double price) {
         priceProperty.set(price);
     }
-
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {

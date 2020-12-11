@@ -29,7 +29,6 @@ public class Seance extends EntityObject {
      */
     public static final String TABLE_NAME = "seance";
 
-
     /**
      * The type Columns.
      */
@@ -78,7 +77,7 @@ public class Seance extends EntityObject {
      * @param date  the date
      * @param price the price
      */
-    public Seance(Movie movie, Hall hall, LocalDateTime date, double price){
+    public Seance(Movie movie, Hall hall, LocalDateTime date, double price) {
         this(movie);
         setHall(hall);
         setDate(date);
@@ -90,7 +89,7 @@ public class Seance extends EntityObject {
      *
      * @return the object property
      */
-    public ObjectProperty<Movie> movieProperty(){
+    public ObjectProperty<Movie> movieProperty() {
         return movieProperty;
     }
 
@@ -109,17 +108,16 @@ public class Seance extends EntityObject {
      *
      * @param movie the movie
      */
-    public void setMovie(Movie movie){
+    public void setMovie(Movie movie) {
         movieProperty.setValue(movie);
     }
-
 
     /**
      * Hall property object property.
      *
      * @return the object property
      */
-    public ObjectProperty<Hall> hallProperty(){
+    public ObjectProperty<Hall> hallProperty() {
         return hallProperty;
     }
 
@@ -138,17 +136,16 @@ public class Seance extends EntityObject {
      *
      * @param hall the hall
      */
-    public void setHall(Hall hall){
+    public void setHall(Hall hall) {
         hallProperty.setValue(hall);
     }
-
 
     /**
      * Date property object property.
      *
      * @return the object property
      */
-    public ObjectProperty<LocalDateTime> dateProperty(){
+    public ObjectProperty<LocalDateTime> dateProperty() {
         return dateProperty;
     }
 
@@ -167,17 +164,16 @@ public class Seance extends EntityObject {
      *
      * @param date the date
      */
-    public void setDate(LocalDateTime date){
+    public void setDate(LocalDateTime date) {
         dateProperty.setValue(date);
     }
-
 
     /**
      * Price property double property.
      *
      * @return the double property
      */
-    public DoubleProperty priceProperty(){
+    public DoubleProperty priceProperty() {
         return priceProperty;
     }
 
@@ -196,21 +192,20 @@ public class Seance extends EntityObject {
      *
      * @param price the price
      */
-    public void setPrice(double price){
+    public void setPrice(double price) {
         priceProperty.set(price);
     }
 
-    public ObjectProperty<List<Ticket>> ticketsProperty(){ return tickets; }
+    public ObjectProperty<List<Ticket>> ticketsProperty() { return tickets; }
 
     @OneToMany(orphanRemoval = true, cascade = {CascadeType.PERSIST})
-    public List<Ticket> getTickets(){ return tickets.get(); }
+    public List<Ticket> getTickets() { return tickets.get(); }
 
-    public void setTickets(List<Ticket> tickets){ this.tickets.set(tickets);}
+    public void setTickets(List<Ticket> tickets) { this.tickets.set(tickets);}
 
-    public void addTicket(Ticket ticket){
+    public void addTicket(Ticket ticket) {
         getTickets().add(ticket);
     }
-
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
@@ -231,8 +226,12 @@ public class Seance extends EntityObject {
     }
 
     @Override
-    public void delete(){
+    public List<EntityObject> delete() {
         super.delete();
-        getTickets().forEach(Ticket::delete);
+        List<EntityObject> deletedObjects = new ArrayList<>(getTickets());
+        getTickets().forEach(ticket -> {
+            deletedObjects.addAll(ticket.delete());
+        });
+        return deletedObjects;
     }
 }

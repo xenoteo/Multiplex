@@ -114,21 +114,21 @@ public class Movie extends EntityObject {
      * @return the string
      */
     @Column(name = Columns.DESCRIPTION)
-    public String getDescription(){ return description.get(); }
+    public String getDescription() { return description.get(); }
 
     /**
      * Set description.
      *
      * @param description the description
      */
-    public void setDescription(String description){ this.description.set(description);}
+    public void setDescription(String description) { this.description.set(description);}
 
     /**
      * Description property string property.
      *
      * @return the string property
      */
-    public StringProperty descriptionProperty(){ return description; }
+    public StringProperty descriptionProperty() { return description; }
 
     /**
      * Get genre genre.
@@ -136,21 +136,21 @@ public class Movie extends EntityObject {
      * @return the genre
      */
     @OneToOne
-    public Genre getGenre(){ return genre.get(); }
+    public Genre getGenre() { return genre.get(); }
 
     /**
      * Set genre.
      *
      * @param genre the genre
      */
-    public void setGenre(Genre genre){ this.genre.set(genre); }
+    public void setGenre(Genre genre) { this.genre.set(genre); }
 
     /**
      * Genre property object property.
      *
      * @return the object property
      */
-    public ObjectProperty<Genre> genreProperty(){ return genre; }
+    public ObjectProperty<Genre> genreProperty() { return genre; }
 
     /**
      * Get director string.
@@ -158,21 +158,21 @@ public class Movie extends EntityObject {
      * @return the string
      */
     @Column(name = Columns.DIRECTOR)
-    public String getDirector(){ return director.get(); }
+    public String getDirector() { return director.get(); }
 
     /**
      * Set director.
      *
      * @param director the director
      */
-    public void setDirector(String director){ this.director.set(director);}
+    public void setDirector(String director) { this.director.set(director);}
 
     /**
      * Director property string property.
      *
      * @return the string property
      */
-    public StringProperty directorProperty(){ return director; }
+    public StringProperty directorProperty() { return director; }
 
     /**
      * Get actors string.
@@ -180,34 +180,37 @@ public class Movie extends EntityObject {
      * @return the string
      */
     @Column(name = Columns.ACTORS)
-    public String getActors(){ return actors.get(); }
+    public String getActors() { return actors.get(); }
 
     /**
      * Set actors.
      *
      * @param actors the actors
      */
-    public void setActors(String actors){ this.actors.set(actors); }
+    public void setActors(String actors) { this.actors.set(actors); }
 
     public StringProperty actorsProperty() { return this.actors; }
 
     @OneToMany(orphanRemoval = true, cascade = {CascadeType.PERSIST})
-    public List<Seance> getSeances(){ return seances.get(); }
+    public List<Seance> getSeances() { return seances.get(); }
 
-    public void setSeances(List<Seance> seances){ this.seances.set(seances); }
+    public void setSeances(List<Seance> seances) { this.seances.set(seances); }
 
     public ObjectProperty<List<Seance>> seancesProperty() { return seances; }
 
     @Override
-    public void delete(){
+    public List<EntityObject> delete() {
         super.delete();
-        getSeances().forEach(Seance::delete);
+        List<EntityObject> deletedObjects = new ArrayList<>(getSeances());
+        getSeances().forEach(seance -> {
+            deletedObjects.addAll(seance.delete());
+        });
+        return deletedObjects;
     }
 
-    public void addSeance(Seance seance){
+    public void addSeance(Seance seance) {
         this.getSeances().add(seance);
     }
-
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {

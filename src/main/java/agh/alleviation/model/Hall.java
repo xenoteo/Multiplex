@@ -7,14 +7,14 @@ import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Class responsible for representation of cinema hall. It keeps the number of a hall and its capacity.
  *
  * @author Ksenia Fiodarava
- *
- * */
+ */
 @Entity
 @Table(name = Hall.TABLE_NAME)
 public class Hall extends EntityObject {
@@ -43,6 +43,7 @@ public class Hall extends EntityObject {
     private final IntegerProperty numberProperty = new SimpleIntegerProperty(this, Columns.NUMBER);
     private final ObjectProperty<List<Seance>> seancesProperty = new SimpleObjectProperty<>(this, Columns.SEANCES);
 //
+
     /**
      * Instantiates a new Hall.
      */
@@ -61,13 +62,12 @@ public class Hall extends EntityObject {
         setIsActive(true);
     }
 
-
     /**
      * Capacity property integer property.
      *
      * @return the integer property
      */
-    public IntegerProperty capacityProperty(){
+    public IntegerProperty capacityProperty() {
         return capacityProperty;
     }
 
@@ -86,7 +86,7 @@ public class Hall extends EntityObject {
      *
      * @param capacity the capacity
      */
-    public void setCapacity(int capacity){
+    public void setCapacity(int capacity) {
         capacityProperty.set(capacity);
     }
 
@@ -95,7 +95,7 @@ public class Hall extends EntityObject {
      *
      * @return the integer property
      */
-    public IntegerProperty numberProperty(){ return this.numberProperty; }
+    public IntegerProperty numberProperty() { return this.numberProperty; }
 
     /**
      * Get number int.
@@ -103,28 +103,30 @@ public class Hall extends EntityObject {
      * @return the int
      */
     @Column(name = Columns.NUMBER)
-    public int getNumber(){ return numberProperty.get(); }
+    public int getNumber() { return numberProperty.get(); }
 
     /**
      * Set number.
      *
      * @param number the number
      */
-    public void setNumber(int number){ numberProperty.set(number); }
+    public void setNumber(int number) { numberProperty.set(number); }
 
     @OneToMany(orphanRemoval = true, cascade = {CascadeType.PERSIST})
-    public List<Seance> getSeances(){ return seancesProperty.get(); }
+    public List<Seance> getSeances() { return seancesProperty.get(); }
 
-    public void setSeances(List<Seance> seances){ seancesProperty.set(seances); }
+    public void setSeances(List<Seance> seances) { seancesProperty.set(seances); }
 
     public void addSeance(Seance seance) { this.getSeances().add(seance); }
 
     @Override
-    public void delete(){
+    public List<EntityObject> delete() {
         super.delete();
-        getSeances().forEach(System.out::println);
-
-        getSeances().forEach(Seance::delete);
+        List<EntityObject> deletedObjects = new ArrayList<>(getSeances());
+        getSeances().forEach(seance -> {
+            deletedObjects.addAll(seance.delete());
+        });
+        return deletedObjects;
     }
 
     @Override

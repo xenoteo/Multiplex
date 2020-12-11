@@ -18,31 +18,29 @@ import java.io.ObjectOutput;
  * @see Movie
  */
 @Entity
-@Table(name=Genre.TABLE_NAME)
-public class Genre extends EntityObject  {
+@Table(name = Genre.TABLE_NAME)
+public class Genre extends EntityObject {
     /**
      * The constant TABLE_NAME.
      */
     public static final String TABLE_NAME = "genre";
-
+    
     /**
      * The type Columns.
      */
-    public static class Columns{
+    public static class Columns {
         /**
          * The constant NAME.
          */
         public static final String NAME = "name";
     }
 
-
     private final StringProperty name = new SimpleStringProperty(this, Columns.NAME);
-
 
     /**
      * Instantiates a new Genre.
      */
-    public Genre(){
+    public Genre() {
 
     }
 
@@ -51,12 +49,11 @@ public class Genre extends EntityObject  {
      *
      * @param name the name
      */
-    public Genre(String name){
+    public Genre(String name) {
 
         setName(name);
         setIsActive(true);
     }
-
 
     /**
      * Get name string.
@@ -64,7 +61,7 @@ public class Genre extends EntityObject  {
      * @return the string
      */
     @Column(name = Columns.NAME)
-    public String getName(){
+    public String getName() {
         return name.get();
     }
 
@@ -73,7 +70,7 @@ public class Genre extends EntityObject  {
      *
      * @param name the name
      */
-    public void setName(String name){
+    public void setName(String name) {
         this.name.set(name);
     }
 
@@ -82,7 +79,7 @@ public class Genre extends EntityObject  {
      *
      * @return the string property
      */
-    public StringProperty nameProperty(){ return  this.name; }
+    public StringProperty nameProperty() { return this.name; }
 
     @Override
     public String toString() {

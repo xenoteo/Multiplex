@@ -41,7 +41,7 @@ public class HallService extends EntityObjectService<Hall, HallRepository> {
      * @param number   the number
      * @return the hall
      */
-    public Hall addHall(int capacity, int number){
+    public Hall addHall(int capacity, int number) {
         Hall hall = new Hall(capacity, number);
         repository.save(hall);
         return hall;
@@ -56,15 +56,14 @@ public class HallService extends EntityObjectService<Hall, HallRepository> {
      *
      * @return the list
      */
-    public List<Hall> getAllHalls(){
-        return StreamSupport.stream(repository.findAll().spliterator(), false)
-                .collect(Collectors.toList());
+    public List<Hall> getAllHalls() {
+        return StreamSupport.stream(repository.findAll().spliterator(), false).collect(Collectors.toList());
     }
 
     @Override
-    public void delete(EntityObject hall){
+    public List<EntityObject> delete(EntityObject hall) {
         hall = repository.findByIdWithSeances(hall.getId());
-        super.delete(hall);
+        return super.delete(hall);
     }
 
     /**
@@ -73,7 +72,7 @@ public class HallService extends EntityObjectService<Hall, HallRepository> {
      * @param capacity the capacity
      * @return the list
      */
-    public List<Hall> findHallsByCapacityGreaterThan(int capacity){
+    public List<Hall> findHallsByCapacityGreaterThan(int capacity) {
         return repository.findByCapacityGreaterThanEqual(capacity);
     }
 
@@ -83,7 +82,7 @@ public class HallService extends EntityObjectService<Hall, HallRepository> {
      * @param capacity the capacity
      * @return the list
      */
-    public List<Hall> findHallsByCapacity(int capacity){
+    public List<Hall> findHallsByCapacity(int capacity) {
         return repository.findAllByCapacity(capacity);
     }
 }

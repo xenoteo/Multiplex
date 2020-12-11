@@ -11,6 +11,7 @@ import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,7 +24,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = Order.TABLE_NAME)
-public class Order extends EntityObject{
+public class Order extends EntityObject {
     /**
      * The constant TABLE_NAME.
      */
@@ -52,31 +53,29 @@ public class Order extends EntityObject{
     private final ObjectProperty<List<Ticket>> ticketsProperty = new SimpleObjectProperty<>();
     private final ObjectProperty<Customer> customerProperty = new SimpleObjectProperty<>();
 
-
     /**
      * Instantiates a new Order.
      *
      * @param tickets  the tickets
      * @param customer the customer
      */
-    public Order(List<Ticket> tickets, Customer customer){
+    public Order(List<Ticket> tickets, Customer customer) {
         setTickets(tickets);
         setCustomer(customer);
         setIsActive(true);
     }
 
-    public Order(Customer customer){
+    public Order(Customer customer) {
         setCustomer(customer);
         setIsActive(true);
     }
-
 
     /**
      * Tickets property object property.
      *
      * @return the object property
      */
-    ObjectProperty<List<Ticket>> ticketsProperty(){ return ticketsProperty;}
+    ObjectProperty<List<Ticket>> ticketsProperty() { return ticketsProperty;}
 
     /**
      * Get tickets list.
@@ -85,7 +84,7 @@ public class Order extends EntityObject{
      */
 //    @Column(name = Columns.TICKETS)
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
-    public List<Ticket> getTickets(){
+    public List<Ticket> getTickets() {
         return ticketsProperty.getValue();
     }
 
@@ -94,17 +93,16 @@ public class Order extends EntityObject{
      *
      * @param tickets the tickets
      */
-    public void setTickets(List<Ticket> tickets){
+    public void setTickets(List<Ticket> tickets) {
         ticketsProperty.setValue(tickets);
     }
-
 
     /**
      * Customer property object property.
      *
      * @return the object property
      */
-    ObjectProperty<Customer> customerProperty(){ return customerProperty;}
+    ObjectProperty<Customer> customerProperty() { return customerProperty;}
 
     /**
      * Get customer customer.
@@ -113,7 +111,7 @@ public class Order extends EntityObject{
      */
     @JoinColumn(name = Columns.CUSTOMER)
     @ManyToOne
-    public Customer getCustomer(){
+    public Customer getCustomer() {
         return customerProperty.getValue();
     }
 
@@ -122,15 +120,18 @@ public class Order extends EntityObject{
      *
      * @param customer the customer
      */
-    public void setCustomer(Customer customer){
+    public void setCustomer(Customer customer) {
         customerProperty.setValue(customer);
     }
 
-    public void delete(){
+    public List<EntityObject> delete() {
         super.delete();
-        getTickets().forEach(Ticket::delete);
+        List<EntityObject> deletedObjects = new ArrayList<>(getTickets());
+        getTickets().forEach(ticket -> {
+            deletedObjects.addAll(ticket.delete());
+        });
+        return deletedObjects;
     }
-
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {

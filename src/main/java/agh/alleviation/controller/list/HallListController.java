@@ -29,7 +29,7 @@ public class HallListController extends GenericListController<Hall, HallService>
         super.initialize();
 
         observableComposite.fillFromService(Hall.class);
-        itemTable.setItems(observableComposite.getList(Hall.class));
+        itemTable.setItems(observableComposite.getActiveElementsList(Hall.class));
 
         numberColumn.setCellValueFactory(dataValue -> dataValue.getValue().numberProperty().asObject());
         capacityColumn.setCellValueFactory(dataValue -> dataValue.getValue().capacityProperty().asObject());
@@ -47,11 +47,10 @@ public class HallListController extends GenericListController<Hall, HallService>
     @FXML
     protected void handleEditAction(ActionEvent event) {
         Hall hall = (Hall) itemTable.getSelectionModel().getSelectedItem();
-        if(hall != null) {
+        if (hall != null) {
             this.viewControllerManager.getHallDialogContext().showEditItemDialog(hall);
         }
     }
-
 
     /**
      * Instantiates a new Hall list controller.
