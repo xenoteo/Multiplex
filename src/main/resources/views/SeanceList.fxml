@@ -21,6 +21,7 @@
     <right>
         <VBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
+                <Button fx:id="add" mnemonicParsing="false" onAction="#handleAddAction" text="Add" textAlignment="CENTER" />
                 <Button fx:id="edit" mnemonicParsing="false" onAction="#handleEditAction" text="Edit" textAlignment="CENTER" />
                 <Button fx:id="delete" mnemonicParsing="false" onAction="#handleDeleteAction" text="Delete" textAlignment="CENTER" />
             </children>

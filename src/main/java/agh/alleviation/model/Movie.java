@@ -235,4 +235,9 @@ public class Movie extends EntityObject {
     public int hashCode() {
         return Objects.hash(getId(), name);
     }
+
+    @Override
+    public String toString() {
+        return name.get();
+    }
 }

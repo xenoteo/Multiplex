@@ -2,6 +2,7 @@ package agh.alleviation.controller.list;
 
 import agh.alleviation.controller.GenericController;
 import agh.alleviation.model.Hall;
+import agh.alleviation.model.Movie;
 import agh.alleviation.model.Seance;
 import agh.alleviation.presentation.Screen;
 import agh.alleviation.service.SeanceService;
@@ -46,12 +47,15 @@ public class SeanceListController extends GenericListController<Seance, SeanceSe
 
     @Override
     protected void handleAddAction(ActionEvent event) {
-        throw new UnsupportedOperationException();
+        viewControllerManager.getSeanceDialogContext().showAddItemDialog();
     }
 
     @Override
     protected void handleEditAction(ActionEvent event) {
-
+        Seance seance = (Seance) itemTable.getSelectionModel().getSelectedItem();
+        if(seance != null) {
+            viewControllerManager.getSeanceDialogContext().showEditItemDialog(seance);
+        }
     }
 
 
