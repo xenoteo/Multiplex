@@ -1,11 +1,7 @@
 package agh.alleviation.controller.list;
 
 import agh.alleviation.controller.GenericController;
-import agh.alleviation.controller.ObservableComposite;
 import agh.alleviation.model.EntityObject;
-import agh.alleviation.service.EntityObjectService;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.SelectionMode;
@@ -18,7 +14,6 @@ public abstract class GenericListController<Item extends EntityObject, Service> 
 //    protected ObservableList<Item> itemObservableList;
 
     protected Service service;
-
 
     @FXML
     protected TableView<EntityObject> itemTable;
@@ -38,10 +33,9 @@ public abstract class GenericListController<Item extends EntityObject, Service> 
     protected abstract void handleEditAction(ActionEvent event);
 
     @FXML
-    protected void handleDeleteAction(ActionEvent event){
+    protected void handleDeleteAction(ActionEvent event) {
         EntityObject item = itemTable.getSelectionModel().getSelectedItem();
-        observableComposite.delete(item);
+        serviceManager.delete(item);
     }
-
 
 }

@@ -6,7 +6,6 @@ import agh.alleviation.service.MovieService;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import net.rgielen.fxweaver.core.FxmlView;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -28,7 +27,6 @@ public class EditMovieDialogController extends EditDialogController<Movie> {
     @FXML
     private TextField actorsField;
 
-
     @Override
     public void setEditedItem(Movie movie) {
         super.setEditedItem(movie);
@@ -48,11 +46,11 @@ public class EditMovieDialogController extends EditDialogController<Movie> {
         String director = directorField.getText();
         String actors = actorsField.getText();
 
-        MovieService service = (MovieService) observableComposite.getService(Movie.class);
+        MovieService service = (MovieService) serviceManager.getService(Movie.class);
 
-        if(editedItem == null) {
+        if (editedItem == null) {
             Movie movie = service.addMovie(name, genreName, description, director, actors);
-            observableComposite.addToObservable(movie);
+            serviceManager.addToObservable(movie);
         } else {
             editedItem.setName(name);
             Genre genre = service.getGenre(genreName);
@@ -60,10 +58,9 @@ public class EditMovieDialogController extends EditDialogController<Movie> {
             editedItem.setDescription(description);
             editedItem.setDirector(director);
             editedItem.setActors(actors);
-            observableComposite.update(editedItem);
+            serviceManager.update(editedItem);
         }
         dialogStage.close();
     }
-
 
 }

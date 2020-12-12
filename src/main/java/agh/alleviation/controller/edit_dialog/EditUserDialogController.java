@@ -72,17 +72,17 @@ public class EditUserDialogController extends EditDialogController<User> {
         String email = emailField.getText();
         UserType userType = userTypeDropdown.getValue();
 
-        UserService userService = (UserService) observableComposite.getService(User.class);
+        UserService userService = (UserService) serviceManager.getService(User.class);
 
-        if(editedItem == null) {
+        if (editedItem == null) {
             editedItem = userService.addUser(name, login, email, userType);
-            observableComposite.addToObservable(editedItem);
+            serviceManager.addToObservable(editedItem);
         } else {
             editedItem.setName(name);
             editedItem.setLogin(login);
             editedItem.setEmail(email);
             editedItem.setUserType(userType);
-            observableComposite.update(editedItem);
+            serviceManager.update(editedItem);
         }
         dialogStage.close();
     }

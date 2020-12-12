@@ -59,7 +59,7 @@ public class RegistrationDialogController extends AccessDialogController {
             return;
         }
 
-        UserService userService = (UserService) observableComposite.getService(User.class);
+        UserService userService = (UserService) serviceManager.getService(User.class);
 
         if (userService.getUserByLogin(login) != null || userService.getUserByEmail(email) != null){
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -73,7 +73,7 @@ public class RegistrationDialogController extends AccessDialogController {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Registration completed successfully");
             alert.show();
-            observableComposite.addToObservable(user);
+            serviceManager.addToObservable(user);
         }
         dialogStage.close();
     }

@@ -30,8 +30,8 @@ public class SeanceListController extends GenericListController<Seance, SeanceSe
     @FXML
     protected void initialize() {
         super.initialize();
-        observableComposite.fillFromService(Seance.class);
-        itemTable.setItems(observableComposite.getActiveElementsList(Seance.class));
+        serviceManager.fillFromService(Seance.class);
+        itemTable.setItems(serviceManager.getActiveElementsList(Seance.class));
         movieColumn.setCellValueFactory(dataValue -> dataValue.getValue().getMovie().nameProperty());
         hallColumn.setCellValueFactory(dataValue -> dataValue.getValue().getHall().numberProperty());
         dateColumn.setCellValueFactory(dataValue -> dataValue.getValue().dateProperty());

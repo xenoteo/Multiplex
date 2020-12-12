@@ -1,6 +1,5 @@
 package agh.alleviation.controller.list;
 
-import agh.alleviation.model.Hall;
 import agh.alleviation.model.Movie;
 import agh.alleviation.model.Seance;
 import agh.alleviation.service.MovieService;
@@ -42,8 +41,8 @@ public class MovieListController extends GenericListController<Movie, MovieServi
     public void initialize() {
         super.initialize();
 
-        observableComposite.fillFromService(Movie.class);
-        itemTable.setItems(observableComposite.getActiveElementsList(Movie.class));
+        serviceManager.fillFromService(Movie.class);
+        itemTable.setItems(serviceManager.getActiveElementsList(Movie.class));
 
         nameColumn.setCellValueFactory(dataValue -> dataValue.getValue().nameProperty());
         genreColumn.setCellValueFactory(dataValue -> dataValue.getValue().genreProperty().asString());
@@ -84,7 +83,7 @@ public class MovieListController extends GenericListController<Movie, MovieServi
     @Override
     protected void handleDeleteAction(ActionEvent event) {
         Movie movie = (Movie) itemTable.getSelectionModel().getSelectedItem();
-        observableComposite.delete(movie);
+        serviceManager.delete(movie);
     }
 
     @Autowired

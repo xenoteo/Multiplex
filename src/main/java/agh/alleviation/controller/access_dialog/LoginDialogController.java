@@ -1,6 +1,5 @@
 package agh.alleviation.controller.access_dialog;
 
-import agh.alleviation.controller.ActiveUser;
 import agh.alleviation.model.user.User;
 import agh.alleviation.service.UserService;
 import agh.alleviation.util.UserType;
@@ -53,7 +52,7 @@ public class LoginDialogController extends AccessDialogController {
     public void login() {
         String login = loginField.getText();
         String password = passwordField.getText();
-        UserService userService = (UserService) observableComposite.getService(User.class);
+        UserService userService = (UserService) serviceManager.getService(User.class);
         if (!userService.validateUser(login, password)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Invalid login or password");

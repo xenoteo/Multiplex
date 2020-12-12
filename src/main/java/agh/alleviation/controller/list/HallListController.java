@@ -28,8 +28,8 @@ public class HallListController extends GenericListController<Hall, HallService>
     protected void initialize() {
         super.initialize();
 
-        observableComposite.fillFromService(Hall.class);
-        itemTable.setItems(observableComposite.getActiveElementsList(Hall.class));
+        serviceManager.fillFromService(Hall.class);
+        itemTable.setItems(serviceManager.getActiveElementsList(Hall.class));
 
         numberColumn.setCellValueFactory(dataValue -> dataValue.getValue().numberProperty().asObject());
         capacityColumn.setCellValueFactory(dataValue -> dataValue.getValue().capacityProperty().asObject());
