@@ -24,7 +24,7 @@ public class Genre extends EntityObject {
      * The constant TABLE_NAME.
      */
     public static final String TABLE_NAME = "genre";
-    
+
     /**
      * The type Columns.
      */

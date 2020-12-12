@@ -158,6 +158,12 @@ public class UserService extends EntityObjectService<User, UserRepository> {
         return password.equals(user.getPassword());
     }
 
+    /**
+     * Get user by login user.
+     *
+     * @param login the login
+     * @return the user
+     */
     public User getUserByLogin(String login){
         return repository.findByLogin(login);
     }

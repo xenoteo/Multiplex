@@ -63,6 +63,11 @@ public class Seance extends EntityObject {
     public Seance() {
     }
 
+    /**
+     * Instantiates a new Seance.
+     *
+     * @param movie the movie
+     */
     public Seance(Movie movie) {
         setMovie(movie);
         setTickets(new ArrayList<>());
@@ -196,13 +201,33 @@ public class Seance extends EntityObject {
         priceProperty.set(price);
     }
 
+    /**
+     * Tickets property object property.
+     *
+     * @return the object property
+     */
     public ObjectProperty<List<Ticket>> ticketsProperty() { return tickets; }
 
+    /**
+     * Gets tickets.
+     *
+     * @return the tickets
+     */
     @OneToMany(orphanRemoval = true, cascade = {CascadeType.PERSIST})
     public List<Ticket> getTickets() { return tickets.get(); }
 
+    /**
+     * Sets tickets.
+     *
+     * @param tickets the tickets
+     */
     public void setTickets(List<Ticket> tickets) { this.tickets.set(tickets);}
 
+    /**
+     * Add ticket.
+     *
+     * @param ticket the ticket
+     */
     public void addTicket(Ticket ticket) {
         getTickets().add(ticket);
     }

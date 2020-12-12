@@ -46,6 +46,11 @@ public class HallService extends EntityObjectService<Hall, HallRepository> {
         return hall;
     }
 
+    /**
+     * Update hall.
+     *
+     * @param hall the hall
+     */
     public void updateHall(Hall hall) {
         repository.save(hall);
     }
@@ -85,6 +90,7 @@ public class HallService extends EntityObjectService<Hall, HallRepository> {
 
     /**
      * Find hall by its id.
+     *
      * @param number hall's id
      * @return the hall
      */

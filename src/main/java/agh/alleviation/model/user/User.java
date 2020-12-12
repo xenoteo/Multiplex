@@ -77,9 +77,9 @@ public abstract class User extends EntityObject implements Externalizable {
     /**
      * Instantiates a new User.
      *
-     * @param name  name and surname of the user (personal info)
-     * @param login unique login of the user
-     * @param email email of the user
+     * @param name     name and surname of the user (personal info)
+     * @param login    unique login of the user
+     * @param email    email of the user
      * @param password user's password
      */
     public User(final String name, final String login, final String email, final String password){
@@ -126,6 +126,7 @@ public abstract class User extends EntityObject implements Externalizable {
 
     /**
      * Gets user type.
+     *
      * @return user type
      */
     public UserType getUserType(){

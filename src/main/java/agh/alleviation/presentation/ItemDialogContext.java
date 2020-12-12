@@ -1,14 +1,28 @@
 package agh.alleviation.presentation;
 
-import agh.alleviation.controller.edit_dialog.EditDialogController;
-import agh.alleviation.model.EntityObject;
+import agh.alleviation.presentation.controller.edit_dialog.EditDialogController;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxControllerAndView;
 
+/**
+ * The type Item dialog context.
+ *
+ * @param <Item>       the type parameter
+ * @param <Controller> the type parameter
+ */
 public class ItemDialogContext<Item, Controller extends EditDialogController<Item>> extends StageAndSceneSetupper {
+    /**
+     * The Controller and view.
+     */
     FxControllerAndView<Controller, Pane> controllerAndView;
 
+    /**
+     * Instantiates a new Item dialog context.
+     *
+     * @param primaryStage      the primary stage
+     * @param controllerAndView the controller and view
+     */
     public ItemDialogContext(Stage primaryStage, FxControllerAndView<Controller, Pane> controllerAndView) {
         super(primaryStage);
         this.controllerAndView = controllerAndView;
@@ -23,10 +37,20 @@ public class ItemDialogContext<Item, Controller extends EditDialogController<Ite
         return controller.getEditedItem();
     }
 
+    /**
+     * Show add item dialog item.
+     *
+     * @return the item
+     */
     public Item showAddItemDialog() {
         return this.showItemDialog("Add item", null);
     }
 
+    /**
+     * Show edit item dialog.
+     *
+     * @param item the item
+     */
     public void showEditItemDialog(Item item) {
         this.showItemDialog("Edit item", item);
     }

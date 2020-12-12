@@ -36,6 +36,9 @@ public class Hall extends EntityObject {
          */
         public static final String NUMBER = "number";
 
+        /**
+         * The constant SEANCES.
+         */
         public static final String SEANCES = "seances";
     }
 
@@ -112,11 +115,26 @@ public class Hall extends EntityObject {
      */
     public void setNumber(int number) { numberProperty.set(number); }
 
+    /**
+     * Gets seances.
+     *
+     * @return the seances
+     */
     @OneToMany(orphanRemoval = true, cascade = {CascadeType.PERSIST})
     public List<Seance> getSeances() { return seancesProperty.get(); }
 
+    /**
+     * Sets seances.
+     *
+     * @param seances the seances
+     */
     public void setSeances(List<Seance> seances) { seancesProperty.set(seances); }
 
+    /**
+     * Add seance.
+     *
+     * @param seance the seance
+     */
     public void addSeance(Seance seance) { this.getSeances().add(seance); }
 
     @Override

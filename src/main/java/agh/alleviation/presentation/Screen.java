@@ -8,12 +8,32 @@ import agh.alleviation.util.UserType;
  * @author Kamil Krzempek, Anna Nosek
  */
 public enum Screen {
+    /**
+     * Main screen.
+     */
     MAIN,
+    /**
+     * User list screen.
+     */
     USER_LIST,
+    /**
+     * Hall list screen.
+     */
     HALL_LIST,
+    /**
+     * Movie list screen.
+     */
     MOVIE_LIST,
+    /**
+     * Seance list screen.
+     */
     SEANCE_LIST;
 
+    /**
+     * Gets privilege level.
+     *
+     * @return the privilege level
+     */
     public int getPrivilegeLevel() {
         return switch (this) {
             case MAIN -> 0;

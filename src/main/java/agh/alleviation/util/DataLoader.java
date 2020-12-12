@@ -81,8 +81,8 @@ public class DataLoader {
         LocalDateTime date = LocalDateTime.of(2020, Month.DECEMBER, 12, 12, 0);
         double price = 25.00;
 
-        Movie movie1 = movieService.getAll().get(0);
-        Hall hall1 = hallService.getAll().get(0);
+        Movie movie1 = (Movie) movieService.getAll().get(0);
+        Hall hall1 = (Hall) hallService.getAll().get(0);
 
         seanceService.addSeance(movie1, hall1, date, price);
     }
@@ -91,7 +91,7 @@ public class DataLoader {
      * Populate orders.
      */
     public void populateOrders() {
-        Seance seance = seanceService.getAll().get(0);
+        Seance seance = (Seance) seanceService.getAll().get(0);
         Ticket ticket = orderService.addTicket(seance, seance.getPrice());
         Customer customer = userService.findAllCustomers().get(0);
         orderService.addOrder(List.of(ticket), customer);

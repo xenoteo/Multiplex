@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane prefHeight="239.0" prefWidth="275.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agh.alleviation.controller.edit_dialog.EditSeanceDialogController">
+<BorderPane prefHeight="239.0" prefWidth="275.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agh.alleviation.presentation.controller.edit_dialog.EditSeanceDialogController">
     <center>
         <GridPane BorderPane.alignment="CENTER">
             <columnConstraints>

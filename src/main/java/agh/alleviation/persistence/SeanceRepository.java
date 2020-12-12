@@ -16,6 +16,12 @@ import java.util.List;
  */
 public interface SeanceRepository extends CrudRepository<Seance, Integer> {
 
+    /**
+     * Find by id with tickets seance.
+     *
+     * @param id the id
+     * @return the seance
+     */
     @Query("SELECT s FROM Seance s LEFT JOIN FETCH s.tickets WHERE s.id = ?1")
     Seance findByIdWithTickets(int id);
 

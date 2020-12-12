@@ -28,6 +28,8 @@ public class SeanceService extends EntityObjectService<Seance, SeanceRepository>
      * Instantiates a new Seance service.
      *
      * @param seanceRepository the seance repository
+     * @param movieRepository  the movie repository
+     * @param hallRepository   the hall repository
      */
     @Autowired
     public SeanceService(
@@ -37,6 +39,12 @@ public class SeanceService extends EntityObjectService<Seance, SeanceRepository>
         this.hallRepository = hallRepository;
     }
 
+    /**
+     * Add seance seance.
+     *
+     * @param movie the movie
+     * @return the seance
+     */
     public Seance addSeance(Movie movie) {
         Seance seance = new Seance(movie);
         movie = movieRepository.findByIdWithSeances(movie.getId());
@@ -45,6 +53,15 @@ public class SeanceService extends EntityObjectService<Seance, SeanceRepository>
         return seance;
     }
 
+    /**
+     * Add seance seance.
+     *
+     * @param movie the movie
+     * @param hall  the hall
+     * @param date  the date
+     * @param price the price
+     * @return the seance
+     */
     public Seance addSeance(Movie movie, Hall hall, LocalDateTime date, double price) {
         Seance seance = addSeance(movie);
         seance.setHall(hall);

@@ -29,10 +29,20 @@ public class Customer extends User {
      */
     public static final String TABLE_NAME = "customer";
 
+    /**
+     * Instantiates a new Customer.
+     */
     public Customer() {
         setUserType(UserType.CUSTOMER);
     }
 
+    /**
+     * Instantiates a new Customer.
+     *
+     * @param name  the name
+     * @param login the login
+     * @param email the email
+     */
     public Customer(final String name, final String login, final String email) {
         super(name, login, email);
     }

@@ -24,6 +24,12 @@ public interface MovieRepository extends CrudRepository<Movie, Integer> {
     List<Movie> findAll();
 
 
+    /**
+     * Find by id with seances movie.
+     *
+     * @param id the id
+     * @return the movie
+     */
     @Query("SELECT m FROM Movie m LEFT JOIN FETCH m.seances WHERE m.id = ?1")
     Movie findByIdWithSeances(int id);
 }

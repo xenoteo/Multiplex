@@ -17,6 +17,11 @@ import javax.transaction.Transactional;
 @Service
 @Transactional
 public class TicketService extends EntityObjectService<Ticket, TicketRepository> {
+    /**
+     * Instantiates a new Ticket service.
+     *
+     * @param ticketRepository the ticket repository
+     */
     @Autowired
     public TicketService(TicketRepository ticketRepository) {
         repository = ticketRepository;

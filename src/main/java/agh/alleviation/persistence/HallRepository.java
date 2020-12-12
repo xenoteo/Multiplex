@@ -31,8 +31,20 @@ public interface HallRepository extends CrudRepository<Hall, Integer> {
      */
     List<Hall> findAllByCapacity(int capacity);
 
+    /**
+     * Find by id with seances hall.
+     *
+     * @param id the id
+     * @return the hall
+     */
     @Query("SELECT h FROM Hall h LEFT JOIN FETCH h.seances WHERE h.id = ?1")
     Hall findByIdWithSeances(int id);
 
+    /**
+     * Find by number hall.
+     *
+     * @param number the number
+     * @return the hall
+     */
     Hall findByNumber(int number);
 }

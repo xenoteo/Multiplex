@@ -22,6 +22,12 @@ public interface OrderRepository extends CrudRepository<Order, Integer> {
      */
     List<Order> findAllByCustomer(Customer customer);
 
+    /**
+     * Find by id with tickets order.
+     *
+     * @param id the id
+     * @return the order
+     */
     @Query("SELECT o FROM Order o LEFT JOIN FETCH o.tickets WHERE o.id=?1")
     Order findByIdWithTickets(int id);
 }

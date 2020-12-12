@@ -1,22 +1,21 @@
 package agh.alleviation.presentation;
 
-import agh.alleviation.controller.*;
-import agh.alleviation.controller.access_dialog.LoginDialogController;
-import agh.alleviation.controller.access_dialog.RegistrationDialogController;
-import agh.alleviation.controller.edit_dialog.EditHallDialogController;
-import agh.alleviation.controller.edit_dialog.EditMovieDialogController;
-import agh.alleviation.controller.edit_dialog.EditSeanceDialogController;
-import agh.alleviation.controller.edit_dialog.EditUserDialogController;
-import agh.alleviation.controller.list.HallListController;
-import agh.alleviation.controller.list.MovieListController;
-import agh.alleviation.controller.list.SeanceListController;
-import agh.alleviation.controller.list.UserListController;
+import agh.alleviation.presentation.context.ActiveUser;
+import agh.alleviation.presentation.controller.*;
+import agh.alleviation.presentation.controller.access_dialog.LoginDialogController;
+import agh.alleviation.presentation.controller.access_dialog.RegistrationDialogController;
+import agh.alleviation.presentation.controller.edit_dialog.EditHallDialogController;
+import agh.alleviation.presentation.controller.edit_dialog.EditMovieDialogController;
+import agh.alleviation.presentation.controller.edit_dialog.EditSeanceDialogController;
+import agh.alleviation.presentation.controller.edit_dialog.EditUserDialogController;
+import agh.alleviation.presentation.controller.list.HallListController;
+import agh.alleviation.presentation.controller.list.MovieListController;
+import agh.alleviation.presentation.controller.list.SeanceListController;
+import agh.alleviation.presentation.controller.list.UserListController;
 import agh.alleviation.model.Hall;
 import agh.alleviation.model.Movie;
 import agh.alleviation.model.Seance;
-import agh.alleviation.model.user.Admin;
 import agh.alleviation.model.user.User;
-import agh.alleviation.util.UserType;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -49,19 +48,27 @@ public class ViewControllerManager {
 
     /**
      * Instantiates a new View controller manager.
-     *
      */
     public ViewControllerManager() {
     }
 
+    /**
+     * Set fx weaver.
+     *
+     * @param weaver the weaver
+     */
     public void setFxWeaver(FxWeaver weaver){
         this.fxWeaver = weaver;
     }
 
+    /**
+     * Set primary stage.
+     *
+     * @param stage the stage
+     */
     public void setPrimaryStage(Stage stage){
         this.primaryStage = stage;
     }
-
 
 
     /**
@@ -107,11 +114,17 @@ public class ViewControllerManager {
 
     }
 
+    /**
+     * Show primary stage.
+     */
     public void showPrimaryStage() {
         primaryStage.show();
         screenSwitcher.activate(Screen.MAIN);
     }
 
+    /**
+     * Hide primary stage.
+     */
     public void hidePrimaryStage() {
         primaryStage.close();
     }
@@ -135,18 +148,38 @@ public class ViewControllerManager {
         this.screenSwitcher.activate(screen);
     }
 
+    /**
+     * Gets user dialog context.
+     *
+     * @return the user dialog context
+     */
     public ItemDialogContext<User, EditUserDialogController> getUserDialogContext() {
         return new ItemDialogContext<>(primaryStage, fxWeaver.load(EditUserDialogController.class));
     }
 
+    /**
+     * Gets hall dialog context.
+     *
+     * @return the hall dialog context
+     */
     public ItemDialogContext<Hall, EditHallDialogController> getHallDialogContext() {
         return new ItemDialogContext<>(primaryStage, fxWeaver.load(EditHallDialogController.class));
     }
 
+    /**
+     * Gets movie dialog context.
+     *
+     * @return the movie dialog context
+     */
     public ItemDialogContext<Movie, EditMovieDialogController> getMovieDialogContext() {
         return new ItemDialogContext<>(primaryStage, fxWeaver.load(EditMovieDialogController.class));
     }
 
+    /**
+     * Gets seance dialog context.
+     *
+     * @return the seance dialog context
+     */
     public ItemDialogContext<Seance, EditSeanceDialogController> getSeanceDialogContext() {
         return new ItemDialogContext<>(primaryStage, fxWeaver.load(EditSeanceDialogController.class));
     }
@@ -163,6 +196,7 @@ public class ViewControllerManager {
 
     /**
      * Shows login dialog.
+     *
      * @return whether user was successfully logged in
      */
     public boolean showLoginDialog(){
@@ -190,6 +224,11 @@ public class ViewControllerManager {
 
     }
 
+    /**
+     * Set active user.
+     *
+     * @param activeUser the active user
+     */
     @Autowired
     public void setActiveUser(ActiveUser activeUser){
         this.activeUser = activeUser;

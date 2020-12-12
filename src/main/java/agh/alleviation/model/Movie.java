@@ -65,8 +65,11 @@ public class Movie extends EntityObject {
     /**
      * Instantiates a new Movie.
      *
-     * @param name  the name
-     * @param genre the genre
+     * @param name        the name
+     * @param genre       the genre
+     * @param description the description
+     * @param director    the director
+     * @param actors      the actors
      */
     public Movie(final String name, Genre genre, String description, String director, String actors) {
         setName(name);
@@ -189,13 +192,33 @@ public class Movie extends EntityObject {
      */
     public void setActors(String actors) { this.actors.set(actors); }
 
+    /**
+     * Actors property string property.
+     *
+     * @return the string property
+     */
     public StringProperty actorsProperty() { return this.actors; }
 
+    /**
+     * Gets seances.
+     *
+     * @return the seances
+     */
     @OneToMany(orphanRemoval = true, cascade = {CascadeType.PERSIST})
     public List<Seance> getSeances() { return seances.get(); }
 
+    /**
+     * Sets seances.
+     *
+     * @param seances the seances
+     */
     public void setSeances(List<Seance> seances) { this.seances.set(seances); }
 
+    /**
+     * Seances property object property.
+     *
+     * @return the object property
+     */
     public ObjectProperty<List<Seance>> seancesProperty() { return seances; }
 
     @Override
@@ -208,6 +231,11 @@ public class Movie extends EntityObject {
         return deletedObjects;
     }
 
+    /**
+     * Add seance.
+     *
+     * @param seance the seance
+     */
     public void addSeance(Seance seance) {
         this.getSeances().add(seance);
     }

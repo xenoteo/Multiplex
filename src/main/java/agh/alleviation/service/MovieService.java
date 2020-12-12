@@ -36,8 +36,11 @@ public class MovieService extends EntityObjectService<Movie, MovieRepository> {
     /**
      * Add movie
      *
-     * @param name      the name
-     * @param genreName the genre
+     * @param name        the name
+     * @param genreName   the genre
+     * @param description the description
+     * @param director    the director
+     * @param actors      the actors
      * @return the movie
      */
     public Movie addMovie(String name, String genreName, String description, String director, String actors) {

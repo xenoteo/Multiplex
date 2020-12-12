@@ -15,6 +15,12 @@ import java.util.List;
 public interface CustomerRepository extends CrudRepository<Customer, Integer> {
     List<Customer> findAll();
 
+    /**
+     * Find by id with orders customer.
+     *
+     * @param id the id
+     * @return the customer
+     */
     @Query("SELECT c FROM Customer c LEFT JOIN FETCH c.orders WHERE c.id = ?1")
     Customer findByIdWithOrders(int id);
 

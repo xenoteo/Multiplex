@@ -38,6 +38,9 @@ public class Ticket extends EntityObject {
          */
         public static final String PRICE = "price";
 
+        /**
+         * The constant ORDER.
+         */
         public static final String ORDER = "order";
 
     }
@@ -105,10 +108,20 @@ public class Ticket extends EntityObject {
         return priceProperty.get();
     }
 
-    //    @JoinColumn(name = Columns.ORDER)
+    /**
+     * Gets order.
+     *
+     * @return the order
+     */
+//    @JoinColumn(name = Columns.ORDER)
     @ManyToOne
     public Order getOrder() { return orderProperty.get(); }
 
+    /**
+     * Sets order.
+     *
+     * @param order the order
+     */
     public void setOrder(Order order) { orderProperty.set(order); }
 
     /**

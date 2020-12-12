@@ -6,6 +6,7 @@ import java.util.List;
 
 /**
  * Repository of users.
+ *
  * @author Anna Nosek
  * @see User
  */
@@ -23,6 +24,7 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 
     /**
      * Finds user by email.
+     *
      * @param email the email
      * @return the user
      */

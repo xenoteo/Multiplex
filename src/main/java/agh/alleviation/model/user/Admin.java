@@ -19,10 +19,20 @@ public class Admin extends User {
      */
     public static final String TABLE_NAME = "admin";
 
+    /**
+     * Instantiates a new Admin.
+     */
     public Admin(){
         setUserType(UserType.ADMIN);
     }
 
+    /**
+     * Instantiates a new Admin.
+     *
+     * @param name  the name
+     * @param login the login
+     * @param email the email
+     */
     public Admin(final String name, final String login, final String email){
         super(name, login, email);
     }

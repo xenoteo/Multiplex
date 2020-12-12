@@ -31,9 +31,11 @@ public class OrderService extends EntityObjectService<Order, OrderRepository> {
     /**
      * Instantiates a new Order service.
      *
-     * @param orderRepository  the order repository
-     * @param ticketRepository the ticket repository
-     * @param userRepository   the user repository
+     * @param orderRepository    the order repository
+     * @param ticketRepository   the ticket repository
+     * @param userRepository     the user repository
+     * @param seanceRepository   the seance repository
+     * @param customerRepository the customer repository
      */
     @Autowired
     public OrderService(
@@ -69,6 +71,7 @@ public class OrderService extends EntityObjectService<Order, OrderRepository> {
      *
      * @param tickets  the tickets
      * @param customer the customer
+     * @return the order
      */
     public Order addOrder(List<Ticket> tickets, Customer customer) {
         Order order = new Order(customer);

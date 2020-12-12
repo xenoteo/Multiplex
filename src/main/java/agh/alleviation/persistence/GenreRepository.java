@@ -12,5 +12,11 @@ import org.springframework.data.repository.CrudRepository;
  * @see Genre
  */
 public interface GenreRepository extends CrudRepository<Genre, Integer> {
+    /**
+     * Find by name genre.
+     *
+     * @param name the name
+     * @return the genre
+     */
     Genre findByName(String name);
 }

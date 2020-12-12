@@ -36,6 +36,11 @@ public enum UserType {
         return name;
     }
 
+    /**
+     * Gets privilege level.
+     *
+     * @return the privilege level
+     */
     public int getPrivilegeLevel() {
         return switch (this) {
             case CUSTOMER -> 0;

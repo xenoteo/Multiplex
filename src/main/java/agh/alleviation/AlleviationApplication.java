@@ -84,11 +84,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  *     <li>Anna Nosek - model changes, Entity and Service abstract classes, ObservableComposite introduction, major refactoring</li>
  * </ul>
  * All Team members were participating in creating the documentation. All of the mentioned roles were fluid and required involvement of all participants - the introduced ideas were preceded with detailed discussions. Integration of the changes was also done in a team-based fashion.
- * Class Diagram:
- * <p>
- * <img alt="class diagram" src="Model.png" style="width:100%">
- * </p>
- *
  */
 @SpringBootApplication
 @EnableJpaRepositories(basePackages = {"agh.alleviation.persistence"})

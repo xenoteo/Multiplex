@@ -65,6 +65,11 @@ public class Order extends EntityObject {
         setIsActive(true);
     }
 
+    /**
+     * Instantiates a new Order.
+     *
+     * @param customer the customer
+     */
     public Order(Customer customer) {
         setCustomer(customer);
         setIsActive(true);
