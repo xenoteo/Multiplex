@@ -50,7 +50,4 @@ public class SeanceListController extends GenericListController<Seance, SeanceSe
             viewControllerManager.getSeanceDialogContext().showEditItemDialog(seance);
         }
     }
-
-    @Autowired
-    public SeanceListController(SeanceService seanceService) { this.service = seanceService; }
 }

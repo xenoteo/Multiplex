@@ -50,8 +50,6 @@ public class ViewControllerManager {
     /**
      * Instantiates a new View controller manager.
      *
-     * @param fxWeaver     the fx weaver
-     * @param primaryStage the primary stage
      */
     public ViewControllerManager() {
     }
@@ -168,16 +166,10 @@ public class ViewControllerManager {
      * @return whether user was successfully logged in
      */
     public boolean showLoginDialog(){
-        System.out.println("Showing login dialog");
         User user = new AccessDialogViewer<>(primaryStage, fxWeaver.load(LoginDialogController.class)).showLoginDialog();
-        System.out.println("User " + user);
         if(user != null){
-            System.out.println("User " + user.getLogin());
             updateActiveUser(user);
             showPrimaryStage();
-        }
-        else{
-            System.out.println("User does not exist");
         }
         return user != null;
     }

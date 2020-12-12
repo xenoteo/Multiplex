@@ -42,11 +42,6 @@ public class UserListController extends GenericListController<User, UserService>
 
     }
 
-//    @Override
-//    protected void resetContents(){
-//        itemObservableList.addAll(service.getAllActive());
-//    }
-
     /**
      * Handle add action.
      *
@@ -70,14 +65,5 @@ public class UserListController extends GenericListController<User, UserService>
         User user = (User) itemTable.getSelectionModel().getSelectedItem();
         serviceManager.delete(user);
     }
-
-    /**
-     * Instantiates a new User list controller.
-     *
-     * @param userService the user service
-     */
-    @Autowired
-    public UserListController(UserService userService) {
-        this.service = userService;
-    }
+    
 }

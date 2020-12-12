@@ -20,9 +20,6 @@ public class MovieListController extends GenericListController<Movie, MovieServi
     public Button addMovie;
 
     @FXML
-    public Button addSeance;
-
-    @FXML
     public TableColumn<Movie, String> nameColumn;
 
     @FXML
@@ -84,12 +81,6 @@ public class MovieListController extends GenericListController<Movie, MovieServi
     protected void handleDeleteAction(ActionEvent event) {
         Movie movie = (Movie) itemTable.getSelectionModel().getSelectedItem();
         serviceManager.delete(movie);
-    }
-
-    @Autowired
-    public MovieListController(MovieService movieService, SeanceService seanceService) {
-        this.service = movieService;
-        this.seanceService = seanceService;
     }
 
 }

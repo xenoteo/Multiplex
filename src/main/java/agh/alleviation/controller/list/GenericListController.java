@@ -8,10 +8,6 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableView;
 
 public abstract class GenericListController<Item extends EntityObject, Service> extends GenericController {
-    /**
-     * ObservableList of users used for TableView setup
-     */
-//    protected ObservableList<Item> itemObservableList;
 
     protected Service service;
 
@@ -20,11 +16,7 @@ public abstract class GenericListController<Item extends EntityObject, Service> 
 
     protected void initialize() {
         itemTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-//        itemTable.setItems(itemObservableList);
-//        resetContents();
     }
-
-//    protected abstract void resetContents();
 
     @FXML
     protected abstract void handleAddAction(ActionEvent event);

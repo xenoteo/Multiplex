@@ -69,11 +69,6 @@ public class MenuController extends GenericController implements PropertyChangeL
      */
     public static class LoginButtonText {
         /**
-         * Text displayed on login button.
-         */
-        public static final String LOGIN = "Login";
-
-        /**
          * Text displayed on logout button.
          */
         public static final String LOGOUT = "Logout";
@@ -82,53 +77,13 @@ public class MenuController extends GenericController implements PropertyChangeL
     @FXML
     private Button logoutButton;
 
-
-    /**
-     * Handles login button and depending on its state (login/logout) proceeds login/logout operation.
-     * @param event the event
-     */
-//    @FXML
-//    public void handleLoginButton(ActionEvent event){
-//        String loginButtonText = loginButton.getText();
-//        if (loginButtonText.equals(LoginButtonText.LOGIN)){
-//            login(event);
-//        }
-//        else if (loginButtonText.equals(LoginButtonText.LOGOUT)) {
-//            logout(event);
-//        }
-//    }
-
-    /**
-     * Proceeds login operation.
-     * @param event the event
-     */
-//    public void login(ActionEvent event) {
-//        if (viewControllerManager.showLoginDialog()){
-//            loginButton.setText(LoginButtonText.LOGOUT);
-//            registerButton.setVisible(false);
-//        }
-//    }
-
     /**
      * Proceeds logout operation.
      * @param event the event
      */
     public void logout(ActionEvent event) {
         viewControllerManager.logout();
-
-//        loginButton.setText(LoginButtonText.LOGIN);
-//        registerButton.setVisible(true);
     }
-
-    /**
-     * Handles register button and proceeds registration.
-     * @param event the event.
-     */
-    @FXML
-    public void register(ActionEvent event) {
-        this.viewControllerManager.showRegistrationDialog();
-    }
-
 
 
 }

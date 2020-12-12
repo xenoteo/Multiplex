@@ -38,10 +38,7 @@ public class HallListController extends GenericListController<Hall, HallService>
 
     @FXML
     protected void handleAddAction(ActionEvent event) {
-        Hall hall = this.viewControllerManager.getHallDialogContext().showAddItemDialog();
-//        if(hall != null) {
-//            itemObservableList.add(hall);
-//        }
+        this.viewControllerManager.getHallDialogContext().showAddItemDialog();
     }
 
     @FXML
@@ -52,13 +49,4 @@ public class HallListController extends GenericListController<Hall, HallService>
         }
     }
 
-    /**
-     * Instantiates a new Hall list controller.
-     *
-     * @param hallService the hall service
-     */
-    @Autowired
-    public HallListController(HallService hallService) {
-        this.service = hallService;
-    }
 }

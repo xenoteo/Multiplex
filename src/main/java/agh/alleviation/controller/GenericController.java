@@ -12,7 +12,6 @@ public abstract class GenericController {
     /**
      * ViewControllerManager instance used for navigation and opening modal windows
      */
-
     protected ViewControllerManager viewControllerManager;
 
     protected ServiceManager serviceManager;
