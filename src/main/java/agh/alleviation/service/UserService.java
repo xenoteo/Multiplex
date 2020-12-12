@@ -1,23 +1,18 @@
 package agh.alleviation.service;
 
 import agh.alleviation.model.EntityObject;
-import agh.alleviation.model.Hall;
-import agh.alleviation.model.Seance;
 import agh.alleviation.model.user.Admin;
 import agh.alleviation.model.user.Customer;
 import agh.alleviation.model.user.User;
 import agh.alleviation.model.user.Worker;
 import agh.alleviation.persistence.CustomerRepository;
-import agh.alleviation.persistence.HallRepository;
 import agh.alleviation.persistence.UserRepository;
 import agh.alleviation.util.UserType;
-import io.reactivex.rxjava3.core.Observable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Service responsible for manipulating the user repository.
@@ -40,7 +35,7 @@ public class UserService extends EntityObjectService<User, UserRepository> {
      */
     @Autowired
     public UserService(UserRepository userRepository, CustomerRepository customerRepository) {
-        this.repository = userRepository;
+        repository = userRepository;
         this.customerRepository = customerRepository;
     }
 
@@ -84,19 +79,6 @@ public class UserService extends EntityObjectService<User, UserRepository> {
         return newUser;
     }
 
-    public void updateUser(User user) {
-        repository.save(user);
-    }
-
-    /**
-     * Get all users list.
-     *
-     * @return the list
-     */
-    public List<User> getAllUsers() {
-        return repository.findAll().stream().map(this::setUserType).collect(Collectors.toList());
-    }
-
     /**
      * Get all customers list.
      *
@@ -118,6 +100,13 @@ public class UserService extends EntityObjectService<User, UserRepository> {
         return user;
     }
 
+    /**
+     * Override method to get orders associated with user if user is customer
+     * Because of lazy loading, they are not loaded at the object creation.
+     *
+     * @param user user to delete
+     * @return list of entity objects deleted with user
+     */
     @Override
     public List<EntityObject> delete(EntityObject user) {
         if (user instanceof Customer) {
@@ -167,5 +156,4 @@ public class UserService extends EntityObjectService<User, UserRepository> {
         if (user != null) setUserType(user);
         return user;
     }
-
 }

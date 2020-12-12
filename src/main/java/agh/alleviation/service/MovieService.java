@@ -3,20 +3,16 @@ package agh.alleviation.service;
 import agh.alleviation.model.EntityObject;
 import agh.alleviation.model.Genre;
 import agh.alleviation.model.Movie;
-import agh.alleviation.model.Seance;
 import agh.alleviation.persistence.GenreRepository;
 import agh.alleviation.persistence.MovieRepository;
-import javafx.collections.ObservableList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 /**
- * The type Movie service.
+ * Service responsible for manipulating the movie repository.
  *
  * @author Anna Nosek
  */
@@ -33,12 +29,12 @@ public class MovieService extends EntityObjectService<Movie, MovieRepository> {
      */
     @Autowired
     public MovieService(MovieRepository movieRepository, GenreRepository genreRepository) {
-        this.repository = movieRepository;
+        repository = movieRepository;
         this.genreRepository = genreRepository;
     }
 
     /**
-     * Add movie movie.
+     * Add movie
      *
      * @param name      the name
      * @param genreName the genre
@@ -51,12 +47,8 @@ public class MovieService extends EntityObjectService<Movie, MovieRepository> {
         return movie;
     }
 
-    public void updateMovie(Movie movie) {
-        repository.save(movie);
-    }
-
     /**
-     * Add genre
+     * Get genre of given name, if such genre does not exist, create it first
      *
      * @param name the name
      * @return the genre
@@ -69,7 +61,7 @@ public class MovieService extends EntityObjectService<Movie, MovieRepository> {
     }
 
     /**
-     * Find movie movie.
+     * Find movie by name
      *
      * @param name the name
      * @return the movie
@@ -79,18 +71,12 @@ public class MovieService extends EntityObjectService<Movie, MovieRepository> {
     }
 
     /**
-     * Gets all movies.
+     * Override method to get seances associated with movie
+     * Because of lazy loading, they are not loaded at the object creation.
      *
-     * @return the all movies
+     * @param movie movie to delete
+     * @return list of entity objects deleted with movie
      */
-    public List<Movie> getAllMovies() {
-        return repository.findAll();
-    }
-
-    public List<Movie> getActiveMovies() {
-        return repository.findAll().stream().filter(Movie::getIsActive).collect(Collectors.toList());
-    }
-
     @Override
     public List<EntityObject> delete(EntityObject movie) {
         movie = repository.findByIdWithSeances(movie.getId());

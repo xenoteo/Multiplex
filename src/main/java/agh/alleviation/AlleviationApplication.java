@@ -29,7 +29,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  *     <li>Dependency Injection - using Spring @Autowired annotation in services to provide repositories</li>
  *     <li>Inversion Of Control - using Spring Beans</li>
  * </ul>
- *
+ * <p>
  * Additionally in order to introduce dynamic binding between view and model components,
  * the fields in the @Entity classes were created as instances of JavaFx Property class.
  * In order to maintain compliance with JPA mapping requirements, the Externalizable interface
@@ -54,26 +54,23 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  * Class Diagram:
  * <img alt="class diagram" src="Model.png" style="width:100%">
  * </p>
- *
  */
 @SpringBootApplication
-@EnableJpaRepositories(basePackages = { "agh.alleviation.persistence" })
-@EntityScan(basePackages = { "agh.alleviation.model" })
+@EnableJpaRepositories(basePackages = {"agh.alleviation.persistence"})
+@EntityScan(basePackages = {"agh.alleviation.model"})
 public class AlleviationApplication {
 
-
     /**
-     * The entry point of application.
+     * The entry point of the application.
      *
      * @param args the input arguments
      */
     public static void main(String[] args) {
-        //		SpringApplication.run(AlleviationApplication.class, args);
         Application.launch(CinemaApp.class, args);
     }
 
     /**
-     * Fx weaver fx weaver.
+     * fxWeaver initialization
      *
      * @param applicationContext the application context
      * @return the fx weaver
@@ -84,23 +81,19 @@ public class AlleviationApplication {
     }
 
     /**
-     * Demo command line runner.
+     * Populate data for testing
      *
      * @param dataLoader the data loader
      * @return the command line runner
      */
     @Bean
-    public CommandLineRunner demo(DataLoader dataLoader) {
+    public CommandLineRunner populateData(DataLoader dataLoader) {
         return args -> {
-        	dataLoader.populateUsers();
-        	dataLoader.populateHalls();
-        	dataLoader.populateMovies();
-        	dataLoader.populateSeances();
+            dataLoader.populateUsers();
+            dataLoader.populateHalls();
+            dataLoader.populateMovies();
+            dataLoader.populateSeances();
             dataLoader.populateOrders();
-		};
-	}
-
-    //TODO: context menu
-    //TODO: validation
-
+        };
+    }
 }
