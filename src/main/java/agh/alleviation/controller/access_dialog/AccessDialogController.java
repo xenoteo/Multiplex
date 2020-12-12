@@ -22,7 +22,6 @@ public abstract class AccessDialogController extends GenericController {
     /**
      * User service.
      */
-    protected final UserService userService;
 
     /**
      * Instance of user, where newly logged in or registered user is saved.
@@ -33,10 +32,6 @@ public abstract class AccessDialogController extends GenericController {
      * Instantiates a new access dialog controller.
      * @param userService the user service
      */
-    @Autowired
-    public AccessDialogController(UserService userService) {
-        this.userService = userService;
-    }
 
     /**
      * Sets dialog stage.

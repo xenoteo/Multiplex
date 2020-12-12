@@ -1,5 +1,6 @@
 package agh.alleviation.controller.access_dialog;
 
+import agh.alleviation.model.user.User;
 import agh.alleviation.service.UserService;
 import agh.alleviation.util.UserType;
 import javafx.fxml.FXML;
@@ -31,18 +32,9 @@ public class RegistrationDialogController extends AccessDialogController {
     @FXML
     private PasswordField passwordField;
 
-    /**
-     * Instantiates a new register dialog controller.
-     *
-     * @param userService the user service
-     */
-    public RegistrationDialogController(UserService userService) {
-        super(userService);
-    }
 
     /**
      * Sets dialog stage.
-     *
      * @param dialogStage the dialog stage
      */
     public void setDialogStage(Stage dialogStage) {
@@ -53,21 +45,23 @@ public class RegistrationDialogController extends AccessDialogController {
      * Handles register button and if all necessary inputs provided properly saves newly registered user to database.
      */
     @FXML
-    public void register() {
+    public void register(){
 
         String name = nameField.getText();
         String login = loginField.getText();
         String email = emailField.getText();
         String password = passwordField.getText();
 
-        if (name.isEmpty() || login.isEmpty() || email.isEmpty() || password.isEmpty()) {
+        if (name.isEmpty() || login.isEmpty() || email.isEmpty() || password.isEmpty()){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("All fields must be filled");
             alert.show();
             return;
         }
 
-        if (userService.getUserByLogin(login) != null || userService.getUserByEmail(email) != null) {
+        UserService userService = (UserService) serviceManager.getService(User.class);
+
+        if (userService.getUserByLogin(login) != null || userService.getUserByEmail(email) != null){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Provided login or email is already in use");
             alert.show();
@@ -75,7 +69,7 @@ public class RegistrationDialogController extends AccessDialogController {
         }
 
         this.user = userService.addUser(name, login, email, UserType.CUSTOMER, password);
-        if (user != null) {
+        if (user != null){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Registration completed successfully");
             alert.show();
