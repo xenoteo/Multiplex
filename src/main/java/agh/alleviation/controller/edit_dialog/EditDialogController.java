@@ -1,10 +1,15 @@
 package agh.alleviation.controller.edit_dialog;
 
 import agh.alleviation.controller.GenericController;
+import agh.alleviation.controller.ValidatingController;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
+import net.synedra.validatorfx.Validator;
 
-public abstract class EditDialogController<T> extends GenericController {
+import java.util.stream.Collectors;
+
+public abstract class EditDialogController<T> extends ValidatingController {
     /**
      * Stage on which modal is placed
      */
@@ -29,4 +34,5 @@ public abstract class EditDialogController<T> extends GenericController {
     public T getEditedItem() { return this.editedItem; };
 
     public void setEditedItem(T item) { this.editedItem = item; }
+
 }

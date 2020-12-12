@@ -2,12 +2,15 @@ package agh.alleviation.service;
 
 import agh.alleviation.model.EntityObject;
 import agh.alleviation.model.Hall;
+import agh.alleviation.model.Seance;
 import agh.alleviation.persistence.HallRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 /**
  * Service responsible for manipulating the hall repository.
@@ -43,6 +46,10 @@ public class HallService extends EntityObjectService<Hall, HallRepository> {
         return hall;
     }
 
+    public void updateHall(Hall hall) {
+        repository.save(hall);
+    }
+
     /**
      * Override method to get seances associated with hall.
      * Because of lazy loading, they are not loaded at the object creation.
@@ -67,12 +74,21 @@ public class HallService extends EntityObjectService<Hall, HallRepository> {
     }
 
     /**
-     * Find halls by capacity
+     * Find halls by capacity list.
      *
      * @param capacity the capacity
-     * @return the list of halls
+     * @return the list
      */
     public List<Hall> findHallsByCapacity(int capacity) {
         return repository.findAllByCapacity(capacity);
+    }
+
+    /**
+     * Find hall by its id.
+     * @param number hall's id
+     * @return the hall
+     */
+    public Hall findHallByNumber(int number){
+        return repository.findByNumber(number);
     }
 }

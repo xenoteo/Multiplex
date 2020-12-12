@@ -7,6 +7,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import net.rgielen.fxweaver.core.FxmlView;
+import net.synedra.validatorfx.Validator;
 import org.springframework.stereotype.Component;
 
 /**
@@ -24,18 +25,36 @@ public class LoginDialogController extends AccessDialogController {
     @FXML
     private PasswordField passwordField;
 
+
     /**
      * Boolean variable indicating whether login operation was successful.
      */
     private boolean loggedIn;
 
+
     /**
      * Gets info about login operation's success.
-     *
      * @return is user logged in
      */
     public boolean isLoggedIn() {
         return loggedIn;
+    }
+
+    @Override
+    protected Validator createValidations() {
+        UserService userService = (UserService) serviceManager.getService(User.class);
+        Validator validator = new Validator();
+        validator.createCheck()
+                .withMethod(c -> {
+                    String login = c.get("login");
+                    String password = c.get("password");
+                    if (!userService.validateUser(login, password)){
+                        c.error("Invalid login or password");
+                    }
+                })
+                .dependsOn("login", loginField.textProperty())
+                .dependsOn("password", passwordField.textProperty());
+        return validator;
     }
 
     /**
@@ -43,15 +62,15 @@ public class LoginDialogController extends AccessDialogController {
      */
     @FXML
     public void login() {
-        String login = loginField.getText();
-        String password = passwordField.getText();
-        UserService userService = (UserService) serviceManager.getService(User.class);
-        if (!userService.validateUser(login, password)) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Invalid login or password");
-            alert.show();
+        Validator validator = createValidations();
+        if (!validator.validate()){
+            showErrors(validator);
             return;
         }
+
+        String login = loginField.getText();
+        UserService userService = (UserService) serviceManager.getService(User.class);
+
         user = userService.getUserByLogin(login);
         loggedIn = true;
         dialogStage.close();

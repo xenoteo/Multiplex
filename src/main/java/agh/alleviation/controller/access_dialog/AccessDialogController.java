@@ -1,10 +1,9 @@
 package agh.alleviation.controller.access_dialog;
 
 import agh.alleviation.controller.GenericController;
+import agh.alleviation.controller.ValidatingController;
 import agh.alleviation.model.user.User;
-import agh.alleviation.service.UserService;
 import javafx.stage.Stage;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Abstract access controller.
@@ -13,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @see LoginDialogController
  * @see RegistrationDialogController
  */
-public abstract class AccessDialogController extends GenericController {
+public abstract class AccessDialogController extends ValidatingController {
     /**
      * Stage on which modal is placed.
      */
@@ -23,11 +22,6 @@ public abstract class AccessDialogController extends GenericController {
      * Instance of user, where newly logged in or registered user is saved.
      */
     protected User user;
-
-    /**
-     * Instantiates a new access dialog controller.
-     * @param userService the user service
-     */
 
     /**
      * Sets dialog stage.
