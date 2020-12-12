@@ -15,7 +15,7 @@ public abstract class GenericController {
 
     protected ViewControllerManager viewControllerManager;
 
-    protected ObservableComposite observableComposite;
+    protected ServiceManager serviceManager;
 
     /**
      * Sets app controller.
@@ -27,8 +27,8 @@ public abstract class GenericController {
     }
 
     @Autowired
-    public void setObservableComposite(ObservableComposite observableComposite){
-        this.observableComposite = observableComposite;
+    public void setObservableComposite(ServiceManager serviceManager) {
+        this.serviceManager = serviceManager;
     }
 
 }

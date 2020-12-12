@@ -33,8 +33,8 @@ public class UserListController extends GenericListController<User, UserService>
     @FXML
     protected void initialize() {
         super.initialize();
-        observableComposite.fillFromService(User.class);
-        itemTable.setItems(observableComposite.getActiveElementsList(User.class));
+        serviceManager.fillFromService(User.class);
+        itemTable.setItems(serviceManager.getActiveElementsList(User.class));
         typeColumn.setCellValueFactory(dataValue -> dataValue.getValue().userTypeProperty());
         nameColumn.setCellValueFactory(dataValue -> dataValue.getValue().nameProperty());
         loginColumn.setCellValueFactory(dataValue -> dataValue.getValue().loginProperty());
@@ -68,7 +68,7 @@ public class UserListController extends GenericListController<User, UserService>
     @FXML
     protected void handleDeleteAction(ActionEvent event) {
         User user = (User) itemTable.getSelectionModel().getSelectedItem();
-        observableComposite.delete(user);
+        serviceManager.delete(user);
     }
 
     /**

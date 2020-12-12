@@ -41,17 +41,17 @@ public class EditHallDialogController extends EditDialogController<Hall> {
         int capacity = Integer.parseInt(capacityField.getText());
         int hallNumber = Integer.parseInt(numberField.getText());
 
-        HallService service = (HallService) observableComposite.getService(Hall.class);
+        HallService service = (HallService) serviceManager.getService(Hall.class);
         if (editedItem == null) {
 
             Hall hall = service.addHall(capacity, hallNumber);
-            observableComposite.addToObservable(hall);
+            serviceManager.addToObservable(hall);
 
         } else {
             editedItem.setCapacity(capacity);
             editedItem.setNumber(hallNumber);
 
-            observableComposite.update(editedItem);
+            serviceManager.update(editedItem);
         }
         dialogStage.close();
     }
