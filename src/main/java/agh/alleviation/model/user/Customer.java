@@ -44,7 +44,7 @@ public class Customer extends User {
      *
      * @return the list
      */
-    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.PERSIST)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     public List<Order> getOrders() {
         return ordersProperty.get();
     }

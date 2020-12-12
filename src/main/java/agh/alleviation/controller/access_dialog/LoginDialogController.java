@@ -18,6 +18,7 @@ import org.springframework.stereotype.Component;
 /**
  * Controller responsible for user's login.
  *
+ * @see AccessDialogController
  * @author Ksenia Fiodarava
  */
 @Component
@@ -38,6 +39,7 @@ public class LoginDialogController extends AccessDialogController {
      * Boolean variable indicating whether login operation was successful.
      */
     private boolean loggedIn;
+
 
     /**
      * Gets info about login operation's success.

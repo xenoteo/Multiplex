@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxmlView;
 import net.synedra.validatorfx.Validator;
 import org.springframework.stereotype.Component;
@@ -15,6 +14,7 @@ import org.springframework.stereotype.Component;
 /**
  * Controller responsible for user's registration.
  *
+ * @see AccessDialogController
  * @author Ksenia Fiodarava
  */
 @Component
@@ -33,15 +33,6 @@ public class RegistrationDialogController extends AccessDialogController {
     @FXML
     private PasswordField passwordField;
 
-
-    /**
-     * Sets dialog stage.
-     * @param dialogStage the dialog stage
-     */
-    public void setDialogStage(Stage dialogStage) {
-        this.dialogStage = dialogStage;
-    }
-
     @Override
     protected Validator createValidations() {
         UserService userService = (UserService) serviceManager.getService(User.class);
@@ -54,10 +45,10 @@ public class RegistrationDialogController extends AccessDialogController {
                     if (name.isEmpty() || login.isEmpty() || email.isEmpty()){
                         c.error("All fields must be filled");
                     }
-                    if (userService.getUserByEmail(email) != null){
+                    if (userService.findUserByEmail(email) != null){
                         c.error("User with such email already exists");
                     }
-                    if (userService.getUserByLogin(login) != null){
+                    if (userService.findUserByLogin(login) != null){
                         c.error("User with such login already exists");
                     }
                 })
@@ -83,16 +74,22 @@ public class RegistrationDialogController extends AccessDialogController {
         String email = emailField.getText();
         String password = passwordField.getText();
 
-
         UserService userService = (UserService) serviceManager.getService(User.class);
 
         this.user = userService.addUser(name, login, email, UserType.CUSTOMER, password);
         if (user != null){
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Registration completed successfully");
-            alert.show();
+            showSuccessAlert();
             serviceManager.addToObservable(user);
         }
         dialogStage.close();
+    }
+
+    /**
+     * Shows alert with information about successful registration.
+     */
+    private void showSuccessAlert(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText("Registration completed successfully");
+        alert.show();
     }
 }

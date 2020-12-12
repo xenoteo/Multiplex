@@ -10,8 +10,7 @@ import javafx.stage.Stage;
  * Abstract access controller.
  *
  * @author Ksenia Fiodarava
- * @see LoginDialogController
- * @see RegistrationDialogController
+ * @see ValidatingController
  */
 public abstract class AccessDialogController extends ValidatingController {
     /**

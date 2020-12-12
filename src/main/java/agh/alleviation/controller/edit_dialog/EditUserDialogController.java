@@ -8,7 +8,6 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import net.rgielen.fxweaver.core.FxmlView;
 import net.synedra.validatorfx.Validator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -19,20 +18,6 @@ import org.springframework.stereotype.Component;
 @Component
 @FxmlView("/views/EditUserDialog.fxml")
 public class EditUserDialogController extends EditDialogController<User> {
-    /**
-     * The User service.
-     */
-    private final UserService userService;
-
-    /**
-     * Instantiates a new Edit user dialog controller.
-     *
-     * @param userService the user service
-     */
-    @Autowired
-    public EditUserDialogController(UserService userService) {
-        this.userService = userService;
-    }
 
     @FXML
     private ChoiceBox<UserType> userTypeDropdown;
@@ -78,10 +63,10 @@ public class EditUserDialogController extends EditDialogController<User> {
                     if (name.isEmpty() || login.isEmpty() || email.isEmpty()){
                         c.error("All fields must be filled");
                     }
-                    if ((editedItem == null || !editedItem.getEmail().equals(email)) && userService.getUserByEmail(email) != null){
+                    if ((editedItem == null || !editedItem.getEmail().equals(email)) && userService.findUserByEmail(email) != null){
                         c.error("User with such email already exists");
                     }
-                    if ((editedItem == null || !editedItem.getLogin().equals(login)) && userService.getUserByLogin(login) != null){
+                    if ((editedItem == null || !editedItem.getLogin().equals(login)) && userService.findUserByLogin(login) != null){
                         c.error("User with such login already exists");
                     }
                 })

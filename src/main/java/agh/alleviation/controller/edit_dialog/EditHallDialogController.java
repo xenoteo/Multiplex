@@ -18,7 +18,6 @@ import org.springframework.stereotype.Component;
 @FxmlView("/views/EditHallDialog.fxml")
 public class EditHallDialogController extends EditDialogController<Hall> {
 
-
     @FXML
     private TextField capacityField;
 
@@ -33,6 +32,7 @@ public class EditHallDialogController extends EditDialogController<Hall> {
         numberField.setText(String.valueOf(hall.getNumber()));
     }
 
+    @Override
     protected Validator createValidations() {
         HallService service = (HallService) serviceManager.getService(Hall.class);
         Validator validator = new Validator();
