@@ -24,15 +24,14 @@ public class LoginDialogController extends AccessDialogController {
     @FXML
     private PasswordField passwordField;
 
-
     /**
      * Boolean variable indicating whether login operation was successful.
      */
     private boolean loggedIn;
 
-
     /**
      * Gets info about login operation's success.
+     *
      * @return is user logged in
      */
     public boolean isLoggedIn() {
@@ -46,7 +45,7 @@ public class LoginDialogController extends AccessDialogController {
     public void login() {
         String login = loginField.getText();
         String password = passwordField.getText();
-        UserService userService = (UserService) observableComposite.getService(User.class);
+        UserService userService = (UserService) serviceManager.getService(User.class);
         if (!userService.validateUser(login, password)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Invalid login or password");
