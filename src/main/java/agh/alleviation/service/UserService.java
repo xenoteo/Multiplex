@@ -144,6 +144,7 @@ public class UserService extends EntityObjectService<User, UserRepository> {
         return super.delete(user);
     }
 
+
     /**
      * Validates whether input login and password are correct.
      *
@@ -155,5 +156,9 @@ public class UserService extends EntityObjectService<User, UserRepository> {
         User user = findUserByLogin(login);
         if (user == null) return false;
         return password.equals(user.getPassword());
+    }
+
+    public User getUserByLogin(String login){
+        return repository.findByLogin(login);
     }
 }

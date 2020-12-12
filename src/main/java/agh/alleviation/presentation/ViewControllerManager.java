@@ -111,6 +111,7 @@ public class ViewControllerManager {
 
     public void showPrimaryStage() {
         primaryStage.show();
+        screenSwitcher.activate(Screen.MAIN);
     }
 
     public void hidePrimaryStage() {
@@ -156,6 +157,7 @@ public class ViewControllerManager {
      * Logs out a user.
      */
     public void logout(){
+        switchView(Screen.MAIN);
         activeUser.setUserEntity(null);
         hidePrimaryStage();
         showLoginDialog();
