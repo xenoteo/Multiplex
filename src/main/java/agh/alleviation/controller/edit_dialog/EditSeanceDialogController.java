@@ -73,4 +73,6 @@ public class EditSeanceDialogController extends EditDialogController<Seance> {
         }
         dialogStage.close();
     }
+
+
 }

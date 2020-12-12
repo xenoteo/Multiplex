@@ -2,20 +2,26 @@ package agh.alleviation.controller;
 
 import agh.alleviation.presentation.Screen;
 import agh.alleviation.util.UserType;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Observer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
-import javafx.util.Pair;
 import net.rgielen.fxweaver.core.FxmlView;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import agh.alleviation.model.user.User;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.HashMap;
 
 @Component
 @FxmlView("/views/Menu.fxml")
-public class MenuController extends GenericController {
-    private UserType activeUserType;
+public class MenuController extends GenericController implements PropertyChangeListener {
+
+    private User activeUser;
 
     @FXML
     private ToggleButton users;
@@ -39,10 +45,6 @@ public class MenuController extends GenericController {
         screenHashMap.put(seances, Screen.SEANCE_LIST);
     }
 
-    public void setActiveUserType(UserType userType) {
-        this.activeUserType = userType;
-        screenHashMap.forEach((button, screen) -> button.setVisible(screen.getPrivilegeLevel() <= activeUserType.getPrivilegeLevel()));
-    }
 
     @FXML
     public void handleActiveButtonChanged(ActionEvent event){
@@ -51,6 +53,13 @@ public class MenuController extends GenericController {
         viewControllerManager.switchView(newScreen);
     }
 
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        activeUser = (User) evt.getNewValue();
+        screenHashMap.forEach((button, screen) ->
+                button.setVisible(screen.getPrivilegeLevel() <= activeUser.getUserType().getPrivilegeLevel()));
+
+    }
 
 
     /**
@@ -69,10 +78,10 @@ public class MenuController extends GenericController {
     }
 
     @FXML
-    Button loginButton;
+    private Button loginButton;
 
     @FXML
-    Button registerButton;
+    private Button registerButton;
 
     /**
      * Handles login button and depending on its state (login/logout) proceeds login/logout operation.
@@ -118,4 +127,5 @@ public class MenuController extends GenericController {
     public void register(ActionEvent event) {
         this.viewControllerManager.showRegistrationDialog();
     }
+
 }

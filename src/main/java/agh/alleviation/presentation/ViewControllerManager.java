@@ -14,6 +14,7 @@ import agh.alleviation.controller.list.UserListController;
 import agh.alleviation.model.Hall;
 import agh.alleviation.model.Movie;
 import agh.alleviation.model.Seance;
+import agh.alleviation.model.user.Admin;
 import agh.alleviation.model.user.User;
 import agh.alleviation.util.UserType;
 import javafx.scene.Node;
@@ -24,6 +25,7 @@ import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxControllerAndView;
 import net.rgielen.fxweaver.core.FxWeaver;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,13 +38,13 @@ import java.util.Map;
  * @author Kamil Krzempek
  * @see ScreenSwitcher
  */
+@Component
 public class ViewControllerManager {
     private FxWeaver fxWeaver;
     private Stage primaryStage;
     private ScreenSwitcher screenSwitcher;
     private Map<Screen, FxControllerAndView<? extends GenericController, Node>> controllersAndViews;
-    private UserType activeUserType;
-    private User activeUser;
+    private ActiveUser activeUser;
 
 
     /**
@@ -51,11 +53,20 @@ public class ViewControllerManager {
      * @param fxWeaver     the fx weaver
      * @param primaryStage the primary stage
      */
-    public ViewControllerManager(FxWeaver fxWeaver, Stage primaryStage) {
-        this.fxWeaver = fxWeaver;
-        this.primaryStage = primaryStage;
-        this.activeUserType = UserType.ADMIN;
+    public ViewControllerManager() {
+//        this.fxWeaver = fxWeaver;
+//        this.activeUserType = UserType.ADMIN;
     }
+
+    public void setFxWeaver(FxWeaver weaver){
+        this.fxWeaver = weaver;
+    }
+
+    public void setPrimaryStage(Stage stage){
+        this.primaryStage = stage;
+    }
+
+
 
     /**
      * Init root layout.
@@ -83,7 +94,6 @@ public class ViewControllerManager {
 
         borderPane.setPrefHeight(400);
 
-
         controllersAndViews = new HashMap<>();
 
         addToControllersAndViews(Screen.MAIN, MainController.class);
@@ -92,13 +102,14 @@ public class ViewControllerManager {
         addToControllersAndViews(Screen.MOVIE_LIST, MovieListController.class);
         addToControllersAndViews(Screen.SEANCE_LIST, SeanceListController.class);
 
-
-
         controllersAndViews.forEach((screen, cv) -> cv.getController().setAppController(this));
 
         var menuBar= fxWeaver.load(MenuController.class);
         menuBar.getController().setAppController(this);
-        menuBar.getController().setActiveUserType(activeUserType);
+
+        activeUser.addUserChangeListener(menuBar.getController());
+
+//        menuBar.getController().setActiveUserType(activeUserType);
         borderPane.setTop(menuBar.getView().get());
 
         controllersAndViews.forEach((screen, controllerAndView) -> {
@@ -110,6 +121,8 @@ public class ViewControllerManager {
 
 
         primaryStage.setScene(scene);
+        System.out.println(fxWeaver);
+        activeUser.setUserEntity(new Admin());
     }
 
     /**
@@ -141,8 +154,7 @@ public class ViewControllerManager {
      * Logs out a user.
      */
     public void logout(){
-        activeUser = null;
-        activeUserType = null;
+        activeUser.setUserEntity(null);
     }
 
     /**
@@ -152,7 +164,7 @@ public class ViewControllerManager {
     public boolean showLoginDialog(){
         updateActiveUser(
                 new AccessDialogViewer<>(primaryStage, fxWeaver.load(LoginDialogController.class)).showLoginDialog());
-        return (activeUser != null);
+        return (activeUser.getUserEntity() != null);
     }
 
     /**
@@ -160,8 +172,7 @@ public class ViewControllerManager {
      * @param user new user
      */
     private void updateActiveUser(User user){
-        activeUser = user;
-        activeUserType = (activeUser != null) ? activeUser.getUserType() : null;
+        activeUser.setUserEntity(user);
     }
 
     /**
@@ -169,5 +180,10 @@ public class ViewControllerManager {
      */
     public void showRegistrationDialog(){
         new AccessDialogViewer<>(primaryStage, fxWeaver.load(RegistrationDialogController.class)).showRegisterDialog();
+    }
+
+    @Autowired
+    public void setActiveUser(ActiveUser activeUser){
+        this.activeUser = activeUser;
     }
 }

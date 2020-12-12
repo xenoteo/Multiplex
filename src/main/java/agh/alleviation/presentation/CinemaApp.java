@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxWeaver;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 
@@ -26,8 +27,10 @@ public class CinemaApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        FxWeaver fxWeaver = applicationContext.getBean(FxWeaver.class);
-        this.viewControllerManager = new ViewControllerManager(fxWeaver, primaryStage);
+//        FxWeaver fxWeaver = applicationContext.getBean(FxWeaver.class);
+        this.viewControllerManager = applicationContext.getBean(ViewControllerManager.class);
+        this.viewControllerManager.setFxWeaver(applicationContext.getBean(FxWeaver.class));
+        this.viewControllerManager.setPrimaryStage(primaryStage);
         this.viewControllerManager.initRootLayout();
     }
 
