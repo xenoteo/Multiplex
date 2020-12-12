@@ -121,7 +121,6 @@ public class ViewControllerManager {
 
 
         primaryStage.setScene(scene);
-        System.out.println(fxWeaver);
         activeUser.setUserEntity(new Admin());
     }
 

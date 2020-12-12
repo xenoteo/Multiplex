@@ -22,7 +22,6 @@ public class ActiveUser{
     public void setUserEntity(User userEntity) {
         propertyChangeSupport.firePropertyChange("user", this.userEntity, userEntity);
         this.userEntity = userEntity;
-        System.out.println("User changed");
     }
 
     public User getUserEntity(){
