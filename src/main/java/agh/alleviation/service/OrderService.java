@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 /**
  * Service responsible for manipulating order and ticket repositories.
@@ -38,12 +36,32 @@ public class OrderService extends EntityObjectService<Order, OrderRepository> {
      * @param userRepository   the user repository
      */
     @Autowired
-    public OrderService(OrderRepository orderRepository, TicketRepository ticketRepository, UserRepository userRepository, SeanceRepository seanceRepository, CustomerRepository customerRepository) {
-        this.repository = orderRepository;
+    public OrderService(
+        OrderRepository orderRepository,
+        TicketRepository ticketRepository,
+        UserRepository userRepository,
+        SeanceRepository seanceRepository,
+        CustomerRepository customerRepository) {
+        repository = orderRepository;
         this.ticketRepository = ticketRepository;
         this.userRepository = userRepository;
         this.seanceRepository = seanceRepository;
         this.customerRepository = customerRepository;
+    }
+
+    /**
+     * Add ticket.
+     *
+     * @param seance the seance
+     * @param price  the price
+     * @return the ticket
+     */
+    public Ticket addTicket(Seance seance, double price) {
+        Ticket ticket = new Ticket(seance, price);
+        seance = seanceRepository.findByIdWithTickets(seance.getId());
+        seance.addTicket(ticket);
+        ticketRepository.save(ticket);
+        return ticket;
     }
 
     /**
@@ -63,16 +81,7 @@ public class OrderService extends EntityObjectService<Order, OrderRepository> {
     }
 
     /**
-     * Get all orders list.
-     *
-     * @return the list
-     */
-    public List<Order> getAllOrders() {
-        return StreamSupport.stream(repository.findAll().spliterator(), false).collect(Collectors.toList());
-    }
-
-    /**
-     * Get orders by customers list.
+     * Get orders by customers.
      *
      * @param customer the customer
      * @return the list
@@ -82,32 +91,14 @@ public class OrderService extends EntityObjectService<Order, OrderRepository> {
     }
 
     /**
-     * Get all tickets list.
+     * Override method to get tickets associated with order
+     * Because of lazy loading, they are not loaded at the object creation.
      *
-     * @return the list
+     * @param order order to delete
+     * @return list of entity objects deleted with order
      */
-    public List<Ticket> getAllTickets() {
-        return StreamSupport.stream(ticketRepository.findAll().spliterator(), false).collect(Collectors.toList());
-    }
-
-    /**
-     * Add ticket ticket.
-     *
-     * @param seance the seance
-     * @param price  the price
-     * @return the ticket
-     */
-    public Ticket addTicket(Seance seance, double price) {
-        Ticket ticket = new Ticket(seance, price);
-        seance = seanceRepository.findByIdWithTickets(seance.getId());
-        seance.addTicket(ticket);
-        ticketRepository.save(ticket);
-        return ticket;
-    }
-
     public List<EntityObject> delete(EntityObject order) {
         order = repository.findByIdWithTickets(order.getId());
         return super.delete(order);
     }
-
 }

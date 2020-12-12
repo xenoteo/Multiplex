@@ -33,4 +33,6 @@ public interface HallRepository extends CrudRepository<Hall, Integer> {
 
     @Query("SELECT h FROM Hall h LEFT JOIN FETCH h.seances WHERE h.id = ?1")
     Hall findByIdWithSeances(int id);
+
+    Hall findByNumber(int number);
 }

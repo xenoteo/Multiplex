@@ -21,9 +21,8 @@ import java.util.List;
 @Service
 @Transactional
 public class SeanceService extends EntityObjectService<Seance, SeanceRepository> {
-
-    private MovieRepository movieRepository;
-    private HallRepository hallRepository;
+    private final MovieRepository movieRepository;
+    private final HallRepository hallRepository;
 
     /**
      * Instantiates a new Seance service.
@@ -31,8 +30,9 @@ public class SeanceService extends EntityObjectService<Seance, SeanceRepository>
      * @param seanceRepository the seance repository
      */
     @Autowired
-    public SeanceService(SeanceRepository seanceRepository, MovieRepository movieRepository, HallRepository hallRepository) {
-        this.repository = seanceRepository;
+    public SeanceService(
+        SeanceRepository seanceRepository, MovieRepository movieRepository, HallRepository hallRepository) {
+        repository = seanceRepository;
         this.movieRepository = movieRepository;
         this.hallRepository = hallRepository;
     }
@@ -57,23 +57,16 @@ public class SeanceService extends EntityObjectService<Seance, SeanceRepository>
         return seance;
     }
 
-    public void updateSeance(Seance seance) {
-        repository.save(seance);
-    }
-
     /**
-     * Get all seances list.
+     * Override method to get tickets associated with seance
+     * Because of lazy loading, they are not loaded at the object creation.
      *
-     * @return the list
+     * @param seance seance to delete
+     * @return list of entity objects deleted with seance
      */
-    public List<Seance> getAllSeances() {
-        return (List<Seance>) repository.findAll();
-    }
-
     @Override
     public List<EntityObject> delete(EntityObject seance) {
         seance = repository.findByIdWithTickets(seance.getId());
         return super.delete(seance);
     }
-
 }

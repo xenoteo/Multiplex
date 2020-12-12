@@ -16,14 +16,13 @@ import java.util.stream.StreamSupport;
  * Service responsible for manipulating the hall repository.
  *
  * @author Ksenia Fiodarava
+ * @see EntityObjectService
  * @see HallRepository
  * @see Hall
  */
 @Service
 @Transactional
 public class HallService extends EntityObjectService<Hall, HallRepository> {
-//    private final HallRepository hallRepository;
-
     /**
      * Instantiates a new Hall service.
      *
@@ -31,7 +30,7 @@ public class HallService extends EntityObjectService<Hall, HallRepository> {
      */
     @Autowired
     public HallService(HallRepository hallRepository) {
-        this.repository = hallRepository;
+        repository = hallRepository;
     }
 
     /**
@@ -52,14 +51,12 @@ public class HallService extends EntityObjectService<Hall, HallRepository> {
     }
 
     /**
-     * Get all halls list.
+     * Override method to get seances associated with hall.
+     * Because of lazy loading, they are not loaded at the object creation.
      *
-     * @return the list
+     * @param hall hall to delete
+     * @return list of entity objects deleted with hall
      */
-    public List<Hall> getAllHalls() {
-        return StreamSupport.stream(repository.findAll().spliterator(), false).collect(Collectors.toList());
-    }
-
     @Override
     public List<EntityObject> delete(EntityObject hall) {
         hall = repository.findByIdWithSeances(hall.getId());
@@ -67,10 +64,10 @@ public class HallService extends EntityObjectService<Hall, HallRepository> {
     }
 
     /**
-     * Find halls by capacity greater than list.
+     * Find halls by capacity greater than given value
      *
      * @param capacity the capacity
-     * @return the list
+     * @return the list of halls
      */
     public List<Hall> findHallsByCapacityGreaterThan(int capacity) {
         return repository.findByCapacityGreaterThanEqual(capacity);
@@ -84,5 +81,14 @@ public class HallService extends EntityObjectService<Hall, HallRepository> {
      */
     public List<Hall> findHallsByCapacity(int capacity) {
         return repository.findAllByCapacity(capacity);
+    }
+
+    /**
+     * Find hall by its id.
+     * @param number hall's id
+     * @return the hall
+     */
+    public Hall findHallByNumber(int number){
+        return repository.findByNumber(number);
     }
 }

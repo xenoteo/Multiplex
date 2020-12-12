@@ -7,11 +7,18 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
+/**
+ * Stub of service for manipulating Ticket repository
+ *
+ * @author Kamil Krzempek
+ * @see TicketRepository
+ * @see Ticket
+ */
 @Service
 @Transactional
 public class TicketService extends EntityObjectService<Ticket, TicketRepository> {
     @Autowired
     public TicketService(TicketRepository ticketRepository) {
-        this.repository = ticketRepository;
+        repository = ticketRepository;
     }
 }

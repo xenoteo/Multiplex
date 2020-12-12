@@ -12,6 +12,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
+import net.synedra.validatorfx.Validator;
 import org.springframework.stereotype.Component;
 
 /**
@@ -29,6 +30,7 @@ public class LoginDialogController extends AccessDialogController {
     @FXML
     private PasswordField passwordField;
 
+
     private ActiveUser activeUser;
 
 
@@ -37,13 +39,30 @@ public class LoginDialogController extends AccessDialogController {
      */
     private boolean loggedIn;
 
-
     /**
      * Gets info about login operation's success.
+     *
      * @return is user logged in
      */
     public boolean isLoggedIn() {
         return loggedIn;
+    }
+
+    @Override
+    protected Validator createValidations() {
+        UserService userService = (UserService) serviceManager.getService(User.class);
+        Validator validator = new Validator();
+        validator.createCheck()
+                .withMethod(c -> {
+                    String login = c.get("login");
+                    String password = c.get("password");
+                    if (!userService.validateUser(login, password)){
+                        c.error("Invalid login or password");
+                    }
+                })
+                .dependsOn("login", loginField.textProperty())
+                .dependsOn("password", passwordField.textProperty());
+        return validator;
     }
 
     /**
@@ -51,6 +70,12 @@ public class LoginDialogController extends AccessDialogController {
      */
     @FXML
     public void login() {
+        Validator validator = createValidations();
+        if (!validator.validate()){
+            showErrors(validator);
+            return;
+        }
+
         String login = loginField.getText();
         String password = passwordField.getText();
         UserService userService = (UserService) serviceManager.getService(User.class);
@@ -58,6 +83,7 @@ public class LoginDialogController extends AccessDialogController {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Invalid login or password");
             alert.show();
+            return;
         }
         loggedIn = true;
         dialogStage.close();

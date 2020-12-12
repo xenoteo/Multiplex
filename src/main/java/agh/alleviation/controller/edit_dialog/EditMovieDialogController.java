@@ -6,6 +6,8 @@ import agh.alleviation.service.MovieService;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import net.rgielen.fxweaver.core.FxmlView;
+import net.synedra.validatorfx.Validator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -27,6 +29,7 @@ public class EditMovieDialogController extends EditDialogController<Movie> {
     @FXML
     private TextField actorsField;
 
+
     @Override
     public void setEditedItem(Movie movie) {
         super.setEditedItem(movie);
@@ -38,8 +41,36 @@ public class EditMovieDialogController extends EditDialogController<Movie> {
         actorsField.setText(movie.getActors());
     }
 
+    @Override
+    protected Validator createValidations() {
+        Validator validator = new Validator();
+        validator.createCheck()
+                .withMethod(c -> {
+                    String name = c.get("title");
+                    String genreName = c.get("genre");
+                    String description = c.get("description");
+                    String director = c.get("director");
+                    String actors = c.get("actors");
+                    if (name.isEmpty() || genreName.isEmpty() || description.isEmpty() || director.isEmpty() || actors.isEmpty()){
+                        c.error("All fields must be filled");
+                    }
+                })
+                .dependsOn("title", nameField.textProperty())
+                .dependsOn("genre", genreField.textProperty())
+                .dependsOn("description", descriptionField.textProperty())
+                .dependsOn("director", directorField.textProperty())
+                .dependsOn("actors", actorsField.textProperty());
+        return validator;
+    }
+
     @FXML
     private void saveMovie() {
+        Validator validator = createValidations();
+        if (!validator.validate()){
+            showErrors(validator);
+            return;
+        }
+
         String name = nameField.getText();
         String genreName = genreField.getText();
         String description = descriptionField.getText();
@@ -62,5 +93,6 @@ public class EditMovieDialogController extends EditDialogController<Movie> {
         }
         dialogStage.close();
     }
+
 
 }

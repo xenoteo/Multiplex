@@ -3,12 +3,17 @@ package agh.alleviation.controller.edit_dialog;
 import agh.alleviation.model.Hall;
 import agh.alleviation.model.Movie;
 import agh.alleviation.model.Seance;
+import agh.alleviation.service.HallService;
+import agh.alleviation.service.MovieService;
 import agh.alleviation.service.SeanceService;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.util.converter.LocalDateStringConverter;
 import net.rgielen.fxweaver.core.FxmlView;
+import net.synedra.validatorfx.Validator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -47,8 +52,33 @@ public class EditSeanceDialogController extends EditDialogController<Seance> {
         priceField.setText(String.valueOf(seance.getPrice()));
     }
 
+    @Override
+    protected Validator createValidations() {
+        Validator validator = new Validator();
+        validator.createCheck()
+                .withMethod(c -> {
+                    try{
+                        double price = Double.parseDouble(c.get("price"));
+                        if (price < 0){
+                            c.error("Price must be positive");
+                        }
+                    }
+                    catch (NumberFormatException e){
+                        c.error("Price must be a number");
+                    }
+                })
+                .dependsOn("price", priceField.textProperty());
+        return validator;
+    }
+
     @FXML
     private void saveSeance() {
+        Validator validator = createValidations();
+        if (!validator.validate()){
+            showErrors(validator);
+            return;
+        }
+
         Movie movie = movieChoiceBox.getValue();
         Hall hall = hallChoiceBox.getValue();
         LocalDateTime date = datePicker.getValue().atStartOfDay();
@@ -56,7 +86,7 @@ public class EditSeanceDialogController extends EditDialogController<Seance> {
 
         SeanceService service = (SeanceService) serviceManager.getService(Seance.class);
 
-        if (editedItem == null) {
+        if(editedItem == null) {
             Seance seance = service.addSeance(movie, hall, date, price);
             serviceManager.add(seance);
         } else {
