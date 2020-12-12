@@ -19,9 +19,9 @@ public class ActiveUser{
         propertyChangeSupport.addPropertyChangeListener(listener);
     }
 
-    public void setUserEntity(User userEntity) {
-        propertyChangeSupport.firePropertyChange("user", this.userEntity, userEntity);
-        this.userEntity = userEntity;
+    public void setUserEntity(User newUser) {
+        propertyChangeSupport.firePropertyChange("user", this.userEntity, newUser);
+        this.userEntity = newUser;
     }
 
     public User getUserEntity(){

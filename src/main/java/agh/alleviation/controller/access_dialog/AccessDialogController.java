@@ -1,5 +1,6 @@
 package agh.alleviation.controller.access_dialog;
 
+import agh.alleviation.controller.ActiveUser;
 import agh.alleviation.controller.GenericController;
 import agh.alleviation.controller.ValidatingController;
 import agh.alleviation.model.user.User;

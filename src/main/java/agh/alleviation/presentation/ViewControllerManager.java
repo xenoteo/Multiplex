@@ -54,8 +54,6 @@ public class ViewControllerManager {
      * @param primaryStage the primary stage
      */
     public ViewControllerManager() {
-//        this.fxWeaver = fxWeaver;
-//        this.activeUserType = UserType.ADMIN;
     }
 
     public void setFxWeaver(FxWeaver weaver){
@@ -72,22 +70,6 @@ public class ViewControllerManager {
      * Init root layout.
      */
     public void initRootLayout() {
-        this.setViewsAndControllers();
-
-        primaryStage.show();
-    }
-
-    /**
-     * Loads controllers into the FxWeaver and sets them up with corresponding views.
-     */
-
-    private FxControllerAndView<? extends GenericController, Node> addToControllersAndViews(Screen screen, Class<? extends GenericController> controller){
-        var controllerAndView = fxWeaver.load(controller);
-        controllersAndViews.put(screen, controllerAndView);
-        return controllerAndView;
-    }
-
-    public void setViewsAndControllers() {
         BorderPane borderPane = new BorderPane();
         Scene scene = new Scene(borderPane);
         this.screenSwitcher = new ScreenSwitcher(borderPane);
@@ -102,6 +84,7 @@ public class ViewControllerManager {
         addToControllersAndViews(Screen.MOVIE_LIST, MovieListController.class);
         addToControllersAndViews(Screen.SEANCE_LIST, SeanceListController.class);
 
+
         controllersAndViews.forEach((screen, cv) -> cv.getController().setAppController(this));
 
         var menuBar= fxWeaver.load(MenuController.class);
@@ -109,7 +92,6 @@ public class ViewControllerManager {
 
         activeUser.addUserChangeListener(menuBar.getController());
 
-//        menuBar.getController().setActiveUserType(activeUserType);
         borderPane.setTop(menuBar.getView().get());
 
         controllersAndViews.forEach((screen, controllerAndView) -> {
@@ -117,11 +99,32 @@ public class ViewControllerManager {
             screenSwitcher.addScreen(screen, rootPane);
         });
 
-//        borderPane.setCenter(mainRoot);
+        var login = fxWeaver.load(LoginDialogController.class);
+        login.getController().setAppController(this);
 
+        var register = fxWeaver.load(RegistrationDialogController.class);
+        register.getController().setAppController(this);
 
         primaryStage.setScene(scene);
-        activeUser.setUserEntity(new Admin());
+
+    }
+
+    public void showPrimaryStage() {
+        primaryStage.show();
+    }
+
+    public void hidePrimaryStage() {
+        primaryStage.close();
+    }
+
+    /**
+     * Loads controllers into the FxWeaver and sets them up with corresponding views.
+     */
+
+    private FxControllerAndView<? extends GenericController, Node> addToControllersAndViews(Screen screen, Class<? extends GenericController> controller){
+        var controllerAndView = fxWeaver.load(controller);
+        controllersAndViews.put(screen, controllerAndView);
+        return controllerAndView;
     }
 
     /**
@@ -154,6 +157,8 @@ public class ViewControllerManager {
      */
     public void logout(){
         activeUser.setUserEntity(null);
+        hidePrimaryStage();
+        showLoginDialog();
     }
 
     /**
@@ -161,9 +166,18 @@ public class ViewControllerManager {
      * @return whether user was successfully logged in
      */
     public boolean showLoginDialog(){
-        updateActiveUser(
-                new AccessDialogViewer<>(primaryStage, fxWeaver.load(LoginDialogController.class)).showLoginDialog());
-        return (activeUser.getUserEntity() != null);
+        System.out.println("Showing login dialog");
+        User user = new AccessDialogViewer<>(primaryStage, fxWeaver.load(LoginDialogController.class)).showLoginDialog();
+        System.out.println("User " + user);
+        if(user != null){
+            System.out.println("User " + user.getLogin());
+            updateActiveUser(user);
+            showPrimaryStage();
+        }
+        else{
+            System.out.println("User does not exist");
+        }
+        return user != null;
     }
 
     /**
@@ -179,6 +193,7 @@ public class ViewControllerManager {
      */
     public void showRegistrationDialog(){
         new AccessDialogViewer<>(primaryStage, fxWeaver.load(RegistrationDialogController.class)).showRegisterDialog();
+
     }
 
     @Autowired

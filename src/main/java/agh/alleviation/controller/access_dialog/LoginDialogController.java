@@ -88,11 +88,21 @@ public class LoginDialogController extends AccessDialogController {
         loggedIn = true;
         dialogStage.close();
         activeUser.setUserEntity(userService.getUserByLogin(login));
+    }
 
+    @FXML
+    public void register(){
+        viewControllerManager.showRegistrationDialog();
     }
 
     @Autowired
     public void setActiveUser(ActiveUser activeUser){
         this.activeUser = activeUser;
     }
+
+    @Override
+    public User getUser() {
+        return activeUser.getUserEntity();
+    }
+
 }

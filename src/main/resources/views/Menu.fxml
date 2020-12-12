@@ -16,9 +16,6 @@
               <ToggleButton fx:id="seances" visible="false" onAction="#handleActiveButtonChanged" text="Seance List" />
           </toggles>
       </ToggleButtonGroup>
-       <Button fx:id="loginButton" mnemonicParsing="false" onAction="#handleLoginButton" text="Login">
-       </Button>
-       <Button fx:id="registerButton" mnemonicParsing="false" onAction="#register" text="Register">
-       </Button>
+       <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#logout" text="Logout"/>
    </children>
 </HBox>

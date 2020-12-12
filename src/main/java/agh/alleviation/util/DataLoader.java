@@ -53,9 +53,9 @@ public class DataLoader {
      * Populate users.
      */
     public void populateUsers() {
-        userService.addUser("Mike", "mikeErl", "mike@erlang.com", UserType.ADMIN);
-        userService.addUser("Joe", "joeArm", "joe@otp.com", UserType.WORKER);
-        userService.addUser("Robert", "rob", "rob@erl.com", UserType.CUSTOMER);
+        userService.addUser("Mike", "mikeErl", "mike@erlang.com", UserType.ADMIN, "otp");
+        userService.addUser("Joe", "joeArm", "joe@otp.com", UserType.WORKER, "otp");
+        userService.addUser("Robert", "rob", "rob@erl.com", UserType.CUSTOMER, "otp");
     }
 
     /**

@@ -28,10 +28,11 @@ public class CinemaApp extends Application {
     @Override
     public void start(Stage primaryStage) {
 //        FxWeaver fxWeaver = applicationContext.getBean(FxWeaver.class);
-        this.viewControllerManager = applicationContext.getBean(ViewControllerManager.class);
-        this.viewControllerManager.setFxWeaver(applicationContext.getBean(FxWeaver.class));
-        this.viewControllerManager.setPrimaryStage(primaryStage);
-        this.viewControllerManager.initRootLayout();
+        viewControllerManager = applicationContext.getBean(ViewControllerManager.class);
+        viewControllerManager.setFxWeaver(applicationContext.getBean(FxWeaver.class));
+        viewControllerManager.setPrimaryStage(primaryStage);
+        viewControllerManager.initRootLayout();
+        viewControllerManager.showLoginDialog();
     }
 
     @Override
