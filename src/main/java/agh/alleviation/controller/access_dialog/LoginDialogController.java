@@ -1,5 +1,6 @@
 package agh.alleviation.controller.access_dialog;
 
+import agh.alleviation.model.user.User;
 import agh.alleviation.service.UserService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -29,13 +30,6 @@ public class LoginDialogController extends AccessDialogController {
      */
     private boolean loggedIn;
 
-    /**
-     * Instantiates a new login dialog controller.
-     * @param userService the user service
-     */
-    public LoginDialogController(UserService userService) {
-        super(userService);
-    }
 
     /**
      * Gets info about login operation's success.
@@ -52,6 +46,7 @@ public class LoginDialogController extends AccessDialogController {
     public void login() {
         String login = loginField.getText();
         String password = passwordField.getText();
+        UserService userService = (UserService) observableComposite.getService(User.class);
         if (!userService.validateUser(login, password)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Invalid login or password");

@@ -100,7 +100,7 @@ public class AlleviationApplication {
 		};
 	}
 
-	//TODO: refreshing
     //TODO: context menu
-    //TODO: removing halls
+    //TODO: validation
+
 }

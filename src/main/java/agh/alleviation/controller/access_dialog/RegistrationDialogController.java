@@ -1,5 +1,6 @@
 package agh.alleviation.controller.access_dialog;
 
+import agh.alleviation.model.user.User;
 import agh.alleviation.service.UserService;
 import agh.alleviation.util.UserType;
 import javafx.fxml.FXML;
@@ -33,14 +34,6 @@ public class RegistrationDialogController extends AccessDialogController {
 
 
     /**
-     * Instantiates a new register dialog controller.
-     * @param userService the user service
-     */
-    public RegistrationDialogController(UserService userService) {
-        super(userService);
-    }
-
-    /**
      * Sets dialog stage.
      * @param dialogStage the dialog stage
      */
@@ -65,6 +58,8 @@ public class RegistrationDialogController extends AccessDialogController {
             alert.show();
             return;
         }
+
+        UserService userService = (UserService) observableComposite.getService(User.class);
 
         if (userService.getUserByLogin(login) != null || userService.getUserByEmail(email) != null){
             Alert alert = new Alert(Alert.AlertType.ERROR);
