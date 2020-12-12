@@ -55,7 +55,7 @@ public class UserService extends EntityObjectService<User, UserRepository> {
     }
 
     /**
-     * Add user user.
+     * Adds new user to database.
      *
      * @param name  the name
      * @param login the login
@@ -80,22 +80,51 @@ public class UserService extends EntityObjectService<User, UserRepository> {
     }
 
     /**
-     * Get all customers list.
+     * Adds new user to database.
      *
-     * @return the list
+     * @param name     user's name
+     * @param login    user's login
+     * @param email    user's email
+     * @param type     user's type
+     * @param password user's password
+     * @return instance of newly added user
      */
-    public List<Customer> getAllCustomers() {
+    public User addUser(String name, String login, String email, UserType type, String password) {
+        User user = addUser(name, login, email, type);
+        user.setPassword(password);
+        repository.save(user);
+        return user;
+    }
+
+    /**
+     * Finds all customers list.
+     *
+     * @return the list of customers
+     */
+    public List<Customer> findAllCustomers() {
         return customerRepository.findAll();
     }
 
     /**
-     * Get user by login user.
+     * Finds user by login.
      *
      * @param login the login
      * @return the user
      */
-    public User getUserByLogin(String login) {
+    public User findUserByLogin(String login) {
         User user = repository.findByLogin(login);
+        if (user != null) setUserType(user);
+        return user;
+    }
+
+    /**
+     * Finds user by email.
+     *
+     * @param email the email
+     * @return the user
+     */
+    public User findUserByEmail(String email) {
+        User user = repository.findByEmail(email);
         if (user != null) setUserType(user);
         return user;
     }
@@ -123,37 +152,8 @@ public class UserService extends EntityObjectService<User, UserRepository> {
      * @return whether input data is correct
      */
     public boolean validateUser(String login, String password) {
-        User user = getUserByLogin(login);
+        User user = findUserByLogin(login);
         if (user == null) return false;
         return password.equals(user.getPassword());
-    }
-
-    /**
-     * Adds new user to database.
-     *
-     * @param name     user's name
-     * @param login    user's login
-     * @param email    user's email
-     * @param type     user's type
-     * @param password user's password
-     * @return instance of newly added user
-     */
-    public User addUser(String name, String login, String email, UserType type, String password) {
-        User user = addUser(name, login, email, type);
-        user.setPassword(password);
-        repository.save(user);
-        return user;
-    }
-
-    /**
-     * Gets user by email.
-     *
-     * @param email the email
-     * @return the user
-     */
-    public User getUserByEmail(String email) {
-        User user = repository.findByEmail(email);
-        if (user != null) setUserType(user);
-        return user;
     }
 }

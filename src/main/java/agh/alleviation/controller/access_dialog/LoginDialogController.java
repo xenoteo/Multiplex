@@ -3,7 +3,6 @@ package agh.alleviation.controller.access_dialog;
 import agh.alleviation.model.user.User;
 import agh.alleviation.service.UserService;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import net.rgielen.fxweaver.core.FxmlView;
@@ -13,6 +12,7 @@ import org.springframework.stereotype.Component;
 /**
  * Controller responsible for user's login.
  *
+ * @see AccessDialogController
  * @author Ksenia Fiodarava
  */
 @Component
@@ -25,12 +25,10 @@ public class LoginDialogController extends AccessDialogController {
     @FXML
     private PasswordField passwordField;
 
-
     /**
      * Boolean variable indicating whether login operation was successful.
      */
     private boolean loggedIn;
-
 
     /**
      * Gets info about login operation's success.
@@ -68,10 +66,8 @@ public class LoginDialogController extends AccessDialogController {
             return;
         }
 
-        String login = loginField.getText();
         UserService userService = (UserService) serviceManager.getService(User.class);
-
-        user = userService.getUserByLogin(login);
+        user = userService.findUserByLogin(loginField.getText());
         loggedIn = true;
         dialogStage.close();
     }

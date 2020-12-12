@@ -29,7 +29,6 @@ public class EditMovieDialogController extends EditDialogController<Movie> {
     @FXML
     private TextField actorsField;
 
-
     @Override
     public void setEditedItem(Movie movie) {
         super.setEditedItem(movie);
@@ -93,6 +92,4 @@ public class EditMovieDialogController extends EditDialogController<Movie> {
         }
         dialogStage.close();
     }
-
-
 }

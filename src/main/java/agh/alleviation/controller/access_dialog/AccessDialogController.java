@@ -1,6 +1,5 @@
 package agh.alleviation.controller.access_dialog;
 
-import agh.alleviation.controller.GenericController;
 import agh.alleviation.controller.ValidatingController;
 import agh.alleviation.model.user.User;
 import javafx.stage.Stage;
@@ -9,8 +8,7 @@ import javafx.stage.Stage;
  * Abstract access controller.
  *
  * @author Ksenia Fiodarava
- * @see LoginDialogController
- * @see RegistrationDialogController
+ * @see ValidatingController
  */
 public abstract class AccessDialogController extends ValidatingController {
     /**
