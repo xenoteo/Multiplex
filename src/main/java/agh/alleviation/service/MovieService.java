@@ -22,7 +22,7 @@ import java.util.stream.StreamSupport;
  */
 @Service
 @Transactional
-public class MovieService extends EntityObjectService<Movie, MovieRepository>{
+public class MovieService extends EntityObjectService<Movie, MovieRepository> {
     private final GenreRepository genreRepository;
 
     /**
@@ -40,7 +40,7 @@ public class MovieService extends EntityObjectService<Movie, MovieRepository>{
     /**
      * Add movie movie.
      *
-     * @param name  the name
+     * @param name      the name
      * @param genreName the genre
      * @return the movie
      */
@@ -61,13 +61,12 @@ public class MovieService extends EntityObjectService<Movie, MovieRepository>{
      * @param name the name
      * @return the genre
      */
-    public Genre getGenre(String name){
+    public Genre getGenre(String name) {
         Genre genre = genreRepository.findByName(name);
-        if(genre == null) genre = new Genre(name);
+        if (genre == null) genre = new Genre(name);
         genreRepository.save(genre);
         return genre;
     }
-
 
     /**
      * Find movie movie.
@@ -88,12 +87,13 @@ public class MovieService extends EntityObjectService<Movie, MovieRepository>{
         return repository.findAll();
     }
 
-
-    public List<Movie> getActiveMovies(){ return repository.findAll().stream().filter(Movie::getIsActive).collect(Collectors.toList()); }
+    public List<Movie> getActiveMovies() {
+        return repository.findAll().stream().filter(Movie::getIsActive).collect(Collectors.toList());
+    }
 
     @Override
-    public void delete(EntityObject movie){
+    public List<EntityObject> delete(EntityObject movie) {
         movie = repository.findByIdWithSeances(movie.getId());
-        super.delete(movie);
+        return super.delete(movie);
     }
 }

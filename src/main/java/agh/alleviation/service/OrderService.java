@@ -24,7 +24,7 @@ import java.util.stream.StreamSupport;
  */
 @Service
 @Transactional
-public class OrderService extends EntityObjectService<Order, OrderRepository>{
+public class OrderService extends EntityObjectService<Order, OrderRepository> {
     private final TicketRepository ticketRepository;
     private final UserRepository userRepository;
     private final SeanceRepository seanceRepository;
@@ -52,7 +52,7 @@ public class OrderService extends EntityObjectService<Order, OrderRepository>{
      * @param tickets  the tickets
      * @param customer the customer
      */
-    public Order addOrder(List<Ticket> tickets, Customer customer){
+    public Order addOrder(List<Ticket> tickets, Customer customer) {
         Order order = new Order(customer);
         order.setTickets(tickets);
         customer = customerRepository.findByIdWithOrders(customer.getId());
@@ -67,9 +67,8 @@ public class OrderService extends EntityObjectService<Order, OrderRepository>{
      *
      * @return the list
      */
-    public List<Order> getAllOrders(){
-        return StreamSupport.stream(repository.findAll().spliterator(), false)
-                .collect(Collectors.toList());
+    public List<Order> getAllOrders() {
+        return StreamSupport.stream(repository.findAll().spliterator(), false).collect(Collectors.toList());
     }
 
     /**
@@ -78,19 +77,17 @@ public class OrderService extends EntityObjectService<Order, OrderRepository>{
      * @param customer the customer
      * @return the list
      */
-    public List<Order> getOrdersByCustomers(Customer customer){
+    public List<Order> getOrdersByCustomers(Customer customer) {
         return repository.findAllByCustomer(customer);
     }
-
 
     /**
      * Get all tickets list.
      *
      * @return the list
      */
-    public List<Ticket> getAllTickets(){
-        return StreamSupport.stream(ticketRepository.findAll().spliterator(), false)
-                .collect(Collectors.toList());
+    public List<Ticket> getAllTickets() {
+        return StreamSupport.stream(ticketRepository.findAll().spliterator(), false).collect(Collectors.toList());
     }
 
     /**
@@ -100,7 +97,7 @@ public class OrderService extends EntityObjectService<Order, OrderRepository>{
      * @param price  the price
      * @return the ticket
      */
-    public Ticket addTicket(Seance seance, double price){
+    public Ticket addTicket(Seance seance, double price) {
         Ticket ticket = new Ticket(seance, price);
         seance = seanceRepository.findByIdWithTickets(seance.getId());
         seance.addTicket(ticket);
@@ -108,10 +105,9 @@ public class OrderService extends EntityObjectService<Order, OrderRepository>{
         return ticket;
     }
 
-    public void delete(EntityObject order){
+    public List<EntityObject> delete(EntityObject order) {
         order = repository.findByIdWithTickets(order.getId());
-        super.delete(order);
+        return super.delete(order);
     }
-
 
 }

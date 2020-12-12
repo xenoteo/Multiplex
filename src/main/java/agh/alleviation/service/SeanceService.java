@@ -24,6 +24,7 @@ public class SeanceService extends EntityObjectService<Seance, SeanceRepository>
 
     private MovieRepository movieRepository;
     private HallRepository hallRepository;
+
     /**
      * Instantiates a new Seance service.
      *
@@ -44,7 +45,7 @@ public class SeanceService extends EntityObjectService<Seance, SeanceRepository>
         return seance;
     }
 
-    public Seance addSeance(Movie movie, Hall hall, LocalDateTime date, double price){
+    public Seance addSeance(Movie movie, Hall hall, LocalDateTime date, double price) {
         Seance seance = addSeance(movie);
         seance.setHall(hall);
         seance.setDate(date);
@@ -65,14 +66,14 @@ public class SeanceService extends EntityObjectService<Seance, SeanceRepository>
      *
      * @return the list
      */
-    public List<Seance> getAllSeances(){
+    public List<Seance> getAllSeances() {
         return (List<Seance>) repository.findAll();
     }
 
     @Override
-    public void delete(EntityObject seance){
+    public List<EntityObject> delete(EntityObject seance) {
         seance = repository.findByIdWithTickets(seance.getId());
-        super.delete(seance);
+        return super.delete(seance);
     }
 
 }

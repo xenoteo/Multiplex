@@ -34,7 +34,7 @@ public class UserListController extends GenericListController<User, UserService>
     protected void initialize() {
         super.initialize();
         observableComposite.fillFromService(User.class);
-        itemTable.setItems(observableComposite.getList(User.class));
+        itemTable.setItems(observableComposite.getActiveElementsList(User.class));
         typeColumn.setCellValueFactory(dataValue -> dataValue.getValue().userTypeProperty());
         nameColumn.setCellValueFactory(dataValue -> dataValue.getValue().nameProperty());
         loginColumn.setCellValueFactory(dataValue -> dataValue.getValue().loginProperty());
@@ -60,7 +60,7 @@ public class UserListController extends GenericListController<User, UserService>
     @FXML
     protected void handleEditAction(ActionEvent event) {
         User user = (User) itemTable.getSelectionModel().getSelectedItem();
-        if(user != null) {
+        if (user != null) {
             this.viewControllerManager.getUserDialogContext().showEditItemDialog(user);
         }
     }
@@ -70,7 +70,6 @@ public class UserListController extends GenericListController<User, UserService>
         User user = (User) itemTable.getSelectionModel().getSelectedItem();
         observableComposite.delete(user);
     }
-
 
     /**
      * Instantiates a new User list controller.
