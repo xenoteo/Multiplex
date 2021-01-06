@@ -8,6 +8,7 @@ import agh.alleviation.presentation.filter.*;
 import agh.alleviation.util.UserType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
