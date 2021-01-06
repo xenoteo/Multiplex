@@ -1,5 +1,6 @@
 package agh.alleviation.service;
 
+import agh.alleviation.model.EntityObject;
 import agh.alleviation.model.Genre;
 import agh.alleviation.model.Movie;
 import agh.alleviation.persistence.GenreRepository;
@@ -11,14 +12,13 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 /**
- * The type Movie service.
+ * Service responsible for manipulating the movie repository.
  *
  * @author Anna Nosek
  */
 @Service
 @Transactional
-public class MovieService {
-    private final MovieRepository movieRepository;
+public class MovieService extends EntityObjectService<Movie, MovieRepository> {
     private final GenreRepository genreRepository;
 
     /**
@@ -29,52 +29,60 @@ public class MovieService {
      */
     @Autowired
     public MovieService(MovieRepository movieRepository, GenreRepository genreRepository) {
-        this.movieRepository = movieRepository;
+        repository = movieRepository;
         this.genreRepository = genreRepository;
     }
 
     /**
-     * Add movie movie.
+     * Add movie
      *
-     * @param name  the name
-     * @param genre the genre
+     * @param name        the name
+     * @param genreName   the genre
+     * @param description the description
+     * @param director    the director
+     * @param actors      the actors
      * @return the movie
      */
-    public Movie addMovie(String name, Genre genre) {
-        Movie movie = new Movie(name, genre);
-        movieRepository.save(movie);
+    public Movie addMovie(String name, String genreName, String description, String director, String actors) {
+        Genre genre = getGenre(genreName);
+        Movie movie = new Movie(name, genre, description, director, actors);
+        repository.save(movie);
         return movie;
     }
 
     /**
-     * Add genre genre.
+     * Get genre of given name, if such genre does not exist, create it first
      *
      * @param name the name
      * @return the genre
      */
-    public Genre addGenre(String name){
-        Genre genre = new Genre(name);
+    public Genre getGenre(String name) {
+        Genre genre = genreRepository.findByName(name);
+        if (genre == null) genre = new Genre(name);
         genreRepository.save(genre);
         return genre;
     }
 
-
     /**
-     * Find movie movie.
+     * Find movie by name
      *
      * @param name the name
      * @return the movie
      */
     public Movie findMovie(String name) {
-        return movieRepository.findByName(name);
+        return repository.findByName(name);
     }
 
     /**
-     * Gets all movies.
+     * Override method to get seances associated with movie
+     * Because of lazy loading, they are not loaded at the object creation.
      *
-     * @return the all movies
+     * @param movie movie to delete
+     * @return list of entity objects deleted with movie
      */
-    public List<Movie> getAllMovies() {
-        return movieRepository.findAll();
+    @Override
+    public List<EntityObject> delete(EntityObject movie) {
+        movie = repository.findByIdWithSeances(movie.getId());
+        return super.delete(movie);
     }
 }

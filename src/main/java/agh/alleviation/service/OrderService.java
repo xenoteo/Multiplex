@@ -1,19 +1,16 @@
 package agh.alleviation.service;
 
+import agh.alleviation.model.EntityObject;
 import agh.alleviation.model.Order;
 import agh.alleviation.model.Seance;
 import agh.alleviation.model.Ticket;
 import agh.alleviation.model.user.Customer;
-import agh.alleviation.persistence.OrderRepository;
-import agh.alleviation.persistence.TicketRepository;
-import agh.alleviation.persistence.UserRepository;
+import agh.alleviation.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 /**
  * Service responsible for manipulating order and ticket repositories.
@@ -25,23 +22,48 @@ import java.util.stream.StreamSupport;
  */
 @Service
 @Transactional
-public class OrderService {
-    private final OrderRepository orderRepository;
+public class OrderService extends EntityObjectService<Order, OrderRepository> {
     private final TicketRepository ticketRepository;
     private final UserRepository userRepository;
+    private final SeanceRepository seanceRepository;
+    private final CustomerRepository customerRepository;
 
     /**
      * Instantiates a new Order service.
      *
-     * @param orderRepository  the order repository
-     * @param ticketRepository the ticket repository
-     * @param userRepository   the user repository
+     * @param orderRepository    the order repository
+     * @param ticketRepository   the ticket repository
+     * @param userRepository     the user repository
+     * @param seanceRepository   the seance repository
+     * @param customerRepository the customer repository
      */
     @Autowired
-    public OrderService(OrderRepository orderRepository, TicketRepository ticketRepository, UserRepository userRepository) {
-        this.orderRepository = orderRepository;
+    public OrderService(
+        OrderRepository orderRepository,
+        TicketRepository ticketRepository,
+        UserRepository userRepository,
+        SeanceRepository seanceRepository,
+        CustomerRepository customerRepository) {
+        repository = orderRepository;
         this.ticketRepository = ticketRepository;
         this.userRepository = userRepository;
+        this.seanceRepository = seanceRepository;
+        this.customerRepository = customerRepository;
+    }
+
+    /**
+     * Add ticket.
+     *
+     * @param seance the seance
+     * @param price  the price
+     * @return the ticket
+     */
+    public Ticket addTicket(Seance seance, double price) {
+        Ticket ticket = new Ticket(seance, price);
+        seance = seanceRepository.findByIdWithTickets(seance.getId());
+        seance.addTicket(ticket);
+        ticketRepository.save(ticket);
+        return ticket;
     }
 
     /**
@@ -49,56 +71,37 @@ public class OrderService {
      *
      * @param tickets  the tickets
      * @param customer the customer
+     * @return the order
      */
-    public void addOrder(List<Ticket> tickets, Customer customer){
-        Order order = new Order(tickets, customer);
+    public Order addOrder(List<Ticket> tickets, Customer customer) {
+        Order order = new Order(customer);
+        order.setTickets(tickets);
+        customer = customerRepository.findByIdWithOrders(customer.getId());
         customer.addOrder(order);
-        orderRepository.save(order);
+        repository.save(order);
         userRepository.save(customer);
+        return order;
     }
 
     /**
-     * Get all orders list.
-     *
-     * @return the list
-     */
-    public List<Order> getAllOrders(){
-        return StreamSupport.stream(orderRepository.findAll().spliterator(), false)
-                .collect(Collectors.toList());
-    }
-
-    /**
-     * Get orders by customers list.
+     * Get orders by customers.
      *
      * @param customer the customer
      * @return the list
      */
-    public List<Order> getOrdersByCustomers(Customer customer){
-        return orderRepository.findAllByCustomer(customer);
-    }
-
-
-    /**
-     * Get all tickets list.
-     *
-     * @return the list
-     */
-    public List<Ticket> getAllTickets(){
-        return StreamSupport.stream(ticketRepository.findAll().spliterator(), false)
-                .collect(Collectors.toList());
+    public List<Order> getOrdersByCustomers(Customer customer) {
+        return repository.findAllByCustomer(customer);
     }
 
     /**
-     * Add ticket ticket.
+     * Override method to get tickets associated with order
+     * Because of lazy loading, they are not loaded at the object creation.
      *
-     * @param seance the seance
-     * @param price  the price
-     * @return the ticket
+     * @param order order to delete
+     * @return list of entity objects deleted with order
      */
-    public Ticket addTicket(Seance seance, double price){
-        Ticket ticket = new Ticket(seance, price);
-        ticketRepository.save(ticket);
-        return ticket;
+    public List<EntityObject> delete(EntityObject order) {
+        order = repository.findByIdWithTickets(order.getId());
+        return super.delete(order);
     }
-
 }

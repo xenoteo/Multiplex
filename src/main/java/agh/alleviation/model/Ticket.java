@@ -7,6 +7,7 @@ import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
+import java.util.Objects;
 
 /**
  * Class responsible for representation of a ticket.
@@ -18,21 +19,16 @@ import java.io.ObjectOutput;
  */
 @Entity
 @Table(name = Ticket.TABLE_NAME)
-public class Ticket implements Externalizable {
+public class Ticket extends EntityObject {
     /**
      * The constant TABLE_NAME.
      */
     public static final String TABLE_NAME = "ticket";
 
-
     /**
      * The type Columns.
      */
     public static class Columns {
-        /**
-         * The constant ID.
-         */
-        public static final String ID = "id";
         /**
          * The constant SEANCE.
          */
@@ -41,12 +37,17 @@ public class Ticket implements Externalizable {
          * The constant PRICE.
          */
         public static final String PRICE = "price";
+
+        /**
+         * The constant ORDER.
+         */
+        public static final String ORDER = "order";
+
     }
 
-    private final IntegerProperty idProperty = new SimpleIntegerProperty(this, "id");
     private final ObjectProperty<Seance> seanceProperty = new SimpleObjectProperty<>();
     private final DoubleProperty priceProperty = new SimpleDoubleProperty(this, "price");
-
+    private final ObjectProperty<Order> orderProperty = new SimpleObjectProperty<>();
 
     /**
      * Instantiates a new Ticket.
@@ -63,35 +64,8 @@ public class Ticket implements Externalizable {
     public Ticket(Seance seance, double price) {
         setSeance(seance);
         setPrice(price);
+        setIsActive(true);
     }
-
-
-    /**
-     * Id property integer property.
-     *
-     * @return the integer property
-     */
-    public IntegerProperty idProperty() { return idProperty; }
-
-    /**
-     * Gets id.
-     *
-     * @return the id
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = Columns.ID)
-    public int getId() {
-        return idProperty.get();
-    }
-
-    /**
-     * Sets id.
-     *
-     * @param id the id
-     */
-    public void setId(int id) { idProperty.set(id);}
-
 
     /**
      * Seance property object property.
@@ -117,7 +91,6 @@ public class Ticket implements Externalizable {
      */
     public void setSeance(Seance seance) { seanceProperty.setValue(seance);}
 
-
     /**
      * Price property double property.
      *
@@ -131,31 +104,48 @@ public class Ticket implements Externalizable {
      * @return the double
      */
     @Column(name = Columns.PRICE)
-    public double getPrice(){
+    public double getPrice() {
         return priceProperty.get();
     }
+
+    /**
+     * Gets order.
+     *
+     * @return the order
+     */
+//    @JoinColumn(name = Columns.ORDER)
+    @ManyToOne
+    public Order getOrder() { return orderProperty.get(); }
+
+    /**
+     * Sets order.
+     *
+     * @param order the order
+     */
+    public void setOrder(Order order) { orderProperty.set(order); }
 
     /**
      * Set price.
      *
      * @param price the price
      */
-    public void setPrice(double price){
+    public void setPrice(double price) {
         priceProperty.set(price);
     }
 
-
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeInt(getId());
+        super.writeExternal(out);
         out.writeObject(getSeance());
         out.writeObject(getPrice());
+        out.writeObject(getOrder());
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        setId(in.readInt());
+        super.readExternal(in);
         setSeance((Seance) in.readObject());
         setPrice(in.readInt());
+        setOrder((Order) in.readObject());
     }
 }

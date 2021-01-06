@@ -1,9 +1,11 @@
 package agh.alleviation.presentation;
 
+import agh.alleviation.util.UserType;
+
 /**
  * Enum representing navigable screens in application
  *
- * @author Kamil Krzempek
+ * @author Kamil Krzempek, Anna Nosek
  */
 public enum Screen {
     /**
@@ -17,5 +19,26 @@ public enum Screen {
     /**
      * Hall list screen.
      */
-    HALL_LIST
+    HALL_LIST,
+    /**
+     * Movie list screen.
+     */
+    MOVIE_LIST,
+    /**
+     * Seance list screen.
+     */
+    SEANCE_LIST;
+
+    /**
+     * Gets privilege level.
+     *
+     * @return the privilege level
+     */
+    public int getPrivilegeLevel() {
+        return switch (this) {
+            case MAIN -> 0;
+            case MOVIE_LIST, SEANCE_LIST -> 1;
+            case USER_LIST, HALL_LIST -> 2;
+        };
+    }
 }

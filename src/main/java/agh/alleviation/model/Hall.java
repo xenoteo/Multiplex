@@ -1,23 +1,23 @@
 package agh.alleviation.model;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.*;
 
 import javax.persistence.*;
 import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class responsible for representation of cinema hall. It keeps the number of a hall and its capacity.
  *
  * @author Ksenia Fiodarava
- *
- * */
+ */
 @Entity
 @Table(name = Hall.TABLE_NAME)
-public class Hall implements Externalizable {
+public class Hall extends EntityObject {
     /**
      * The constant TABLE_NAME.
      */
@@ -28,10 +28,6 @@ public class Hall implements Externalizable {
      */
     public static class Columns {
         /**
-         * The constant ID.
-         */
-        public static final String ID = "id";
-        /**
          * The constant CAPACITY.
          */
         public static final String CAPACITY = "capacity";
@@ -39,12 +35,17 @@ public class Hall implements Externalizable {
          * The constant NUMBER.
          */
         public static final String NUMBER = "number";
+
+        /**
+         * The constant SEANCES.
+         */
+        public static final String SEANCES = "seances";
     }
 
-    private final IntegerProperty idProperty = new SimpleIntegerProperty(this, "id");
-    private final IntegerProperty capacityProperty = new SimpleIntegerProperty(this, "capacity");
-    private final IntegerProperty numberProperty = new SimpleIntegerProperty(this, "number");
-
+    private final IntegerProperty capacityProperty = new SimpleIntegerProperty(this, Columns.CAPACITY);
+    private final IntegerProperty numberProperty = new SimpleIntegerProperty(this, Columns.NUMBER);
+    private final ObjectProperty<List<Seance>> seancesProperty = new SimpleObjectProperty<>(this, Columns.SEANCES);
+//
 
     /**
      * Instantiates a new Hall.
@@ -59,45 +60,17 @@ public class Hall implements Externalizable {
      * @param number   the number
      */
     public Hall(int capacity, int number) {
-
         setCapacity(capacity);
         setNumber(number);
+        setIsActive(true);
     }
-
-
-    /**
-     * Id property integer property.
-     *
-     * @return the integer property
-     */
-    public IntegerProperty idProperty() { return idProperty; }
-
-    /**
-     * Gets id.
-     *
-     * @return the id
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = Columns.ID)
-    public int getId() {
-        return idProperty.get();
-    }
-
-    /**
-     * Sets id.
-     *
-     * @param id the id
-     */
-    public void setId(int id) { idProperty.set(id);}
-
 
     /**
      * Capacity property integer property.
      *
      * @return the integer property
      */
-    public IntegerProperty capacityProperty(){
+    public IntegerProperty capacityProperty() {
         return capacityProperty;
     }
 
@@ -116,7 +89,7 @@ public class Hall implements Externalizable {
      *
      * @param capacity the capacity
      */
-    public void setCapacity(int capacity){
+    public void setCapacity(int capacity) {
         capacityProperty.set(capacity);
     }
 
@@ -125,7 +98,7 @@ public class Hall implements Externalizable {
      *
      * @return the integer property
      */
-    public IntegerProperty numberProperty(){ return this.numberProperty; }
+    public IntegerProperty numberProperty() { return this.numberProperty; }
 
     /**
      * Get number int.
@@ -133,28 +106,65 @@ public class Hall implements Externalizable {
      * @return the int
      */
     @Column(name = Columns.NUMBER)
-    public int getNumber(){ return numberProperty.get(); }
+    public int getNumber() { return numberProperty.get(); }
 
     /**
      * Set number.
      *
      * @param number the number
      */
-    public void setNumber(int number){ numberProperty.set(number); }
+    public void setNumber(int number) { numberProperty.set(number); }
 
+    /**
+     * Gets seances.
+     *
+     * @return the seances
+     */
+    @OneToMany(orphanRemoval = true, cascade = {CascadeType.PERSIST})
+    public List<Seance> getSeances() { return seancesProperty.get(); }
 
+    /**
+     * Sets seances.
+     *
+     * @param seances the seances
+     */
+    public void setSeances(List<Seance> seances) { seancesProperty.set(seances); }
+
+    /**
+     * Add seance.
+     *
+     * @param seance the seance
+     */
+    public void addSeance(Seance seance) { this.getSeances().add(seance); }
+
+    @Override
+    public List<EntityObject> delete() {
+        super.delete();
+        List<EntityObject> deletedObjects = new ArrayList<>(getSeances());
+        getSeances().forEach(seance -> {
+            deletedObjects.addAll(seance.delete());
+        });
+        return deletedObjects;
+    }
+
+    @Override
+    public String toString() {
+        return "Hall " + getNumber();
+    }
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeInt(getId());
+        super.writeExternal(out);
         out.writeInt(getCapacity());
         out.writeInt(getNumber());
+        out.writeObject(getSeances());
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        setId(in.readInt());
+        super.readExternal(in);
         setCapacity(in.readInt());
         setCapacity(in.readInt());
+        setSeances((List<Seance>) in.readObject());
     }
 }

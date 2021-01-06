@@ -18,8 +18,8 @@ import java.io.ObjectOutput;
  * @see Movie
  */
 @Entity
-@Table(name=Genre.TABLE_NAME)
-public class Genre implements Externalizable {
+@Table(name = Genre.TABLE_NAME)
+public class Genre extends EntityObject {
     /**
      * The constant TABLE_NAME.
      */
@@ -28,26 +28,19 @@ public class Genre implements Externalizable {
     /**
      * The type Columns.
      */
-    public static class Columns{
-        /**
-         * The constant ID.
-         */
-        public static final String ID = "id";
+    public static class Columns {
         /**
          * The constant NAME.
          */
         public static final String NAME = "name";
     }
 
-
-    private final IntegerProperty id = new SimpleIntegerProperty(this, Columns.ID);
     private final StringProperty name = new SimpleStringProperty(this, Columns.NAME);
-
 
     /**
      * Instantiates a new Genre.
      */
-    public Genre(){
+    public Genre() {
 
     }
 
@@ -56,36 +49,11 @@ public class Genre implements Externalizable {
      *
      * @param name the name
      */
-    public Genre(String name){
+    public Genre(String name) {
+
         setName(name);
+        setIsActive(true);
     }
-
-    /**
-     * Gets id.
-     *
-     * @return the id
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = Columns.ID)
-    public int getId() {
-        return id.get();
-    }
-
-    /**
-     * Sets id.
-     *
-     * @param id the id
-     */
-    public void setId(int id) { this.id.set(id); }
-
-    /**
-     * Id property integer property.
-     *
-     * @return the integer property
-     */
-    public IntegerProperty idProperty() { return id; }
-
 
     /**
      * Get name string.
@@ -93,7 +61,7 @@ public class Genre implements Externalizable {
      * @return the string
      */
     @Column(name = Columns.NAME)
-    public String getName(){
+    public String getName() {
         return name.get();
     }
 
@@ -102,7 +70,7 @@ public class Genre implements Externalizable {
      *
      * @param name the name
      */
-    public void setName(String name){
+    public void setName(String name) {
         this.name.set(name);
     }
 
@@ -111,17 +79,24 @@ public class Genre implements Externalizable {
      *
      * @return the string property
      */
-    public StringProperty nameProperty(){ return  this.name; }
+    public StringProperty nameProperty() { return this.name; }
+
+    @Override
+    public String toString() {
+        return name.get();
+    }
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeInt(getId());
+        super.writeExternal(out);
+//        out.writeInt(getId());
         out.writeObject(getName());
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        setId(in.readInt());
+        super.readExternal(in);
+//        setId(in.readInt());
         setName((String) in.readObject());
     }
 }

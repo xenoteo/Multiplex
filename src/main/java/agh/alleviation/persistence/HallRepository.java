@@ -1,7 +1,9 @@
 package agh.alleviation.persistence;
 
 import agh.alleviation.model.Hall;
+import agh.alleviation.model.Movie;
 import agh.alleviation.model.Seance;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -28,4 +30,21 @@ public interface HallRepository extends CrudRepository<Hall, Integer> {
      * @return the list
      */
     List<Hall> findAllByCapacity(int capacity);
+
+    /**
+     * Find by id with seances hall.
+     *
+     * @param id the id
+     * @return the hall
+     */
+    @Query("SELECT h FROM Hall h LEFT JOIN FETCH h.seances WHERE h.id = ?1")
+    Hall findByIdWithSeances(int id);
+
+    /**
+     * Find by number hall.
+     *
+     * @param number the number
+     * @return the hall
+     */
+    Hall findByNumber(int number);
 }

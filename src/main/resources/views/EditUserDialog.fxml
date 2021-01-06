@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane prefHeight="239.0" prefWidth="275.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agh.alleviation.controller.EditUserDialogController">
+<BorderPane prefHeight="239.0" prefWidth="275.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agh.alleviation.presentation.controller.edit_dialog.EditUserDialogController">
     <center>
         <GridPane BorderPane.alignment="CENTER">
             <columnConstraints>
@@ -43,7 +43,7 @@
                     </GridPane.margin>
                 </TextField>
                 <Label text="Email" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-                <Button fx:id="addUserButton" mnemonicParsing="false" onAction="#addUser" text="Add user" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4" />
+                <Button fx:id="addUserButton" mnemonicParsing="false" onAction="#saveUser" text="Add user" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4" />
             <Label text="Login" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
             <TextField fx:id="loginField" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>

@@ -24,7 +24,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = Movie.TABLE_NAME)
-public class Movie implements Externalizable {
+public class Movie extends EntityObject {
     /**
      * The constant TABLE_NAME.
      */
@@ -34,10 +34,6 @@ public class Movie implements Externalizable {
      * The type Columns.
      */
     public static class Columns {
-        /**
-         * The constant ID.
-         */
-        public static final String ID = "id";
         /**
          * The constant NAME.
          */
@@ -58,6 +54,7 @@ public class Movie implements Externalizable {
          * The constant ACTORS.
          */
         public static final String ACTORS = "actors";
+
     }
 
     /**
@@ -68,46 +65,27 @@ public class Movie implements Externalizable {
     /**
      * Instantiates a new Movie.
      *
-     * @param name  the name
-     * @param genre the genre
+     * @param name        the name
+     * @param genre       the genre
+     * @param description the description
+     * @param director    the director
+     * @param actors      the actors
      */
-    public Movie(final String name, Genre genre) {
+    public Movie(final String name, Genre genre, String description, String director, String actors) {
         setName(name);
         setGenre(genre);
+        setDescription(description);
+        setDirector(director);
+        setActors(actors);
+        setIsActive(true);
     }
 
-    private final IntegerProperty id = new SimpleIntegerProperty(this, Columns.ID);
     private final StringProperty name = new SimpleStringProperty(this, Columns.NAME);
     private final StringProperty description = new SimpleStringProperty(this, Columns.DESCRIPTION);
     private final ObjectProperty<Genre> genre = new SimpleObjectProperty<>(this, Columns.GENRE);
     private final StringProperty director = new SimpleStringProperty(this, Columns.DIRECTOR);
     private final StringProperty actors = new SimpleStringProperty(this, Columns.ACTORS);
-
-    /**
-     * Gets id.
-     *
-     * @return the id
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = Columns.ID)
-    public int getId() {
-        return id.get();
-    }
-
-    /**
-     * Sets id.
-     *
-     * @param id the id
-     */
-    public void setId(int id) { this.id.set(id); }
-
-    /**
-     * Id property integer property.
-     *
-     * @return the integer property
-     */
-    public IntegerProperty idProperty() { return id; }
+    private final ObjectProperty<List<Seance>> seances = new SimpleObjectProperty<>();
 
     /**
      * Gets name.
@@ -139,21 +117,21 @@ public class Movie implements Externalizable {
      * @return the string
      */
     @Column(name = Columns.DESCRIPTION)
-    public String getDescription(){ return description.get(); }
+    public String getDescription() { return description.get(); }
 
     /**
      * Set description.
      *
      * @param description the description
      */
-    public void setDescription(String description){ this.description.set(description);}
+    public void setDescription(String description) { this.description.set(description);}
 
     /**
      * Description property string property.
      *
      * @return the string property
      */
-    public StringProperty descriptionProperty(){ return description; }
+    public StringProperty descriptionProperty() { return description; }
 
     /**
      * Get genre genre.
@@ -161,21 +139,21 @@ public class Movie implements Externalizable {
      * @return the genre
      */
     @OneToOne
-    public Genre getGenre(){ return genre.get(); }
+    public Genre getGenre() { return genre.get(); }
 
     /**
      * Set genre.
      *
      * @param genre the genre
      */
-    public void setGenre(Genre genre){ this.genre.set(genre); }
+    public void setGenre(Genre genre) { this.genre.set(genre); }
 
     /**
      * Genre property object property.
      *
      * @return the object property
      */
-    public ObjectProperty<Genre> genreProperty(){ return genre; }
+    public ObjectProperty<Genre> genreProperty() { return genre; }
 
     /**
      * Get director string.
@@ -183,21 +161,21 @@ public class Movie implements Externalizable {
      * @return the string
      */
     @Column(name = Columns.DIRECTOR)
-    public String getDirector(){ return director.get(); }
+    public String getDirector() { return director.get(); }
 
     /**
      * Set director.
      *
      * @param director the director
      */
-    public void setDirector(String director){ this.director.set(director);}
+    public void setDirector(String director) { this.director.set(director);}
 
     /**
      * Director property string property.
      *
      * @return the string property
      */
-    public StringProperty directorProperty(){ return director; }
+    public StringProperty directorProperty() { return director; }
 
     /**
      * Get actors string.
@@ -205,25 +183,75 @@ public class Movie implements Externalizable {
      * @return the string
      */
     @Column(name = Columns.ACTORS)
-    public String getActors(){ return actors.get(); }
+    public String getActors() { return actors.get(); }
 
     /**
      * Set actors.
      *
      * @param actors the actors
      */
-    public void setActors(String actors){ this.actors.set(actors); }
+    public void setActors(String actors) { this.actors.set(actors); }
+
+    /**
+     * Actors property string property.
+     *
+     * @return the string property
+     */
+    public StringProperty actorsProperty() { return this.actors; }
+
+    /**
+     * Gets seances.
+     *
+     * @return the seances
+     */
+    @OneToMany(orphanRemoval = true, cascade = {CascadeType.PERSIST})
+    public List<Seance> getSeances() { return seances.get(); }
+
+    /**
+     * Sets seances.
+     *
+     * @param seances the seances
+     */
+    public void setSeances(List<Seance> seances) { this.seances.set(seances); }
+
+    /**
+     * Seances property object property.
+     *
+     * @return the object property
+     */
+    public ObjectProperty<List<Seance>> seancesProperty() { return seances; }
+
+    @Override
+    public List<EntityObject> delete() {
+        super.delete();
+        List<EntityObject> deletedObjects = new ArrayList<>(getSeances());
+        getSeances().forEach(seance -> {
+            deletedObjects.addAll(seance.delete());
+        });
+        return deletedObjects;
+    }
+
+    /**
+     * Add seance.
+     *
+     * @param seance the seance
+     */
+    public void addSeance(Seance seance) {
+        this.getSeances().add(seance);
+    }
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeInt(getId());
+        super.writeExternal(out);
         out.writeObject(getName());
+        out.writeObject(getSeances());
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        setId(in.readInt());
+        super.readExternal(in);
         setName((String) in.readObject());
+        setSeances((List<Seance>) seances);
     }
 
     @Override
@@ -231,11 +259,16 @@ public class Movie implements Externalizable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Movie movie = (Movie) o;
-        return id == movie.id && name.equals(movie.name);
+        return getId() == movie.getId();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name);
+        return Objects.hash(getId(), name);
+    }
+
+    @Override
+    public String toString() {
+        return name.get();
     }
 }
