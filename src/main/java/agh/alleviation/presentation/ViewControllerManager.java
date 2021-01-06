@@ -88,7 +88,7 @@ public class ViewControllerManager {
         addToControllersAndViews(Screen.HALL_LIST, HallListController.class);
         addToControllersAndViews(Screen.MOVIE_LIST, MovieListController.class);
         addToControllersAndViews(Screen.SEANCE_LIST, SeanceListController.class);
-
+        addToControllersAndViews(Screen.TICKET_LIST, BasketController.class);
 
         controllersAndViews.forEach((screen, cv) -> cv.getController().setAppController(this));
 

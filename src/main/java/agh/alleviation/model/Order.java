@@ -1,6 +1,7 @@
 package agh.alleviation.model;
 
 import agh.alleviation.model.user.Customer;
+import agh.alleviation.model.user.User;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -41,7 +42,7 @@ public class Order extends EntityObject {
         /**
          * The constant CUSTOMER.
          */
-        public static final String CUSTOMER = "customer";
+        public static final String USER = "user";
     }
 
     /**
@@ -51,7 +52,7 @@ public class Order extends EntityObject {
     }
 
     private final ObjectProperty<List<Ticket>> ticketsProperty = new SimpleObjectProperty<>();
-    private final ObjectProperty<Customer> customerProperty = new SimpleObjectProperty<>();
+    private final ObjectProperty<User> userProperty = new SimpleObjectProperty<>();
 
     /**
      * Instantiates a new Order.
@@ -59,9 +60,9 @@ public class Order extends EntityObject {
      * @param tickets  the tickets
      * @param customer the customer
      */
-    public Order(List<Ticket> tickets, Customer customer) {
+    public Order(List<Ticket> tickets, User user) {
         setTickets(tickets);
-        setCustomer(customer);
+        setUser(user);
         setIsActive(true);
     }
 
@@ -70,8 +71,8 @@ public class Order extends EntityObject {
      *
      * @param customer the customer
      */
-    public Order(Customer customer) {
-        setCustomer(customer);
+    public Order(User user) {
+        setUser(user);
         setIsActive(true);
     }
 
@@ -102,22 +103,30 @@ public class Order extends EntityObject {
         ticketsProperty.setValue(tickets);
     }
 
+
+    public void addTicket(Ticket ticket){
+        if(getTickets() == null){
+            setTickets(new ArrayList<>());
+        }
+        getTickets().add(ticket);
+    }
+
     /**
      * Customer property object property.
      *
      * @return the object property
      */
-    ObjectProperty<Customer> customerProperty() { return customerProperty;}
+    ObjectProperty<User> userProperty() { return userProperty;}
 
     /**
      * Get customer customer.
      *
      * @return the customer
      */
-    @JoinColumn(name = Columns.CUSTOMER)
+    @JoinColumn(name = Columns.USER)
     @ManyToOne
-    public Customer getCustomer() {
-        return customerProperty.getValue();
+    public User getUser() {
+        return userProperty.getValue();
     }
 
     /**
@@ -125,8 +134,8 @@ public class Order extends EntityObject {
      *
      * @param customer the customer
      */
-    public void setCustomer(Customer customer) {
-        customerProperty.setValue(customer);
+    public void setUser(User user) {
+        userProperty.setValue(user);
     }
 
     public List<EntityObject> delete() {
@@ -142,13 +151,13 @@ public class Order extends EntityObject {
     public void writeExternal(ObjectOutput out) throws IOException {
         super.writeExternal(out);
         out.writeObject(getTickets());
-        out.writeObject(getCustomer());
+        out.writeObject(getUser());
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         super.readExternal(in);
         setTickets((List<Ticket>) in.readObject());
-        setCustomer((Customer) in.readObject());
+        setUser((Customer) in.readObject());
     }
 }

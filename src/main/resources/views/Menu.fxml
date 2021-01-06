@@ -13,8 +13,9 @@
               <ToggleButton fx:id="seances" onAction="#handleActiveButtonChanged" text="Seance List" visible="false" />
               <ToggleButton fx:id="halls" onAction="#handleActiveButtonChanged" selected="true" text="Hall List" visible="false" />
               <ToggleButton fx:id="users" onAction="#handleActiveButtonChanged" text="User List" visible="false" />
+              <ToggleButton fx:id="basket" onAction="#handleActiveButtonChanged" text="Basket" visible="false" />
           </toggles>
       </ToggleButtonGroup>
-       <Button fx:id="logoutButton" alignment="TOP_RIGHT" mnemonicParsing="false" onAction="#logout" text="Logout" textAlignment="CENTER" translateX="200.0" />
+       <Button fx:id="logoutButton" alignment="TOP_RIGHT" mnemonicParsing="false" onAction="#logout" text="Logout" textAlignment="CENTER" translateX="180.0" />
    </children>
 </HBox>

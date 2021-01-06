@@ -24,6 +24,7 @@
                 <Button fx:id="add" mnemonicParsing="false" onAction="#handleAddAction" text="Add" textAlignment="CENTER" />
                 <Button fx:id="edit" mnemonicParsing="false" onAction="#handleEditAction" text="Edit" textAlignment="CENTER" />
                 <Button fx:id="delete" mnemonicParsing="false" onAction="#handleDeleteAction" text="Delete" textAlignment="CENTER" />
+                <Button fx:id="addToBasket" mnemonicParsing="false" onAction="#handleAddToBasketAction" text="Add to basket" textAlignment="CENTER" />
             </children>
             <BorderPane.margin>
                 <Insets top="10.0" />

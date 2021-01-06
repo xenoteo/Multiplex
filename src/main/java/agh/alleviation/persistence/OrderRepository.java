@@ -2,6 +2,7 @@ package agh.alleviation.persistence;
 
 import agh.alleviation.model.Order;
 import agh.alleviation.model.user.Customer;
+import agh.alleviation.model.user.User;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -20,7 +21,7 @@ public interface OrderRepository extends CrudRepository<Order, Integer> {
      * @param customer the customer
      * @return the list
      */
-    List<Order> findAllByCustomer(Customer customer);
+    List<Order> findAllByUser(User user);
 
     /**
      * Find by id with tickets order.

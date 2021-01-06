@@ -101,4 +101,10 @@ public class ObservableComposite {
         if (observableLists.get(itemClass) == null) return;
         observableLists.get(itemClass).remove(item);
     }
+
+    public void clearObservableList(Class<? extends EntityObject> itemClass){
+
+        observableLists.get(itemClass).clear();
+
+    }
 }

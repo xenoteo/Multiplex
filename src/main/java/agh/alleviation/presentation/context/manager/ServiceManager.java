@@ -36,7 +36,8 @@ public class ServiceManager {
         MovieService movieService,
         SeanceService seanceService,
         UserService userService,
-        TicketService ticketService) {
+        TicketService ticketService,
+        OrderService orderService) {
 
         this.services = new HashMap<>();
         this.services.put(Hall.class, hallService);
@@ -44,6 +45,7 @@ public class ServiceManager {
         this.services.put(Seance.class, seanceService);
         this.services.put(User.class, userService);
         this.services.put(Ticket.class, ticketService);
+        this.services.put(Order.class, orderService);
 
         this.observableComposite = new ObservableComposite();
     }
@@ -140,5 +142,11 @@ public class ServiceManager {
         observableComposite.delete(itemClass, item);
         List<EntityObject> deletedList = services.get(itemClass).delete(item);
         deletedList.forEach(this::update);
+    }
+
+    public void clearObservableList(Class<? extends EntityObject> itemClass){
+
+        observableComposite.clearObservableList(itemClass);
+
     }
 }

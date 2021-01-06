@@ -1,6 +1,8 @@
 package agh.alleviation.presentation.context;
 
+import agh.alleviation.model.Order;
 import agh.alleviation.model.user.User;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Component;
 
 import java.beans.PropertyChangeListener;
@@ -17,6 +19,8 @@ public class ActiveUser{
      * Logged-in user.
      */
     private User userEntity;
+
+    private Order activeOrder;
 
     /**
      * Spring support for Observer Pattern.
@@ -45,7 +49,8 @@ public class ActiveUser{
      */
     public void setUserEntity(User newUser) {
         propertyChangeSupport.firePropertyChange("user", this.userEntity, newUser);
-        this.userEntity = newUser;
+        userEntity = newUser;
+        setEmptyOrder();
     }
 
     /**
@@ -55,5 +60,13 @@ public class ActiveUser{
      */
     public User getUserEntity(){
         return userEntity;
+    }
+
+    public void setEmptyOrder(){
+        activeOrder = new Order(userEntity);
+    }
+
+    public Order getActiveOrder(){
+        return activeOrder;
     }
 }

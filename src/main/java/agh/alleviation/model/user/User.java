@@ -1,11 +1,13 @@
 package agh.alleviation.model.user;
 
 import agh.alleviation.model.EntityObject;
+import agh.alleviation.model.Order;
 import agh.alleviation.util.UserType;
 import javafx.beans.property.*;
 
 import javax.persistence.*;
 import java.io.*;
+import java.util.List;
 
 /**
  * This abstract class represents any user of the system.
@@ -96,6 +98,7 @@ public abstract class User extends EntityObject implements Externalizable {
     private final StringProperty login = new SimpleStringProperty(this, "login");
     private final StringProperty email = new SimpleStringProperty(this, "email");
     private String password;
+    private final ObjectProperty<List<Order>> ordersProperty = new SimpleObjectProperty<>();
 
     /**
      * Gets id.
@@ -243,12 +246,52 @@ public abstract class User extends EntityObject implements Externalizable {
         this.password = password;
     }
 
+
+    /**
+     * Get orders list.
+     *
+     * @return the list
+     */
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    public List<Order> getOrders() {
+        return ordersProperty.get();
+    }
+
+    /**
+     * Set orders.
+     *
+     * @param orders the orders
+     */
+    public void setOrders(List<Order> orders) {
+        ordersProperty.set(orders);
+    }
+
+    /**
+     * Orders property object property.
+     *
+     * @return the object property
+     */
+    public ObjectProperty<List<Order>> ordersProperty() {
+        return ordersProperty;
+    }
+
+
+    /**
+     * Add order.
+     *
+     * @param order the order
+     */
+    public void addOrder(Order order) {
+        getOrders().add(order);
+    }
+
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         out.writeInt(getId());
         out.writeObject(getName());
         out.writeObject(getLogin());
         out.writeObject(getEmail());
+        out.writeObject(getOrders());
     }
 
     @Override
@@ -257,6 +300,7 @@ public abstract class User extends EntityObject implements Externalizable {
         setName((String) in.readObject());
         setLogin((String) in.readObject());
         setEmail((String) in.readObject());
+        setOrders((List<Order>) in.readObject());
 
     }
 

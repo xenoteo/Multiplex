@@ -1,10 +1,13 @@
 package agh.alleviation.presentation.controller.list;
 
 import agh.alleviation.model.Seance;
+import agh.alleviation.model.Ticket;
+import agh.alleviation.presentation.context.ActiveUser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import net.rgielen.fxweaver.core.FxmlView;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -40,6 +43,14 @@ public class SeanceListController extends GenericListController<Seance> {
     @FXML
     public TableColumn<Seance, Number> priceColumn;
 
+
+    private ActiveUser activeUser;
+
+    @Autowired
+    public void setActiveUser(ActiveUser activeUser){
+        this.activeUser = activeUser;
+    }
+
     @FXML
     protected void initialize() {
         super.initialize();
@@ -62,5 +73,16 @@ public class SeanceListController extends GenericListController<Seance> {
         if (seance != null) {
             viewControllerManager.getSeanceDialogContext().showEditItemDialog(seance);
         }
+    }
+
+    @FXML
+    private void handleAddToBasketAction(ActionEvent event){
+        Seance seance = (Seance) itemTable.getSelectionModel().getSelectedItem();
+        if(seance != null){
+            Ticket ticket = new Ticket(seance);
+            activeUser.getActiveOrder().addTicket(ticket);
+            serviceManager.addToObservable(ticket);
+        }
+
     }
 }
