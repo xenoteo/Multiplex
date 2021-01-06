@@ -2,6 +2,7 @@ package agh.alleviation;
 
 import agh.alleviation.presentation.CinemaApp;
 import agh.alleviation.util.DataLoader;
+import agh.alleviation.util.EmailSender;
 import javafx.application.Application;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.spring.SpringFxWeaver;
@@ -11,6 +12,8 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * This application provides functionalities for a cinema multiplex. Written in Java 15.
@@ -88,6 +91,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication
 @EnableJpaRepositories(basePackages = {"agh.alleviation.persistence"})
 @EntityScan(basePackages = {"agh.alleviation.model"})
+@EnableScheduling
 public class AlleviationApplication {
 
     /**
@@ -125,5 +129,10 @@ public class AlleviationApplication {
             dataLoader.populateSeances();
             dataLoader.populateOrders();
         };
+    }
+
+    @Bean
+    public EmailSender getEmailSender(JavaMailSender javaMailSender) {
+        return new EmailSender(javaMailSender);
     }
 }

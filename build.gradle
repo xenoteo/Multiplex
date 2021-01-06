@@ -1,8 +1,8 @@
 plugins {
-	id 'org.springframework.boot' version '2.4.0'
-	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
-	id 'java'
-	id 'org.openjfx.javafxplugin' version '0.0.8'
+    id 'org.springframework.boot' version '2.4.0'
+    id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+    id 'java'
+    id 'org.openjfx.javafxplugin' version '0.0.8'
 }
 
 group = 'agh'
@@ -12,37 +12,38 @@ targetCompatibility = '15'
 
 
 repositories {
-	mavenCentral()
-	maven {
-		url "https://dl.bintray.com/speljohan/rxjavafx-mirror"
+    mavenCentral()
+    maven {
+        url "https://dl.bintray.com/speljohan/rxjavafx-mirror"
 
-	}
-	jcenter()
-	maven {
-		url 'http://nexus.gluonhq.com/nexus/content/repositories/releases'
-	}
+    }
+    jcenter()
+    maven {
+        url 'http://nexus.gluonhq.com/nexus/content/repositories/releases'
+    }
 
 }
 
 
 javafx {
-	version = '14'
-	modules = ['javafx.base', 'javafx.controls', 'javafx.fxml', 'javafx.graphics', 'javafx.media', 'javafx.swing', 'javafx.web']
+    version = '14'
+    modules = ['javafx.base', 'javafx.controls', 'javafx.fxml', 'javafx.graphics', 'javafx.media', 'javafx.swing', 'javafx.web']
 }
 
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	runtimeOnly 'com.h2database:h2'
-	runtimeOnly 'org.postgresql:postgresql'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	implementation 'net.rgielen:javafx-weaver-spring-boot-starter:1.3.0'
-	implementation "io.reactivex.rxjava3:rxjava:3.0.7"
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	compile 'com.gluonhq:charm:5.0.0-jdk9'
-	compile "net.synedra:validatorfx:0.1.12"
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    runtimeOnly 'com.h2database:h2'
+    runtimeOnly 'org.postgresql:postgresql'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'net.rgielen:javafx-weaver-spring-boot-starter:1.3.0'
+    implementation "io.reactivex.rxjava3:rxjava:3.0.7"
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    compile 'com.gluonhq:charm:5.0.0-jdk9'
+    compile "net.synedra:validatorfx:0.1.12"
+    compile "org.springframework.boot:spring-boot-starter-mail"
 }
 
 test {
-	useJUnitPlatform()
+    useJUnitPlatform()
 }

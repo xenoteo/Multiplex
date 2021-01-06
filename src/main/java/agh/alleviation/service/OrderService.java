@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -64,6 +65,19 @@ public class OrderService extends EntityObjectService<Order, OrderRepository> {
         seance.addTicket(ticket);
         ticketRepository.save(ticket);
         return ticket;
+    }
+
+    public Ticket addTicketToOrder(Seance seance, double price, Order order) {
+        Ticket ticket = addTicket(seance, price);
+        order.getTickets().add(ticket);
+        ticket.setOrder(order);
+        repository.save(order);
+        ticketRepository.save(ticket);
+        return ticket;
+    }
+
+    public Order addOrder(Customer customer) {
+        return addOrder(new ArrayList<>(), customer);
     }
 
     /**
