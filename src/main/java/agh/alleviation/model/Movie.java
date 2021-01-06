@@ -92,7 +92,7 @@ public class Movie extends EntityObject {
      *
      * @return the name
      */
-    @Column(name = Movie.Columns.NAME, nullable = false, length = 50, unique = true)
+    @Column(name = Movie.Columns.NAME, nullable = false, length = 50, unique = false)
     public String getName() {
         return name.get();
     }
@@ -204,7 +204,7 @@ public class Movie extends EntityObject {
      *
      * @return the seances
      */
-    @OneToMany(orphanRemoval = true, cascade = {CascadeType.PERSIST})
+    @OneToMany(cascade = {CascadeType.PERSIST})
     public List<Seance> getSeances() { return seances.get(); }
 
     /**

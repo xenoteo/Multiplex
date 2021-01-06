@@ -37,6 +37,9 @@ public class MenuController extends GenericController implements PropertyChangeL
     @FXML
     private ToggleButton basket;
 
+    @FXML
+    private ToggleButton orders;
+
     private final HashMap<ToggleButton, Screen> screenHashMap = new HashMap<>();
 
     /**
@@ -49,6 +52,7 @@ public class MenuController extends GenericController implements PropertyChangeL
         screenHashMap.put(movies, Screen.MOVIE_LIST);
         screenHashMap.put(seances, Screen.SEANCE_LIST);
         screenHashMap.put(basket, Screen.TICKET_LIST);
+        screenHashMap.put(orders, Screen.ORDER_LIST);
     }
 
 

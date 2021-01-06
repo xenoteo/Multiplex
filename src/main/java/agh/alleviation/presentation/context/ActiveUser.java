@@ -2,11 +2,13 @@ package agh.alleviation.presentation.context;
 
 import agh.alleviation.model.Order;
 import agh.alleviation.model.user.User;
-import org.aspectj.weaver.ast.Or;
+import agh.alleviation.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.List;
 
 /**
  * Component responsible for maintaining the information about the currently logged-in user.
@@ -27,12 +29,14 @@ public class ActiveUser{
      */
     private final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
 
+    private final UserService userService;
+
     /**
      * Instantiates a new Active user.
      */
-    public ActiveUser(){
-
-
+    @Autowired
+    public ActiveUser(UserService userService){
+        this.userService = userService;
     }
 
     /**
@@ -50,10 +54,16 @@ public class ActiveUser{
      * @param newUser the new user
      */
     public void setUserEntity(User newUser) {
-        propertyChangeSupport.firePropertyChange("user", this.userEntity, newUser);
+        propertyChangeSupport.firePropertyChange("user", userEntity, newUser);
         userEntity = newUser;
         setEmptyOrder();
+
     }
+
+    public void fillOrders(User user){
+        userEntity = userService.getUserWithOrders(user);
+    }
+
 
     /**
      * Get the currently logged-in user.
@@ -71,4 +81,10 @@ public class ActiveUser{
     public Order getActiveOrder(){
         return activeOrder;
     }
+
+    public List<Order> getAllOrders(){
+        return userEntity.getOrders();
+    }
+
+
 }

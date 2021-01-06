@@ -90,6 +90,7 @@ public class ViewControllerManager {
         addToControllersAndViews(Screen.MOVIE_LIST, MovieListController.class);
         addToControllersAndViews(Screen.SEANCE_LIST, SeanceListController.class);
         addToControllersAndViews(Screen.TICKET_LIST, BasketController.class);
+        addToControllersAndViews(Screen.ORDER_LIST, OrdersHistoryController.class);
 
         controllersAndViews.forEach((screen, cv) -> cv.getController().setAppController(this));
 
@@ -99,6 +100,7 @@ public class ViewControllerManager {
         activeUser.addUserChangeListener(menuBar.getController());
         activeUser.addUserChangeListener((PropertyChangeListener) controllersAndViews.get(Screen.SEANCE_LIST).getController());
         activeUser.addUserChangeListener((PropertyChangeListener) controllersAndViews.get(Screen.TICKET_LIST).getController());
+        activeUser.addUserChangeListener((PropertyChangeListener) controllersAndViews.get(Screen.ORDER_LIST).getController());
 
         borderPane.setTop(menuBar.getView().get());
 

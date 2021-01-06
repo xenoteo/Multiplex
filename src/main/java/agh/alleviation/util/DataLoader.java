@@ -93,6 +93,7 @@ public class DataLoader {
     public void populateOrders() {
         Customer customer = userService.findAllCustomers().get(0);
         Order order = orderService.addOrder(customer);
+        order.setDate(LocalDateTime.now());
         Seance seance = (Seance) seanceService.getAll().get(0);
         Ticket ticket = orderService.addTicketToOrder(seance, seance.getPrice(), order);
     }

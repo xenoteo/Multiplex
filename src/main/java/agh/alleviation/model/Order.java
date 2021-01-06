@@ -6,12 +6,15 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import org.apache.tomcat.jni.Local;
 
 import javax.persistence.*;
 import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,6 +46,9 @@ public class Order extends EntityObject {
          * The constant CUSTOMER.
          */
         public static final String USER = "user";
+
+        public static final String DATE = "date";
+
     }
 
     /**
@@ -53,6 +59,7 @@ public class Order extends EntityObject {
 
     private final ObjectProperty<List<Ticket>> ticketsProperty = new SimpleObjectProperty<>();
     private final ObjectProperty<User> userProperty = new SimpleObjectProperty<>();
+    private final ObjectProperty<LocalDateTime> dateProperty = new SimpleObjectProperty<>();
 
     /**
      * Instantiates a new Order.
@@ -139,6 +146,18 @@ public class Order extends EntityObject {
         userProperty.setValue(user);
     }
 
+
+    public LocalDateTime getDate() {
+        return dateProperty.getValue();
+    }
+
+
+    public void setDate(LocalDateTime date) {
+        dateProperty.setValue(date);
+    }
+
+    public ObjectProperty<LocalDateTime> dateProperty(){ return dateProperty; }
+
     public List<EntityObject> delete() {
         super.delete();
         List<EntityObject> deletedObjects = new ArrayList<>(getTickets());
@@ -153,6 +172,7 @@ public class Order extends EntityObject {
         super.writeExternal(out);
         out.writeObject(getTickets());
         out.writeObject(getUser());
+        out.writeObject(getDate());
     }
 
     @Override
@@ -160,5 +180,6 @@ public class Order extends EntityObject {
         super.readExternal(in);
         setTickets((List<Ticket>) in.readObject());
         setUser((Customer) in.readObject());
+        setDate((LocalDateTime) in.readObject());
     }
 }

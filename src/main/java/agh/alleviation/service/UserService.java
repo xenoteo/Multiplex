@@ -138,9 +138,8 @@ public class UserService extends EntityObjectService<User, UserRepository> {
      */
     @Override
     public List<EntityObject> delete(EntityObject user) {
-        if (user instanceof Customer) {
-            user = customerRepository.findByIdWithOrders(user.getId());
-        }
+        user = repository.findByIdWithOrders(user.getId());
+
         return super.delete(user);
     }
 
@@ -164,7 +163,12 @@ public class UserService extends EntityObjectService<User, UserRepository> {
      * @param login the login
      * @return the user
      */
+
     public User getUserByLogin(String login){
         return repository.findByLogin(login);
+    }
+
+    public User getUserWithOrders(User user){
+        return repository.findByIdWithOrders(user.getId());
     }
 }

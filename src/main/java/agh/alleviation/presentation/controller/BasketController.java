@@ -71,6 +71,7 @@ public class BasketController extends GenericController implements PropertyChang
     private void handleCheckoutAction(ActionEvent event){
         Order order = activeUser.getActiveOrder();
         if(order.getTickets() == null || order.getTickets().isEmpty()) return;
+        order.setDate(LocalDateTime.now());
         serviceManager.add(order);
         serviceManager.clearObservableList(Ticket.class);
         activeUser.setEmptyOrder();

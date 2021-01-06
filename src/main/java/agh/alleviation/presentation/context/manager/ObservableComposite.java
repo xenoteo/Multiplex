@@ -81,6 +81,7 @@ public class ObservableComposite {
         observableLists.get(itemClass).addAll(itemList);
     }
 
+
     /**
      * Update.
      *
@@ -109,7 +110,8 @@ public class ObservableComposite {
 
     public void clearObservableList(Class<? extends EntityObject> itemClass){
 
-        observableLists.get(itemClass).clear();
+        if(observableLists.get(itemClass) != null)
+            observableLists.get(itemClass).clear();
 
     }
 }

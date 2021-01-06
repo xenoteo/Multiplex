@@ -93,7 +93,7 @@ public class OrderService extends EntityObjectService<Order, OrderRepository> {
     public Order addOrder(List<Ticket> tickets, User user) {
         Order order = new Order(user);
         order.setTickets(tickets);
-        user = customerRepository.findByIdWithOrders(user.getId());
+        user = userRepository.findByIdWithOrders(user.getId());
         user.addOrder(order);
         repository.save(order);
         userRepository.save(user);

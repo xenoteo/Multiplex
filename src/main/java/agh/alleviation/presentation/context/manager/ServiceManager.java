@@ -2,6 +2,7 @@ package agh.alleviation.presentation.context.manager;
 
 import agh.alleviation.model.*;
 import agh.alleviation.model.user.User;
+import agh.alleviation.presentation.context.ActiveUser;
 import agh.alleviation.service.*;
 import javafx.collections.ObservableList;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,8 @@ public class ServiceManager {
     private final Map<Class<? extends EntityObject>, EntityObjectService<?, ?>> services;
     private final ObservableComposite observableComposite;
 
+
+    private final ActiveUser activeUser;
     /**
      * Instantiates a new Service manager.
      *
@@ -37,7 +40,8 @@ public class ServiceManager {
         SeanceService seanceService,
         UserService userService,
         TicketService ticketService,
-        OrderService orderService) {
+        OrderService orderService,
+        ActiveUser activeUser) {
 
         this.services = new HashMap<>();
         this.services.put(Hall.class, hallService);
@@ -46,6 +50,9 @@ public class ServiceManager {
         this.services.put(User.class, userService);
         this.services.put(Ticket.class, ticketService);
         this.services.put(Order.class, orderService);
+
+        this.activeUser = activeUser;
+
 
         this.observableComposite = new ObservableComposite();
     }
@@ -100,6 +107,10 @@ public class ServiceManager {
         observableComposite.addAll(itemClass, services.get(itemClass).getAll());
     }
 
+    public void fill(Class<? extends EntityObject> itemClass, List<EntityObject> items) {
+        observableComposite.addAll(itemClass, items);
+    }
+
     /**
      * Adds the EntityObject to the ObservableList (through ObservableComposite) and the database (through Service).
      *
@@ -109,6 +120,10 @@ public class ServiceManager {
         Class<?> itemClass = getClassOf(item);
         observableComposite.add(itemClass, item);
         services.get(itemClass).add(item);
+    }
+
+    public void addObservableList(Class<? extends EntityObject> itemClass){
+        observableComposite.addObservableList(itemClass);
     }
 
     /**
