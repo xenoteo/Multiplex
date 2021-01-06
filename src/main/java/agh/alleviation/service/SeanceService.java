@@ -74,6 +74,12 @@ public class SeanceService extends EntityObjectService<Seance, SeanceRepository>
         return seance;
     }
 
+    @Override
+    public List<EntityObject> update(EntityObject seance) {
+        seance = repository.findByIdWithTickets(seance.getId());
+        return super.update(seance);
+    }
+
     /**
      * Override method to get tickets associated with seance
      * Because of lazy loading, they are not loaded at the object creation.

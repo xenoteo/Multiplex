@@ -251,6 +251,16 @@ public class Seance extends EntityObject {
     }
 
     @Override
+    public List<EntityObject> update() {
+        super.update();
+        List<EntityObject> updatedTickets = new ArrayList<>(getTickets());
+        getTickets().forEach(ticket -> {
+            updatedTickets.addAll(ticket.update());
+        });
+        return updatedTickets;
+    }
+
+    @Override
     public List<EntityObject> delete() {
         super.delete();
         List<EntityObject> deletedObjects = new ArrayList<>(getTickets());

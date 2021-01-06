@@ -98,7 +98,7 @@ public class Hall extends EntityObject {
      *
      * @return the integer property
      */
-    public IntegerProperty numberProperty() { return this.numberProperty; }
+    public IntegerProperty numberProperty() { return numberProperty; }
 
     /**
      * Get number int.
@@ -135,7 +135,17 @@ public class Hall extends EntityObject {
      *
      * @param seance the seance
      */
-    public void addSeance(Seance seance) { this.getSeances().add(seance); }
+    public void addSeance(Seance seance) { getSeances().add(seance); }
+
+    @Override
+    public List<EntityObject> update() {
+        super.update();
+        List<EntityObject> updatedObjects = new ArrayList<>(getSeances());
+        getSeances().forEach(seance -> {
+            updatedObjects.addAll(seance.update());
+        });
+        return updatedObjects;
+    }
 
     @Override
     public List<EntityObject> delete() {

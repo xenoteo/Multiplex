@@ -6,7 +6,6 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import org.apache.tomcat.jni.Local;
 
 import javax.persistence.*;
 import java.io.Externalizable;
@@ -157,6 +156,15 @@ public class Order extends EntityObject {
     }
 
     public ObjectProperty<LocalDateTime> dateProperty(){ return dateProperty; }
+
+    public List<EntityObject> update() {
+        super.update();
+        List<EntityObject> updatedObjects = new ArrayList<>(getTickets());
+        getTickets().forEach(ticket -> {
+            updatedObjects.addAll(ticket.update());
+        });
+        return updatedObjects;
+    }
 
     public List<EntityObject> delete() {
         super.delete();

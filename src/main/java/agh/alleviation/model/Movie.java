@@ -54,7 +54,6 @@ public class Movie extends EntityObject {
          * The constant ACTORS.
          */
         public static final String ACTORS = "actors";
-
     }
 
     /**
@@ -197,7 +196,7 @@ public class Movie extends EntityObject {
      *
      * @return the string property
      */
-    public StringProperty actorsProperty() { return this.actors; }
+    public StringProperty actorsProperty() { return actors; }
 
     /**
      * Gets seances.
@@ -222,6 +221,16 @@ public class Movie extends EntityObject {
     public ObjectProperty<List<Seance>> seancesProperty() { return seances; }
 
     @Override
+    public List<EntityObject> update() {
+        super.update();
+        List<EntityObject> updatedObjects = new ArrayList<>(getSeances());
+        getSeances().forEach(seance -> {
+            updatedObjects.addAll(seance.update());
+        });
+        return updatedObjects;
+    }
+
+    @Override
     public List<EntityObject> delete() {
         super.delete();
         List<EntityObject> deletedObjects = new ArrayList<>(getSeances());
@@ -237,7 +246,7 @@ public class Movie extends EntityObject {
      * @param seance the seance
      */
     public void addSeance(Seance seance) {
-        this.getSeances().add(seance);
+        getSeances().add(seance);
     }
 
     @Override

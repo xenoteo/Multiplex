@@ -81,7 +81,6 @@ public class ObservableComposite {
         observableLists.get(itemClass).addAll(itemList);
     }
 
-
     /**
      * Update.
      *
@@ -91,9 +90,7 @@ public class ObservableComposite {
     public void update(Class<?> itemClass, EntityObject item) {
         if (observableLists.get(itemClass) == null) addObservableList(itemClass);
         var list = observableLists.get(itemClass);
-        if (list.contains(item)) {
-            list.remove(item);
-        }
+        list.remove(item);
         list.add(item);
     }
 

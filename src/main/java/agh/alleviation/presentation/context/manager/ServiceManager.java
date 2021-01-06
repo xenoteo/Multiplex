@@ -139,6 +139,12 @@ public class ServiceManager {
         observableComposite.delete(getClassOf(item), item);
     }
 
+    public void singleUpdate(EntityObject item) {
+        Class<?> itemClass = getClassOf(item);
+        services.get(itemClass).update(item);
+        observableComposite.update(itemClass, item);
+    }
+
     /**
      * Update.
      *
@@ -146,8 +152,9 @@ public class ServiceManager {
      */
     public void update(EntityObject item) {
         Class<?> itemClass = getClassOf(item);
+        List<EntityObject> updatedList = services.get(itemClass).update(item);
         observableComposite.update(itemClass, item);
-        services.get(itemClass).update(item);
+        updatedList.forEach(this::singleUpdate);
     }
 
     /**
@@ -160,10 +167,10 @@ public class ServiceManager {
         Class<?> itemClass = getClassOf(item);
         observableComposite.delete(itemClass, item);
         List<EntityObject> deletedList = services.get(itemClass).delete(item);
-        deletedList.forEach(this::update);
+        deletedList.forEach(this::singleUpdate);
     }
 
-    public void clearObservableList(Class<? extends EntityObject> itemClass){
+    public void clearObservableList(Class<? extends EntityObject> itemClass) {
         observableComposite.clearObservableList(itemClass);
 
     }
