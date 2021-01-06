@@ -38,8 +38,8 @@ public enum Screen {
      */
     public int getPrivilegeLevel() {
         return switch (this) {
-            case MAIN, TICKET_LIST -> 0;
-            case MOVIE_LIST, SEANCE_LIST -> 1;
+            case MAIN, TICKET_LIST, SEANCE_LIST -> 0;
+            case MOVIE_LIST -> 1;
             case USER_LIST, HALL_LIST -> 2;
         };
     }

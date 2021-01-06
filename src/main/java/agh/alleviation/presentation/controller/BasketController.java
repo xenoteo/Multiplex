@@ -11,11 +11,13 @@ import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.time.LocalDateTime;
 
 @Component
 @FxmlView("/views/Basket.fxml")
-public class BasketController extends GenericController {
+public class BasketController extends GenericController implements PropertyChangeListener {
 
     /**
      * The Item table.
@@ -75,5 +77,8 @@ public class BasketController extends GenericController {
     }
 
 
-
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        serviceManager.clearObservableList(Ticket.class);
+    }
 }

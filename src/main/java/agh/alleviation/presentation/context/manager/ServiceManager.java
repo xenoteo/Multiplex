@@ -149,7 +149,6 @@ public class ServiceManager {
     }
 
     public void clearObservableList(Class<? extends EntityObject> itemClass){
-
         observableComposite.clearObservableList(itemClass);
 
     }

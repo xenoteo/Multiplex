@@ -2,8 +2,10 @@ package agh.alleviation.presentation.controller.list;
 
 import agh.alleviation.model.Seance;
 import agh.alleviation.model.Ticket;
+import agh.alleviation.model.user.User;
 import agh.alleviation.presentation.context.ActiveUser;
 import agh.alleviation.presentation.filter.*;
+import agh.alleviation.util.UserType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
@@ -13,6 +15,8 @@ import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
@@ -21,7 +25,7 @@ import java.time.LocalTime;
  */
 @Component
 @FxmlView("/views/SeanceList.fxml")
-public class SeanceListController extends GenericListController<Seance> {
+public class SeanceListController extends GenericListController<Seance> implements PropertyChangeListener {
 
     /**
      * The Movie column.
@@ -77,6 +81,7 @@ public class SeanceListController extends GenericListController<Seance> {
         serviceManager.fillFromService(Seance.class);
         filter = new CompositeFilter();
         itemTable.setItems(serviceManager.getActiveElementsList(Seance.class));
+        resetTableItems();
         movieColumn.setCellValueFactory(dataValue -> dataValue.getValue().getMovie().nameProperty());
         hallColumn.setCellValueFactory(dataValue -> dataValue.getValue().getHall().numberProperty());
         dateColumn.setCellValueFactory(dataValue -> dataValue.getValue().dateProperty());
@@ -106,6 +111,13 @@ public class SeanceListController extends GenericListController<Seance> {
         }
     }
 
+
+    private void resetTableItems(){
+        User userEntity = activeUser.getUserEntity();
+        if(userEntity != null && userEntity.getUserType() == UserType.CUSTOMER) //TODO: on user change reset
+            filter.addFilter(new DateFilter(LocalDateTime.now(), LocalDateTime.now().plusDays(14)));
+        itemTable.setItems(serviceManager.getActiveElementsList(Seance.class).filtered(item -> filter.apply((Seance) item)));
+    }
 
 
     @FXML
@@ -138,7 +150,14 @@ public class SeanceListController extends GenericListController<Seance> {
     private void clearFilters() {
 
         filter.clearFilters();
-        itemTable.setItems(serviceManager.getActiveElementsList(Seance.class));
+        resetTableItems();
 
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        System.out.println("Property changed");
+        filter.clearFilters();
+        resetTableItems();
     }
 }

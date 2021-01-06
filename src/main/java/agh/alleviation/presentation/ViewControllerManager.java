@@ -26,6 +26,7 @@ import net.rgielen.fxweaver.core.FxWeaver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.beans.PropertyChangeListener;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -96,6 +97,8 @@ public class ViewControllerManager {
         menuBar.getController().setAppController(this);
 
         activeUser.addUserChangeListener(menuBar.getController());
+        activeUser.addUserChangeListener((PropertyChangeListener) controllersAndViews.get(Screen.SEANCE_LIST).getController());
+        activeUser.addUserChangeListener((PropertyChangeListener) controllersAndViews.get(Screen.TICKET_LIST).getController());
 
         borderPane.setTop(menuBar.getView().get());
 

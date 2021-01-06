@@ -4,6 +4,7 @@ import agh.alleviation.model.Seance;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class DateFilter implements SeanceFilter {
 
@@ -11,6 +12,11 @@ public class DateFilter implements SeanceFilter {
     private LocalDateTime minDate = LocalDateTime.MIN;
 
     public DateFilter(){
+
+    }
+    public DateFilter(LocalDateTime minDate, LocalDateTime maxDate){
+        this.minDate = minDate;
+        this.maxDate = maxDate;
 
     }
 
