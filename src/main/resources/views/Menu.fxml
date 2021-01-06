@@ -19,11 +19,12 @@
                               styleClass="menuButton" text="Hall List" visible="false"/>
                 <ToggleButton fx:id="users" onAction="#handleActiveButtonChanged" styleClass="menuButton"
                               text="User List" visible="false"/>
-                <ToggleButton fx:id="basket" onAction="#handleActiveButtonChanged" styleClass="menuButton" text="Basket" visible="false" />
+                <ToggleButton fx:id="basket" onAction="#handleActiveButtonChanged" styleClass="menuButton" text="Basket"
+                              visible="false"/>
 
             </toggles>
         </ToggleButtonGroup>
         <Button fx:id="logoutButton" alignment="TOP_RIGHT" mnemonicParsing="false" onAction="#logout"
-                styleClass="logoutButton" text="Logout" textAlignment="CENTER" translateX="235.0"/>
+                styleClass="logoutButton" text="Logout" textAlignment="CENTER" translateX="180.0"/>
     </children>
 </HBox>

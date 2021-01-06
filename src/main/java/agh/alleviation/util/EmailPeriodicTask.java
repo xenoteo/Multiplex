@@ -45,7 +45,7 @@ public class EmailPeriodicTask {
                 if (daysToSeance == SEND_NOTIFICATION_BEFORE_DAYS) {
                     if (mailEnabled) {
                         System.out.println("Sending notification...");
-                        emailSender.sendNotificationAboutSeance(ticket.getOrder().getCustomer(), ticket.getSeance());
+                        emailSender.sendNotificationAboutSeance(ticket.getOrder().getUser(), ticket.getSeance());
                     } else {
                         System.out.println("Notification would be sent, but alleviation.mail.enabled is set to false");
                     }
