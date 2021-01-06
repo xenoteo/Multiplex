@@ -53,8 +53,9 @@ public class HallService extends EntityObjectService<Hall, HallRepository> {
      */
     @Override
     public List<EntityObject> update(EntityObject hall) {
-        hall = repository.findByIdWithSeances(hall.getId());
-        return super.update(hall);
+        repository.save((Hall) hall);
+        EntityObject newHall = repository.findByIdWithSeances(hall.getId());
+        return super.update(newHall);
     }
 
     /**

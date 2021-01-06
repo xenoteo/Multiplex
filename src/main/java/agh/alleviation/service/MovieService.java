@@ -2,6 +2,7 @@ package agh.alleviation.service;
 
 import agh.alleviation.model.EntityObject;
 import agh.alleviation.model.Genre;
+import agh.alleviation.model.Hall;
 import agh.alleviation.model.Movie;
 import agh.alleviation.persistence.GenreRepository;
 import agh.alleviation.persistence.MovieRepository;
@@ -75,6 +76,7 @@ public class MovieService extends EntityObjectService<Movie, MovieRepository> {
 
     @Override
     public List<EntityObject> update(EntityObject movie) {
+        repository.save((Movie) movie);
         movie = repository.findByIdWithSeances(movie.getId());
         return super.update(movie);
     }

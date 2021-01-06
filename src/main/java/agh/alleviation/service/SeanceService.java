@@ -76,6 +76,7 @@ public class SeanceService extends EntityObjectService<Seance, SeanceRepository>
 
     @Override
     public List<EntityObject> update(EntityObject seance) {
+        repository.save((Seance) seance);
         seance = repository.findByIdWithTickets(seance.getId());
         return super.update(seance);
     }

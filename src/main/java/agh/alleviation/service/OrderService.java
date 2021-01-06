@@ -1,9 +1,6 @@
 package agh.alleviation.service;
 
-import agh.alleviation.model.EntityObject;
-import agh.alleviation.model.Order;
-import agh.alleviation.model.Seance;
-import agh.alleviation.model.Ticket;
+import agh.alleviation.model.*;
 import agh.alleviation.model.user.Customer;
 import agh.alleviation.model.user.User;
 import agh.alleviation.persistence.*;
@@ -122,6 +119,7 @@ public class OrderService extends EntityObjectService<Order, OrderRepository> {
     }
 
     public List<EntityObject> update(EntityObject order) {
+        repository.save((Order) order);
         order = repository.findByIdWithTickets(order.getId());
         return super.update(order);
     }
