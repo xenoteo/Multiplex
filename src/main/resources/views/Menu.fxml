@@ -16,6 +16,6 @@
               <ToggleButton fx:id="basket" onAction="#handleActiveButtonChanged" text="Basket" visible="false" />
           </toggles>
       </ToggleButtonGroup>
-       <Button fx:id="logoutButton" alignment="TOP_RIGHT" mnemonicParsing="false" onAction="#logout" text="Logout" textAlignment="CENTER" translateX="180.0" />
+       <Button fx:id="logoutButton" alignment="TOP_RIGHT" mnemonicParsing="false" onAction="#logout" text="Logout" textAlignment="CENTER" translateX="160.0" />
    </children>
 </HBox>
