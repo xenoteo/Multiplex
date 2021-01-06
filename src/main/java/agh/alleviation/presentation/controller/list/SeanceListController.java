@@ -66,9 +66,18 @@ public class SeanceListController extends GenericListController<Seance> implemen
     @FXML
     private TextField maxPriceField;
 
+    private ActiveUser activeUser;
+
     private CompositeFilter filter;
 
-    private ActiveUser activeUser;
+    @FXML
+    private Button add;
+
+    @FXML
+    private Button edit;
+
+    @FXML
+    private Button delete;
 
     @Autowired
     public void setActiveUser(ActiveUser activeUser) {
@@ -114,9 +123,11 @@ public class SeanceListController extends GenericListController<Seance> implemen
 
     private void resetTableItems(){
         User userEntity = activeUser.getUserEntity();
-        if(userEntity != null && userEntity.getUserType() == UserType.CUSTOMER)
+        if(userEntity != null && userEntity.getUserType() == UserType.CUSTOMER) //TODO: on user change reset
             filter.addFilter(new DateFilter(LocalDateTime.now(), LocalDateTime.now().plusDays(14)));
-        itemTable.setItems(serviceManager.getActiveElementsList(Seance.class).filtered(item -> filter.apply((Seance) item)));
+        itemTable.setItems(serviceManager
+            .getActiveElementsList(Seance.class)
+            .filtered(item -> filter.apply((Seance) item)));
     }
 
 
@@ -156,6 +167,16 @@ public class SeanceListController extends GenericListController<Seance> implemen
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        System.out.println("Property changed");
+        boolean canEdit;
+        if (evt.getNewValue() != null) {
+            canEdit = ((User) evt.getNewValue()).getUserType() != UserType.CUSTOMER;
+        } else {
+            canEdit = false;
+        }
+        add.setVisible(canEdit);
+        edit.setVisible(canEdit);
+        delete.setVisible(canEdit);
         filter.clearFilters();
         resetTableItems();
     }
