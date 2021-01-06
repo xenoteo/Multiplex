@@ -2,9 +2,16 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../styles/ListView.css"
@@ -47,7 +54,8 @@
                         <Insets bottom="5.0"/>
                     </VBox.margin>
                 </Button>
-                <Button fx:id="addToBasket" mnemonicParsing="false" onAction="#handleAddToBasketAction" styleClass="actionButton" text="Add to basket" textAlignment="CENTER" />
+                <Button fx:id="addToBasket" mnemonicParsing="false" onAction="#handleAddToBasketAction"
+                        styleClass="actionButton" text="Add to basket" textAlignment="CENTER"/>
 
             </children>
             <BorderPane.margin>
@@ -55,4 +63,116 @@
             </BorderPane.margin>
         </VBox>
     </right>
+    <top>
+        <GridPane hgap="5.0" vgap="5.0" BorderPane.alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            </rowConstraints>
+            <children>
+                <HBox prefHeight="100.0" prefWidth="200.0">
+                    <children>
+                        <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="28.0" prefWidth="85.0"
+                               text="Movie" textAlignment="CENTER">
+                            <opaqueInsets>
+                                <Insets/>
+                            </opaqueInsets>
+                            <HBox.margin>
+                                <Insets/>
+                            </HBox.margin>
+                            <padding>
+                                <Insets right="10.0"/>
+                            </padding>
+                        </Label>
+                        <TextField fx:id="movieField" prefHeight="28.0" prefWidth="190.0"/>
+                    </children>
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                    </padding>
+                    <GridPane.margin>
+                        <Insets/>
+                    </GridPane.margin>
+                </HBox>
+                <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
+                    <children>
+                        <Label alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="85.0" text="Hall">
+                            <padding>
+                                <Insets right="10.0"/>
+                            </padding>
+                        </Label>
+                        <TextField fx:id="hallField" prefHeight="28.0" prefWidth="190.0"/>
+                    </children>
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                    </padding>
+                </HBox>
+                <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
+                    <children>
+                        <Label alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="85.0" text="Date from">
+                            <padding>
+                                <Insets right="10.0"/>
+                            </padding>
+                        </Label>
+                        <DatePicker fx:id="dateFromField" prefHeight="28.0" prefWidth="190.0"/>
+                    </children>
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                    </padding>
+                </HBox>
+                <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <children>
+                        <Label alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="85.0" text="Date to">
+                            <padding>
+                                <Insets right="10.0"/>
+                            </padding>
+                        </Label>
+                        <DatePicker fx:id="dateToField" prefHeight="28.0" prefWidth="190.0"/>
+                    </children>
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                    </padding>
+                </HBox>
+                <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
+                    <children>
+                        <Label alignment="CENTER_RIGHT" prefHeight="28.0" prefWidth="85.0" text="Max price">
+                            <padding>
+                                <Insets right="10.0"/>
+                            </padding>
+                        </Label>
+                        <TextField fx:id="maxPriceField" prefHeight="28.0" prefWidth="190.0"/>
+                    </children>
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                    </padding>
+                </HBox>
+                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1"
+                      GridPane.rowIndex="2">
+                    <children>
+                        <Button mnemonicParsing="false" styleClass="removeButton" text="Clear filters"
+                                onMouseClicked="#clearFilters"/>
+                        <Button mnemonicParsing="false" styleClass="actionButton" text="Filter"
+                                onMouseClicked="#applyFilters">
+                            <HBox.margin>
+                                <Insets left="10.0"/>
+                            </HBox.margin>
+                        </Button>
+                    </children>
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                    </padding>
+                    <GridPane.margin>
+                        <Insets/>
+                    </GridPane.margin>
+                </HBox>
+            </children>
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </padding>
+        </GridPane>
+    </top>
 </BorderPane>

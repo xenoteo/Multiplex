@@ -5,7 +5,9 @@ import agh.alleviation.model.Ticket;
 import agh.alleviation.presentation.context.ActiveUser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TextField;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -43,11 +45,25 @@ public class SeanceListController extends GenericListController<Seance> {
     @FXML
     public TableColumn<Seance, Number> priceColumn;
 
+    @FXML
+    private TextField movieField;
+
+    @FXML
+    private TextField hallField;
+
+    @FXML
+    private DatePicker dateFromField;
+
+    @FXML
+    private DatePicker dateToField;
+
+    @FXML
+    private TextField maxPriceField;
 
     private ActiveUser activeUser;
 
     @Autowired
-    public void setActiveUser(ActiveUser activeUser){
+    public void setActiveUser(ActiveUser activeUser) {
         this.activeUser = activeUser;
     }
 
@@ -76,13 +92,22 @@ public class SeanceListController extends GenericListController<Seance> {
     }
 
     @FXML
-    private void handleAddToBasketAction(ActionEvent event){
+    private void handleAddToBasketAction(ActionEvent event) {
         Seance seance = (Seance) itemTable.getSelectionModel().getSelectedItem();
-        if(seance != null){
+        if (seance != null) {
             Ticket ticket = new Ticket(seance);
             activeUser.getActiveOrder().addTicket(ticket);
             serviceManager.addToObservable(ticket);
         }
+    }
+
+    @FXML
+    private void applyFilters() {
+
+    }
+
+    @FXML
+    private void clearFilters() {
 
     }
 }

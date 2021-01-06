@@ -1,19 +1,19 @@
 .actionButton {
     -fx-text-fill: #F7F7FF;
     -fx-background-color: #246EB9;
-    -fx-pref-width: 75px;
+    -fx-pref-width: 100px;
 }
 
 .addButton {
     -fx-text-fill: #F7F7FF;
     -fx-background-color: #29BF12;
-    -fx-pref-width: 75px;
+    -fx-pref-width: 100px;
 }
 
 .removeButton {
     -fx-text-fill: #F7F7FF;
     -fx-background-color: #EC4732;
-    -fx-pref-width: 75px;
+    -fx-pref-width: 100px;
 }
 
 .tableColumn {
