@@ -1,10 +1,6 @@
 package agh.alleviation.presentation.controller;
 
-import agh.alleviation.model.EntityObject;
-import agh.alleviation.model.Movie;
-import agh.alleviation.model.Hall;
-import agh.alleviation.model.Seance;
-import agh.alleviation.model.Ticket;
+import agh.alleviation.model.*;
 import agh.alleviation.presentation.context.ActiveUser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -64,12 +60,16 @@ public class BasketController extends GenericController {
     @FXML
     private void handleDeleteAction(ActionEvent event) {
         EntityObject item = ticketTable.getSelectionModel().getSelectedItem();
-        serviceManager.delete(item);
+        activeUser.getActiveOrder().getTickets().remove((Ticket) item);
+        serviceManager.deleteFromObservable(item);
+
     }
 
     @FXML
     private void handleCheckoutAction(ActionEvent event){
-        serviceManager.add(activeUser.getActiveOrder());
+        Order order = activeUser.getActiveOrder();
+        if(order.getTickets() == null || order.getTickets().isEmpty()) return;
+        serviceManager.add(order);
         serviceManager.clearObservableList(Ticket.class);
         activeUser.setEmptyOrder();
     }

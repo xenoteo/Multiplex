@@ -14,11 +14,12 @@ public class CompositeFilter implements SeanceFilter {
     }
 
     public void addFilter(SeanceFilter filter){
-        this.filters.add(filter);
+        removeFilter(filter);
+        filters.add(filter);
     }
 
     public void removeFilter(SeanceFilter filter){
-        this.filters.remove(filter);
+        filters.remove(filter);
     }
 
     @Override
@@ -27,5 +28,9 @@ public class CompositeFilter implements SeanceFilter {
             if(!filter.apply(seance)) return false;
         }
         return true;
+    }
+
+    public void clearFilters(){
+        filters.clear();
     }
 }

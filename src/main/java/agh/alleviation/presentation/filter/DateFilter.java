@@ -2,6 +2,7 @@ package agh.alleviation.presentation.filter;
 
 import agh.alleviation.model.Seance;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class DateFilter implements SeanceFilter {

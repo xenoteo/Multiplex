@@ -2,8 +2,11 @@ package agh.alleviation.presentation.context.manager;
 
 import agh.alleviation.model.EntityObject;
 import agh.alleviation.model.Ticket;
+import agh.alleviation.presentation.context.ActiveUser;
+import agh.alleviation.presentation.filter.SeanceFilter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +25,9 @@ public class ObservableComposite {
      */
     public ObservableComposite() {
         this.observableLists = new HashMap<>();
+
         this.observableLists.put(Ticket.class, FXCollections.observableArrayList());
+
     }
 
     /**

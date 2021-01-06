@@ -81,7 +81,7 @@ public class Order extends EntityObject {
      *
      * @return the object property
      */
-    ObjectProperty<List<Ticket>> ticketsProperty() { return ticketsProperty;}
+    public ObjectProperty<List<Ticket>> ticketsProperty() { return ticketsProperty;}
 
     /**
      * Get tickets list.
@@ -110,6 +110,7 @@ public class Order extends EntityObject {
         }
         getTickets().add(ticket);
     }
+
 
     /**
      * Customer property object property.

@@ -3,6 +3,7 @@ package agh.alleviation.presentation.controller.list;
 import agh.alleviation.model.Seance;
 import agh.alleviation.model.Ticket;
 import agh.alleviation.presentation.context.ActiveUser;
+import agh.alleviation.presentation.filter.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 /**
  * The type Seance list controller.
@@ -62,6 +64,8 @@ public class SeanceListController extends GenericListController<Seance> {
 
     private ActiveUser activeUser;
 
+    private CompositeFilter filter;
+
     @Autowired
     public void setActiveUser(ActiveUser activeUser) {
         this.activeUser = activeUser;
@@ -71,6 +75,7 @@ public class SeanceListController extends GenericListController<Seance> {
     protected void initialize() {
         super.initialize();
         serviceManager.fillFromService(Seance.class);
+        filter = new CompositeFilter();
         itemTable.setItems(serviceManager.getActiveElementsList(Seance.class));
         movieColumn.setCellValueFactory(dataValue -> dataValue.getValue().getMovie().nameProperty());
         hallColumn.setCellValueFactory(dataValue -> dataValue.getValue().getHall().numberProperty());
@@ -101,13 +106,39 @@ public class SeanceListController extends GenericListController<Seance> {
         }
     }
 
+
+
     @FXML
     private void applyFilters() {
+
+        clearFilters();
+
+        if(!movieField.getText().isEmpty())
+            filter.addFilter(new MovieFilter(movieField.getText()));
+
+        if(!hallField.getText().isEmpty())
+            filter.addFilter(new HallFilter(Integer.parseInt(hallField.getText())));
+
+        if(!maxPriceField.getText().isEmpty())
+            filter.addFilter(new PriceFilter(Integer.parseInt(maxPriceField.getText())));
+
+        DateFilter dateFilter = new DateFilter();
+        if(dateFromField.getValue() != null)
+            dateFilter.setMinDate(LocalDateTime.of(dateFromField.getValue(), LocalTime.of(0,0)));
+        if(dateToField.getValue() != null)
+            dateFilter.setMaxDate(LocalDateTime.of(dateToField.getValue(), LocalTime.of(23,59)));
+
+        filter.addFilter(dateFilter);
+
+        itemTable.setItems(itemTable.getItems().filtered(item -> filter.apply((Seance) item)));
 
     }
 
     @FXML
     private void clearFilters() {
+
+        filter.clearFilters();
+        itemTable.setItems(serviceManager.getActiveElementsList(Seance.class));
 
     }
 }

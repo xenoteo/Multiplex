@@ -8,6 +8,10 @@ public class MovieFilter implements SeanceFilter {
 
     private String movieName;
 
+    public MovieFilter(String movieName){
+        this.movieName = movieName;
+    }
+
 
     @Override
     public boolean apply(Seance seance) {

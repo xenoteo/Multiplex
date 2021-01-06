@@ -120,6 +120,10 @@ public class ServiceManager {
         observableComposite.add(getClassOf(item), item);
     }
 
+    public void deleteFromObservable(EntityObject item) {
+        observableComposite.delete(getClassOf(item), item);
+    }
+
     /**
      * Update.
      *

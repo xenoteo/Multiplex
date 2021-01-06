@@ -6,8 +6,8 @@ public class HallFilter implements SeanceFilter {
 
     private int hallNumber;
 
-    public HallFilter(){
-
+    public HallFilter(int hallNumber){
+        this.hallNumber = hallNumber;
     }
 
     @Override

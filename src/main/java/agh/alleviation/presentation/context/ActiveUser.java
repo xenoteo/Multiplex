@@ -31,6 +31,8 @@ public class ActiveUser{
      * Instantiates a new Active user.
      */
     public ActiveUser(){
+
+
     }
 
     /**
