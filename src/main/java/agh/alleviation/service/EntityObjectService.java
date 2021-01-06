@@ -58,19 +58,21 @@ public abstract class EntityObjectService<E extends EntityObject, R extends Crud
      *
      * @param item the item
      */
-    public void update(EntityObject item) {
+    public List<EntityObject> update(EntityObject item) {
+        List<EntityObject> updatedObjectList = item.update();
         repository.save((E) item);
+        return updatedObjectList;
     }
 
     /**
      * Delete list.
      *
-     * @param e the e
+     * @param item the item
      * @return the list
      */
-    public List<EntityObject> delete(EntityObject e) {
-        List<EntityObject> deletedObjectList = e.delete();
-        repository.save((E) e);
+    public List<EntityObject> delete(EntityObject item) {
+        List<EntityObject> deletedObjectList = item.delete();
+        repository.save((E) item);
         return deletedObjectList;
     }
 }

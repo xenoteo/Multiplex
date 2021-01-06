@@ -51,8 +51,10 @@ public class HallService extends EntityObjectService<Hall, HallRepository> {
      *
      * @param hall the hall
      */
-    public void updateHall(Hall hall) {
-        repository.save(hall);
+    @Override
+    public List<EntityObject> update(EntityObject hall) {
+        hall = repository.findByIdWithSeances(hall.getId());
+        return super.update(hall);
     }
 
     /**
@@ -94,7 +96,7 @@ public class HallService extends EntityObjectService<Hall, HallRepository> {
      * @param number hall's id
      * @return the hall
      */
-    public Hall findHallByNumber(int number){
+    public Hall findHallByNumber(int number) {
         return repository.findByNumber(number);
     }
 }

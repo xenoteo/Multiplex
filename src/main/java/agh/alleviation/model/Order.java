@@ -103,14 +103,12 @@ public class Order extends EntityObject {
         ticketsProperty.setValue(tickets);
     }
 
-
-    public void addTicket(Ticket ticket){
-        if(getTickets() == null){
+    public void addTicket(Ticket ticket) {
+        if (getTickets() == null) {
             setTickets(new ArrayList<>());
         }
         getTickets().add(ticket);
     }
-
 
     /**
      * Customer property object property.
@@ -137,6 +135,15 @@ public class Order extends EntityObject {
      */
     public void setUser(User user) {
         userProperty.setValue(user);
+    }
+
+    public List<EntityObject> update() {
+        super.update();
+        List<EntityObject> updatedObjects = new ArrayList<>(getTickets());
+        getTickets().forEach(ticket -> {
+            updatedObjects.addAll(ticket.update());
+        });
+        return updatedObjects;
     }
 
     public List<EntityObject> delete() {

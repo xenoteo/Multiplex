@@ -16,6 +16,7 @@ import java.util.Objects;
 /**
  * An abstraction for all database Entities. The EntityObject class itself is not an entity in the database, hence the @MappedSuperclass annotation.
  * Allows generalization of higher-level code.
+ *
  * @author Anna Nosek
  */
 @MappedSuperclass
@@ -88,6 +89,17 @@ public abstract class EntityObject implements Externalizable {
      */
     @Transient
     public BooleanProperty isActiveProperty() { return isActive; }
+
+    /**
+     * Update
+     *
+     * @return list of affected items
+     */
+    public List<EntityObject> update() {
+        List<EntityObject> updatedObjects = new ArrayList<>();
+        updatedObjects.add(this);
+        return updatedObjects;
+    }
 
     /**
      * Delete list.

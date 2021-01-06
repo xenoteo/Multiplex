@@ -129,6 +129,14 @@ public class UserService extends EntityObjectService<User, UserRepository> {
         return user;
     }
 
+    @Override
+    public List<EntityObject> update(EntityObject user) {
+        if (user instanceof Customer) {
+            user = customerRepository.findByIdWithOrders(user.getId());
+        }
+        return super.update(user);
+    }
+
     /**
      * Override method to get orders associated with user if user is customer
      * Because of lazy loading, they are not loaded at the object creation.
@@ -143,7 +151,6 @@ public class UserService extends EntityObjectService<User, UserRepository> {
         }
         return super.delete(user);
     }
-
 
     /**
      * Validates whether input login and password are correct.
@@ -164,7 +171,7 @@ public class UserService extends EntityObjectService<User, UserRepository> {
      * @param login the login
      * @return the user
      */
-    public User getUserByLogin(String login){
+    public User getUserByLogin(String login) {
         return repository.findByLogin(login);
     }
 }

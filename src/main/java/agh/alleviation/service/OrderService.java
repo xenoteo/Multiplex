@@ -101,10 +101,10 @@ public class OrderService extends EntityObjectService<Order, OrderRepository> {
     }
 
     @Override
-    public void add(EntityObject order){
+    public void add(EntityObject order) {
         Order orderObj = (Order) order;
         userRepository.save(orderObj.getUser());
-        for(Ticket ticket: orderObj.getTickets()){
+        for (Ticket ticket : orderObj.getTickets()) {
             ticket.setOrder(orderObj);
             ticketRepository.save(ticket);
         }
@@ -119,6 +119,11 @@ public class OrderService extends EntityObjectService<Order, OrderRepository> {
      */
     public List<Order> getOrdersByUser(User user) {
         return repository.findAllByUser(user);
+    }
+
+    public List<EntityObject> update(EntityObject order) {
+        order = repository.findByIdWithTickets(order.getId());
+        return super.update(order);
     }
 
     /**

@@ -73,6 +73,12 @@ public class MovieService extends EntityObjectService<Movie, MovieRepository> {
         return repository.findByName(name);
     }
 
+    @Override
+    public List<EntityObject> update(EntityObject movie) {
+        movie = repository.findByIdWithSeances(movie.getId());
+        return super.update(movie);
+    }
+
     /**
      * Override method to get seances associated with movie
      * Because of lazy loading, they are not loaded at the object creation.

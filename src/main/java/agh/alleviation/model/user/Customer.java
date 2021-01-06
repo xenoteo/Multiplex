@@ -47,6 +47,14 @@ public class Customer extends User {
         super(name, login, email);
     }
 
+    public List<EntityObject> update() {
+        super.update();
+        List<EntityObject> updatedObjects = new ArrayList<>(getOrders());
+        getOrders().forEach(order -> {
+            updatedObjects.addAll(order.update());
+        });
+        return updatedObjects;
+    }
 
     public List<EntityObject> delete() {
         super.delete();
@@ -66,5 +74,4 @@ public class Customer extends User {
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         super.readExternal(in);
     }
-
 }
