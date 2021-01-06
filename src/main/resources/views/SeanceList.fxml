@@ -33,8 +33,14 @@
     <right>
         <VBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="124.0" BorderPane.alignment="CENTER">
             <children>
+                <Button fx:id="addToBasket" mnemonicParsing="false" onAction="#handleAddToBasketAction"
+                        styleClass="actionButton" text="Add to basket" textAlignment="CENTER">
+                    <VBox.margin>
+                        <Insets bottom="5.0"/>
+                    </VBox.margin>
+                </Button>
                 <Button fx:id="add" mnemonicParsing="false" onAction="#handleAddAction" prefHeight="28.0"
-                        prefWidth="100.0" styleClass="addButton" text="Add" textAlignment="CENTER">
+                        prefWidth="100.0" styleClass="addButton" text="Add" textAlignment="CENTER" visible="false">
                     <opaqueInsets>
                         <Insets/>
                     </opaqueInsets>
@@ -43,19 +49,17 @@
                     </VBox.margin>
                 </Button>
                 <Button fx:id="edit" mnemonicParsing="false" onAction="#handleEditAction" styleClass="actionButton"
-                        text="Edit" textAlignment="CENTER">
+                        text="Edit" textAlignment="CENTER" visible="false">
                     <VBox.margin>
                         <Insets bottom="5.0"/>
                     </VBox.margin>
                 </Button>
                 <Button fx:id="delete" mnemonicParsing="false" onAction="#handleDeleteAction" styleClass="removeButton"
-                        text="Remove" textAlignment="CENTER">
+                        text="Remove" textAlignment="CENTER" visible="false">
                     <VBox.margin>
                         <Insets bottom="5.0"/>
                     </VBox.margin>
                 </Button>
-                <Button fx:id="addToBasket" mnemonicParsing="false" onAction="#handleAddToBasketAction"
-                        styleClass="actionButton" text="Add to basket" textAlignment="CENTER"/>
 
             </children>
             <BorderPane.margin>

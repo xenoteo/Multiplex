@@ -10,10 +10,11 @@ import java.beans.PropertyChangeSupport;
 
 /**
  * Component responsible for maintaining the information about the currently logged-in user.
+ *
  * @author Anna Nosek
  */
 @Component
-public class ActiveUser{
+public class ActiveUser {
 
     /**
      * Logged-in user.
@@ -30,8 +31,7 @@ public class ActiveUser{
     /**
      * Instantiates a new Active user.
      */
-    public ActiveUser(){
-
+    public ActiveUser() {
 
     }
 
@@ -40,7 +40,7 @@ public class ActiveUser{
      *
      * @param listener the listener
      */
-    public void addUserChangeListener(PropertyChangeListener listener){
+    public void addUserChangeListener(PropertyChangeListener listener) {
         propertyChangeSupport.addPropertyChangeListener(listener);
     }
 
@@ -50,7 +50,7 @@ public class ActiveUser{
      * @param newUser the new user
      */
     public void setUserEntity(User newUser) {
-        propertyChangeSupport.firePropertyChange("user", this.userEntity, newUser);
+        propertyChangeSupport.firePropertyChange("user", userEntity, newUser);
         userEntity = newUser;
         setEmptyOrder();
     }
@@ -60,15 +60,15 @@ public class ActiveUser{
      *
      * @return the user
      */
-    public User getUserEntity(){
+    public User getUserEntity() {
         return userEntity;
     }
 
-    public void setEmptyOrder(){
+    public void setEmptyOrder() {
         activeOrder = new Order(userEntity);
     }
 
-    public Order getActiveOrder(){
+    public Order getActiveOrder() {
         return activeOrder;
     }
 }

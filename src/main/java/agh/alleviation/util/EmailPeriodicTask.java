@@ -41,13 +41,13 @@ public class EmailPeriodicTask {
             if (currentDate.isBefore(seanceDate)) {
                 long daysToSeance = ChronoUnit.DAYS.between(currentDate, seanceDate);
 
-                System.out.println("Days to seance: " + daysToSeance);
+//                System.out.println("Days to seance: " + daysToSeance);
                 if (daysToSeance == SEND_NOTIFICATION_BEFORE_DAYS) {
                     if (mailEnabled) {
-                        System.out.println("Sending notification...");
+//                        System.out.println("Sending notification...");
                         emailSender.sendNotificationAboutSeance(ticket.getOrder().getUser(), ticket.getSeance());
                     } else {
-                        System.out.println("Notification would be sent, but alleviation.mail.enabled is set to false");
+//                        System.out.println("Notification would be sent, but alleviation.mail.enabled is set to false");
                     }
                 }
             }

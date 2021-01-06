@@ -8,6 +8,7 @@ import agh.alleviation.presentation.filter.*;
 import agh.alleviation.util.UserType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
@@ -70,6 +71,15 @@ public class SeanceListController extends GenericListController<Seance> implemen
 
     private CompositeFilter filter;
 
+    @FXML
+    private Button add;
+
+    @FXML
+    private Button edit;
+
+    @FXML
+    private Button delete;
+
     @Autowired
     public void setActiveUser(ActiveUser activeUser) {
         this.activeUser = activeUser;
@@ -111,52 +121,56 @@ public class SeanceListController extends GenericListController<Seance> implemen
         }
     }
 
-
-    private void resetTableItems(){
+    private void resetTableItems() {
         User userEntity = activeUser.getUserEntity();
-        if(userEntity != null && userEntity.getUserType() == UserType.CUSTOMER) //TODO: on user change reset
+        if (userEntity != null && userEntity.getUserType() == UserType.CUSTOMER) //TODO: on user change reset
             filter.addFilter(new DateFilter(LocalDateTime.now(), LocalDateTime.now().plusDays(14)));
-        itemTable.setItems(serviceManager.getActiveElementsList(Seance.class).filtered(item -> filter.apply((Seance) item)));
+        itemTable.setItems(serviceManager
+            .getActiveElementsList(Seance.class)
+            .filtered(item -> filter.apply((Seance) item)));
     }
-
 
     @FXML
     private void applyFilters() {
 
         clearFilters();
 
-        if(!movieField.getText().isEmpty())
-            filter.addFilter(new MovieFilter(movieField.getText()));
+        if (!movieField.getText().isEmpty()) filter.addFilter(new MovieFilter(movieField.getText()));
 
-        if(!hallField.getText().isEmpty())
-            filter.addFilter(new HallFilter(Integer.parseInt(hallField.getText())));
+        if (!hallField.getText().isEmpty()) filter.addFilter(new HallFilter(Integer.parseInt(hallField.getText())));
 
-        if(!maxPriceField.getText().isEmpty())
+        if (!maxPriceField.getText().isEmpty())
             filter.addFilter(new PriceFilter(Integer.parseInt(maxPriceField.getText())));
 
         DateFilter dateFilter = new DateFilter();
-        if(dateFromField.getValue() != null)
-            dateFilter.setMinDate(LocalDateTime.of(dateFromField.getValue(), LocalTime.of(0,0)));
-        if(dateToField.getValue() != null)
-            dateFilter.setMaxDate(LocalDateTime.of(dateToField.getValue(), LocalTime.of(23,59)));
+        if (dateFromField.getValue() != null)
+            dateFilter.setMinDate(LocalDateTime.of(dateFromField.getValue(), LocalTime.of(0, 0)));
+        if (dateToField.getValue() != null)
+            dateFilter.setMaxDate(LocalDateTime.of(dateToField.getValue(), LocalTime.of(23, 59)));
 
         filter.addFilter(dateFilter);
 
         itemTable.setItems(itemTable.getItems().filtered(item -> filter.apply((Seance) item)));
-
     }
 
     @FXML
     private void clearFilters() {
-
         filter.clearFilters();
         resetTableItems();
-
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         System.out.println("Property changed");
+        boolean canEdit;
+        if (evt.getNewValue() != null) {
+            canEdit = ((User) evt.getNewValue()).getUserType() != UserType.CUSTOMER;
+        } else {
+            canEdit = false;
+        }
+        add.setVisible(canEdit);
+        edit.setVisible(canEdit);
+        delete.setVisible(canEdit);
         filter.clearFilters();
         resetTableItems();
     }
