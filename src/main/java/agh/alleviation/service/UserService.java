@@ -131,10 +131,8 @@ public class UserService extends EntityObjectService<User, UserRepository> {
 
     @Override
     public List<EntityObject> update(EntityObject user) {
-        if (user instanceof Customer) {
-            user = customerRepository.findByIdWithOrders(user.getId());
-        }
-        return super.update(user);
+        User userObj = repository.findByIdWithOrders(user.getId());
+        return super.update(userObj);
     }
 
     /**
