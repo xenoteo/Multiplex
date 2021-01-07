@@ -137,4 +137,3 @@ public class AlleviationApplication {
     }
 }
 
-//TODO: fix editing movies, after changing movie name it doesn't show in seances as edited

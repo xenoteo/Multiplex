@@ -80,7 +80,7 @@ public class MovieListController extends GenericListController<Movie> {
                 Movie movie = (Movie) itemTable.getSelectionModel().getSelectedItem();
                 if (movie != null) {
                     Seance seance =
-                        seanceService.addSeance(movie);  // TODO: sad panda, maybe instead accept a movie in show editItemDialog
+                        seanceService.addSeance(movie);
                     viewControllerManager.getSeanceDialogContext().showEditItemDialog(seance);
                 }
             }

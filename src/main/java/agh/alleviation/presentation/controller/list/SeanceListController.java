@@ -133,7 +133,7 @@ public class SeanceListController extends GenericListController<Seance> implemen
 
     private void resetTableItems() {
         User userEntity = activeUser.getUserEntity();
-        if (userEntity != null && userEntity.getUserType() == UserType.CUSTOMER) //TODO: on user change reset
+        if (userEntity != null && userEntity.getUserType() == UserType.CUSTOMER)
             filter.addFilter(new DateFilter(LocalDateTime.now(), LocalDateTime.now().plusDays(14)));
         itemTable.setItems(serviceManager
             .getActiveElementsList(Seance.class)
