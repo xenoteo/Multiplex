@@ -4,6 +4,7 @@ import agh.alleviation.model.*;
 import agh.alleviation.presentation.context.ActiveUser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -29,7 +30,7 @@ public class BasketController extends GenericController implements PropertyChang
     public TableColumn<Ticket, String> movieColumn;
 
     @FXML
-    public TableColumn <Ticket, Number> hallColumn;
+    public TableColumn<Ticket, Number> hallColumn;
 
     @FXML
     public TableColumn<Ticket, LocalDateTime> dateColumn;
@@ -40,7 +41,7 @@ public class BasketController extends GenericController implements PropertyChang
     private ActiveUser activeUser;
 
     @Autowired
-    public void setActiveUser(ActiveUser activeUser){
+    public void setActiveUser(ActiveUser activeUser) {
         this.activeUser = activeUser;
     }
 
@@ -56,7 +57,6 @@ public class BasketController extends GenericController implements PropertyChang
         hallColumn.setCellValueFactory(dataValue -> dataValue.getValue().getSeance().getHall().numberProperty());
         dateColumn.setCellValueFactory(dataValue -> dataValue.getValue().getSeance().dateProperty());
         priceColumn.setCellValueFactory(dataValue -> dataValue.getValue().getSeance().priceProperty());
-
     }
 
     @FXML
@@ -64,19 +64,20 @@ public class BasketController extends GenericController implements PropertyChang
         EntityObject item = ticketTable.getSelectionModel().getSelectedItem();
         activeUser.getActiveOrder().getTickets().remove((Ticket) item);
         serviceManager.deleteFromObservable(item);
-
     }
 
     @FXML
-    private void handleCheckoutAction(ActionEvent event){
+    private void handleCheckoutAction(ActionEvent event) {
         Order order = activeUser.getActiveOrder();
-        if(order.getTickets() == null || order.getTickets().isEmpty()) return;
+        if (order.getTickets() == null || order.getTickets().isEmpty()) return;
         order.setDate(LocalDateTime.now());
         serviceManager.add(order);
         serviceManager.clearObservableList(Ticket.class);
         activeUser.setEmptyOrder();
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText("Order finished successfully!");
+        alert.show();
     }
-
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {

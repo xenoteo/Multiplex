@@ -14,6 +14,7 @@ import java.util.Map;
 
 /**
  * Composite of all ObservableLists of the ListControllers. Provides logic of adding, deleting and updating elements of the ObservableLists.
+ *
  * @author Anna Nosek
  * @author Kamil Krzempek
  */
@@ -24,10 +25,9 @@ public class ObservableComposite {
      * Instantiates a new Observable composite.
      */
     public ObservableComposite() {
-        this.observableLists = new HashMap<>();
+        observableLists = new HashMap<>();
 
-        this.observableLists.put(Ticket.class, FXCollections.observableArrayList());
-
+        observableLists.put(Ticket.class, FXCollections.observableArrayList());
     }
 
     /**
@@ -105,10 +105,8 @@ public class ObservableComposite {
         observableLists.get(itemClass).remove(item);
     }
 
-    public void clearObservableList(Class<? extends EntityObject> itemClass){
+    public void clearObservableList(Class<? extends EntityObject> itemClass) {
 
-        if(observableLists.get(itemClass) != null)
-            observableLists.get(itemClass).clear();
-
+        if (observableLists.get(itemClass) != null) observableLists.get(itemClass).clear();
     }
 }
