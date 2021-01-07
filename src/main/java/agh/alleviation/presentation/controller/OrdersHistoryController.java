@@ -56,14 +56,14 @@ public class OrdersHistoryController extends GenericController implements Proper
                     } else {
                         Order order = (Order) item;
                         LocalDateTime date = order.getDate();
-                        List<Ticket> tickets = order.getTickets();
-
-                        String firstMovieName = tickets.get(0).getSeance().getMovie().getName();
-                        String ticketInfo =
-                            tickets.size() == 1 ? "ticket for " + firstMovieName : tickets.size() + " tickets";
+//                        List<Ticket> tickets = order.getTickets();
+//
+//                        String firstMovieName = tickets.get(0).getSeance().getMovie().getName();
+//                        String ticketInfo =
+//                            tickets.size() == 1 ? "ticket for " + firstMovieName : tickets.size() + " tickets";
                         String formattedDate = date.format(formatter);
 
-                        setText("Order date: " + formattedDate + ", " + ticketInfo);
+                        setText("Order date: " + formattedDate);
                     }
                 }
             };
@@ -85,6 +85,8 @@ public class OrdersHistoryController extends GenericController implements Proper
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         User user = (User) evt.getNewValue();
+        if(user == null) return;
+        serviceManager.clearObservableList(Order.class);
         activeUser.fillOrders(user);
         activeUser.getAllOrders().forEach(order -> serviceManager.addToObservable(order));
         ordersList.setItems(serviceManager.getList(Order.class));

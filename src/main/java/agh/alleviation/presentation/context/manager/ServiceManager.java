@@ -22,8 +22,6 @@ public class ServiceManager {
     private final Map<Class<? extends EntityObject>, EntityObjectService<?, ?>> services;
     private final ObservableComposite observableComposite;
 
-
-    private final ActiveUser activeUser;
     /**
      * Instantiates a new Service manager.
      *
@@ -40,8 +38,7 @@ public class ServiceManager {
         SeanceService seanceService,
         UserService userService,
         TicketService ticketService,
-        OrderService orderService,
-        ActiveUser activeUser) {
+        OrderService orderService) {
 
         this.services = new HashMap<>();
         this.services.put(Hall.class, hallService);
@@ -50,8 +47,6 @@ public class ServiceManager {
         this.services.put(User.class, userService);
         this.services.put(Ticket.class, ticketService);
         this.services.put(Order.class, orderService);
-
-        this.activeUser = activeUser;
 
 
         this.observableComposite = new ObservableComposite();
