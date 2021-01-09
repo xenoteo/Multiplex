@@ -54,6 +54,10 @@ public class Movie extends EntityObject {
          * The constant ACTORS.
          */
         public static final String ACTORS = "actors";
+
+        public static final String LIKES = "likes";
+
+        public static final String DISLIKES = "dislikes";
     }
 
     /**
@@ -85,6 +89,8 @@ public class Movie extends EntityObject {
     private final StringProperty director = new SimpleStringProperty(this, Columns.DIRECTOR);
     private final StringProperty actors = new SimpleStringProperty(this, Columns.ACTORS);
     private final ObjectProperty<List<Seance>> seances = new SimpleObjectProperty<>();
+    private final IntegerProperty likes = new SimpleIntegerProperty();
+    private final IntegerProperty dislikes = new SimpleIntegerProperty();
 
     /**
      * Gets name.
@@ -220,6 +226,20 @@ public class Movie extends EntityObject {
      */
     public ObjectProperty<List<Seance>> seancesProperty() { return seances; }
 
+    @Column(name=Columns.LIKES)
+    public int getLikes(){ return likes.get(); }
+
+    public void setLikes(int likes){ this.likes.set(likes); }
+
+    public IntegerProperty likesProperty(){ return likes; }
+
+    @Column(name=Columns.DISLIKES)
+    public int getDislikes(){ return dislikes.get(); }
+
+    public void setDislikes(int dislikes){ this.dislikes.set(dislikes); }
+
+    public IntegerProperty dislikesProperty(){ return dislikes; }
+
     @Override
     public List<EntityObject> update() {
         super.update();
@@ -254,6 +274,8 @@ public class Movie extends EntityObject {
         super.writeExternal(out);
         out.writeObject(getName());
         out.writeObject(getSeances());
+        out.writeInt(getLikes());
+        out.writeInt(getDislikes());
     }
 
     @Override
@@ -261,6 +283,8 @@ public class Movie extends EntityObject {
         super.readExternal(in);
         setName((String) in.readObject());
         setSeances((List<Seance>) seances);
+        setLikes(in.readInt());
+        setDislikes(in.readInt());
     }
 
     @Override

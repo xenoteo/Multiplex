@@ -43,11 +43,14 @@ public class Ticket extends EntityObject {
          */
         public static final String ORDER = "order";
 
+        public static final String IS_RATED = "is_rated";
+
     }
 
     private final ObjectProperty<Seance> seanceProperty = new SimpleObjectProperty<>();
     private final DoubleProperty priceProperty = new SimpleDoubleProperty(this, "price");
     private final ObjectProperty<Order> orderProperty = new SimpleObjectProperty<>();
+    private final BooleanProperty isRatedProperty = new SimpleBooleanProperty();
 
     /**
      * Instantiates a new Ticket.
@@ -139,12 +142,21 @@ public class Ticket extends EntityObject {
         priceProperty.set(price);
     }
 
+    @Column(name=Columns.IS_RATED)
+    public boolean getIsRated(){ return isRatedProperty.get(); }
+
+    public void setIsRated(boolean isRated){ this.isRatedProperty.set(isRated); }
+
+    @Transient
+    public BooleanProperty isRatedProperty(){ return isRatedProperty; }
+
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         super.writeExternal(out);
         out.writeObject(getSeance());
         out.writeObject(getPrice());
         out.writeObject(getOrder());
+        out.writeObject(getIsRated());
     }
 
     @Override
@@ -153,5 +165,6 @@ public class Ticket extends EntityObject {
         setSeance((Seance) in.readObject());
         setPrice(in.readInt());
         setOrder((Order) in.readObject());
+        setIsRated(in.readBoolean());
     }
 }

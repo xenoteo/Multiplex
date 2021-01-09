@@ -1,11 +1,9 @@
 package agh.alleviation.service;
 
-import agh.alleviation.model.EntityObject;
-import agh.alleviation.model.Genre;
-import agh.alleviation.model.Hall;
-import agh.alleviation.model.Movie;
+import agh.alleviation.model.*;
 import agh.alleviation.persistence.GenreRepository;
 import agh.alleviation.persistence.MovieRepository;
+import agh.alleviation.persistence.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +19,7 @@ import java.util.List;
 @Transactional
 public class MovieService extends EntityObjectService<Movie, MovieRepository> {
     private final GenreRepository genreRepository;
+    private final TicketRepository ticketRepository;
 
     /**
      * Instantiates a new Movie service.
@@ -29,9 +28,10 @@ public class MovieService extends EntityObjectService<Movie, MovieRepository> {
      * @param genreRepository the genre repository
      */
     @Autowired
-    public MovieService(MovieRepository movieRepository, GenreRepository genreRepository) {
+    public MovieService(MovieRepository movieRepository, GenreRepository genreRepository, TicketRepository ticketRepository) {
         repository = movieRepository;
         this.genreRepository = genreRepository;
+        this.ticketRepository = ticketRepository;
     }
 
     /**
@@ -92,5 +92,26 @@ public class MovieService extends EntityObjectService<Movie, MovieRepository> {
     public List<EntityObject> delete(EntityObject movie) {
         movie = repository.findByIdWithSeances(movie.getId());
         return super.delete(movie);
+    }
+
+    public void rateMovie(Ticket ticket, boolean isPositive){
+
+        Movie ratedMovie = ticket.getSeance().getMovie();
+
+        if(ticket.getIsRated()) {
+            if (isPositive) ratedMovie.setLikes(ratedMovie.getLikes() + 1);
+            else ratedMovie.setDislikes(ratedMovie.getDislikes() + 1);
+        }
+        else{
+            int difference = isPositive ? 1 : -1;
+            ratedMovie.setLikes(ratedMovie.getLikes() + difference);
+            ratedMovie.setDislikes(ratedMovie.getDislikes() - difference);
+            ticket.setIsRated(true);
+            ticketRepository.save(ticket);
+        }
+
+
+        repository.save(ratedMovie);
+
     }
 }
