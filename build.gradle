@@ -42,6 +42,8 @@ dependencies {
     compile 'com.gluonhq:charm:5.0.0-jdk9'
     compile "net.synedra:validatorfx:0.1.12"
     compile "org.springframework.boot:spring-boot-starter-mail"
+    compile "org.kordamp.ikonli:ikonli-javafx:12.1.0"
+    compile "org.kordamp.ikonli:ikonli-materialdesign2-pack:12.1.0"
 }
 
 test {

@@ -24,6 +24,7 @@
                 <TableColumn fx:id="hallColumn" prefWidth="75.0" text="Hall"/>
                 <TableColumn fx:id="dateColumn" prefWidth="75.0" text="Date"/>
                 <TableColumn fx:id="priceColumn" prefWidth="75.0" text="Price"/>
+                <TableColumn fx:id="ratingColumn" prefWidth="75.0" text="Rating"/>
             </columns>
             <columnResizePolicy>
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
@@ -157,10 +158,10 @@
                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1"
                       GridPane.rowIndex="2">
                     <children>
-                        <Button mnemonicParsing="false" styleClass="removeButton" text="Clear filters"
-                                onMouseClicked="#clearFilters"/>
-                        <Button mnemonicParsing="false" styleClass="actionButton" text="Filter"
-                                onMouseClicked="#applyFilters">
+                        <Button mnemonicParsing="false" onMouseClicked="#clearFilters" styleClass="removeButton"
+                                text="Clear filters"/>
+                        <Button mnemonicParsing="false" onMouseClicked="#applyFilters" styleClass="actionButton"
+                                text="Filter">
                             <HBox.margin>
                                 <Insets left="10.0"/>
                             </HBox.margin>

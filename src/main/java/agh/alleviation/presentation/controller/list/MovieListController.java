@@ -1,13 +1,17 @@
 package agh.alleviation.presentation.controller.list;
 
-import agh.alleviation.model.Movie;
-import agh.alleviation.model.Seance;
+import agh.alleviation.model.*;
 import agh.alleviation.service.SeanceService;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 /**
  * The type Movie list controller.
@@ -53,6 +57,12 @@ public class MovieListController extends GenericListController<Movie> {
     @FXML
     public TableColumn<Movie, String> actorsColumn;
 
+    /**
+     * The rating column.
+     */
+    @FXML
+    public TableColumn<Movie, String> ratingColumn;
+
     @FXML
     public void initialize() {
         super.initialize();
@@ -65,7 +75,10 @@ public class MovieListController extends GenericListController<Movie> {
         descriptionColumn.setCellValueFactory(dataValue -> dataValue.getValue().descriptionProperty());
         directorColumn.setCellValueFactory(dataValue -> dataValue.getValue().directorProperty());
         actorsColumn.setCellValueFactory(dataValue -> dataValue.getValue().actorsProperty());
-
+        ratingColumn.setCellValueFactory(cellData -> {
+            Movie data = cellData.getValue();
+            return Bindings.createStringBinding(() -> "sample " + data.getName(), data.nameProperty());
+        });
     }
 
     @Override
@@ -79,8 +92,7 @@ public class MovieListController extends GenericListController<Movie> {
             case "addSeance" -> {
                 Movie movie = (Movie) itemTable.getSelectionModel().getSelectedItem();
                 if (movie != null) {
-                    Seance seance =
-                        seanceService.addSeance(movie);
+                    Seance seance = seanceService.addSeance(movie);
                     viewControllerManager.getSeanceDialogContext().showEditItemDialog(seance);
                 }
             }
@@ -101,5 +113,4 @@ public class MovieListController extends GenericListController<Movie> {
         Movie movie = (Movie) itemTable.getSelectionModel().getSelectedItem();
         serviceManager.delete(movie);
     }
-
 }
