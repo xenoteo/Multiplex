@@ -107,6 +107,7 @@ public abstract class EntityObject implements Externalizable {
      * @return the list
      */
     public List<EntityObject> delete() {
+        System.out.println("Deleting " + this.getClass());
         List<EntityObject> deletedObjects = new ArrayList<>();
         isActive.set(false);
         deletedObjects.add(this);

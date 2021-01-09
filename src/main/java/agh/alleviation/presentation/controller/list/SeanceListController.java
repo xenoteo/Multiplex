@@ -1,5 +1,6 @@
 package agh.alleviation.presentation.controller.list;
 
+import agh.alleviation.model.EntityObject;
 import agh.alleviation.model.Movie;
 import agh.alleviation.model.Seance;
 import agh.alleviation.model.Ticket;
@@ -125,6 +126,12 @@ public class SeanceListController extends GenericListController<Seance> implemen
         if (seance != null) {
             viewControllerManager.getSeanceDialogContext().showEditItemDialog(seance);
         }
+    }
+
+    @FXML
+    protected void handleDeleteAction(ActionEvent event) {
+        Seance seance = (Seance) itemTable.getSelectionModel().getSelectedItem();
+        serviceManager.delete(seance);
     }
 
     @FXML

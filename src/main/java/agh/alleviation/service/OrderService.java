@@ -106,7 +106,10 @@ public class OrderService extends EntityObjectService<Order, OrderRepository> {
         userRepository.save(user);
         for (Ticket ticket : orderObj.getTickets()) {
             ticket.setOrder(orderObj);
+            Seance seance = seanceRepository.findByIdWithTickets(ticket.getSeance().getId());
+            seance.addTicket(ticket);
             ticketRepository.save(ticket);
+            seanceRepository.save(seance);
         }
     }
 

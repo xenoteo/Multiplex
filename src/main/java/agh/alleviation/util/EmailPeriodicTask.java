@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * A class responsible for activating emailSender every CHECK_INTERVAL_SECONDS. Emails are sent if there are 5 days until the seance on any ticket of an order.
@@ -36,7 +37,7 @@ public class EmailPeriodicTask {
 
     @Scheduled(fixedRate = CHECK_INTERVAL_SECONDS * 1000)
     public void checkReservations() {
-        List<EntityObject> tickets = ticketService.getAll();
+        List<EntityObject> tickets = ticketService.getAll().stream().filter(EntityObject::getIsActive).collect(Collectors.toList());
         System.out.println("Checking tickets...");
         System.out.println(tickets.size());
         for (EntityObject ticketObject : tickets) {

@@ -78,6 +78,7 @@ public class Ticket extends EntityObject {
 
     public Ticket(Seance seance) {
         setSeance(seance);
+        setPrice(seance.getPrice());
         setIsActive(true);
         setIsRated(false);
     }
@@ -128,7 +129,6 @@ public class Ticket extends EntityObject {
      *
      * @return the order
      */
-//    @JoinColumn(name = Columns.ORDER)
     @ManyToOne
     public Order getOrder() { return orderProperty.get(); }
 
@@ -163,14 +163,6 @@ public class Ticket extends EntityObject {
 
     @Transient
     public IntegerProperty isRatingPositiveProperty() { return isRatingPositive; }
-
-//    @Override
-//    public List<EntityObject> update() {
-//        super.update();
-//        List<EntityObject> updatedObjects = new ArrayList<>();
-//        updatedObjects.addAll(getSeance().getMovie().update());
-//        return updatedObjects;
-//    }
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
