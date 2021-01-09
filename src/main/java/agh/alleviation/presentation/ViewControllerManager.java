@@ -14,6 +14,7 @@ import agh.alleviation.model.Hall;
 import agh.alleviation.model.Movie;
 import agh.alleviation.model.Seance;
 import agh.alleviation.model.user.User;
+import agh.alleviation.presentation.controller.stats.MovieStatsController;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -87,6 +88,7 @@ public class ViewControllerManager {
         addToControllersAndViews(Screen.SEANCE_LIST, SeanceListController.class);
         addToControllersAndViews(Screen.TICKET_LIST, BasketController.class);
         addToControllersAndViews(Screen.ORDER_LIST, OrdersHistoryController.class);
+        addToControllersAndViews(Screen.STATISTICS, StatisticsController.class);
 
         controllersAndViews.forEach((screen, cv) -> cv.getController().setAppController(this));
 
@@ -244,5 +246,13 @@ public class ViewControllerManager {
     @Autowired
     public void setActiveUser(ActiveUser activeUser) {
         this.activeUser = activeUser;
+    }
+
+    /**
+     * Shows movie stats.
+     */
+    public void showMovieStats() {
+        new StatsDialogContext<MovieStatsController>(primaryStage, fxWeaver.load(MovieStatsController.class),
+                "Movie stats").showStats();
     }
 }

@@ -95,7 +95,7 @@ public class Order extends EntityObject {
      * @return the list
      */
 //    @Column(name = Columns.TICKETS)
-    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true)
     public List<Ticket> getTickets() {
         return ticketsProperty.getValue();
     }
