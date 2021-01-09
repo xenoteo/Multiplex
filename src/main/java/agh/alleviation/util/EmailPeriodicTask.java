@@ -16,7 +16,7 @@ import java.util.List;
 public class EmailPeriodicTask {
     private final TicketService ticketService;
     private final EmailSender emailSender;
-    private final int CHECK_INTERVAL_SECONDS = 10;
+    private final int CHECK_INTERVAL_SECONDS = 30;
     private final int SEND_NOTIFICATION_BEFORE_DAYS = 5;
 
     @Value("${alleviation.mail.enabled}")
@@ -41,13 +41,13 @@ public class EmailPeriodicTask {
             if (currentDate.isBefore(seanceDate)) {
                 long daysToSeance = ChronoUnit.DAYS.between(currentDate, seanceDate);
 
-//                System.out.println("Days to seance: " + daysToSeance);
+                System.out.println("Days to seance: " + daysToSeance);
                 if (daysToSeance == SEND_NOTIFICATION_BEFORE_DAYS) {
                     if (mailEnabled) {
-//                        System.out.println("Sending notification...");
+                        System.out.println("Sending notification...");
                         emailSender.sendNotificationAboutSeance(ticket.getOrder().getUser(), ticket.getSeance());
                     } else {
-//                        System.out.println("Notification would be sent, but alleviation.mail.enabled is set to false");
+                        System.out.println("Notification would be sent, but alleviation.mail.enabled is set to false");
                     }
                 }
             }

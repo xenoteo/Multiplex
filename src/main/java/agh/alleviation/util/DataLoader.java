@@ -55,7 +55,7 @@ public class DataLoader {
     public void populateUsers() {
         userService.addUser("Mike", "mikeErl", "mike@erlang.com", UserType.ADMIN, "otp");
         userService.addUser("Joe", "joeArm", "joe@otp.com", UserType.WORKER, "otp");
-        userService.addUser("Robert", "rob", "mlripgiuokciydsxmu@twzhhq.com", UserType.CUSTOMER, "otp");
+        userService.addUser("Robert", "rob", "roberlang36@gmail.com", UserType.CUSTOMER, "otp");
     }
 
     /**
@@ -78,7 +78,7 @@ public class DataLoader {
      * Populate seances.
      */
     public void populateSeances() {
-        LocalDateTime date = LocalDateTime.of(2021, Month.JANUARY, 12, 12, 0);
+        LocalDateTime date = LocalDateTime.now().plusDays(6);
         double price = 25.00;
 
         Movie movie1 = (Movie) movieService.getAll().get(0);
