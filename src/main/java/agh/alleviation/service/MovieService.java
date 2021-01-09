@@ -28,7 +28,8 @@ public class MovieService extends EntityObjectService<Movie, MovieRepository> {
      * @param genreRepository the genre repository
      */
     @Autowired
-    public MovieService(MovieRepository movieRepository, GenreRepository genreRepository, TicketRepository ticketRepository) {
+    public MovieService(
+        MovieRepository movieRepository, GenreRepository genreRepository, TicketRepository ticketRepository) {
         repository = movieRepository;
         this.genreRepository = genreRepository;
         this.ticketRepository = ticketRepository;
@@ -94,24 +95,23 @@ public class MovieService extends EntityObjectService<Movie, MovieRepository> {
         return super.delete(movie);
     }
 
-    public void rateMovie(Ticket ticket, boolean isPositive){
+    public void rateMovie(Ticket ticket, boolean isPositive) {
 
         Movie ratedMovie = ticket.getSeance().getMovie();
 
-        if(ticket.getIsRated()) {
+        if (!ticket.getIsRated()) {
             if (isPositive) ratedMovie.setLikes(ratedMovie.getLikes() + 1);
             else ratedMovie.setDislikes(ratedMovie.getDislikes() + 1);
-        }
-        else{
+            ticket.setIsRated(true);
+        } else {
             int difference = isPositive ? 1 : -1;
             ratedMovie.setLikes(ratedMovie.getLikes() + difference);
             ratedMovie.setDislikes(ratedMovie.getDislikes() - difference);
-            ticket.setIsRated(true);
-            ticketRepository.save(ticket);
         }
 
+        ticket.setIsRatingPositive(isPositive);
 
+        ticketRepository.save(ticket);
         repository.save(ratedMovie);
-
     }
 }

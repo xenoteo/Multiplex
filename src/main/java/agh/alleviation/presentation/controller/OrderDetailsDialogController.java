@@ -1,11 +1,8 @@
 package agh.alleviation.presentation.controller;
 
-import agh.alleviation.model.EntityObject;
-import agh.alleviation.model.Order;
-import agh.alleviation.model.Seance;
-import agh.alleviation.model.Ticket;
+import agh.alleviation.model.*;
 import agh.alleviation.presentation.controller.edit_dialog.EditDialogController;
-import agh.alleviation.presentation.filter.CompositeFilter;
+import agh.alleviation.service.MovieService;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -76,24 +73,34 @@ public class OrderDetailsDialogController extends EditDialogController<Order> {
                     private final HBox box = new HBox();
                     private final ToggleButton likeButton = new ToggleButton("");
                     private final ToggleButton dislikeButton = new ToggleButton("");
+                    private final String selectedClassName = "button-selected";
+                    private final MovieService movieService = ((MovieService) serviceManager.getService(Movie.class));
 
                     {
                         likeButton.setGraphic(new FontIcon());
                         likeButton.setId("like-button");
                         likeButton.setOnAction((ActionEvent event) -> {
-                            Seance data = getTableView().getItems().get(getIndex());
-                            likeButton.getStyleClass().add("button-selected");
-                            dislikeButton.getStyleClass().remove("button-selected");
-                            System.out.println("like: " + data);
+                            Ticket ticket = editedItem.getTickets().get(getIndex());
+                            likeButton.getStyleClass().add(selectedClassName);
+                            dislikeButton.getStyleClass().remove(selectedClassName);
+                            movieService.rateMovie(ticket, true);
+                            serviceManager.deleteFromObservable(ticket.getSeance().getMovie());
+                            serviceManager.addToObservable(ticket.getSeance().getMovie());
+                            serviceManager.deleteFromObservable(ticket.getSeance());
+                            serviceManager.addToObservable(ticket.getSeance());
                         });
 
                         dislikeButton.setGraphic(new FontIcon());
                         dislikeButton.setId("dislike-button");
                         dislikeButton.setOnAction((ActionEvent event) -> {
-                            Seance data = getTableView().getItems().get(getIndex());
-                            likeButton.getStyleClass().remove("button-selected");
-                            dislikeButton.getStyleClass().add("button-selected");
-                            System.out.println("dislike: " + data);
+                            Ticket ticket = editedItem.getTickets().get(getIndex());
+                            likeButton.getStyleClass().remove(selectedClassName);
+                            dislikeButton.getStyleClass().add(selectedClassName);
+                            movieService.rateMovie(ticket, false);
+                            serviceManager.deleteFromObservable(ticket.getSeance().getMovie());
+                            serviceManager.addToObservable(ticket.getSeance().getMovie());
+                            serviceManager.deleteFromObservable(ticket.getSeance());
+                            serviceManager.addToObservable(ticket.getSeance());
                         });
 
                         box.getChildren().addAll(likeButton, dislikeButton);
@@ -107,6 +114,12 @@ public class OrderDetailsDialogController extends EditDialogController<Order> {
                             setGraphic(null);
                         } else {
                             setGraphic(box);
+
+                            Ticket ticket = editedItem.getTickets().get(getIndex());
+                            if (ticket.getIsRated()) {
+                                ToggleButton button = ticket.getIsRatingPositive() ? likeButton : dislikeButton;
+                                button.getStyleClass().add(selectedClassName);
+                            }
                         }
                     }
                 };

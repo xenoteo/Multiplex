@@ -7,6 +7,8 @@ import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -45,12 +47,14 @@ public class Ticket extends EntityObject {
 
         public static final String IS_RATED = "is_rated";
 
+        public static final String IS_RATING_POSITIVE = "is_rating_positive";
     }
 
     private final ObjectProperty<Seance> seanceProperty = new SimpleObjectProperty<>();
     private final DoubleProperty priceProperty = new SimpleDoubleProperty(this, "price");
     private final ObjectProperty<Order> orderProperty = new SimpleObjectProperty<>();
     private final BooleanProperty isRatedProperty = new SimpleBooleanProperty();
+    private final BooleanProperty isRatingPositive = new SimpleBooleanProperty();
 
     /**
      * Instantiates a new Ticket.
@@ -69,7 +73,6 @@ public class Ticket extends EntityObject {
         setPrice(price);
         setIsActive(true);
     }
-
 
     public Ticket(Seance seance) {
         setSeance(seance);
@@ -142,13 +145,29 @@ public class Ticket extends EntityObject {
         priceProperty.set(price);
     }
 
-    @Column(name=Columns.IS_RATED)
-    public boolean getIsRated(){ return isRatedProperty.get(); }
+    @Column(name = Columns.IS_RATED)
+    public boolean getIsRated() { return isRatedProperty.get(); }
 
-    public void setIsRated(boolean isRated){ this.isRatedProperty.set(isRated); }
+    public void setIsRated(boolean isRated) { isRatedProperty.set(isRated); }
 
     @Transient
-    public BooleanProperty isRatedProperty(){ return isRatedProperty; }
+    public BooleanProperty isRatedProperty() { return isRatedProperty; }
+
+    @Column(name = Columns.IS_RATING_POSITIVE)
+    public boolean getIsRatingPositive() { return isRatingPositive.get(); }
+
+    public void setIsRatingPositive(boolean rating) { isRatingPositive.set(rating); }
+
+    @Transient
+    public BooleanProperty isRatingPositiveProperty() { return isRatingPositive; }
+
+//    @Override
+//    public List<EntityObject> update() {
+//        super.update();
+//        List<EntityObject> updatedObjects = new ArrayList<>();
+//        updatedObjects.addAll(getSeance().getMovie().update());
+//        return updatedObjects;
+//    }
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
@@ -157,6 +176,7 @@ public class Ticket extends EntityObject {
         out.writeObject(getPrice());
         out.writeObject(getOrder());
         out.writeObject(getIsRated());
+        out.writeObject(getIsRatingPositive());
     }
 
     @Override
@@ -166,5 +186,6 @@ public class Ticket extends EntityObject {
         setPrice(in.readInt());
         setOrder((Order) in.readObject());
         setIsRated(in.readBoolean());
+        setIsRatingPositive(in.readBoolean());
     }
 }

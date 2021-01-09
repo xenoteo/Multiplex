@@ -76,8 +76,14 @@ public class MovieListController extends GenericListController<Movie> {
         directorColumn.setCellValueFactory(dataValue -> dataValue.getValue().directorProperty());
         actorsColumn.setCellValueFactory(dataValue -> dataValue.getValue().actorsProperty());
         ratingColumn.setCellValueFactory(cellData -> {
-            Movie data = cellData.getValue();
-            return Bindings.createStringBinding(() -> "sample " + data.getName(), data.nameProperty());
+            Movie movie = cellData.getValue();
+            return Bindings.createStringBinding(() -> {
+                int likes = movie.getLikes();
+                int ratesCount = likes + movie.getDislikes();
+                System.out.println("likes " + likes + ", ratesCount " + ratesCount);
+
+                return ratesCount == 0 ? "No rates" : 100 * likes / ratesCount + "%";
+            }, movie.likesProperty(), movie.dislikesProperty());
         });
     }
 

@@ -104,8 +104,13 @@ public class SeanceListController extends GenericListController<Seance> implemen
         dateColumn.setCellValueFactory(dataValue -> dataValue.getValue().dateProperty());
         priceColumn.setCellValueFactory(dataValue -> dataValue.getValue().priceProperty());
         ratingColumn.setCellValueFactory(cellData -> {
-            Seance data = cellData.getValue();
-            return Bindings.createStringBinding(() -> "sample " + data.getPrice(), data.priceProperty());
+            Seance seance = cellData.getValue();
+            return Bindings.createStringBinding(() -> {
+                int likes = seance.getMovie().getLikes();
+                int ratesCount = likes + seance.getMovie().getDislikes();
+
+                return ratesCount == 0 ? "No rates" : 100 * likes / ratesCount + "%";
+            }, seance.getMovie().likesProperty(), seance.getMovie().dislikesProperty());
         });
     }
 
