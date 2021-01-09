@@ -33,12 +33,14 @@ public class MenuController extends GenericController implements PropertyChangeL
     @FXML
     private ToggleButton seances;
 
-
     @FXML
     private ToggleButton basket;
 
     @FXML
     private ToggleButton orders;
+
+    @FXML
+    public ToggleButton stats;
 
     private final HashMap<ToggleButton, Screen> screenHashMap = new HashMap<>();
 
@@ -53,6 +55,7 @@ public class MenuController extends GenericController implements PropertyChangeL
         screenHashMap.put(seances, Screen.SEANCE_LIST);
         screenHashMap.put(basket, Screen.TICKET_LIST);
         screenHashMap.put(orders, Screen.ORDER_LIST);
+        screenHashMap.put(stats, Screen.STATISTICS);
     }
 
 
@@ -86,6 +89,5 @@ public class MenuController extends GenericController implements PropertyChangeL
     public void logout(ActionEvent event) {
         viewControllerManager.logout();
     }
-
 
 }

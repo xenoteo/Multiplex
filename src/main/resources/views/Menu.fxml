@@ -11,17 +11,20 @@
     <children>
         <ToggleButtonGroup selectionType="SINGLE">
             <toggles>
-                <ToggleButton fx:id="movies" onAction="#handleActiveButtonChanged" styleClass="menuButton"
-                              text="Movie List" visible="false"/>
                 <ToggleButton fx:id="seances" onAction="#handleActiveButtonChanged" styleClass="menuButton"
                               text="Seance List" visible="false"/>
+                <ToggleButton fx:id="basket" onAction="#handleActiveButtonChanged" styleClass="menuButton" text="Basket"
+                              visible="false"/>
+                <ToggleButton fx:id="orders" onAction="#handleActiveButtonChanged" styleClass="menuButton"
+                              text="Orders History"
+                              visible="false"/>
+                <ToggleButton fx:id="movies" onAction="#handleActiveButtonChanged" styleClass="menuButton"
+                              text="Movie List" visible="false"/>
                 <ToggleButton fx:id="halls" onAction="#handleActiveButtonChanged" selected="true"
                               styleClass="menuButton" text="Hall List" visible="false"/>
                 <ToggleButton fx:id="users" onAction="#handleActiveButtonChanged" styleClass="menuButton"
                               text="User List" visible="false"/>
-                <ToggleButton fx:id="basket" onAction="#handleActiveButtonChanged" styleClass="menuButton" text="Basket"
-                              visible="false"/>
-                <ToggleButton fx:id="orders" onAction="#handleActiveButtonChanged" styleClass="menuButton" text="Orders History"
+                <ToggleButton fx:id="stats" onAction="#handleActiveButtonChanged" styleClass="menuButton" text="Statistics"
                               visible="false"/>
             </toggles>
         </ToggleButtonGroup>

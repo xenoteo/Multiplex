@@ -1,5 +1,6 @@
 package agh.alleviation.presentation.controller.list;
 
+import agh.alleviation.model.Movie;
 import agh.alleviation.model.Seance;
 import agh.alleviation.model.Ticket;
 import agh.alleviation.model.user.User;
@@ -7,6 +8,7 @@ import agh.alleviation.presentation.Screen;
 import agh.alleviation.presentation.context.ActiveUser;
 import agh.alleviation.presentation.filter.*;
 import agh.alleviation.util.UserType;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -50,6 +52,12 @@ public class SeanceListController extends GenericListController<Seance> implemen
      */
     @FXML
     public TableColumn<Seance, Number> priceColumn;
+
+    /**
+     * The Rating column.
+     */
+    @FXML
+    public TableColumn<Seance, String> ratingColumn;
 
     @FXML
     private TextField movieField;
@@ -95,6 +103,15 @@ public class SeanceListController extends GenericListController<Seance> implemen
         hallColumn.setCellValueFactory(dataValue -> dataValue.getValue().getHall().numberProperty());
         dateColumn.setCellValueFactory(dataValue -> dataValue.getValue().dateProperty());
         priceColumn.setCellValueFactory(dataValue -> dataValue.getValue().priceProperty());
+        ratingColumn.setCellValueFactory(cellData -> {
+            Seance seance = cellData.getValue();
+            return Bindings.createStringBinding(() -> {
+                int likes = seance.getMovie().getLikes();
+                int ratesCount = likes + seance.getMovie().getDislikes();
+
+                return ratesCount == 0 ? "No rates" : 100 * likes / ratesCount + "%";
+            }, seance.getMovie().likesProperty(), seance.getMovie().dislikesProperty());
+        });
     }
 
     @Override
