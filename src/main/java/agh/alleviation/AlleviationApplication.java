@@ -1,6 +1,8 @@
 package agh.alleviation;
 
 import agh.alleviation.presentation.CinemaApp;
+import agh.alleviation.service.HallService;
+import agh.alleviation.service.MovieService;
 import agh.alleviation.util.DataLoader;
 import agh.alleviation.util.EmailSender;
 import javafx.application.Application;
@@ -121,8 +123,9 @@ public class AlleviationApplication {
      * @return the command line runner
      */
     @Bean
-    public CommandLineRunner populateData(DataLoader dataLoader) {
+    public CommandLineRunner populateData(DataLoader dataLoader, HallService hallService) {
         return args -> {
+            if(hallService.getAllHalls().iterator().hasNext()) return;
             dataLoader.populateUsers();
             dataLoader.populateHalls();
             dataLoader.populateMovies();

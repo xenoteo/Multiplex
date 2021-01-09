@@ -100,4 +100,6 @@ public class HallService extends EntityObjectService<Hall, HallRepository> {
     public Hall findHallByNumber(int number) {
         return repository.findByNumber(number);
     }
+
+    public Iterable<Hall> getAllHalls(){ return repository.findAll(); }
 }
