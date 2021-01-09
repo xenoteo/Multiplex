@@ -5,6 +5,12 @@ import agh.alleviation.model.user.User;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
+/**
+ * A class responsible for sending emails to users from the cinema's assigned email account.
+ *
+ * @author Kamil Krzempek
+ */
+
 public class EmailSender {
     private final JavaMailSender javaMailSender;
     private final String FROM_ADDRESS = "alleviationproject@gmail.com";

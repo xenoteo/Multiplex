@@ -17,6 +17,12 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 
+
+/**
+ * A controller of view responsible for displaying details of an existing order.
+ * @author Kamil Krzempek
+ */
+
 @Component
 @FxmlView("/views/OrderDetailsDialog.fxml")
 public class OrderDetailsDialogController extends EditDialogController<Order> {
