@@ -6,7 +6,7 @@ import agh.alleviation.model.Order;
 import agh.alleviation.model.Ticket;
 import agh.alleviation.service.OrderService;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
@@ -63,7 +63,7 @@ public class MovieStatsController extends GenericStatsController<Movie> {
      * The tickets bought column.
      */
     @FXML
-    public TableColumn<Movie, String> ticketsColumn;
+    public TableColumn<Movie, Integer> ticketsColumn;
 
     @FXML
     public void initialize() {
@@ -88,7 +88,7 @@ public class MovieStatsController extends GenericStatsController<Movie> {
         });
         ticketsColumn.setCellValueFactory(cellData ->{
             Movie movie = cellData.getValue();
-            return new SimpleStringProperty("" + movieMap.get(movie));
+            return new SimpleIntegerProperty(movieMap.get(movie)).asObject();
         });
     }
 
@@ -102,20 +102,17 @@ public class MovieStatsController extends GenericStatsController<Movie> {
             List<Ticket> tickets = order.getTickets();
             for (Ticket ticket : tickets){
                 Movie movie = ticket.getSeance().getMovie();
-                if (movieMap.containsKey(movie)){
-                    movieMap.put(movie, movieMap.get(movie) + 1);
-                }
-                else {
-                    movieMap.put(movie, 1);
-                }
+                movieMap.put(movie, movieMap.getOrDefault(movie, 0) + 1);
             }
         }
+
         Map<Movie, Integer> movieMapSorted = new LinkedHashMap<>();
         movieMap.entrySet()
                 .stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .limit(10)
                 .forEachOrdered(x -> movieMapSorted.put(x.getKey(), x.getValue()));
+
         return movieMapSorted;
     }
 }

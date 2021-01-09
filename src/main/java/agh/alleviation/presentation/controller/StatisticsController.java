@@ -32,6 +32,6 @@ public class StatisticsController extends GenericController{
 
     @FXML
     public void showGenreStats(ActionEvent event){
-
+        viewControllerManager.showGenreStats();
     }
 }

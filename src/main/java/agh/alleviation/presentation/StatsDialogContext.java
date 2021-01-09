@@ -1,6 +1,6 @@
 package agh.alleviation.presentation;
 
-import agh.alleviation.model.Movie;
+import agh.alleviation.model.EntityObject;
 import agh.alleviation.presentation.controller.stats.GenericStatsController;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -10,7 +10,7 @@ import net.rgielen.fxweaver.core.FxControllerAndView;
  * The type stats dialog context.
  * @param <Controller> the controller type parameter
  */
-public class StatsDialogContext<Controller extends GenericStatsController<Movie>> extends StageAndSceneSetupper {
+public class StatsDialogContext<Item extends EntityObject, Controller extends GenericStatsController<Item>> extends StageAndSceneSetupper {
     /**
      * The Controller and view.
      */

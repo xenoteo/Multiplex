@@ -40,12 +40,6 @@ public abstract class GenericStatsController<Item extends EntityObject> extends 
     }
 
     /**
-     * Generates a map of top 10 items.
-     * @return a map of top 10 items
-     */
-    protected abstract Map<Item, Integer> top10stats();
-
-    /**
      * Handles back action
      * @param event the event
      */
@@ -53,4 +47,10 @@ public abstract class GenericStatsController<Item extends EntityObject> extends 
     public void handleBackAction(ActionEvent event){
         dialogStage.close();
     }
+
+    /**
+     * Generates a map of top 10 items.
+     * @return a map of top 10 items
+     */
+    protected abstract Map<Item, Integer> top10stats();
 }
