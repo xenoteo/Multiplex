@@ -23,6 +23,13 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+
+/**
+ * Controller of the orders history view. Responsible for displaying all of the user's orders.
+ *
+ * @author Anna Nosek
+ */
+
 @Component
 @FxmlView("/views/OrdersHistory.fxml")
 public class OrdersHistoryController extends GenericController implements PropertyChangeListener {

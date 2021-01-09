@@ -3,6 +3,7 @@ package agh.alleviation.presentation.controller;
 import agh.alleviation.model.*;
 import agh.alleviation.presentation.controller.edit_dialog.EditDialogController;
 import agh.alleviation.service.MovieService;
+import agh.alleviation.util.Rating;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,6 +17,12 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.stream.Collectors;
+
+
+/**
+ * A controller of view responsible for displaying details of an existing order.
+ * @author Kamil Krzempek
+ */
 
 @Component
 @FxmlView("/views/OrderDetailsDialog.fxml")
@@ -83,7 +90,7 @@ public class OrderDetailsDialogController extends EditDialogController<Order> {
                             Ticket ticket = editedItem.getTickets().get(getIndex());
                             likeButton.getStyleClass().add(selectedClassName);
                             dislikeButton.getStyleClass().remove(selectedClassName);
-                            movieService.rateMovie(ticket, true);
+                            movieService.rateMovie(ticket, Rating.POSITIVE);
                             serviceManager.deleteFromObservable(ticket.getSeance().getMovie());
                             serviceManager.addToObservable(ticket.getSeance().getMovie());
                             serviceManager.deleteFromObservable(ticket.getSeance());
@@ -96,7 +103,7 @@ public class OrderDetailsDialogController extends EditDialogController<Order> {
                             Ticket ticket = editedItem.getTickets().get(getIndex());
                             likeButton.getStyleClass().remove(selectedClassName);
                             dislikeButton.getStyleClass().add(selectedClassName);
-                            movieService.rateMovie(ticket, false);
+                            movieService.rateMovie(ticket, Rating.NEGATIVE);
                             serviceManager.deleteFromObservable(ticket.getSeance().getMovie());
                             serviceManager.addToObservable(ticket.getSeance().getMovie());
                             serviceManager.deleteFromObservable(ticket.getSeance());
@@ -117,7 +124,7 @@ public class OrderDetailsDialogController extends EditDialogController<Order> {
 
                             Ticket ticket = editedItem.getTickets().get(getIndex());
                             if (ticket.getIsRated()) {
-                                ToggleButton button = ticket.getIsRatingPositive() ? likeButton : dislikeButton;
+                                ToggleButton button = ticket.getIsRatingPositive() == Rating.POSITIVE ? likeButton : dislikeButton;
                                 button.getStyleClass().add(selectedClassName);
                             }
                         }

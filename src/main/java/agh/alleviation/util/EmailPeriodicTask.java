@@ -12,6 +12,12 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
+/**
+ * A class responsible for activating emailSender every CHECK_INTERVAL_SECONDS. Emails are sent if there are 5 days until the seance on any ticket of an order.
+ *
+ * @author Kamil Krzempek
+ */
+
 @Component
 public class EmailPeriodicTask {
     private final TicketService ticketService;

@@ -16,6 +16,11 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.time.LocalDateTime;
 
+/**
+ * Controller of the basket view. Responsible for displaying current content of active user's basket.
+ *
+ * @author Anna Nosek
+ */
 @Component
 @FxmlView("/views/Basket.fxml")
 public class BasketController extends GenericController implements PropertyChangeListener {
@@ -46,7 +51,7 @@ public class BasketController extends GenericController implements PropertyChang
     }
 
     /**
-     * Initialize.
+     * Initialize the empty basket.
      */
     @FXML
     private void initialize() {
@@ -59,6 +64,10 @@ public class BasketController extends GenericController implements PropertyChang
         priceColumn.setCellValueFactory(dataValue -> dataValue.getValue().getSeance().priceProperty());
     }
 
+
+    /**
+     * Deleting a ticket from an order.
+     */
     @FXML
     private void handleDeleteAction(ActionEvent event) {
         EntityObject item = ticketTable.getSelectionModel().getSelectedItem();
@@ -66,6 +75,9 @@ public class BasketController extends GenericController implements PropertyChang
         serviceManager.deleteFromObservable(item);
     }
 
+    /**
+     * Checkout from the basket. The order is persisted and the basket is cleared.
+     */
     @FXML
     private void handleCheckoutAction(ActionEvent event) {
         Order order = activeUser.getActiveOrder();
@@ -79,6 +91,10 @@ public class BasketController extends GenericController implements PropertyChang
         alert.show();
     }
 
+
+    /**
+     * The basket is cleared after the change of the active user.
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         serviceManager.clearObservableList(Ticket.class);
