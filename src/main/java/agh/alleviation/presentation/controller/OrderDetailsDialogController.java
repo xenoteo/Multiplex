@@ -18,9 +18,9 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 
-
 /**
  * A controller of view responsible for displaying details of an existing order.
+ *
  * @author Kamil Krzempek
  */
 
@@ -57,6 +57,9 @@ public class OrderDetailsDialogController extends EditDialogController<Order> {
     @FXML
     public TableColumn<Seance, Number> priceColumn;
 
+    /**
+     * Column with percentage of positive reviews
+     */
     @FXML
     public TableColumn<Seance, Void> rateColumn;
 
@@ -124,7 +127,8 @@ public class OrderDetailsDialogController extends EditDialogController<Order> {
 
                             Ticket ticket = editedItem.getTickets().get(getIndex());
                             if (ticket.getIsRated()) {
-                                ToggleButton button = ticket.getIsRatingPositive() == Rating.POSITIVE ? likeButton : dislikeButton;
+                                ToggleButton button =
+                                    ticket.getIsRatingPositive() == Rating.POSITIVE ? likeButton : dislikeButton;
                                 button.getStyleClass().add(selectedClassName);
                             }
                         }

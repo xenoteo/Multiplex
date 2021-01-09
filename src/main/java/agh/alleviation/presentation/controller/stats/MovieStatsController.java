@@ -2,9 +2,8 @@ package agh.alleviation.presentation.controller.stats;
 
 import agh.alleviation.model.EntityObject;
 import agh.alleviation.model.Movie;
-import agh.alleviation.model.Order;
 import agh.alleviation.model.Ticket;
-import agh.alleviation.service.OrderService;
+import agh.alleviation.service.TicketService;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
@@ -14,6 +13,7 @@ import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Controller responsible for displaying movie statistics.
@@ -23,6 +23,7 @@ import java.util.*;
 @Component
 @FxmlView("/views/MovieStats.fxml")
 public class MovieStatsController extends GenericStatsController<Movie> {
+
     /**
      * The Name column.
      */
@@ -68,7 +69,7 @@ public class MovieStatsController extends GenericStatsController<Movie> {
     @FXML
     public void initialize() {
         serviceManager.fillFromService(Movie.class);
-        Map<Movie, Integer> movieMap = top10stats();
+        Map<Movie, Integer> movieMap = topStats();
         itemTable.setItems(FXCollections.observableArrayList(movieMap.keySet()));
 
         nameColumn.setCellValueFactory(dataValue -> dataValue.getValue().nameProperty());
@@ -93,26 +94,16 @@ public class MovieStatsController extends GenericStatsController<Movie> {
     }
 
     @Override
-    protected Map<Movie, Integer> top10stats() {
-        OrderService orderService = (OrderService) serviceManager.getService(Order.class);
-        List<EntityObject> orders = orderService.getAll();
+    protected Map<Movie, Integer> topStats() {
+        TicketService ticketService = (TicketService) serviceManager.getService(Ticket.class);
+        List<EntityObject> tickets = ticketService.getAll().stream()
+                .filter(ticketObj -> ticketObj.getIsActive() && ((Ticket) ticketObj).getSeance().getIsActive())
+                .collect(Collectors.toList());
         Map<Movie, Integer> movieMap = new HashMap<>();
-        for (EntityObject orderObject : orders){
-            Order order = (Order) orderObject;
-            List<Ticket> tickets = order.getTickets();
-            for (Ticket ticket : tickets){
-                Movie movie = ticket.getSeance().getMovie();
-                movieMap.put(movie, movieMap.getOrDefault(movie, 0) + 1);
-            }
+        for (EntityObject ticketObject : tickets){
+            Movie movie = ((Ticket) ticketObject).getSeance().getMovie();
+            movieMap.put(movie, movieMap.getOrDefault(movie, 0) + 1);
         }
-
-        Map<Movie, Integer> movieMapSorted = new LinkedHashMap<>();
-        movieMap.entrySet()
-                .stream()
-                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-                .limit(10)
-                .forEachOrdered(x -> movieMapSorted.put(x.getKey(), x.getValue()));
-
-        return movieMapSorted;
+        return sortMap(movieMap, 10);
     }
 }

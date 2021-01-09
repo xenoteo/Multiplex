@@ -6,12 +6,12 @@
 <?import javafx.geometry.Insets?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="agh.alleviation.presentation.controller.stats.GenreStatsController" stylesheets="@../styles/Stats.css"
+            fx:controller="agh.alleviation.presentation.controller.stats.UserStatsController" stylesheets="@../styles/Stats.css"
             prefHeight="400.0" prefWidth="400.0">
     <center>
-        <TableView fx:id="itemTable" prefHeight="400.0" prefWidth="522.0" BorderPane.alignment="CENTER">
+        <TableView fx:id="itemTable" prefHeight="400.0" BorderPane.alignment="CENTER">
             <columns>
-                <TableColumn fx:id="nameColumn" editable="false" prefWidth="113.0" text="Name" />
+                <TableColumn fx:id="loginColumn" prefWidth="75.0" text="Nick"/>
                 <TableColumn fx:id="ticketsColumn" prefWidth="75.0" text="Tickets bought" />
             </columns>
             <columnResizePolicy>
@@ -28,4 +28,5 @@
             </Button>
         </VBox>
     </right>
+
 </BorderPane>

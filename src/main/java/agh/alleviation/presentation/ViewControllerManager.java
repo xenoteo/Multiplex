@@ -16,6 +16,8 @@ import agh.alleviation.model.Seance;
 import agh.alleviation.model.user.User;
 import agh.alleviation.presentation.controller.stats.GenreStatsController;
 import agh.alleviation.presentation.controller.stats.MovieStatsController;
+import agh.alleviation.presentation.controller.stats.TimeStatsController;
+import agh.alleviation.presentation.controller.stats.UserStatsController;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -263,5 +265,21 @@ public class ViewControllerManager {
     public void showGenreStats() {
         new StatsDialogContext<>(primaryStage, fxWeaver.load(GenreStatsController.class),
                 "Genre stats").showStats();
+    }
+
+    /**
+     * Shows user stats.
+     */
+    public void showUserStats() {
+        new StatsDialogContext<>(primaryStage, fxWeaver.load(UserStatsController.class),
+                "User stats").showStats();
+    }
+
+    /**
+     * Shows time stats.
+     */
+    public void showTimeStats() {
+        new StatsDialogContext<>(primaryStage, fxWeaver.load(TimeStatsController.class),
+                "Time stats").showStats();
     }
 }

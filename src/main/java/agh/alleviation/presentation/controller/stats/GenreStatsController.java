@@ -1,8 +1,7 @@
 package agh.alleviation.presentation.controller.stats;
 
 import agh.alleviation.model.*;
-import agh.alleviation.model.user.User;
-import agh.alleviation.service.OrderService;
+import agh.alleviation.service.TicketService;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -11,6 +10,7 @@ import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Controller responsible for displaying genre statistics.
@@ -34,7 +34,7 @@ public class GenreStatsController extends GenericStatsController<Genre>{
 
     @FXML
     public void initialize() {
-        Map<Genre, Integer> genreMap = top10stats();
+        Map<Genre, Integer> genreMap = topStats();
         itemTable.setItems(FXCollections.observableArrayList(genreMap.keySet()));
 
         nameColumn.setCellValueFactory(dataValue -> dataValue.getValue().nameProperty());
@@ -45,26 +45,16 @@ public class GenreStatsController extends GenericStatsController<Genre>{
     }
 
     @Override
-    protected Map<Genre, Integer> top10stats() {
-        OrderService orderService = (OrderService) serviceManager.getService(Order.class);
-        List<EntityObject> orders = orderService.getAll();
+    protected Map<Genre, Integer> topStats() {
+        TicketService ticketService = (TicketService) serviceManager.getService(Ticket.class);
+        List<EntityObject> tickets = ticketService.getAll().stream()
+                .filter(ticketObj -> ticketObj.getIsActive() && ((Ticket) ticketObj).getSeance().getIsActive())
+                .collect(Collectors.toList());
         Map<Genre, Integer> genreMap = new HashMap<>();
-        for (EntityObject orderObject : orders){
-            Order order = (Order) orderObject;
-            List<Ticket> tickets = order.getTickets();
-            for (Ticket ticket : tickets){
-                Genre genre = ticket.getSeance().getMovie().getGenre();
-                genreMap.put(genre, genreMap.getOrDefault(genre, 0) + 1);
-            }
+        for (EntityObject ticketObject : tickets){
+            Genre genre = ((Ticket) ticketObject).getSeance().getMovie().getGenre();
+            genreMap.put(genre, genreMap.getOrDefault(genre, 0) + 1);
         }
-
-        Map<Genre, Integer> genreMapSorted = new LinkedHashMap<>();
-        genreMap.entrySet()
-                .stream()
-                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-                .limit(10)
-                .forEachOrdered(x -> genreMapSorted.put(x.getKey(), x.getValue()));
-
-        return genreMapSorted;
+        return sortMap(genreMap, 10);
     }
 }
