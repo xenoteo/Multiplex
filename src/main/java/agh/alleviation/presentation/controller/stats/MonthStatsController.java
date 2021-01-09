@@ -1,6 +1,7 @@
 package agh.alleviation.presentation.controller.stats;
 
-import agh.alleviation.model.*;
+import agh.alleviation.model.EntityObject;
+import agh.alleviation.model.Ticket;
 import agh.alleviation.service.TicketService;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -11,54 +12,56 @@ import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalTime;
-import java.util.*;
+import java.time.Month;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * Controller responsible for displaying time statistics.
+ * Controller responsible for displaying month statistics.
  * @author Ksenia Fiodarava
  * @see GenericStatsController
  */
 @Component
-@FxmlView("/views/TimeStats.fxml")
-public class TimeStatsController extends GenericStatsController<LocalTime>{
+@FxmlView("/views/MonthStats.fxml")
+public class MonthStatsController extends GenericStatsController<Month>{
 
     /**
      * The time column.
      */
     @FXML
-    public TableColumn<LocalTime, String> timeColumn;
+    public TableColumn<Month, String> monthColumn;
 
     /**
      * The tickets bought column.
      */
     @FXML
-    public TableColumn<LocalTime, Integer> ticketsColumn;
-
+    public TableColumn<Month, Integer> ticketsColumn;
 
     @FXML
     public void initialize() {
-        Map<LocalTime, Integer> timeMap = topStats();
+        Map<Month, Integer> timeMap = topStats();
         itemTable.setItems(FXCollections.observableArrayList(timeMap.keySet()));
 
-        timeColumn.setCellValueFactory(dataValue -> new SimpleStringProperty(dataValue.getValue().toString()));
+        monthColumn.setCellValueFactory(dataValue -> new SimpleStringProperty(dataValue.getValue().toString()));
         ticketsColumn.setCellValueFactory(cellData -> {
-            LocalTime time = cellData.getValue();
-            return new SimpleIntegerProperty(timeMap.get(time)).asObject();
+            Month month = cellData.getValue();
+            return new SimpleIntegerProperty(timeMap.get(month)).asObject();
         });
     }
 
     @Override
-    protected Map<LocalTime, Integer> topStats() {
+    protected Map<Month, Integer> topStats() {
         TicketService ticketService = (TicketService) serviceManager.getService(Ticket.class);
         List<EntityObject> tickets = ticketService.getAll().stream()
                 .filter(EntityObject::getIsActive)
                 .collect(Collectors.toList());
-        Map<LocalTime, Integer> timeMap = new HashMap<>();
+        Map<Month, Integer> monthMap = new HashMap<>();
         for (EntityObject ticketObject : tickets){
-            LocalTime time = ((Ticket) ticketObject).getSeance().getDate().toLocalTime();
-            timeMap.put(time, timeMap.getOrDefault(time, 0) + 1);
+            Month month = ((Ticket) ticketObject).getSeance().getDate().getMonth();
+            monthMap.put(month, monthMap.getOrDefault(month, 0) + 1);
         }
-        return sortMap(timeMap, 10);
+        return sortMap(monthMap, 12);
     }
 }

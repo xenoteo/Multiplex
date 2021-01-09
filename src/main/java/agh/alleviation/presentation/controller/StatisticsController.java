@@ -74,6 +74,7 @@ public class StatisticsController extends GenericController{
      */
     @FXML
     public void showDayStats(ActionEvent event){
+        viewControllerManager.showDayStats();
     }
 
     /**
@@ -82,5 +83,6 @@ public class StatisticsController extends GenericController{
      */
     @FXML
     public void showMonthStats(ActionEvent event){
+        viewControllerManager.showMonthStats();
     }
 }
