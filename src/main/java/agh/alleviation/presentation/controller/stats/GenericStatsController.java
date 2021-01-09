@@ -12,10 +12,10 @@ import java.util.Map;
 
 /**
  * Abstraction for StatsControllers - responsible for displaying statistics.
- * @param <Item> specific EntityObject displayed in the view's table
+ * @param <Item> specific object displayed in the view's table
  * @author Ksenia Fiodarava
  */
-public abstract class GenericStatsController<Item extends EntityObject> extends GenericController {
+public abstract class GenericStatsController<Item> extends GenericController {
     /**
      * The Item table.
      */

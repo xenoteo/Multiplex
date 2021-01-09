@@ -29,6 +29,12 @@
                         <Insets bottom="5.0"/>
                     </VBox.margin>
                 </Button>
+                <Button fx:id="users" mnemonicParsing="false" prefHeight="28.0" onAction="#showUserStats"
+                        prefWidth="100.0" text="User" textAlignment="CENTER">
+                    <VBox.margin>
+                        <Insets bottom="5.0"/>
+                    </VBox.margin>
+                </Button>
             </children>
             <BorderPane.margin>
                 <Insets top="10.0"/>

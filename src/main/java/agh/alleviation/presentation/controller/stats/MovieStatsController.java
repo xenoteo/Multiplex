@@ -4,6 +4,7 @@ import agh.alleviation.model.EntityObject;
 import agh.alleviation.model.Movie;
 import agh.alleviation.model.Order;
 import agh.alleviation.model.Ticket;
+import agh.alleviation.model.user.User;
 import agh.alleviation.service.OrderService;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -23,6 +24,7 @@ import java.util.*;
 @Component
 @FxmlView("/views/MovieStats.fxml")
 public class MovieStatsController extends GenericStatsController<Movie> {
+
     /**
      * The Name column.
      */

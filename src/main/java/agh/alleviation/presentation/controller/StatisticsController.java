@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 /**
  * Controller responsible for displaying a screen where user can choose a type of statistics to see.
- *
  * @author Ksenia Fiodarava
  */
 @Component
@@ -21,6 +20,9 @@ public class StatisticsController extends GenericController{
     @FXML
     public Button genres;
 
+    @FXML
+    public Button users;
+
     /**
      * Shows movie stats.
      * @param event the event
@@ -30,8 +32,21 @@ public class StatisticsController extends GenericController{
         viewControllerManager.showMovieStats();
     }
 
+    /**
+     * Shows genre stats.
+     * @param event the event
+     */
     @FXML
     public void showGenreStats(ActionEvent event){
         viewControllerManager.showGenreStats();
+    }
+
+    /**
+     * Shows user stats.
+     * @param event the event
+     */
+    @FXML
+    public void showUserStats(ActionEvent event){
+        viewControllerManager.showUserStats();
     }
 }
