@@ -26,6 +26,12 @@ public class StatisticsController extends GenericController{
     @FXML
     public Button time;
 
+    @FXML
+    public Button day;
+
+    @FXML
+    public Button month;
+
     /**
      * Shows movie stats.
      * @param event the event
@@ -60,5 +66,21 @@ public class StatisticsController extends GenericController{
     @FXML
     public void showTimeStats(ActionEvent event){
         viewControllerManager.showTimeStats();
+    }
+
+    /**
+     * Shows day stats.
+     * @param event the event
+     */
+    @FXML
+    public void showDayStats(ActionEvent event){
+    }
+
+    /**
+     * Shows month stats.
+     * @param event the event
+     */
+    @FXML
+    public void showMonthStats(ActionEvent event){
     }
 }

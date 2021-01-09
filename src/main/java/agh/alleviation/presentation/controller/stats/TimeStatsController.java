@@ -2,6 +2,7 @@ package agh.alleviation.presentation.controller.stats;
 
 import agh.alleviation.model.*;
 import agh.alleviation.service.OrderService;
+import agh.alleviation.service.TicketService;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Controller responsible for displaying time statistics.
@@ -37,7 +39,7 @@ public class TimeStatsController extends GenericStatsController<LocalTime>{
 
     @FXML
     public void initialize() {
-        Map<LocalTime, Integer> timeMap = top10stats();
+        Map<LocalTime, Integer> timeMap = topStats();
         itemTable.setItems(FXCollections.observableArrayList(timeMap.keySet()));
 
         timeColumn.setCellValueFactory(dataValue -> new SimpleStringProperty(dataValue.getValue().toString()));
@@ -48,26 +50,16 @@ public class TimeStatsController extends GenericStatsController<LocalTime>{
     }
 
     @Override
-    protected Map<LocalTime, Integer> top10stats() {
-        OrderService orderService = (OrderService) serviceManager.getService(Order.class);
-        List<EntityObject> orders = orderService.getAll();
+    protected Map<LocalTime, Integer> topStats() {
+        TicketService ticketService = (TicketService) serviceManager.getService(Ticket.class);
+        List<EntityObject> tickets = ticketService.getAll().stream()
+                .filter(ticketObj -> ticketObj.getIsActive() && ((Ticket) ticketObj).getSeance().getIsActive())
+                .collect(Collectors.toList());
         Map<LocalTime, Integer> timeMap = new HashMap<>();
-        for (EntityObject orderObject : orders){
-            Order order = (Order) orderObject;
-            List<Ticket> tickets = order.getTickets();
-            for (Ticket ticket : tickets){
-                LocalTime time = ticket.getSeance().getDate().toLocalTime();
-                timeMap.put(time, timeMap.getOrDefault(time, 0) + 1);
-            }
+        for (EntityObject ticketObject : tickets){
+            LocalTime time = ((Ticket) ticketObject).getSeance().getDate().toLocalTime();
+            timeMap.put(time, timeMap.getOrDefault(time, 0) + 1);
         }
-
-        Map<LocalTime, Integer> timeMapSorted = new LinkedHashMap<>();
-        timeMap.entrySet()
-                .stream()
-                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-                .limit(10)
-                .forEachOrdered(x -> timeMapSorted.put(x.getKey(), x.getValue()));
-
-        return timeMapSorted;
+        return sortMap(timeMap, 10);
     }
 }

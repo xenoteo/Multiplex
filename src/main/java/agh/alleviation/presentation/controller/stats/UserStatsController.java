@@ -2,8 +2,7 @@ package agh.alleviation.presentation.controller.stats;
 
 import agh.alleviation.model.*;
 import agh.alleviation.model.user.User;
-import agh.alleviation.service.OrderService;
-import javafx.beans.property.ReadOnlyObjectWrapper;
+import agh.alleviation.service.TicketService;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -12,6 +11,7 @@ import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Controller responsible for displaying user statistics.
@@ -35,7 +35,7 @@ public class UserStatsController extends GenericStatsController<User>{
 
     @FXML
     public void initialize() {
-        Map<User, Integer> userMap = top10stats();
+        Map<User, Integer> userMap = topStats();
         itemTable.setItems(FXCollections.observableArrayList(userMap.keySet()));
 
         loginColumn.setCellValueFactory(dataValue -> dataValue.getValue().loginProperty());
@@ -46,23 +46,16 @@ public class UserStatsController extends GenericStatsController<User>{
     }
 
     @Override
-    protected Map<User, Integer> top10stats() {
-        OrderService orderService = (OrderService) serviceManager.getService(Order.class);
-        List<EntityObject> orders = orderService.getAll();
+    protected Map<User, Integer> topStats() {
+        TicketService ticketService = (TicketService) serviceManager.getService(Ticket.class);
+        List<EntityObject> tickets = ticketService.getAll().stream()
+                .filter(ticketObj -> ticketObj.getIsActive() && ((Ticket) ticketObj).getSeance().getIsActive())
+                .collect(Collectors.toList());
         Map<User, Integer> userMap = new HashMap<>();
-        for (EntityObject orderObject : orders){
-            Order order = (Order) orderObject;
-            User user = order.getUser();
-            userMap.put(user, userMap.getOrDefault(user, 0) + order.getTickets().size());
+        for (EntityObject ticketObject : tickets){
+            User user = ((Ticket) ticketObject).getOrder().getUser();
+            userMap.put(user, userMap.getOrDefault(user, 0) + 1);
         }
-
-        Map<User, Integer> userMapSorted = new LinkedHashMap<>();
-        userMap.entrySet()
-                .stream()
-                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-                .limit(10)
-                .forEachOrdered(x -> userMapSorted.put(x.getKey(), x.getValue()));
-
-        return userMapSorted;
+        return sortMap(userMap, 10);
     }
 }

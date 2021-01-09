@@ -1,50 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
 <?import javafx.geometry.Insets?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="agh.alleviation.presentation.controller.StatisticsController"
+            fx:controller="agh.alleviation.presentation.controller.StatisticsController" stylesheets="@../styles/Stats.css"
             prefHeight="400.0" prefWidth="600.0">
     <center>
-        <VBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="124.0" BorderPane.alignment="CENTER">
-            <children>
-                <Button fx:id="movies" mnemonicParsing="false" prefHeight="28.0" onAction="#showMovieStats"
-                        prefWidth="100.0" text="Movie" textAlignment="CENTER">
-                    <opaqueInsets>
-                        <Insets/>
-                    </opaqueInsets>
-                    <VBox.margin>
-                        <Insets bottom="5.0"/>
-                    </VBox.margin>
-                </Button>
-                <Button fx:id="genres" mnemonicParsing="false" prefHeight="28.0" onAction="#showGenreStats"
-                        prefWidth="100.0" text="Genre" textAlignment="CENTER">
-                    <VBox.margin>
-                        <Insets bottom="5.0"/>
-                    </VBox.margin>
-                </Button>
-                <Button fx:id="users" mnemonicParsing="false" prefHeight="28.0" onAction="#showUserStats"
-                        prefWidth="100.0" text="User" textAlignment="CENTER">
-                    <VBox.margin>
-                        <Insets bottom="5.0"/>
-                    </VBox.margin>
-                </Button>
-                <Button fx:id="time" mnemonicParsing="false" prefHeight="28.0" onAction="#showTimeStats"
-                        prefWidth="100.0" text="Time" textAlignment="CENTER">
-                    <VBox.margin>
-                        <Insets bottom="5.0"/>
-                    </VBox.margin>
-                </Button>
-            </children>
+        <VBox alignment="CENTER" prefHeight="100.0" prefWidth="124.0" BorderPane.alignment="CENTER">
             <BorderPane.margin>
                 <Insets top="10.0"/>
             </BorderPane.margin>
+            <Button fx:id="movies" mnemonicParsing="false" prefHeight="28.0" onAction="#showMovieStats"
+                    prefWidth="100.0" text="Movie" textAlignment="CENTER">
+                <opaqueInsets>
+                    <Insets/>
+                </opaqueInsets>
+                <VBox.margin>
+                    <Insets bottom="15.0"/>
+                </VBox.margin>
+            </Button>
+            <Button fx:id="genres" mnemonicParsing="false" prefHeight="28.0" onAction="#showGenreStats"
+                    prefWidth="100.0" text="Genre" textAlignment="CENTER">
+                <VBox.margin>
+                    <Insets bottom="15.0"/>
+                </VBox.margin>
+            </Button>
+            <Button fx:id="users" mnemonicParsing="false" prefHeight="28.0" onAction="#showUserStats"
+                    prefWidth="100.0" text="User" textAlignment="CENTER">
+                <VBox.margin>
+                    <Insets bottom="15.0"/>
+                </VBox.margin>
+            </Button>
+            <Button fx:id="time" mnemonicParsing="false" prefHeight="28.0" onAction="#showTimeStats"
+                    prefWidth="100.0" text="Time" textAlignment="CENTER">
+                <VBox.margin>
+                    <Insets bottom="15.0"/>
+                </VBox.margin>
+            </Button>
+            <Button fx:id="day" mnemonicParsing="false" prefHeight="28.0" onAction="#showDayStats"
+                    prefWidth="100.0" text="Day" textAlignment="CENTER">
+                <VBox.margin>
+                    <Insets bottom="15.0"/>
+                </VBox.margin>
+            </Button>
+            <Button fx:id="month" mnemonicParsing="false" prefHeight="28.0" onAction="#showMonthStats"
+                    prefWidth="100.0" text="Month" textAlignment="CENTER">
+                <VBox.margin>
+                    <Insets bottom="5.0"/>
+                </VBox.margin>
+            </Button>
         </VBox>
     </center>
 </BorderPane>
