@@ -35,6 +35,12 @@
                         <Insets bottom="5.0"/>
                     </VBox.margin>
                 </Button>
+                <Button fx:id="time" mnemonicParsing="false" prefHeight="28.0" onAction="#showTimeStats"
+                        prefWidth="100.0" text="Time" textAlignment="CENTER">
+                    <VBox.margin>
+                        <Insets bottom="5.0"/>
+                    </VBox.margin>
+                </Button>
             </children>
             <BorderPane.margin>
                 <Insets top="10.0"/>

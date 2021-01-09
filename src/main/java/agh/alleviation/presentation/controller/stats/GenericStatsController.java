@@ -20,7 +20,7 @@ public abstract class GenericStatsController<Item> extends GenericController {
      * The Item table.
      */
     @FXML
-    protected TableView<EntityObject> itemTable;
+    protected TableView<Item> itemTable;
 
     @FXML
     public Button back;
