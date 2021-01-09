@@ -1,5 +1,6 @@
 package agh.alleviation.model;
 
+import agh.alleviation.util.Rating;
 import javafx.beans.property.*;
 
 import javax.persistence.*;
@@ -54,7 +55,7 @@ public class Ticket extends EntityObject {
     private final DoubleProperty priceProperty = new SimpleDoubleProperty(this, "price");
     private final ObjectProperty<Order> orderProperty = new SimpleObjectProperty<>();
     private final BooleanProperty isRatedProperty = new SimpleBooleanProperty();
-    private final BooleanProperty isRatingPositive = new SimpleBooleanProperty();
+    private final IntegerProperty isRatingPositive = new SimpleIntegerProperty();
 
     /**
      * Instantiates a new Ticket.
@@ -72,11 +73,13 @@ public class Ticket extends EntityObject {
         setSeance(seance);
         setPrice(price);
         setIsActive(true);
+        setIsRated(false);
     }
 
     public Ticket(Seance seance) {
         setSeance(seance);
         setIsActive(true);
+        setIsRated(false);
     }
 
     /**
@@ -154,12 +157,12 @@ public class Ticket extends EntityObject {
     public BooleanProperty isRatedProperty() { return isRatedProperty; }
 
     @Column(name = Columns.IS_RATING_POSITIVE)
-    public boolean getIsRatingPositive() { return isRatingPositive.get(); }
+    public Rating getIsRatingPositive() { return Rating.fromOrdinal(isRatingPositive.get()); }
 
-    public void setIsRatingPositive(boolean rating) { isRatingPositive.set(rating); }
+    public void setIsRatingPositive(Rating rating) { isRatingPositive.set(rating.ordinal()); }
 
     @Transient
-    public BooleanProperty isRatingPositiveProperty() { return isRatingPositive; }
+    public IntegerProperty isRatingPositiveProperty() { return isRatingPositive; }
 
 //    @Override
 //    public List<EntityObject> update() {
@@ -186,6 +189,6 @@ public class Ticket extends EntityObject {
         setPrice(in.readInt());
         setOrder((Order) in.readObject());
         setIsRated(in.readBoolean());
-        setIsRatingPositive(in.readBoolean());
+        setIsRatingPositive(Rating.fromOrdinal(in.readInt()));
     }
 }
