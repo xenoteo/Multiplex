@@ -105,17 +105,27 @@ public class OrderService extends EntityObjectService<Order, OrderRepository> {
         user.addOrder(orderObj);
         orderRepository.save(orderObj);
         userRepository.save(user);
-        HashMap<Seance, Ticket> seancesAndTicket = new HashMap<>();
+
+        HashMap<Seance, List<Ticket>> seancesAndTicket = new HashMap<>();
+
         for (Ticket ticket : orderObj.getTickets()) {
             ticket.setOrder(orderObj);
-            seancesAndTicket.put(ticket.getSeance(), ticket);
+            seancesAndTicket.computeIfAbsent(ticket.getSeance(), k -> new ArrayList<>());
+            seancesAndTicket.get(ticket.getSeance()).add(ticket);
             ticketRepository.save(ticket);
+
+
+//            Seance loadedSeance = seanceRepository.findByIdWithTickets(seance.getId());
+//            loadedSeance.addTicket(seancesAndTicket.get(seance));
+//            seanceRepository.save(seance);
         }
 
+//        System.out.println("OrderService::add");
         for(Seance seance: seancesAndTicket.keySet()){
+            System.out.println(seance.getId());
             Seance loadedSeance = seanceRepository.findByIdWithTickets(seance.getId());
-            loadedSeance.addTicket(seancesAndTicket.get(seance));
-            seanceRepository.save(seance);
+            seancesAndTicket.get(loadedSeance).forEach(loadedSeance::addTicket);
+            seanceRepository.save(loadedSeance);
         }
     }
 

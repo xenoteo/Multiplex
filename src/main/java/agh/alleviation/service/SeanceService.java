@@ -90,7 +90,7 @@ public class SeanceService extends EntityObjectService<Seance, SeanceRepository>
      */
     @Override
     public List<EntityObject> delete(EntityObject seance) {
-        seance = repository.findByIdWithTickets(seance.getId());
-        return super.delete(seance);
+        Seance seanceObj = repository.findByIdWithTickets(seance.getId());
+        return super.delete(seanceObj);
     }
 }
