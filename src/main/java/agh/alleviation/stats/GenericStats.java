@@ -2,21 +2,27 @@ package agh.alleviation.stats;
 
 import agh.alleviation.presentation.controller.GenericController;
 import agh.alleviation.service.TicketService;
-import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
-import net.rgielen.fxweaver.core.FxmlView;
-import org.springframework.stereotype.Component;
 
 import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * Abstraction for stats classes - responsible for generating statistics of certain type.
+ * Class responsible for generation of month statistics and update of the statistics table.
+ * @see agh.alleviation.presentation.controller.StatisticsController
+ * @author Ksenia Fiodarava
+ */
 public abstract class GenericStats<Item> extends GenericController {
     /**
      * The Item table.
      */
     protected TableView<Item> itemTable;
 
+    /**
+     * A ticket service.
+     */
     protected TicketService ticketService;
 
     public GenericStats(TableView itemTable, TicketService ticketService) {

@@ -7,7 +7,8 @@
 <?import javafx.geometry.Insets?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="agh.alleviation.presentation.controller.StatisticsController" stylesheets="@../styles/Stats.css"
+            fx:controller="agh.alleviation.presentation.controller.StatisticsController"
+            stylesheets="@../styles/ListView.css"
             prefHeight="400.0" prefWidth="600.0">
     <center>
         <TableView fx:id="itemTable" prefHeight="400.0" prefWidth="522.0" BorderPane.alignment="CENTER">
@@ -56,6 +57,12 @@
             </Button>
             <Button fx:id="months" mnemonicParsing="false" prefHeight="28.0" onAction="#handleButtonClicked"
                     prefWidth="100.0" text="Month" textAlignment="CENTER">
+                <VBox.margin>
+                    <Insets bottom="15.0"/>
+                </VBox.margin>
+            </Button>
+            <Button fx:id="reset" mnemonicParsing="false" prefHeight="28.0" onAction="#reset"
+                    prefWidth="100.0" text="Reset" textAlignment="CENTER" styleClass="removeButton">
                 <VBox.margin>
                     <Insets bottom="5.0"/>
                 </VBox.margin>

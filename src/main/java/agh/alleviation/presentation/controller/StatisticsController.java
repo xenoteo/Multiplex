@@ -38,6 +38,9 @@ public class StatisticsController extends GenericController{
 
     @FXML
     public Button months;
+
+    @FXML
+    public Button reset;
     
     @FXML
     public TableView itemTable;
@@ -59,5 +62,10 @@ public class StatisticsController extends GenericController{
     public void handleButtonClicked(ActionEvent event){
         Button button = (Button) event.getSource();
         statsMap.get(button).showStats();
+    }
+
+    @FXML
+    public void reset(ActionEvent event){
+        itemTable.getColumns().clear();
     }
 }
