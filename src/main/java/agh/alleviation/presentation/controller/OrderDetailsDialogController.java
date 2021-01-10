@@ -63,6 +63,9 @@ public class OrderDetailsDialogController extends EditDialogController<Order> {
     @FXML
     public TableColumn<Seance, Void> rateColumn;
 
+    @FXML
+    public TableColumn<Seance, Boolean> activeColumn;
+
     @Override
     protected Validator createValidations() {
         return null;
@@ -75,6 +78,7 @@ public class OrderDetailsDialogController extends EditDialogController<Order> {
         hallColumn.setCellValueFactory(dataValue -> dataValue.getValue().getHall().numberProperty());
         dateColumn.setCellValueFactory(dataValue -> dataValue.getValue().dateProperty());
         priceColumn.setCellValueFactory(dataValue -> dataValue.getValue().priceProperty());
+        activeColumn.setCellValueFactory(dataValue -> dataValue.getValue().isActiveProperty());
         Callback<TableColumn<Seance, Void>, TableCell<Seance, Void>> cellFactory = new Callback<>() {
             @Override
             public TableCell<Seance, Void> call(final TableColumn<Seance, Void> param) {
@@ -123,13 +127,16 @@ public class OrderDetailsDialogController extends EditDialogController<Order> {
                         if (empty) {
                             setGraphic(null);
                         } else {
-                            setGraphic(box);
-
                             Ticket ticket = editedItem.getTickets().get(getIndex());
-                            if (ticket.getIsRated()) {
-                                ToggleButton button =
-                                    ticket.getIsRatingPositive() == Rating.POSITIVE ? likeButton : dislikeButton;
-                                button.getStyleClass().add(selectedClassName);
+
+                            if (ticket.getIsActive()) {
+                                setGraphic(box);
+
+                                if (ticket.getIsRated()) {
+                                    ToggleButton button =
+                                        ticket.getIsRatingPositive() == Rating.POSITIVE ? likeButton : dislikeButton;
+                                    button.getStyleClass().add(selectedClassName);
+                                }
                             }
                         }
                     }
