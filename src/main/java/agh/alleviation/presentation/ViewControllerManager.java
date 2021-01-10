@@ -14,7 +14,6 @@ import agh.alleviation.model.Hall;
 import agh.alleviation.model.Movie;
 import agh.alleviation.model.Seance;
 import agh.alleviation.model.user.User;
-import agh.alleviation.presentation.controller.stats.*;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -248,51 +247,4 @@ public class ViewControllerManager {
         this.activeUser = activeUser;
     }
 
-    /**
-     * Shows movie stats.
-     */
-    public void showMovieStats() {
-        new StatsDialogContext<>(primaryStage, fxWeaver.load(MovieStatsController.class),
-                "Movie stats").showStats();
-    }
-
-    /**
-     * Shows genre stats.
-     */
-    public void showGenreStats() {
-        new StatsDialogContext<>(primaryStage, fxWeaver.load(GenreStatsController.class),
-                "Genre stats").showStats();
-    }
-
-    /**
-     * Shows user stats.
-     */
-    public void showUserStats() {
-        new StatsDialogContext<>(primaryStage, fxWeaver.load(UserStatsController.class),
-                "User stats").showStats();
-    }
-
-    /**
-     * Shows time stats.
-     */
-    public void showTimeStats() {
-        new StatsDialogContext<>(primaryStage, fxWeaver.load(TimeStatsController.class),
-                "Time stats").showStats();
-    }
-
-    /**
-     * Shows day of week stats.
-     */
-    public void showDayStats() {
-        new StatsDialogContext<>(primaryStage, fxWeaver.load(DayStatsController.class),
-                "Day of week stats").showStats();
-    }
-
-    /**
-     * Shows month stats.
-     */
-    public void showMonthStats() {
-        new StatsDialogContext<>(primaryStage, fxWeaver.load(MonthStatsController.class),
-                "Month stats").showStats();
-    }
 }

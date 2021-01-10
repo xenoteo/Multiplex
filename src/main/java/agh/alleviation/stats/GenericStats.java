@@ -1,52 +1,34 @@
-package agh.alleviation.presentation.controller.stats;
+package agh.alleviation.stats;
 
 import agh.alleviation.presentation.controller.GenericController;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import agh.alleviation.service.TicketService;
 import javafx.scene.control.TableView;
-import javafx.stage.Stage;
 
 import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * Abstraction for StatsControllers - responsible for displaying statistics.
- * @param <Item> specific object displayed in the view's table
+ * Abstraction for stats classes - responsible for generating statistics of certain type.
+ * Class responsible for generation of month statistics and update of the statistics table.
+ * @see agh.alleviation.presentation.controller.StatisticsController
  * @author Ksenia Fiodarava
  */
-public abstract class GenericStatsController<Item> extends GenericController {
+public abstract class GenericStats<Item> extends GenericController {
     /**
      * The Item table.
      */
-    @FXML
     protected TableView<Item> itemTable;
 
-    @FXML
-    public Button back;
-
     /**
-     * Stage on which modal is placed.
+     * A ticket service.
      */
-    protected Stage dialogStage;
+    protected TicketService ticketService;
 
-    /**
-     * Sets dialog stage.
-     *
-     * @param dialogStage the dialog stage
-     */
-    public void setDialogStage(Stage dialogStage) {
-        this.dialogStage = dialogStage;
-    }
-
-    /**
-     * Handles back action
-     * @param event the event
-     */
-    @FXML
-    public void handleBackAction(ActionEvent event){
-        dialogStage.close();
+    public GenericStats(TableView itemTable, TicketService ticketService) {
+        this.itemTable = itemTable;
+        this.ticketService = ticketService;
+        setUpColumns();
     }
 
     /**
@@ -70,4 +52,19 @@ public abstract class GenericStatsController<Item> extends GenericController {
                 .forEachOrdered(x -> mapSorted.put(x.getKey(), x.getValue()));
         return mapSorted;
     }
+
+    /**
+     * Shows stats.
+     */
+    public abstract void showStats();
+
+    /**
+     * Sets up columns.
+     */
+    protected abstract void setUpColumns();
+
+    /**
+     * Updates table columns.
+     */
+    protected abstract void updateTableColumns();
 }
