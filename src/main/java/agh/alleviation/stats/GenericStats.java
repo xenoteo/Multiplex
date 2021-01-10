@@ -1,52 +1,28 @@
-package agh.alleviation.presentation.controller.stats;
+package agh.alleviation.stats;
 
 import agh.alleviation.presentation.controller.GenericController;
-import javafx.event.ActionEvent;
+import agh.alleviation.service.TicketService;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
-import javafx.stage.Stage;
+import net.rgielen.fxweaver.core.FxmlView;
+import org.springframework.stereotype.Component;
 
 import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-/**
- * Abstraction for StatsControllers - responsible for displaying statistics.
- * @param <Item> specific object displayed in the view's table
- * @author Ksenia Fiodarava
- */
-public abstract class GenericStatsController<Item> extends GenericController {
+public abstract class GenericStats<Item> extends GenericController {
     /**
      * The Item table.
      */
-    @FXML
     protected TableView<Item> itemTable;
 
-    @FXML
-    public Button back;
+    protected TicketService ticketService;
 
-    /**
-     * Stage on which modal is placed.
-     */
-    protected Stage dialogStage;
-
-    /**
-     * Sets dialog stage.
-     *
-     * @param dialogStage the dialog stage
-     */
-    public void setDialogStage(Stage dialogStage) {
-        this.dialogStage = dialogStage;
-    }
-
-    /**
-     * Handles back action
-     * @param event the event
-     */
-    @FXML
-    public void handleBackAction(ActionEvent event){
-        dialogStage.close();
+    public GenericStats(TableView itemTable, TicketService ticketService) {
+        this.itemTable = itemTable;
+        this.ticketService = ticketService;
+        setUpColumns();
     }
 
     /**
@@ -70,4 +46,19 @@ public abstract class GenericStatsController<Item> extends GenericController {
                 .forEachOrdered(x -> mapSorted.put(x.getKey(), x.getValue()));
         return mapSorted;
     }
+
+    /**
+     * Shows stats.
+     */
+    public abstract void showStats();
+
+    /**
+     * Sets up columns.
+     */
+    protected abstract void setUpColumns();
+
+    /**
+     * Updates table columns.
+     */
+    protected abstract void updateTableColumns();
 }
