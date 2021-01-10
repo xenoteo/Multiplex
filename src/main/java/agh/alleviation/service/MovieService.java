@@ -104,7 +104,7 @@ public class MovieService extends EntityObjectService<Movie, MovieRepository> {
             if (rating == Rating.POSITIVE) ratedMovie.setLikes(ratedMovie.getLikes() + 1);
             else ratedMovie.setDislikes(ratedMovie.getDislikes() + 1);
             ticket.setIsRated(true);
-        } else {
+        } else if (rating != ticket.getIsRatingPositive()) {
             int difference = rating == Rating.POSITIVE ? 1 : -1;
             ratedMovie.setLikes(ratedMovie.getLikes() + difference);
             ratedMovie.setDislikes(ratedMovie.getDislikes() - difference);

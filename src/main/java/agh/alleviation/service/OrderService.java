@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -104,11 +105,16 @@ public class OrderService extends EntityObjectService<Order, OrderRepository> {
         user.addOrder(orderObj);
         orderRepository.save(orderObj);
         userRepository.save(user);
+        HashMap<Seance, Ticket> seancesAndTicket = new HashMap<>();
         for (Ticket ticket : orderObj.getTickets()) {
             ticket.setOrder(orderObj);
-            Seance seance = seanceRepository.findByIdWithTickets(ticket.getSeance().getId());
-            seance.addTicket(ticket);
+            seancesAndTicket.put(ticket.getSeance(), ticket);
             ticketRepository.save(ticket);
+        }
+
+        for(Seance seance: seancesAndTicket.keySet()){
+            Seance loadedSeance = seanceRepository.findByIdWithTickets(seance.getId());
+            loadedSeance.addTicket(seancesAndTicket.get(seance));
             seanceRepository.save(seance);
         }
     }
