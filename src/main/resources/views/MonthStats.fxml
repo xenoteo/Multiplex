@@ -6,12 +6,12 @@
 <?import javafx.geometry.Insets?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="agh.alleviation.presentation.controller.stats.TimeStatsController" stylesheets="@../styles/Stats.css"
+            fx:controller="agh.alleviation.presentation.controller.stats.MonthStatsController" stylesheets="@../styles/Stats.css"
             prefHeight="400.0" prefWidth="400.0">
     <center>
         <TableView fx:id="itemTable" prefHeight="400.0" prefWidth="522.0" BorderPane.alignment="CENTER">
             <columns>
-                <TableColumn fx:id="timeColumn" editable="false" prefWidth="113.0" text="Time" />
+                <TableColumn fx:id="monthColumn" editable="false" prefWidth="113.0" text="Month" />
                 <TableColumn fx:id="ticketsColumn" prefWidth="75.0" text="Tickets bought" />
             </columns>
             <columnResizePolicy>

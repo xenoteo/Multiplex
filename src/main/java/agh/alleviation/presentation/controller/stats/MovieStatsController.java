@@ -97,7 +97,7 @@ public class MovieStatsController extends GenericStatsController<Movie> {
     protected Map<Movie, Integer> topStats() {
         TicketService ticketService = (TicketService) serviceManager.getService(Ticket.class);
         List<EntityObject> tickets = ticketService.getAll().stream()
-                .filter(ticketObj -> ticketObj.getIsActive() && ((Ticket) ticketObj).getSeance().getIsActive())
+                .filter(EntityObject::getIsActive)
                 .collect(Collectors.toList());
         Map<Movie, Integer> movieMap = new HashMap<>();
         for (EntityObject ticketObject : tickets){

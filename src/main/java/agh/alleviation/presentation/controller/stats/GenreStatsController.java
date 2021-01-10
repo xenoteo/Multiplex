@@ -48,7 +48,7 @@ public class GenreStatsController extends GenericStatsController<Genre>{
     protected Map<Genre, Integer> topStats() {
         TicketService ticketService = (TicketService) serviceManager.getService(Ticket.class);
         List<EntityObject> tickets = ticketService.getAll().stream()
-                .filter(ticketObj -> ticketObj.getIsActive() && ((Ticket) ticketObj).getSeance().getIsActive())
+                .filter(EntityObject::getIsActive)
                 .collect(Collectors.toList());
         Map<Genre, Integer> genreMap = new HashMap<>();
         for (EntityObject ticketObject : tickets){

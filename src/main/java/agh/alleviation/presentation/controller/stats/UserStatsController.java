@@ -49,7 +49,7 @@ public class UserStatsController extends GenericStatsController<User>{
     protected Map<User, Integer> topStats() {
         TicketService ticketService = (TicketService) serviceManager.getService(Ticket.class);
         List<EntityObject> tickets = ticketService.getAll().stream()
-                .filter(ticketObj -> ticketObj.getIsActive() && ((Ticket) ticketObj).getSeance().getIsActive())
+                .filter(EntityObject::getIsActive)
                 .collect(Collectors.toList());
         Map<User, Integer> userMap = new HashMap<>();
         for (EntityObject ticketObject : tickets){
