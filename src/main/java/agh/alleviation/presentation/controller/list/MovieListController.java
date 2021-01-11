@@ -84,8 +84,6 @@ public class MovieListController extends GenericListController<Movie> {
             return Bindings.createStringBinding(() -> {
                 int likes = movie.getLikes();
                 int ratesCount = likes + movie.getDislikes();
-                System.out.println("likes " + likes + ", ratesCount " + ratesCount);
-
                 return ratesCount == 0 ? "No rates" : 100 * likes / ratesCount + "%";
             }, movie.likesProperty(), movie.dislikesProperty());
         });
@@ -106,7 +104,6 @@ public class MovieListController extends GenericListController<Movie> {
                     viewControllerManager.getSeanceDialogContext().showEditItemDialog(seance);
                 }
             }
-            default -> System.out.println("No action");
         }
     }
 

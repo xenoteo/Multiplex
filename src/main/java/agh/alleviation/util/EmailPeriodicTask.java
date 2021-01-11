@@ -48,8 +48,7 @@ public class EmailPeriodicTask {
     @Scheduled(fixedRate = CHECK_INTERVAL_SECONDS * 1000)
     public void checkReservations() {
         List<EntityObject> tickets = ticketService.getAll().stream().filter(EntityObject::getIsActive).collect(Collectors.toList());
-        System.out.println("Checking tickets...");
-        System.out.println(tickets.size());
+        System.out.printf("Checking %d tickets...\n", tickets.size());
         for (EntityObject ticketObject : tickets) {
             Ticket ticket = (Ticket) ticketObject;
             LocalDateTime seanceDate = ticket.getSeance().getDate();
