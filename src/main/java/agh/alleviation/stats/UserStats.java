@@ -16,9 +16,10 @@ import java.util.stream.Collectors;
 
 /**
  * Class responsible for generation of user statistics and update of the statistics table.
+ *
+ * @author Ksenia Fiodarava
  * @see GenericStats
  * @see agh.alleviation.presentation.controller.StatisticsController
- * @author Ksenia Fiodarava
  */
 public class UserStats extends GenericStats<User> {
     /**
@@ -35,15 +36,21 @@ public class UserStats extends GenericStats<User> {
      * The type Columns.
      */
     public static class Columns {
+        /**
+         * The constant NICK.
+         */
         public static final String NICK = "Nick";
+        /**
+         * The constant TICKETS.
+         */
         public static final String TICKETS = "Tickets bought";
     }
 
     /**
      * Instantiates a user stats.
      *
-     * @param itemTable  the item table
-     * @param ticketService  the ticket service
+     * @param itemTable     the item table
+     * @param ticketService the ticket service
      */
     public UserStats(TableView itemTable, TicketService ticketService) {
         super(itemTable, ticketService);

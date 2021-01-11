@@ -11,8 +11,10 @@ import java.util.Map;
 /**
  * Abstraction for stats classes - responsible for generating statistics of certain type.
  * Class responsible for generation of month statistics and update of the statistics table.
- * @see agh.alleviation.presentation.controller.StatisticsController
+ *
+ * @param <Item> the type parameter
  * @author Ksenia Fiodarava
+ * @see agh.alleviation.presentation.controller.StatisticsController
  */
 public abstract class GenericStats<Item> extends GenericController {
     /**
@@ -28,8 +30,8 @@ public abstract class GenericStats<Item> extends GenericController {
     /**
      * Instantiates a generic stats.
      *
-     * @param itemTable  the item table
-     * @param ticketService  the ticket service
+     * @param itemTable     the item table
+     * @param ticketService the ticket service
      */
     public GenericStats(TableView itemTable, TicketService ticketService) {
         this.itemTable = itemTable;
@@ -39,13 +41,15 @@ public abstract class GenericStats<Item> extends GenericController {
 
     /**
      * Generates a map of top 10 items.
+     *
      * @return a map of top 10 items
      */
     protected abstract Map<Item, Integer> topStats();
 
     /**
      * Sorts a map by values and limits it with provided number of items.
-     * @param map a map to sort
+     *
+     * @param map   a map to sort
      * @param limit number of items to be in a sorted map
      * @return sorted amd limited map
      */

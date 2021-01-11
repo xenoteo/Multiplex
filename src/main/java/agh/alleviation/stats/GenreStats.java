@@ -16,9 +16,10 @@ import java.util.stream.Collectors;
 
 /**
  * Class responsible for generation of genre statistics and update of the statistics table.
+ *
+ * @author Ksenia Fiodarava
  * @see GenericStats
  * @see agh.alleviation.presentation.controller.StatisticsController
- * @author Ksenia Fiodarava
  */
 public class GenreStats extends GenericStats<Genre> {
     /**
@@ -35,15 +36,21 @@ public class GenreStats extends GenericStats<Genre> {
      * The type Columns.
      */
     public static class Columns {
+        /**
+         * The constant NAME.
+         */
         public static final String NAME = "Name";
+        /**
+         * The constant TICKETS.
+         */
         public static final String TICKETS = "Tickets bought";
     }
 
     /**
      * Instantiates a genre stats.
      *
-     * @param itemTable  the item table
-     * @param ticketService  the ticket service
+     * @param itemTable     the item table
+     * @param ticketService the ticket service
      */
     public GenreStats(TableView itemTable, TicketService ticketService) {
         super(itemTable, ticketService);

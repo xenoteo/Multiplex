@@ -13,8 +13,8 @@ import java.io.ObjectOutput;
  * It keeps the information about the seance and its price.
  * Seance's price may be different from the ticket's price, as a customer may have a discount.
  *
- * @see Seance
  * @author Ksenia Fiodarava
+ * @see Seance
  */
 @Entity
 @Table(name = Ticket.TABLE_NAME)
@@ -65,7 +65,7 @@ public class Ticket extends EntityObject {
     /**
      * Instantiates a new Ticket.
      *
-     * @param seance  the seance
+     * @param seance the seance
      * @param price  the price
      */
     public Ticket(Seance seance, double price) {
@@ -78,7 +78,7 @@ public class Ticket extends EntityObject {
     /**
      * Instantiates a new Ticket.
      *
-     * @param seance  the seance
+     * @param seance the seance
      */
     public Ticket(Seance seance) {
         setSeance(seance);
@@ -107,7 +107,7 @@ public class Ticket extends EntityObject {
     /**
      * Sets the seance.
      *
-     * @param seance  the seance
+     * @param seance the seance
      */
     public void setSeance(Seance seance) { seanceProperty.setValue(seance);}
 
@@ -139,14 +139,14 @@ public class Ticket extends EntityObject {
     /**
      * Sets the order.
      *
-     * @param order  the order
+     * @param order the order
      */
     public void setOrder(Order order) { orderProperty.set(order); }
 
     /**
      * Sets the price.
      *
-     * @param price  the price
+     * @param price the price
      */
     public void setPrice(double price) {
         priceProperty.set(price);
@@ -163,7 +163,7 @@ public class Ticket extends EntityObject {
     /**
      * Sets is rated.
      *
-     * @param isRated  is rated boolean
+     * @param isRated is rated boolean
      */
     public void setIsRated(boolean isRated) { isRatedProperty.set(isRated); }
 
@@ -186,7 +186,7 @@ public class Ticket extends EntityObject {
     /**
      * Sets is rating positive.
      *
-     * @param rating  the rating
+     * @param rating the rating
      */
     public void setIsRatingPositive(Rating rating) { isRatingPositive.set(rating.ordinal()); }
 

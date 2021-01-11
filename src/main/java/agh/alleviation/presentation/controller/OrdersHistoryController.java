@@ -40,7 +40,8 @@ public class OrdersHistoryController extends GenericController implements Proper
 
     /**
      * Sets the active user.
-     * @param activeUser  the active user
+     *
+     * @param activeUser the active user
      */
     @Autowired
     public void setActiveUser(ActiveUser activeUser) {

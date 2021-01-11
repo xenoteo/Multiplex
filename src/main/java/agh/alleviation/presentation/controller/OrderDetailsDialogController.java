@@ -23,7 +23,6 @@ import java.util.stream.Collectors;
  *
  * @author Kamil Krzempek
  */
-
 @Component
 @FxmlView("/views/OrderDetailsDialog.fxml")
 public class OrderDetailsDialogController extends EditDialogController<Order> {

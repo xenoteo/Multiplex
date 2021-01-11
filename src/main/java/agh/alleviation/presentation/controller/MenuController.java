@@ -15,6 +15,7 @@ import java.util.HashMap;
 /**
  * Controller responsible for management of the navigation bar. Displayed content depends on the logged in user's privileges -
  * achieved through observing ActiveUser's field via Spring PropertyChangeListener interface.
+ *
  * @author Kamil Krzempek
  * @author Anna Nosek
  */
@@ -87,7 +88,7 @@ public class MenuController extends GenericController implements PropertyChangeL
     /**
      * Handles active button changed.
      *
-     * @param event  the event
+     * @param event the event
      */
     @FXML
     public void handleActiveButtonChanged(ActionEvent event){
@@ -109,7 +110,7 @@ public class MenuController extends GenericController implements PropertyChangeL
     /**
      * Proceeds logout operation.
      *
-     * @param event  the event
+     * @param event the event
      */
     public void logout(ActionEvent event) {
         viewControllerManager.logout();

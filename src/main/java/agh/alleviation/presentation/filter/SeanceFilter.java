@@ -12,7 +12,7 @@ public interface SeanceFilter {
     /**
      * Applies a filter.
      *
-     * @param seance  the seance
+     * @param seance the seance
      * @return whether seance is appropriate for the filter
      */
     boolean apply(Seance seance);

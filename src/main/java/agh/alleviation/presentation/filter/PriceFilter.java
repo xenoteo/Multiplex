@@ -18,7 +18,7 @@ public class PriceFilter implements SeanceFilter {
     /**
      * Instantiates a price filter.
      *
-     * @param maxPrice  the max price
+     * @param maxPrice the max price
      */
     public PriceFilter(int maxPrice){
         this.maxPrice = maxPrice;
@@ -32,7 +32,7 @@ public class PriceFilter implements SeanceFilter {
     /**
      * Sets the max price.
      *
-     * @param maxPrice  the max price
+     * @param maxPrice the max price
      */
     public void setMaxPrice(float maxPrice){
         this.maxPrice = maxPrice;

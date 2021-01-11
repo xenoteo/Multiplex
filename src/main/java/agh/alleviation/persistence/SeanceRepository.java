@@ -7,14 +7,14 @@ import org.springframework.data.repository.CrudRepository;
 /**
  * Repository of seances.
  *
- * @see Seance
  * @author Ksenia Fiodarava
+ * @see Seance
  */
 public interface SeanceRepository extends CrudRepository<Seance, Integer> {
     /**
      * Finds a seance by id with tickets.
      *
-     * @param id  the id
+     * @param id the id
      * @return the seance
      */
     @Query("SELECT s FROM Seance s LEFT JOIN FETCH s.tickets WHERE s.id = ?1")

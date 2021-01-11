@@ -33,8 +33,8 @@ import java.util.Map;
  * It heavily relies on FxWeaver in order to maintain cooperation between JavaFX and Spring Boot.
  * It sets up modal views for adding user and hall.
  *
- * @see ScreenSwitcher
  * @author Kamil Krzempek
+ * @see ScreenSwitcher
  */
 @Component
 public class ViewControllerManager {
@@ -53,7 +53,7 @@ public class ViewControllerManager {
     /**
      * Sets the fx weaver.
      *
-     * @param weaver  the weaver
+     * @param weaver the weaver
      */
     public void setFxWeaver(FxWeaver weaver) {
         fxWeaver = weaver;
@@ -62,7 +62,7 @@ public class ViewControllerManager {
     /**
      * Sets the primary stage.
      *
-     * @param stage  the stage
+     * @param stage the stage
      */
     public void setPrimaryStage(Stage stage) {
         primaryStage = stage;
@@ -149,7 +149,7 @@ public class ViewControllerManager {
     /**
      * Switches the view.
      *
-     * @param screen  the screen
+     * @param screen the screen
      */
     public void switchView(Screen screen) {
         screenSwitcher.activate(screen);

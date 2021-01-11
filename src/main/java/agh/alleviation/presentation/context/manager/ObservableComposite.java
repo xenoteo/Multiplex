@@ -30,7 +30,7 @@ public class ObservableComposite {
     /**
      * Gets the list.
      *
-     * @param itemClass  the item class
+     * @param itemClass the item class
      * @return the list
      */
     public ObservableList<EntityObject> getList(Class<?> itemClass) {
@@ -40,7 +40,7 @@ public class ObservableComposite {
     /**
      * Gets the active elements list.
      *
-     * @param itemClass  the item class
+     * @param itemClass the item class
      * @return the active elements list
      */
     public ObservableList<EntityObject> getActiveElementsList(Class<?> itemClass) {
@@ -50,7 +50,7 @@ public class ObservableComposite {
     /**
      * Adds an observable list.
      *
-     * @param itemClass  the item class
+     * @param itemClass the item class
      */
     public void addObservableList(Class<?> itemClass) {
         observableLists.put(itemClass, FXCollections.observableArrayList());
@@ -59,8 +59,8 @@ public class ObservableComposite {
     /**
      * Adds an item.
      *
-     * @param itemClass  the item class
-     * @param item  the item
+     * @param itemClass the item class
+     * @param item      the item
      */
     public void add(Class<?> itemClass, EntityObject item) {
         if (observableLists.get(itemClass) == null) addObservableList(itemClass);
@@ -70,7 +70,7 @@ public class ObservableComposite {
     /**
      * Adds all.
      *
-     * @param itemClass  the item class
+     * @param itemClass the item class
      * @param itemList  the item list
      */
     public void addAll(Class<?> itemClass, List<EntityObject> itemList) {
@@ -81,8 +81,8 @@ public class ObservableComposite {
     /**
      * Updates.
      *
-     * @param itemClass  the item class
-     * @param item  the item
+     * @param itemClass the item class
+     * @param item      the item
      */
     public void update(Class<?> itemClass, EntityObject item) {
         if (observableLists.get(itemClass) == null) addObservableList(itemClass);
@@ -94,8 +94,8 @@ public class ObservableComposite {
     /**
      * Deletes.
      *
-     * @param itemClass  the item class
-     * @param item  the item
+     * @param itemClass the item class
+     * @param item      the item
      */
     public void delete(Class<?> itemClass, EntityObject item) {
         if (observableLists.get(itemClass) == null) return;
@@ -104,7 +104,8 @@ public class ObservableComposite {
 
     /**
      * Clears the observable list.
-     * @param itemClass  he item class
+     *
+     * @param itemClass he item class
      */
     public void clearObservableList(Class<? extends EntityObject> itemClass) {
         if (observableLists.get(itemClass) != null) observableLists.get(itemClass).clear();

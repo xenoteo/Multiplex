@@ -6,8 +6,8 @@ import org.springframework.data.repository.CrudRepository;
 /**
  * Repository of tickets.
  *
- * @see Ticket
  * @author Ksenia Fiodarava
+ * @see Ticket
  */
 public interface TicketRepository extends CrudRepository<Ticket, Integer> {
 

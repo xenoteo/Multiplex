@@ -11,7 +11,6 @@ import java.util.List;
  *
  * @author Anna Nosek
  */
-
 public class CompositeFilter implements SeanceFilter {
 
     /**
@@ -29,7 +28,7 @@ public class CompositeFilter implements SeanceFilter {
     /**
      * Adds a filter.
      *
-     * @param filter  the filter
+     * @param filter the filter
      */
     public void addFilter(SeanceFilter filter){
         removeFilter(filter);
@@ -39,7 +38,7 @@ public class CompositeFilter implements SeanceFilter {
     /**
      * Removes a filter.
      *
-     * @param filter  the fiter
+     * @param filter the fiter
      */
     public void removeFilter(SeanceFilter filter){
         filters.remove(filter);

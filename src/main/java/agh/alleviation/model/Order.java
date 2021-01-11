@@ -18,9 +18,9 @@ import java.util.stream.Collectors;
  * Class responsible for representation of customer's orders.
  * In one order there may be many tickets, but one order can be bought only by one user.
  *
+ * @author Ksenia Fiodarava
  * @see Ticket
  * @see Customer
- * @author Ksenia Fiodarava
  */
 @Entity
 @Table(name = Order.TABLE_NAME)
@@ -62,8 +62,8 @@ public class Order extends EntityObject {
     /**
      * Instantiates a new Order.
      *
-     * @param tickets  the list of tickets
-     * @param user  the user
+     * @param tickets the list of tickets
+     * @param user    the user
      */
     public Order(List<Ticket> tickets, User user) {
         setTickets(tickets);
@@ -74,7 +74,7 @@ public class Order extends EntityObject {
     /**
      * Instantiates a new Order.
      *
-     * @param user  the user
+     * @param user the user
      */
     public Order(User user) {
         setUser(user);
@@ -111,7 +111,7 @@ public class Order extends EntityObject {
     /**
      * Sets tickets.
      *
-     * @param tickets  the tickets
+     * @param tickets the tickets
      */
     public void setTickets(List<Ticket> tickets) {
         ticketsProperty.setValue(tickets);
@@ -120,7 +120,7 @@ public class Order extends EntityObject {
     /**
      * Adds a ticket.
      *
-     * @param ticket  the ticket
+     * @param ticket the ticket
      */
     public void addTicket(Ticket ticket){
         if(getTickets() == null){
@@ -151,7 +151,7 @@ public class Order extends EntityObject {
     /**
      * Sets a user.
      *
-     * @param user  the user
+     * @param user the user
      */
     public void setUser(User user) {
         userProperty.setValue(user);
@@ -169,7 +169,7 @@ public class Order extends EntityObject {
     /**
      * Sets a date.
      *
-     * @param date  the date
+     * @param date the date
      */
     public void setDate(LocalDateTime date) {
         dateProperty.setValue(date);

@@ -14,6 +14,7 @@ import java.util.Map;
 /**
  * Provides logic and abstraction of Controller-Service-ObservableList communication.
  * Introduced to decouple Controllers from Services and to allow showing the current database changes made in different parts of the application.
+ *
  * @author Anna Nosek
  */
 @Component
@@ -29,6 +30,7 @@ public class ServiceManager {
      * @param seanceService the seance service
      * @param userService   the user service
      * @param ticketService the ticket service
+     * @param orderService  the order service
      */
     @Autowired
     public ServiceManager(
@@ -64,7 +66,7 @@ public class ServiceManager {
     /**
      * Gets an ObservableList associated with a specialization of EntityObject class.
      *
-     * @param itemClass  the class of desired ObservableList's item
+     * @param itemClass the class of desired ObservableList's item
      * @return desired ObservableList
      */
     public ObservableList<EntityObject> getList(Class<? extends EntityObject> itemClass) {
@@ -74,7 +76,7 @@ public class ServiceManager {
     /**
      * Gets ObservableList of specific active EntityObjects
      *
-     * @param itemClass  the class of desired ObservableList's item
+     * @param itemClass the class of desired ObservableList's item
      * @return the active elements ObservableList
      */
     public ObservableList<EntityObject> getActiveElementsList(Class<? extends EntityObject> itemClass) {
@@ -84,7 +86,7 @@ public class ServiceManager {
     /**
      * Gets a service for a specific class of EntityObject
      *
-     * @param itemClass  the item class
+     * @param itemClass the item class
      * @return the service
      */
     public EntityObjectService<?, ?> getService(Class<? extends EntityObject> itemClass) {
@@ -94,7 +96,7 @@ public class ServiceManager {
     /**
      * Fills the ObservableList of specified class with all active.
      *
-     * @param itemClass  the item class
+     * @param itemClass the item class
      */
     public void fillFromService(Class<? extends EntityObject> itemClass) {
         observableComposite.addAll(itemClass, services.get(itemClass).getAll());
@@ -103,8 +105,8 @@ public class ServiceManager {
     /**
      * Fills the observable list.
      *
-     * @param itemClass  the item class
-     * @param items  the list of items
+     * @param itemClass the item class
+     * @param items     the list of items
      */
     public void fill(Class<? extends EntityObject> itemClass, List<EntityObject> items) {
         observableComposite.addAll(itemClass, items);
@@ -113,7 +115,7 @@ public class ServiceManager {
     /**
      * Adds the EntityObject to the ObservableList (through ObservableComposite) and the database (through Service).
      *
-     * @param item  the item to be added
+     * @param item the item to be added
      */
     public void add(EntityObject item) {
         Class<?> itemClass = getClassOf(item);
@@ -123,7 +125,8 @@ public class ServiceManager {
 
     /**
      * Adds an observable list.
-     * @param itemClass  the item class
+     *
+     * @param itemClass the item class
      */
     public void addObservableList(Class<? extends EntityObject> itemClass){
         observableComposite.addObservableList(itemClass);
@@ -132,7 +135,7 @@ public class ServiceManager {
     /**
      * Adds an item to observable.
      *
-     * @param item  the item
+     * @param item the item
      */
     public void addToObservable(EntityObject item) {
         observableComposite.add(getClassOf(item), item);
@@ -141,7 +144,7 @@ public class ServiceManager {
     /**
      * Deletes the item from observable.
      *
-     * @param item  the item
+     * @param item the item
      */
     public void deleteFromObservable(EntityObject item) {
         observableComposite.delete(getClassOf(item), item);
@@ -150,7 +153,7 @@ public class ServiceManager {
     /**
      * Singly updates.
      *
-     * @param item  the item
+     * @param item the item
      */
     public void singleUpdate(EntityObject item) {
         Class<?> itemClass = getClassOf(item);
@@ -161,7 +164,7 @@ public class ServiceManager {
     /**
      * Updates.
      *
-     * @param item  the item
+     * @param item the item
      */
     public void update(EntityObject item) {
         Class<?> itemClass = getClassOf(item);
@@ -174,7 +177,7 @@ public class ServiceManager {
      * Deletes the object from database (here deleting is understood as marking as not active)
      * and delegates the update of the affected objects in the ObservableLists.
      *
-     * @param item  the item
+     * @param item the item
      */
     public void delete(EntityObject item) {
         Class<?> itemClass = getClassOf(item);
@@ -186,7 +189,7 @@ public class ServiceManager {
     /**
      * Clears the observable list.
      *
-     * @param itemClass  the item class
+     * @param itemClass the item class
      */
     public void clearObservableList(Class<? extends EntityObject> itemClass) {
         observableComposite.clearObservableList(itemClass);

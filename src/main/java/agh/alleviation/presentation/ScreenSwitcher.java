@@ -22,7 +22,7 @@ public class ScreenSwitcher {
     /**
      * Instantiates a new Screen switcher.
      *
-     * @param mainPane  the main pane
+     * @param mainPane the main pane
      */
     public ScreenSwitcher(BorderPane mainPane) {
         this.screenMap = new HashMap<>();
@@ -32,8 +32,8 @@ public class ScreenSwitcher {
     /**
      * Adds a screen.
      *
-     * @param screen  the screen
-     * @param node  the node
+     * @param screen the screen
+     * @param node   the node
      */
     public void addScreen(Screen screen, Node node) {
         screenMap.put(screen, node);
@@ -42,7 +42,7 @@ public class ScreenSwitcher {
     /**
      * Activates a screen.
      *
-     * @param screen  the screen
+     * @param screen the screen
      */
     public void activate(Screen screen) {
         mainPane.setCenter(screenMap.get(screen));

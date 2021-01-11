@@ -15,8 +15,8 @@ import org.springframework.stereotype.Component;
 /**
  * Controller responsible for user's login.
  *
- * @see AccessDialogController
  * @author Ksenia Fiodarava
+ * @see AccessDialogController
  */
 @Component
 @FxmlView("/views/LoginDialog.fxml")
@@ -106,7 +106,7 @@ public class LoginDialogController extends AccessDialogController {
     /**
      * Sets an active user.
      *
-     * @param activeUser  the active user
+     * @param activeUser the active user
      */
     @Autowired
     public void setActiveUser(ActiveUser activeUser){

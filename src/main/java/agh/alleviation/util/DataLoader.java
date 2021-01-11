@@ -26,11 +26,11 @@ public class DataLoader {
     /**
      * Instantiates a new Data loader.
      *
-     * @param hallService  the hall service
+     * @param hallService   the hall service
      * @param movieService  the movie service
      * @param orderService  the order service
-     * @param seanceService  the seance service
-     * @param userService  the user service
+     * @param seanceService the seance service
+     * @param userService   the user service
      */
     @Autowired
     public DataLoader(

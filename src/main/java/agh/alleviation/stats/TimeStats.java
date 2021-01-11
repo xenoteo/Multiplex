@@ -18,9 +18,10 @@ import java.util.stream.Collectors;
 
 /**
  * Class responsible for generation of time statistics and update of the statistics table.
+ *
+ * @author Ksenia Fiodarava
  * @see GenericStats
  * @see agh.alleviation.presentation.controller.StatisticsController
- * @author Ksenia Fiodarava
  */
 public class TimeStats extends GenericStats<LocalTime>{
     /**
@@ -39,15 +40,21 @@ public class TimeStats extends GenericStats<LocalTime>{
      * The type Columns.
      */
     public static class Columns {
+        /**
+         * The constant TIME.
+         */
         public static final String TIME = "Time";
+        /**
+         * The constant TICKETS.
+         */
         public static final String TICKETS = "Tickets bought";
     }
 
     /**
      * Instantiates a time stats.
      *
-     * @param itemTable  the item table
-     * @param ticketService  the ticket service
+     * @param itemTable     the item table
+     * @param ticketService the ticket service
      */
     public TimeStats(TableView itemTable, TicketService ticketService) {
         super(itemTable, ticketService);

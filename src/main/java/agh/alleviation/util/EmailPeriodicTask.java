@@ -19,7 +19,6 @@ import java.util.stream.Collectors;
  *
  * @author Kamil Krzempek
  */
-
 @Component
 public class EmailPeriodicTask {
     private final TicketService ticketService;
@@ -33,8 +32,8 @@ public class EmailPeriodicTask {
     /**
      * Instantiates an email periodic task.
      *
-     * @param ticketService  the ticket service
-     * @param emailSender  the email sender
+     * @param ticketService the ticket service
+     * @param emailSender   the email sender
      */
     @Autowired
     public EmailPeriodicTask(TicketService ticketService, EmailSender emailSender) {

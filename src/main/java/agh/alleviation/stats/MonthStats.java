@@ -17,9 +17,10 @@ import java.util.stream.Collectors;
 
 /**
  * Class responsible for generation of month statistics and update of the statistics table.
+ *
+ * @author Ksenia Fiodarava
  * @see GenericStats
  * @see agh.alleviation.presentation.controller.StatisticsController
- * @author Ksenia Fiodarava
  */
 public class MonthStats extends GenericStats<Month> {
     /**
@@ -36,15 +37,21 @@ public class MonthStats extends GenericStats<Month> {
      * The type Columns.
      */
     public static class Columns {
+        /**
+         * The constant MONTH.
+         */
         public static final String MONTH = "Month";
+        /**
+         * The constant TICKETS.
+         */
         public static final String TICKETS = "Tickets bought";
     }
 
     /**
      * Instantiates a month stats.
      *
-     * @param itemTable  the item table
-     * @param ticketService  the ticket service
+     * @param itemTable     the item table
+     * @param ticketService the ticket service
      */
     public MonthStats(TableView itemTable, TicketService ticketService) {
         super(itemTable, ticketService);

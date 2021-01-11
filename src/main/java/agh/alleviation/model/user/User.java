@@ -62,8 +62,8 @@ public abstract class User extends EntityObject implements Externalizable {
      * Instantiates a new User.
      *
      * @param name  name and surname of the user (personal info)
-     * @param login  unique login of the user
-     * @param email  email of the user
+     * @param login unique login of the user
+     * @param email email of the user
      */
     public User(final String name, final String login, final String email){
         setName(name);
@@ -75,10 +75,10 @@ public abstract class User extends EntityObject implements Externalizable {
     /**
      * Instantiates a new User.
      *
-     * @param name  name and surname of the user (personal info)
-     * @param login  unique login of the user
-     * @param email  email of the user
-     * @param password  user's password
+     * @param name     name and surname of the user (personal info)
+     * @param login    unique login of the user
+     * @param email    email of the user
+     * @param password user's password
      */
     public User(final String name, final String login, final String email, final String password){
         setName(name);
@@ -135,7 +135,7 @@ public abstract class User extends EntityObject implements Externalizable {
     /**
      * Sets the user type.
      *
-     * @param userType  the user type
+     * @param userType the user type
      */
     public void setUserType(UserType userType) {
         this.userType.set(userType);
@@ -163,7 +163,7 @@ public abstract class User extends EntityObject implements Externalizable {
     /**
      * Sets the name.
      *
-     * @param newName  the new name
+     * @param newName the new name
      */
     public void setName(String newName){ name.set(newName); }
 
@@ -188,7 +188,7 @@ public abstract class User extends EntityObject implements Externalizable {
     /**
      * Sets the login.
      *
-     * @param newLogin  the new login
+     * @param newLogin the new login
      */
     public void setLogin(String newLogin){ login.set(newLogin); }
 
@@ -212,7 +212,7 @@ public abstract class User extends EntityObject implements Externalizable {
     /**
      * Sets the email.
      *
-     * @param newEmail  the new email
+     * @param newEmail the new email
      */
     public void setEmail(String newEmail){ email.set(newEmail);}
 
@@ -236,7 +236,7 @@ public abstract class User extends EntityObject implements Externalizable {
     /**
      * Sets the new password.
      *
-     * @param password  the new password
+     * @param password the new password
      */
     public void setPassword(String password) {
         this.password = password;
@@ -256,7 +256,7 @@ public abstract class User extends EntityObject implements Externalizable {
     /**
      * Sets orders.
      *
-     * @param orders  the orders
+     * @param orders the orders
      */
     public void setOrders(List<Order> orders) {
         ordersProperty.set(orders);
@@ -275,7 +275,7 @@ public abstract class User extends EntityObject implements Externalizable {
     /**
      * Adds an order.
      *
-     * @param order  the order
+     * @param order the order
      */
     public void addOrder(Order order) {
         getOrders().add(order);

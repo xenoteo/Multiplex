@@ -15,10 +15,10 @@ import java.util.List;
 /**
  * Service responsible for manipulating order and ticket repositories.
  *
+ * @author Ksenia Fiodarava
  * @see OrderRepository
  * @see Order
  * @see Ticket
- * @author Ksenia Fiodarava
  */
 @Service
 @Transactional
@@ -32,9 +32,9 @@ public class OrderService extends EntityObjectService<Order, OrderRepository> {
      * Instantiates a new Order service.
      *
      * @param orderRepository  the order repository
-     * @param ticketRepository  the ticket repository
-     * @param userRepository  the user repository
-     * @param seanceRepository  the seance repository
+     * @param ticketRepository the ticket repository
+     * @param userRepository   the user repository
+     * @param seanceRepository the seance repository
      */
     @Autowired
     public OrderService(
@@ -52,7 +52,7 @@ public class OrderService extends EntityObjectService<Order, OrderRepository> {
     /**
      * Adds the ticket.
      *
-     * @param seance  the seance
+     * @param seance the seance
      * @param price  the price
      * @return the ticket
      */
@@ -67,7 +67,7 @@ public class OrderService extends EntityObjectService<Order, OrderRepository> {
     /**
      * Adds the ticket to the order.
      *
-     * @param seance  the seance
+     * @param seance the seance
      * @param price  the price
      * @param order  the order
      * @return the ticket
@@ -84,7 +84,7 @@ public class OrderService extends EntityObjectService<Order, OrderRepository> {
     /**
      * Adds an order.
      *
-     * @param customer  the customer
+     * @param customer the customer
      * @return the order
      */
     public Order addOrder(Customer customer) {
@@ -94,8 +94,8 @@ public class OrderService extends EntityObjectService<Order, OrderRepository> {
     /**
      * Adds the order.
      *
-     * @param tickets  the tickets
-     * @param user  the user
+     * @param tickets the tickets
+     * @param user    the user
      * @return the order
      */
     public Order addOrder(List<Ticket> tickets, User user) {
@@ -135,7 +135,7 @@ public class OrderService extends EntityObjectService<Order, OrderRepository> {
     /**
      * Get orders by customers.
      *
-     * @param user  the user
+     * @param user the user
      * @return the list
      */
     public List<Order> getOrdersByUser(User user) {
@@ -163,7 +163,7 @@ public class OrderService extends EntityObjectService<Order, OrderRepository> {
     /**
      * Finds orders with tickets.
      *
-     * @param order  the order
+     * @param order the order
      * @return the order
      */
     public Order findOrderWithTickets(Order order){

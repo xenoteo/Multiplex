@@ -32,7 +32,7 @@ public abstract class EditDialogController<T> extends ValidatingController {
     /**
      * Sets dialog stage.
      *
-     * @param dialogStage  the dialog stage
+     * @param dialogStage the dialog stage
      */
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
@@ -48,7 +48,7 @@ public abstract class EditDialogController<T> extends ValidatingController {
     /**
      * Sets edited item.
      *
-     * @param item  the item
+     * @param item the item
      */
     public void setEditedItem(T item) { this.editedItem = item; }
 

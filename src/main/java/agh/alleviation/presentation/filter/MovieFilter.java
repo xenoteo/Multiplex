@@ -19,7 +19,7 @@ public class MovieFilter implements SeanceFilter {
     /**
      * Instantiates a movie filter.
      *
-     * @param movieName  the movie name
+     * @param movieName the movie name
      */
     public MovieFilter(String movieName){
         this.movieName = movieName;
@@ -34,7 +34,7 @@ public class MovieFilter implements SeanceFilter {
     /**
      * Sets the movie name.
      *
-     * @param movieName  the movie name
+     * @param movieName the movie name
      */
     public void setMovieName(String movieName){
         this.movieName = movieName.toLowerCase();

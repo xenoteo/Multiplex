@@ -15,6 +15,7 @@ import java.util.Map;
 
 /**
  * Controller responsible for displaying a screen where user can choose a type of statistics to see.
+ *
  * @author Ksenia Fiodarava
  */
 @Component
@@ -91,7 +92,7 @@ public class StatisticsController extends GenericController{
     /**
      * Handles button click.
      *
-     * @param event  the event
+     * @param event the event
      */
     @FXML
     public void handleButtonClicked(ActionEvent event){
@@ -102,7 +103,7 @@ public class StatisticsController extends GenericController{
     /**
      * Resets the item table.
      *
-     * @param event  the event
+     * @param event the event
      */
     @FXML
     public void reset(ActionEvent event){

@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
  *
  * @author Anna Nosek
  */
-
 public class DateFilter implements SeanceFilter {
 
     /**
@@ -30,8 +29,8 @@ public class DateFilter implements SeanceFilter {
     /**
      * Instantiates a date filter.
      *
-     * @param minDate  the min date
-     * @param maxDate  the max date
+     * @param minDate the min date
+     * @param maxDate the max date
      */
     public DateFilter(LocalDateTime minDate, LocalDateTime maxDate){
         this.minDate = minDate;
@@ -49,7 +48,7 @@ public class DateFilter implements SeanceFilter {
     /**
      * Sets the max date.
      *
-     * @param maxDate  the max date
+     * @param maxDate the max date
      */
     public void setMaxDate(LocalDateTime maxDate){
         this.maxDate = maxDate;
@@ -58,7 +57,7 @@ public class DateFilter implements SeanceFilter {
     /**
      * Sets the min date.
      *
-     * @param minDate  the min date
+     * @param minDate the min date
      */
     public void setMinDate(LocalDateTime minDate){
         this.minDate = minDate;

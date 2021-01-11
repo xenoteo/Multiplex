@@ -17,9 +17,10 @@ import java.util.stream.Collectors;
 
 /**
  * Class responsible for generation of day of week statistics and update of the statistics table.
+ *
+ * @author Ksenia Fiodarava
  * @see GenericStats
  * @see agh.alleviation.presentation.controller.StatisticsController
- * @author Ksenia Fiodarava
  */
 public class DayStats extends GenericStats<DayOfWeek>{
     /**
@@ -36,15 +37,21 @@ public class DayStats extends GenericStats<DayOfWeek>{
      * The type Columns.
      */
     public static class Columns {
+        /**
+         * The constant DAY.
+         */
         public static final String DAY = "Day of week";
+        /**
+         * The constant TICKETS.
+         */
         public static final String TICKETS = "Tickets bought";
     }
 
     /**
      * Instantiates a day stats.
      *
-     * @param itemTable  the item table
-     * @param ticketService  the ticket service
+     * @param itemTable     the item table
+     * @param ticketService the ticket service
      */
     public DayStats(TableView itemTable, TicketService ticketService) {
         super(itemTable, ticketService);

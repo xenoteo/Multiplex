@@ -9,14 +9,14 @@ import java.util.List;
 /**
  * Repository of cinema halls.
  *
- * @see Hall
  * @author Ksenia Fiodarava
+ * @see Hall
  */
 public interface HallRepository extends CrudRepository<Hall, Integer> {
     /**
      * Finds the halls by capacity greater than equal.
      *
-     * @param capacity  the capacity
+     * @param capacity the capacity
      * @return the list of the halls with given capacity
      */
     List<Hall> findByCapacityGreaterThanEqual(int capacity);
@@ -24,7 +24,7 @@ public interface HallRepository extends CrudRepository<Hall, Integer> {
     /**
      * Finds all halls by capacity.
      *
-     * @param capacity  the capacity
+     * @param capacity the capacity
      * @return the list of the halls with given capacity
      */
     List<Hall> findAllByCapacity(int capacity);
@@ -32,7 +32,7 @@ public interface HallRepository extends CrudRepository<Hall, Integer> {
     /**
      * Finds the hall by id with seances.
      *
-     * @param id  the id
+     * @param id the id
      * @return the hall
      */
     @Query("SELECT h FROM Hall h LEFT JOIN FETCH h.seances WHERE h.id = ?1")
@@ -41,7 +41,7 @@ public interface HallRepository extends CrudRepository<Hall, Integer> {
     /**
      * Finds the hall by number.
      *
-     * @param number  the number
+     * @param number the number
      * @return the hall with given number
      */
     Hall findByNumber(int number);

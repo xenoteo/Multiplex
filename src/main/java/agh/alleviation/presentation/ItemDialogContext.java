@@ -8,8 +8,8 @@ import net.rgielen.fxweaver.core.FxControllerAndView;
 /**
  * The type Item dialog context.
  *
- * @param <Item>  the type parameter
- * @param <Controller>  the type parameter
+ * @param <Item>       the type parameter
+ * @param <Controller> the type parameter
  */
 public class ItemDialogContext<Item, Controller extends EditDialogController<Item>> extends StageAndSceneSetupper {
     /**
@@ -20,8 +20,8 @@ public class ItemDialogContext<Item, Controller extends EditDialogController<Ite
     /**
      * Instantiates a new Item dialog context.
      *
-     * @param primaryStage  the primary stage
-     * @param controllerAndView  the controller and view
+     * @param primaryStage      the primary stage
+     * @param controllerAndView the controller and view
      */
     public ItemDialogContext(Stage primaryStage, FxControllerAndView<Controller, Pane> controllerAndView) {
         super(primaryStage);

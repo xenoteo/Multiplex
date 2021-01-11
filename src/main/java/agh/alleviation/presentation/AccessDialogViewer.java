@@ -10,9 +10,9 @@ import net.rgielen.fxweaver.core.FxControllerAndView;
 /**
  * Class responsible for showing access dialogs.
  *
- * @param <Controller>  the type parameter
- * @see AccessDialogController
+ * @param <Controller> the type parameter
  * @author Ksenia Fiodarava
+ * @see AccessDialogController
  */
 public class AccessDialogViewer<Controller extends AccessDialogController> extends StageAndSceneSetupper{
     /**
@@ -27,8 +27,8 @@ public class AccessDialogViewer<Controller extends AccessDialogController> exten
     /**
      * Instantiates a new Access dialog viewer.
      *
-     * @param primaryStage  the primary stage
-     * @param controllerAndView  the controller and view
+     * @param primaryStage      the primary stage
+     * @param controllerAndView the controller and view
      */
     public AccessDialogViewer(Stage primaryStage, FxControllerAndView<Controller, Pane> controllerAndView) {
         super(primaryStage);

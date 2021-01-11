@@ -22,7 +22,7 @@ public abstract class ValidatingController extends GenericController{
     /**
      * Gets text with errors from validator separating errors by a new line.
      *
-     * @param validator  the validator to get errors from
+     * @param validator the validator to get errors from
      * @return string representing all errors from validator
      */
     protected String getProblemText(Validator validator) {
@@ -34,7 +34,7 @@ public abstract class ValidatingController extends GenericController{
     /**
      * Creates alert with errors from validator and shows it.
      *
-     * @param validator  the validator
+     * @param validator the validator
      */
     protected void showErrors(Validator validator){
         Alert alert = new Alert(Alert.AlertType.ERROR);

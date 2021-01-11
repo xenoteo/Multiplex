@@ -118,7 +118,8 @@ public class SeanceListController extends GenericListController<Seance> implemen
 
     /**
      * Sets the active user.
-     * @param activeUser  the active user
+     *
+     * @param activeUser the active user
      */
     @Autowired
     public void setActiveUser(ActiveUser activeUser) {

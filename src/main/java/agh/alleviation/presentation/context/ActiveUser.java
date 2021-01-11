@@ -15,6 +15,7 @@ import java.util.List;
 
 /**
  * Component responsible for maintaining the information about the currently logged-in user.
+ *
  * @author Anna Nosek
  */
 @Component
@@ -42,6 +43,8 @@ public class ActiveUser{
 
     /**
      * Instantiates a new Active user.
+     *
+     * @param serviceManager the service manager
      */
     @Autowired
     public ActiveUser(ServiceManager serviceManager){
@@ -51,7 +54,7 @@ public class ActiveUser{
     /**
      * Adds a user change listener.
      *
-     * @param listener  the listener
+     * @param listener the listener
      */
     public void addUserChangeListener(PropertyChangeListener listener){
         propertyChangeSupport.addPropertyChangeListener(listener);
@@ -60,7 +63,7 @@ public class ActiveUser{
     /**
      * Changes the logged-in user, notifies all observers.
      *
-     * @param newUser  the new user
+     * @param newUser the new user
      */
     public void setUserEntity(User newUser) {
         propertyChangeSupport.firePropertyChange("user", userEntity, newUser);
@@ -72,7 +75,7 @@ public class ActiveUser{
     /**
      * Fills the orders.
      *
-     * @param user  the user
+     * @param user the user
      */
     public void fillOrders(User user){
         UserService userService = (UserService) serviceManager.getService(User.class);

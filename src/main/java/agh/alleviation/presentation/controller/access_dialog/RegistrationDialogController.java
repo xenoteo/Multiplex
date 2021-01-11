@@ -14,8 +14,8 @@ import org.springframework.stereotype.Component;
 /**
  * Controller responsible for user's registration.
  *
- * @see AccessDialogController
  * @author Ksenia Fiodarava
+ * @see AccessDialogController
  */
 @Component
 @FxmlView("/views/RegistrationDialog.fxml")

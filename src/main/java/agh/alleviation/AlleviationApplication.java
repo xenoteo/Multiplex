@@ -100,22 +100,22 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  *     <li>Email service - notifies users about upcoming seances from their orders</li>
  *     <li>Persistent database - the project no longer uses runtime-only in-memory database, now the data is saved on drive.</li>
  *     <li>Statistics - the most popular movies, genres, days, months, the most active users</li>
+ *     <li>Movie recommendations - user that bought a ticket can now recommend the movie</li>
  * </ul>
  * Introduced patterns:
  * <ul>
  *     <li>Composite pattern - used for creating complex filtering with multiple fields</li>
  *     <li>Further utilization of already existing patterns</li>
  * </ul>
- *
+ * <p>
  * Roles of team members:
  * <ul>
  *     <li>Kamil Krzempek - email service, orders history details, filters view, sorting in views documentation</li>
  *     <li>Ksenia Fiodarava - statistics - views and controllers, documentation</li>
  *     <li>Anna Nosek - filters logic, basket and order history, documentation</li>
  * </ul>
- *
+ * <p>
  * All tasks were completed in a team-based manner. All members were actively participating in creating the functionalities.
- *
  */
 @SpringBootApplication
 @EnableJpaRepositories(basePackages = {"agh.alleviation.persistence"})
@@ -126,7 +126,7 @@ public class AlleviationApplication {
     /**
      * The entry point of the application.
      *
-     * @param args  the input arguments
+     * @param args the input arguments
      */
     public static void main(String[] args) {
         Application.launch(CinemaApp.class, args);
@@ -135,7 +135,7 @@ public class AlleviationApplication {
     /**
      * fxWeaver initialization.
      *
-     * @param applicationContext  the application context
+     * @param applicationContext the application context
      * @return the fx weaver
      */
     @Bean
@@ -147,6 +147,7 @@ public class AlleviationApplication {
      * Populates data for testing.
      *
      * @param dataLoader  the data loader
+     * @param hallService the hall service
      * @return the command line runner
      */
     @Bean
@@ -164,7 +165,7 @@ public class AlleviationApplication {
     /**
      * The bean for getting email sender.
      *
-     * @param javaMailSender  the java mail sender
+     * @param javaMailSender the java mail sender
      * @return the email sender
      */
     @Bean

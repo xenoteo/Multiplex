@@ -27,6 +27,7 @@ public class MovieService extends EntityObjectService<Movie, MovieRepository> {
      *
      * @param movieRepository  the movie repository
      * @param genreRepository  the genre repository
+     * @param ticketRepository the ticket repository
      */
     @Autowired
     public MovieService(
@@ -39,11 +40,11 @@ public class MovieService extends EntityObjectService<Movie, MovieRepository> {
     /**
      * Adds a movie.
      *
-     * @param name  the name
-     * @param genreName  the genre
-     * @param description  the description
-     * @param director  the director
-     * @param actors  the actors
+     * @param name        the name
+     * @param genreName   the genre
+     * @param description the description
+     * @param director    the director
+     * @param actors      the actors
      * @return the movie
      */
     public Movie addMovie(String name, String genreName, String description, String director, String actors) {
@@ -56,7 +57,7 @@ public class MovieService extends EntityObjectService<Movie, MovieRepository> {
     /**
      * Gets the genre of given name, if such genre does not exist, create it first.
      *
-     * @param name  the name
+     * @param name the name
      * @return the genre
      */
     public Genre getGenre(String name) {
@@ -69,7 +70,7 @@ public class MovieService extends EntityObjectService<Movie, MovieRepository> {
     /**
      * Finds the movie by name.
      *
-     * @param name  the name
+     * @param name the name
      * @return the movie
      */
     public Movie findMovie(String name) {
@@ -99,8 +100,8 @@ public class MovieService extends EntityObjectService<Movie, MovieRepository> {
     /**
      * Rates a movie.
      *
-     * @param ticket  the ticket
-     * @param rating  the rating
+     * @param ticket the ticket
+     * @param rating the rating
      */
     public void rateMovie(Ticket ticket, Rating rating) {
         Movie ratedMovie = ticket.getSeance().getMovie();

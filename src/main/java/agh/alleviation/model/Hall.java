@@ -54,8 +54,8 @@ public class Hall extends EntityObject {
     /**
      * Instantiates a new Hall.
      *
-     * @param capacity  the capacity
-     * @param number  the number
+     * @param capacity the capacity
+     * @param number   the number
      */
     public Hall(int capacity, int number) {
         setCapacity(capacity);
@@ -85,7 +85,7 @@ public class Hall extends EntityObject {
     /**
      * Sets the capacity.
      *
-     * @param capacity  the capacity
+     * @param capacity the capacity
      */
     public void setCapacity(int capacity) {
         capacityProperty.set(capacity);
@@ -109,7 +109,7 @@ public class Hall extends EntityObject {
     /**
      * Set the hall's number.
      *
-     * @param number  the hall's number
+     * @param number the hall's number
      */
     public void setNumber(int number) { numberProperty.set(number); }
 
@@ -124,14 +124,14 @@ public class Hall extends EntityObject {
     /**
      * Sets seances.
      *
-     * @param seances  the seances
+     * @param seances the seances
      */
     public void setSeances(List<Seance> seances) { seancesProperty.set(seances); }
 
     /**
      * Adds a seance.
      *
-     * @param seance  the seance
+     * @param seance the seance
      */
     public void addSeance(Seance seance) { getSeances().add(seance); }
 

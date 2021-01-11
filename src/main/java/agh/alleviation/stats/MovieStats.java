@@ -17,9 +17,10 @@ import java.util.stream.Collectors;
 
 /**
  * Class responsible for generation of movie statistics and update of the statistics table.
+ *
+ * @author Ksenia Fiodarava
  * @see GenericStats
  * @see agh.alleviation.presentation.controller.StatisticsController
- * @author Ksenia Fiodarava
  */
 public class MovieStats extends GenericStats<Movie> {
     /**
@@ -61,20 +62,41 @@ public class MovieStats extends GenericStats<Movie> {
      * The type Columns.
      */
     public static class Columns {
+        /**
+         * The constant NAME.
+         */
         public static final String NAME = "Name";
+        /**
+         * The constant GENRE.
+         */
         public static final String GENRE = "Genre";
+        /**
+         * The constant DESCRIPTION.
+         */
         public static final String DESCRIPTION = "Description";
+        /**
+         * The constant DIRECTOR.
+         */
         public static final String DIRECTOR = "Director";
+        /**
+         * The constant ACTORS.
+         */
         public static final String ACTORS = "Actors";
+        /**
+         * The constant RATING.
+         */
         public static final String RATING = "Rating";
+        /**
+         * The constant TICKETS.
+         */
         public static final String TICKETS = "Tickets bought";
     }
 
     /**
      * Instantiates a movie stats.
      *
-     * @param itemTable  the item table
-     * @param ticketService  the ticket service
+     * @param itemTable     the item table
+     * @param ticketService the ticket service
      */
     public MovieStats(TableView itemTable, TicketService ticketService) {
         super(itemTable, ticketService);

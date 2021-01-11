@@ -10,14 +10,14 @@ import java.util.List;
 /**
  * Repository of user's orders.
  *
- * @see Order
  * @author Ksenia Fiodarava
+ * @see Order
  */
 public interface OrderRepository extends CrudRepository<Order, Integer> {
     /**
      * Finds the list of orders all by user.
      *
-     * @param user  the user
+     * @param user the user
      * @return the list
      */
     List<Order> findAllByUser(User user);
@@ -25,7 +25,7 @@ public interface OrderRepository extends CrudRepository<Order, Integer> {
     /**
      * Finds an order by id with tickets.
      *
-     * @param id  the id
+     * @param id the id
      * @return the order
      */
     @Query("SELECT o FROM Order o LEFT JOIN FETCH o.tickets WHERE o.id=?1")

@@ -31,7 +31,7 @@ public abstract class GenericListController<Item extends EntityObject> extends G
     /**
      * Handles add action.
      *
-     * @param event  the event
+     * @param event the event
      */
     @FXML
     protected abstract void handleAddAction(ActionEvent event);
@@ -39,7 +39,7 @@ public abstract class GenericListController<Item extends EntityObject> extends G
     /**
      * Handles edit action.
      *
-     * @param event  the event
+     * @param event the event
      */
     @FXML
     protected abstract void handleEditAction(ActionEvent event);
@@ -47,7 +47,7 @@ public abstract class GenericListController<Item extends EntityObject> extends G
     /**
      * Handles delete action.
      *
-     * @param event  the event
+     * @param event the event
      */
     @FXML
     protected void handleDeleteAction(ActionEvent event) {

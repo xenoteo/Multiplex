@@ -11,8 +11,8 @@ import java.io.ObjectOutput;
 /**
  * This class represents movie genres.
  *
- * @see Movie
  * @author Anna Nosek
+ * @see Movie
  */
 @Entity
 @Table(name = Genre.TABLE_NAME)
@@ -44,7 +44,7 @@ public class Genre extends EntityObject {
     /**
      * Instantiates a new Genre.
      *
-     * @param name  the name
+     * @param name the name
      */
     public Genre(String name) {
 

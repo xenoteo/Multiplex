@@ -18,9 +18,9 @@ import java.util.Objects;
  * Actors are kept in a coma separated String.
  * MovieService will be responsible for processing this list into a useful structure.
  *
- * @see Genre
  * @author Kamil Krzempek
  * @author Anna Nosek
+ * @see Genre
  */
 @Entity
 @Table(name = Movie.TABLE_NAME)
@@ -72,11 +72,11 @@ public class Movie extends EntityObject {
     /**
      * Instantiates a new Movie.
      *
-     * @param name  the name
-     * @param genre  the genre
-     * @param description  the description
-     * @param director  the director
-     * @param actors  the actors
+     * @param name        the name
+     * @param genre       the genre
+     * @param description the description
+     * @param director    the director
+     * @param actors      the actors
      */
     public Movie(final String name, Genre genre, String description, String director, String actors) {
         setName(name);
@@ -109,7 +109,7 @@ public class Movie extends EntityObject {
     /**
      * Sets the name.
      *
-     * @param name  the name
+     * @param name the name
      */
     public void setName(String name) { this.name.set(name); }
 
@@ -131,7 +131,7 @@ public class Movie extends EntityObject {
     /**
      * Sets the description.
      *
-     * @param description  the description
+     * @param description the description
      */
     public void setDescription(String description) { this.description.set(description);}
 
@@ -153,7 +153,7 @@ public class Movie extends EntityObject {
     /**
      * Sets a genre.
      *
-     * @param genre  the genre
+     * @param genre the genre
      */
     public void setGenre(Genre genre) { this.genre.set(genre); }
 
@@ -175,7 +175,7 @@ public class Movie extends EntityObject {
     /**
      * Sets the director.
      *
-     * @param director  the director
+     * @param director the director
      */
     public void setDirector(String director) { this.director.set(director);}
 
@@ -197,7 +197,7 @@ public class Movie extends EntityObject {
     /**
      * Sets actors.
      *
-     * @param actors  the actors
+     * @param actors the actors
      */
     public void setActors(String actors) { this.actors.set(actors); }
 
@@ -219,7 +219,7 @@ public class Movie extends EntityObject {
     /**
      * Sets seances.
      *
-     * @param seances  the seances
+     * @param seances the seances
      */
     public void setSeances(List<Seance> seances) { this.seances.set(seances); }
 
@@ -241,7 +241,7 @@ public class Movie extends EntityObject {
     /**
      * Sets likes.
      *
-     * @param likes  the likes
+     * @param likes the likes
      */
     public void setLikes(int likes){ this.likes.set(likes); }
 
@@ -263,7 +263,7 @@ public class Movie extends EntityObject {
     /**
      * Sets dislikes
      *
-     * @param dislikes  the dislikes
+     * @param dislikes the dislikes
      */
     public void setDislikes(int dislikes){ this.dislikes.set(dislikes); }
 
@@ -277,7 +277,7 @@ public class Movie extends EntityObject {
     /**
      * Adds a seance.
      *
-     * @param seance  the seance
+     * @param seance the seance
      */
     public void addSeance(Seance seance) {
         getSeances().add(seance);

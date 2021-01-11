@@ -10,9 +10,9 @@ import javax.transaction.Transactional;
 /**
  * Stub of service for manipulating Ticket repository
  *
+ * @author Kamil Krzempek
  * @see TicketRepository
  * @see Ticket
- * @author Kamil Krzempek
  */
 @Service
 @Transactional
@@ -20,7 +20,7 @@ public class TicketService extends EntityObjectService<Ticket, TicketRepository>
     /**
      * Instantiates a new Ticket service.
      *
-     * @param ticketRepository  the ticket repository
+     * @param ticketRepository the ticket repository
      */
     @Autowired
     public TicketService(TicketRepository ticketRepository) {

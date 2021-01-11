@@ -9,14 +9,14 @@ import java.util.List;
 /**
  * The interface Movie repository.
  *
- * @see Movie
  * @author Kamil Krzempek
+ * @see Movie
  */
 public interface MovieRepository extends CrudRepository<Movie, Integer> {
     /**
      * Finds the movie by name .
      *
-     * @param name  the name
+     * @param name the name
      * @return the movie with given name
      */
     Movie findByName(String name);
@@ -31,7 +31,7 @@ public interface MovieRepository extends CrudRepository<Movie, Integer> {
     /**
      * Find the movie by id with seances.
      *
-     * @param id  the id
+     * @param id the id
      * @return the movie
      */
     @Query("SELECT m FROM Movie m LEFT JOIN FETCH m.seances WHERE m.id = ?1")

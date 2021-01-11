@@ -8,8 +8,8 @@ import java.util.List;
 /**
  * Customer repository, might be later changed to a specialization of user repository.
  *
- * @see Customer
  * @author Anna Nosek
+ * @see Customer
  */
 public interface CustomerRepository extends CrudRepository<Customer, Integer> {
     /**

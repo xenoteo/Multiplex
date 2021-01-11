@@ -18,7 +18,7 @@ public class HallFilter implements SeanceFilter {
     /**
      * Instantiates a hall filter.
      *
-     * @param hallNumber  the hall number
+     * @param hallNumber the hall number
      */
     public HallFilter(int hallNumber){
         this.hallNumber = hallNumber;
@@ -32,7 +32,7 @@ public class HallFilter implements SeanceFilter {
     /**
      * Sets the hall number.
      *
-     * @param hallNumber  the hall number
+     * @param hallNumber the hall number
      */
     public void setHallNumber(int hallNumber){
         this.hallNumber = hallNumber;

@@ -12,10 +12,10 @@ import java.util.List;
 /**
  * Service responsible for manipulating the hall repository.
  *
+ * @author Ksenia Fiodarava
  * @see EntityObjectService
  * @see HallRepository
  * @see Hall
- * @author Ksenia Fiodarava
  */
 @Service
 @Transactional
@@ -23,7 +23,7 @@ public class HallService extends EntityObjectService<Hall, HallRepository> {
     /**
      * Instantiates a new Hall service.
      *
-     * @param hallRepository  the hall repository
+     * @param hallRepository the hall repository
      */
     @Autowired
     public HallService(HallRepository hallRepository) {
@@ -33,8 +33,8 @@ public class HallService extends EntityObjectService<Hall, HallRepository> {
     /**
      * Adds a hall.
      *
-     * @param capacity  the capacity
-     * @param number  the number
+     * @param capacity the capacity
+     * @param number   the number
      * @return the hall
      */
     public Hall addHall(int capacity, int number) {
@@ -72,7 +72,7 @@ public class HallService extends EntityObjectService<Hall, HallRepository> {
     /**
      * Finds halls by capacity greater than given value
      *
-     * @param capacity  the capacity
+     * @param capacity the capacity
      * @return the list of halls
      */
     public List<Hall> findHallsByCapacityGreaterThan(int capacity) {
@@ -82,7 +82,7 @@ public class HallService extends EntityObjectService<Hall, HallRepository> {
     /**
      * Finds halls by capacity list.
      *
-     * @param capacity  the capacity
+     * @param capacity the capacity
      * @return the list of halls
      */
     public List<Hall> findHallsByCapacity(int capacity) {
