@@ -5,6 +5,13 @@ import agh.alleviation.model.Seance;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Composite filter for seances. Provides adding and removing specific filters.
+ * Applies all of the gathered filters on an input. Uses composite pattern.
+ *
+ * @author Anna Nosek
+ */
+
 public class CompositeFilter implements SeanceFilter {
 
     private List<SeanceFilter> filters;

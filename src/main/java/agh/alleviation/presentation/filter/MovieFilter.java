@@ -4,6 +4,15 @@ import agh.alleviation.model.Seance;
 
 import java.util.Locale;
 
+/**
+ * Date filter provides filtering a seance by movie title.
+ * If the assigned string is a substring of provided movie's name, returns true.
+ * Should be used as a part of composite filter.
+ *
+ * @author Anna Nosek
+ *
+ */
+
 public class MovieFilter implements SeanceFilter {
 
     private String movieName;

@@ -6,6 +6,14 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+/**
+ * Date filter provides filtering a seance by maximal and minimal date.
+ * Should be used as a part of composite filter.
+ *
+ * @author Anna Nosek
+ *
+ */
+
 public class DateFilter implements SeanceFilter {
 
     private LocalDateTime maxDate = LocalDateTime.MAX;
