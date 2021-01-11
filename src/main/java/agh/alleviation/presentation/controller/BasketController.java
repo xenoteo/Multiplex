@@ -90,8 +90,10 @@ public class BasketController extends GenericController implements PropertyChang
     @FXML
     private void handleDeleteAction(ActionEvent event) {
         EntityObject item = ticketTable.getSelectionModel().getSelectedItem();
-        activeUser.getActiveOrder().getTickets().remove((Ticket) item);
-        serviceManager.deleteFromObservable(item);
+        if (item != null) {
+            activeUser.getActiveOrder().getTickets().remove((Ticket) item);
+            serviceManager.deleteFromObservable(item);
+        }
     }
 
     /**
