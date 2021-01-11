@@ -96,9 +96,13 @@ public class SeanceListController extends GenericListController<Seance> implemen
     @FXML
     protected void initialize() {
         super.initialize();
-        serviceManager.fillFromService(Seance.class);
         filter = new CompositeFilter();
-        itemTable.setItems(serviceManager.getActiveElementsList(Seance.class));
+
+        serviceManager.fillFromService(Seance.class);
+        var sortedList = serviceManager.getActiveElementsList(Seance.class).sorted();
+        sortedList.comparatorProperty().bind(itemTable.comparatorProperty());
+        itemTable.setItems(sortedList);
+
         resetTableItems();
         movieColumn.setCellValueFactory(dataValue -> dataValue.getValue().getMovie().nameProperty());
         hallColumn.setCellValueFactory(dataValue -> dataValue.getValue().getHall().numberProperty());
@@ -159,9 +163,11 @@ public class SeanceListController extends GenericListController<Seance> implemen
         User userEntity = activeUser.getUserEntity();
         if (userEntity != null && userEntity.getUserType() == UserType.CUSTOMER)
             filter.addFilter(new DateFilter(LocalDateTime.now(), LocalDateTime.now().plusDays(14)));
-        itemTable.setItems(serviceManager
-            .getActiveElementsList(Seance.class)
-            .filtered(item -> filter.apply((Seance) item)));
+
+        var sortedList =
+            serviceManager.getActiveElementsList(Seance.class).filtered(item -> filter.apply((Seance) item)).sorted();
+        sortedList.comparatorProperty().bind(itemTable.comparatorProperty());
+        itemTable.setItems(sortedList);
     }
 
     @FXML
@@ -184,7 +190,9 @@ public class SeanceListController extends GenericListController<Seance> implemen
 
         filter.addFilter(dateFilter);
 
-        itemTable.setItems(itemTable.getItems().filtered(item -> filter.apply((Seance) item)));
+        var sortedList = itemTable.getItems().filtered(item -> filter.apply((Seance) item)).sorted();
+        sortedList.comparatorProperty().bind(itemTable.comparatorProperty());
+        itemTable.setItems(sortedList);
     }
 
     @FXML

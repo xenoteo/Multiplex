@@ -27,24 +27,24 @@ public class HallListController extends GenericListController<Hall> {
         super.initialize();
 
         serviceManager.fillFromService(Hall.class);
-        itemTable.setItems(serviceManager.getActiveElementsList(Hall.class));
+        var sortedList = serviceManager.getActiveElementsList(Hall.class).sorted();
+        sortedList.comparatorProperty().bind(itemTable.comparatorProperty());
+        itemTable.setItems(sortedList);
 
         numberColumn.setCellValueFactory(dataValue -> dataValue.getValue().numberProperty().asObject());
         capacityColumn.setCellValueFactory(dataValue -> dataValue.getValue().capacityProperty().asObject());
-
     }
 
     @FXML
     protected void handleAddAction(ActionEvent event) {
-        this.viewControllerManager.getHallDialogContext().showAddItemDialog();
+        viewControllerManager.getHallDialogContext().showAddItemDialog();
     }
 
     @FXML
     protected void handleEditAction(ActionEvent event) {
         Hall hall = (Hall) itemTable.getSelectionModel().getSelectedItem();
         if (hall != null) {
-            this.viewControllerManager.getHallDialogContext().showEditItemDialog(hall);
+            viewControllerManager.getHallDialogContext().showEditItemDialog(hall);
         }
     }
-
 }

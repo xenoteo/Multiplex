@@ -68,7 +68,9 @@ public class MovieListController extends GenericListController<Movie> {
         super.initialize();
 
         serviceManager.fillFromService(Movie.class);
-        itemTable.setItems(serviceManager.getActiveElementsList(Movie.class));
+        var sortedList = serviceManager.getActiveElementsList(Movie.class).sorted();
+        sortedList.comparatorProperty().bind(itemTable.comparatorProperty());
+        itemTable.setItems(sortedList);
 
         nameColumn.setCellValueFactory(dataValue -> dataValue.getValue().nameProperty());
         genreColumn.setCellValueFactory(dataValue -> dataValue.getValue().genreProperty().asString());

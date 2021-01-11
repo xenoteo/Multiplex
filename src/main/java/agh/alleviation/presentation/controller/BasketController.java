@@ -64,7 +64,6 @@ public class BasketController extends GenericController implements PropertyChang
         priceColumn.setCellValueFactory(dataValue -> dataValue.getValue().getSeance().priceProperty());
     }
 
-
     /**
      * Deleting a ticket from an order.
      */
@@ -90,7 +89,6 @@ public class BasketController extends GenericController implements PropertyChang
         alert.setContentText("Order finished successfully!");
         alert.show();
     }
-
 
     /**
      * The basket is cleared after the change of the active user.

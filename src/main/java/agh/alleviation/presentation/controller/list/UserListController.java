@@ -1,5 +1,6 @@
 package agh.alleviation.presentation.controller.list;
 
+import agh.alleviation.model.Seance;
 import agh.alleviation.model.user.User;
 import agh.alleviation.util.UserType;
 import javafx.fxml.FXML;
@@ -32,12 +33,14 @@ public class UserListController extends GenericListController<User> {
     protected void initialize() {
         super.initialize();
         serviceManager.fillFromService(User.class);
-        itemTable.setItems(serviceManager.getActiveElementsList(User.class));
+        var sortedList = serviceManager.getActiveElementsList(User.class).sorted();
+        sortedList.comparatorProperty().bind(itemTable.comparatorProperty());
+        itemTable.setItems(sortedList);
+
         typeColumn.setCellValueFactory(dataValue -> dataValue.getValue().userTypeProperty());
         nameColumn.setCellValueFactory(dataValue -> dataValue.getValue().nameProperty());
         loginColumn.setCellValueFactory(dataValue -> dataValue.getValue().loginProperty());
         emailColumn.setCellValueFactory(dataValue -> dataValue.getValue().emailProperty());
-
     }
 
     /**
@@ -54,7 +57,7 @@ public class UserListController extends GenericListController<User> {
     protected void handleEditAction(ActionEvent event) {
         User user = (User) itemTable.getSelectionModel().getSelectedItem();
         if (user != null) {
-            this.viewControllerManager.getUserDialogContext().showEditItemDialog(user);
+            viewControllerManager.getUserDialogContext().showEditItemDialog(user);
         }
     }
 
@@ -63,5 +66,4 @@ public class UserListController extends GenericListController<User> {
         User user = (User) itemTable.getSelectionModel().getSelectedItem();
         serviceManager.delete(user);
     }
-    
 }
