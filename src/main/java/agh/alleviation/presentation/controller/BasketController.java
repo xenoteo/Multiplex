@@ -31,27 +31,47 @@ public class BasketController extends GenericController implements PropertyChang
     @FXML
     private TableView<EntityObject> ticketTable;
 
+    /**
+     * The movie column.
+     */
     @FXML
     public TableColumn<Ticket, String> movieColumn;
 
+    /**
+     * The hall column.
+     */
     @FXML
     public TableColumn<Ticket, Number> hallColumn;
 
+    /**
+     * The date column.
+     */
     @FXML
     public TableColumn<Ticket, LocalDateTime> dateColumn;
 
+    /**
+     * The price column.
+     */
     @FXML
     public TableColumn<Ticket, Number> priceColumn;
 
+    /**
+     * The active user.
+     */
     private ActiveUser activeUser;
 
+    /**
+     * Sets the active user.
+     *
+     * @param activeUser  the active user
+     */
     @Autowired
     public void setActiveUser(ActiveUser activeUser) {
         this.activeUser = activeUser;
     }
 
     /**
-     * Initialize the empty basket.
+     * Initializes the empty basket.
      */
     @FXML
     private void initialize() {
@@ -65,7 +85,7 @@ public class BasketController extends GenericController implements PropertyChang
     }
 
     /**
-     * Deleting a ticket from an order.
+     * Deletes a ticket from an order.
      */
     @FXML
     private void handleDeleteAction(ActionEvent event) {
@@ -75,7 +95,7 @@ public class BasketController extends GenericController implements PropertyChang
     }
 
     /**
-     * Checkout from the basket. The order is persisted and the basket is cleared.
+     * Checkouts from the basket. The order is persisted and the basket is cleared.
      */
     @FXML
     private void handleCheckoutAction(ActionEvent event) {

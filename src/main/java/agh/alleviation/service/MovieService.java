@@ -25,8 +25,8 @@ public class MovieService extends EntityObjectService<Movie, MovieRepository> {
     /**
      * Instantiates a new Movie service.
      *
-     * @param movieRepository the movie repository
-     * @param genreRepository the genre repository
+     * @param movieRepository  the movie repository
+     * @param genreRepository  the genre repository
      */
     @Autowired
     public MovieService(
@@ -37,13 +37,13 @@ public class MovieService extends EntityObjectService<Movie, MovieRepository> {
     }
 
     /**
-     * Add movie
+     * Adds a movie.
      *
-     * @param name        the name
-     * @param genreName   the genre
-     * @param description the description
-     * @param director    the director
-     * @param actors      the actors
+     * @param name  the name
+     * @param genreName  the genre
+     * @param description  the description
+     * @param director  the director
+     * @param actors  the actors
      * @return the movie
      */
     public Movie addMovie(String name, String genreName, String description, String director, String actors) {
@@ -54,9 +54,9 @@ public class MovieService extends EntityObjectService<Movie, MovieRepository> {
     }
 
     /**
-     * Get genre of given name, if such genre does not exist, create it first
+     * Gets the genre of given name, if such genre does not exist, create it first.
      *
-     * @param name the name
+     * @param name  the name
      * @return the genre
      */
     public Genre getGenre(String name) {
@@ -67,9 +67,9 @@ public class MovieService extends EntityObjectService<Movie, MovieRepository> {
     }
 
     /**
-     * Find movie by name
+     * Finds the movie by name.
      *
-     * @param name the name
+     * @param name  the name
      * @return the movie
      */
     public Movie findMovie(String name) {
@@ -84,7 +84,7 @@ public class MovieService extends EntityObjectService<Movie, MovieRepository> {
     }
 
     /**
-     * Override method to get seances associated with movie
+     * Overrides method to get seances associated with movie
      * Because of lazy loading, they are not loaded at the object creation.
      *
      * @param movie movie to delete
@@ -96,8 +96,13 @@ public class MovieService extends EntityObjectService<Movie, MovieRepository> {
         return super.delete(movie);
     }
 
+    /**
+     * Rates a movie.
+     *
+     * @param ticket  the ticket
+     * @param rating  the rating
+     */
     public void rateMovie(Ticket ticket, Rating rating) {
-
         Movie ratedMovie = ticket.getSeance().getMovie();
 
         if (!ticket.getIsRated()) {

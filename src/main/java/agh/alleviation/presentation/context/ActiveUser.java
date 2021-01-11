@@ -25,6 +25,9 @@ public class ActiveUser{
      */
     private User userEntity;
 
+    /**
+     * An active order.
+     */
     private Order activeOrder;
 
     /**
@@ -32,6 +35,9 @@ public class ActiveUser{
      */
     private final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
 
+    /**
+     * The service manager.
+     */
     private final ServiceManager serviceManager;
 
     /**
@@ -43,9 +49,9 @@ public class ActiveUser{
     }
 
     /**
-     * Add user change listener.
+     * Adds a user change listener.
      *
-     * @param listener the listener
+     * @param listener  the listener
      */
     public void addUserChangeListener(PropertyChangeListener listener){
         propertyChangeSupport.addPropertyChangeListener(listener);
@@ -54,7 +60,7 @@ public class ActiveUser{
     /**
      * Changes the logged-in user, notifies all observers.
      *
-     * @param newUser the new user
+     * @param newUser  the new user
      */
     public void setUserEntity(User newUser) {
         propertyChangeSupport.firePropertyChange("user", userEntity, newUser);
@@ -63,17 +69,21 @@ public class ActiveUser{
 
     }
 
+    /**
+     * Fills the orders.
+     *
+     * @param user  the user
+     */
     public void fillOrders(User user){
-
         UserService userService = (UserService) serviceManager.getService(User.class);
         OrderService orderService = (OrderService) serviceManager.getService(Order.class);
 
-        userEntity = userService.getUserWithOrders(user);
+        userEntity = userService.findUserWithOrders(user);
 
         ArrayList<Order> ordersWithTickets = new ArrayList<>();
 
         userEntity.getOrders().forEach( order -> {
-            ordersWithTickets.add(orderService.getOrderWithTickets(order));
+            ordersWithTickets.add(orderService.findOrderWithTickets(order));
         });
 
         userEntity.setOrders(ordersWithTickets);
@@ -81,25 +91,36 @@ public class ActiveUser{
 
 
     /**
-     * Get the currently logged-in user.
+     * Gets the currently logged-in user.
      *
-     * @return the user
+     * @return the currently logged-in user
      */
     public User getUserEntity(){
         return userEntity;
     }
 
+    /**
+     * Sets an empty order.
+     */
     public void setEmptyOrder(){
         activeOrder = new Order(userEntity);
     }
 
+    /**
+     * Gets an active order.
+     *
+     * @return the active order.
+     */
     public Order getActiveOrder(){
         return activeOrder;
     }
 
+    /**
+     * Gets the list of all the orders.
+     *
+     * @return the list of all the orders
+     */
     public List<Order> getAllOrders(){
         return userEntity.getOrders();
     }
-
-
 }

@@ -14,7 +14,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * A class responsible for activating emailSender every CHECK_INTERVAL_SECONDS. Emails are sent if there are 5 days until the seance on any ticket of an order.
+ * A class responsible for activating emailSender every CHECK_INTERVAL_SECONDS. Emails are sent if there are 5 days
+ * until the seance on any ticket of an order.
  *
  * @author Kamil Krzempek
  */
@@ -29,12 +30,21 @@ public class EmailPeriodicTask {
     @Value("${alleviation.mail.enabled}")
     private boolean mailEnabled;
 
+    /**
+     * Instantiates an email periodic task.
+     *
+     * @param ticketService  the ticket service
+     * @param emailSender  the email sender
+     */
     @Autowired
     public EmailPeriodicTask(TicketService ticketService, EmailSender emailSender) {
         this.ticketService = ticketService;
         this.emailSender = emailSender;
     }
 
+    /**
+     * Checks reservations.
+     */
     @Scheduled(fixedRate = CHECK_INTERVAL_SECONDS * 1000)
     public void checkReservations() {
         List<EntityObject> tickets = ticketService.getAll().stream().filter(EntityObject::getIsActive).collect(Collectors.toList());

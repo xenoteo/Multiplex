@@ -2,7 +2,6 @@ package agh.alleviation;
 
 import agh.alleviation.presentation.CinemaApp;
 import agh.alleviation.service.HallService;
-import agh.alleviation.service.MovieService;
 import agh.alleviation.util.DataLoader;
 import agh.alleviation.util.EmailSender;
 import javafx.application.Application;
@@ -126,16 +125,16 @@ public class AlleviationApplication {
     /**
      * The entry point of the application.
      *
-     * @param args the input arguments
+     * @param args  the input arguments
      */
     public static void main(String[] args) {
         Application.launch(CinemaApp.class, args);
     }
 
     /**
-     * fxWeaver initialization
+     * fxWeaver initialization.
      *
-     * @param applicationContext the application context
+     * @param applicationContext  the application context
      * @return the fx weaver
      */
     @Bean
@@ -144,15 +143,15 @@ public class AlleviationApplication {
     }
 
     /**
-     * Populate data for testing
+     * Populates data for testing.
      *
-     * @param dataLoader the data loader
+     * @param dataLoader  the data loader
      * @return the command line runner
      */
     @Bean
     public CommandLineRunner populateData(DataLoader dataLoader, HallService hallService) {
         return args -> {
-            if(hallService.getAllHalls().iterator().hasNext()) return;
+            if(hallService.findAllHalls().iterator().hasNext()) return;
             dataLoader.populateUsers();
             dataLoader.populateHalls();
             dataLoader.populateMovies();
@@ -161,6 +160,12 @@ public class AlleviationApplication {
         };
     }
 
+    /**
+     * The bean for getting email sender.
+     *
+     * @param javaMailSender  the java mail sender
+     * @return the email sender
+     */
     @Bean
     public EmailSender getEmailSender(JavaMailSender javaMailSender) {
         return new EmailSender(javaMailSender);

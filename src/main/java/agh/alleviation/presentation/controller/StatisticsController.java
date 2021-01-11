@@ -21,32 +21,62 @@ import java.util.Map;
 @FxmlView("/views/Statistics.fxml")
 public class StatisticsController extends GenericController{
 
+    /**
+     * The movies button.
+     */
     @FXML
     public Button movies;
 
+    /**
+     * The genres button.
+     */
     @FXML
     public Button genres;
 
+    /**
+     * The users button.
+     */
     @FXML
     public Button users;
 
+    /**
+     * The time button.
+     */
     @FXML
     public Button time;
 
+    /**
+     * The days button.
+     */
     @FXML
     public Button days;
 
+    /**
+     * The month button.
+     */
     @FXML
     public Button months;
 
+    /**
+     * The reset button.
+     */
     @FXML
     public Button reset;
-    
+
+    /**
+     * The item table.
+     */
     @FXML
     public TableView itemTable;
-    
+
+    /**
+     * The button-statistics map.
+     */
     private Map<Button, GenericStats> statsMap = new HashMap<>();
 
+    /**
+     * Initialized the statistics view.
+     */
     @FXML
     public void initialize() {
         TicketService ticketService = (TicketService) serviceManager.getService(Ticket.class);
@@ -58,12 +88,22 @@ public class StatisticsController extends GenericController{
         statsMap.put(months, new MonthStats(itemTable, ticketService));
     }
 
+    /**
+     * Handles button click.
+     *
+     * @param event  the event
+     */
     @FXML
     public void handleButtonClicked(ActionEvent event){
         Button button = (Button) event.getSource();
         statsMap.get(button).showStats();
     }
 
+    /**
+     * Resets the item table.
+     *
+     * @param event  the event
+     */
     @FXML
     public void reset(ActionEvent event){
         itemTable.getColumns().clear();

@@ -2,17 +2,13 @@ package agh.alleviation.model;
 
 import agh.alleviation.model.user.Customer;
 import agh.alleviation.model.user.User;
-import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 
 import javax.persistence.*;
-import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +18,9 @@ import java.util.stream.Collectors;
  * Class responsible for representation of customer's orders.
  * In one order there may be many tickets, but one order can be bought only by one user.
  *
- * @author Ksenia Fiodarava
  * @see Ticket
  * @see Customer
+ * @author Ksenia Fiodarava
  */
 @Entity
 @Table(name = Order.TABLE_NAME)
@@ -46,7 +42,9 @@ public class Order extends EntityObject {
          * The constant CUSTOMER.
          */
         public static final String USER = "user";
-
+        /**
+         * The constant DATE.
+         */
         public static final String DATE = "date";
 
     }
@@ -64,8 +62,8 @@ public class Order extends EntityObject {
     /**
      * Instantiates a new Order.
      *
-     * @param tickets  the tickets
-     * @param customer the customer
+     * @param tickets  the list of tickets
+     * @param user  the user
      */
     public Order(List<Ticket> tickets, User user) {
         setTickets(tickets);
@@ -76,7 +74,7 @@ public class Order extends EntityObject {
     /**
      * Instantiates a new Order.
      *
-     * @param customer the customer
+     * @param user  the user
      */
     public Order(User user) {
         setUser(user);
@@ -84,38 +82,46 @@ public class Order extends EntityObject {
     }
 
     /**
-     * Tickets property object property.
+     * Returns the ticket object property.
      *
-     * @return the object property
+     * @return the ticket object property
      */
     public ObjectProperty<List<Ticket>> ticketsProperty() { return ticketsProperty;}
 
     /**
-     * Get tickets list.
+     * Get the ticket list.
      *
-     * @return the list
+     * @return the list of tickets
      */
-//    @Column(name = Columns.TICKETS)
     @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true)
     public List<Ticket> getTickets() {
         return ticketsProperty.getValue();
     }
 
+    /**
+     * Gets the list of active tickets.
+     *
+     * @return the list of active tickets
+     */
     @Transient
     public List<Ticket> getActiveTickets() {
         return ticketsProperty.getValue().stream().filter(Ticket::getIsActive).collect(Collectors.toList());
     }
 
     /**
-     * Set tickets.
+     * Sets tickets.
      *
-     * @param tickets the tickets
+     * @param tickets  the tickets
      */
     public void setTickets(List<Ticket> tickets) {
         ticketsProperty.setValue(tickets);
     }
 
-
+    /**
+     * Adds a ticket.
+     *
+     * @param ticket  the ticket
+     */
     public void addTicket(Ticket ticket){
         if(getTickets() == null){
             setTickets(new ArrayList<>());
@@ -125,16 +131,16 @@ public class Order extends EntityObject {
 
 
     /**
-     * Customer property object property.
+     * Return the user object property.
      *
-     * @return the object property
+     * @return the user object property
      */
     ObjectProperty<User> userProperty() { return userProperty;}
 
     /**
-     * Get customer customer.
+     * Gets the user.
      *
-     * @return the customer
+     * @return the user
      */
     @JoinColumn(name = Columns.USER)
     @ManyToOne
@@ -143,26 +149,40 @@ public class Order extends EntityObject {
     }
 
     /**
-     * Set customer.
+     * Sets a user.
      *
-     * @param customer the customer
+     * @param user  the user
      */
     public void setUser(User user) {
         userProperty.setValue(user);
     }
 
-
+    /**
+     * Gets a date.
+     *
+     * @return the date
+     */
     public LocalDateTime getDate() {
         return dateProperty.getValue();
     }
 
-
+    /**
+     * Sets a date.
+     *
+     * @param date  the date
+     */
     public void setDate(LocalDateTime date) {
         dateProperty.setValue(date);
     }
 
+    /**
+     * Returns the date object property.
+     *
+     * @return the date object property
+     */
     public ObjectProperty<LocalDateTime> dateProperty(){ return dateProperty; }
 
+    @Override
     public List<EntityObject> update() {
         super.update();
         List<EntityObject> updatedObjects = new ArrayList<>(getTickets());
@@ -172,6 +192,7 @@ public class Order extends EntityObject {
         return updatedObjects;
     }
 
+    @Override
     public List<EntityObject> delete() {
         super.delete();
         List<EntityObject> deletedObjects = new ArrayList<>(getTickets());

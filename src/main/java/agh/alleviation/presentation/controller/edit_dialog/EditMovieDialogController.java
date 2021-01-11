@@ -11,24 +11,40 @@ import org.springframework.stereotype.Component;
 
 /**
  * Controller responsible for modal with movie editing
+ *
  * @author Kamil Krzempek
  */
 @Component
 @FxmlView("/views/EditMovieDialog.fxml")
 public class EditMovieDialogController extends EditDialogController<Movie> {
 
+    /**
+     * The name field.
+     */
     @FXML
     private TextField nameField;
 
+    /**
+     * The genre field.
+     */
     @FXML
     private TextField genreField;
 
+    /**
+     * The description field.
+     */
     @FXML
     private TextField descriptionField;
 
+    /**
+     * The director field.
+     */
     @FXML
     private TextField directorField;
 
+    /**
+     * THe actors field.
+     */
     @FXML
     private TextField actorsField;
 
@@ -65,6 +81,9 @@ public class EditMovieDialogController extends EditDialogController<Movie> {
         return validator;
     }
 
+    /**
+     * Saves the movie.
+     */
     @FXML
     private void saveMovie() {
         Validator validator = createValidations();

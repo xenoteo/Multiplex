@@ -18,14 +18,14 @@
                 <ToggleButton fx:id="orders" onAction="#handleActiveButtonChanged" styleClass="menuButton"
                               text="Orders History"
                               visible="false"/>
+                <ToggleButton fx:id="stats" onAction="#handleActiveButtonChanged" styleClass="menuButton" text="Statistics"
+                              visible="false"/>
                 <ToggleButton fx:id="movies" onAction="#handleActiveButtonChanged" styleClass="menuButton"
                               text="Movie List" visible="false"/>
                 <ToggleButton fx:id="halls" onAction="#handleActiveButtonChanged" selected="true"
                               styleClass="menuButton" text="Hall List" visible="false"/>
                 <ToggleButton fx:id="users" onAction="#handleActiveButtonChanged" styleClass="menuButton"
                               text="User List" visible="false"/>
-                <ToggleButton fx:id="stats" onAction="#handleActiveButtonChanged" styleClass="menuButton" text="Statistics"
-                              visible="false"/>
             </toggles>
         </ToggleButtonGroup>
         <Button fx:id="logoutButton" alignment="TOP_RIGHT" mnemonicParsing="false" onAction="#logout"

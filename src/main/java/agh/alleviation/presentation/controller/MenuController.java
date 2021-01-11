@@ -13,7 +13,8 @@ import java.beans.PropertyChangeListener;
 import java.util.HashMap;
 
 /**
- * Controller responsible for management of the navigation bar. Displayed content depends on the logged in user's privileges - achieved through observing ActiveUser's field via Spring PropertyChangeListener interface.
+ * Controller responsible for management of the navigation bar. Displayed content depends on the logged in user's privileges -
+ * achieved through observing ActiveUser's field via Spring PropertyChangeListener interface.
  * @author Kamil Krzempek
  * @author Anna Nosek
  */
@@ -21,31 +22,55 @@ import java.util.HashMap;
 @FxmlView("/views/Menu.fxml")
 public class MenuController extends GenericController implements PropertyChangeListener {
 
+    /**
+     * The users toggle button.
+     */
     @FXML
     private ToggleButton users;
 
+    /**
+     * The halls toggle button.
+     */
     @FXML
     private ToggleButton halls;
 
+    /**
+     * The movies toggle button.
+     */
     @FXML
     private ToggleButton movies;
 
+    /**
+     * The seances toggle button.
+     */
     @FXML
     private ToggleButton seances;
 
+    /**
+     * The seances toggle button.
+     */
     @FXML
     private ToggleButton basket;
 
+    /**
+     * The orders toggle button.
+     */
     @FXML
     private ToggleButton orders;
 
+    /**
+     * The stats toggle button.
+     */
     @FXML
     public ToggleButton stats;
 
+    /**
+     * The screens map.
+     */
     private final HashMap<ToggleButton, Screen> screenHashMap = new HashMap<>();
 
     /**
-     * Initialize.
+     * Initializes the menu view.
      */
     @FXML
     public void initialize() {
@@ -60,9 +85,9 @@ public class MenuController extends GenericController implements PropertyChangeL
 
 
     /**
-     * Handle active button changed.
+     * Handles active button changed.
      *
-     * @param event the event
+     * @param event  the event
      */
     @FXML
     public void handleActiveButtonChanged(ActionEvent event){
@@ -84,7 +109,7 @@ public class MenuController extends GenericController implements PropertyChangeL
     /**
      * Proceeds logout operation.
      *
-     * @param event the event
+     * @param event  the event
      */
     public void logout(ActionEvent event) {
         viewControllerManager.logout();

@@ -15,28 +15,34 @@ import org.springframework.stereotype.Component;
 /**
  * Controller responsible for user's login.
  *
- * @author Ksenia Fiodarava
  * @see AccessDialogController
+ * @author Ksenia Fiodarava
  */
 @Component
 @FxmlView("/views/LoginDialog.fxml")
 public class LoginDialogController extends AccessDialogController {
 
+    /**
+     * The login text field.
+     */
     @FXML
     private TextField loginField;
 
+    /**
+     * The password text field.
+     */
     @FXML
     private PasswordField passwordField;
 
-
+    /**
+     * An active user.
+     */
     private ActiveUser activeUser;
-
 
     /**
      * Boolean variable indicating whether login operation was successful.
      */
     private boolean loggedIn;
-
 
     /**
      * Gets info about login operation's success.
@@ -65,7 +71,7 @@ public class LoginDialogController extends AccessDialogController {
     }
 
     /**
-     * Handles login button and if data provided properly sets the user logged in.
+     * Handles login button click and if data provided properly sets the user logged in.
      */
     @FXML
     public void login() {
@@ -86,11 +92,11 @@ public class LoginDialogController extends AccessDialogController {
         }
         loggedIn = true;
         dialogStage.close();
-        activeUser.setUserEntity(userService.getUserByLogin(login));
+        activeUser.setUserEntity(userService.findUserByLogin(login));
     }
 
     /**
-     * Register.
+     * Handles register button click.
      */
     @FXML
     public void register(){
@@ -98,9 +104,9 @@ public class LoginDialogController extends AccessDialogController {
     }
 
     /**
-     * Set active user.
+     * Sets an active user.
      *
-     * @param activeUser the active user
+     * @param activeUser  the active user
      */
     @Autowired
     public void setActiveUser(ActiveUser activeUser){
@@ -111,5 +117,4 @@ public class LoginDialogController extends AccessDialogController {
     public User getUser() {
         return activeUser.getUserEntity();
     }
-
 }

@@ -14,22 +14,34 @@ import org.springframework.stereotype.Component;
 /**
  * Controller responsible for user's registration.
  *
- * @author Ksenia Fiodarava
  * @see AccessDialogController
+ * @author Ksenia Fiodarava
  */
 @Component
 @FxmlView("/views/RegistrationDialog.fxml")
 public class RegistrationDialogController extends AccessDialogController {
 
+    /**
+     * The name text field.
+     */
     @FXML
     private TextField nameField;
 
+    /**
+     * The login text field.
+     */
     @FXML
     private TextField loginField;
 
+    /**
+     * The email text field.
+     */
     @FXML
     private TextField emailField;
 
+    /**
+     * The password text field.
+     */
     @FXML
     private PasswordField passwordField;
 

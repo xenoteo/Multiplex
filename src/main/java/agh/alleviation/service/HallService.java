@@ -2,23 +2,20 @@ package agh.alleviation.service;
 
 import agh.alleviation.model.EntityObject;
 import agh.alleviation.model.Hall;
-import agh.alleviation.model.Seance;
 import agh.alleviation.persistence.HallRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 /**
  * Service responsible for manipulating the hall repository.
  *
- * @author Ksenia Fiodarava
  * @see EntityObjectService
  * @see HallRepository
  * @see Hall
+ * @author Ksenia Fiodarava
  */
 @Service
 @Transactional
@@ -26,7 +23,7 @@ public class HallService extends EntityObjectService<Hall, HallRepository> {
     /**
      * Instantiates a new Hall service.
      *
-     * @param hallRepository the hall repository
+     * @param hallRepository  the hall repository
      */
     @Autowired
     public HallService(HallRepository hallRepository) {
@@ -34,10 +31,10 @@ public class HallService extends EntityObjectService<Hall, HallRepository> {
     }
 
     /**
-     * Add hall
+     * Adds a hall.
      *
-     * @param capacity the capacity
-     * @param number   the number
+     * @param capacity  the capacity
+     * @param number  the number
      * @return the hall
      */
     public Hall addHall(int capacity, int number) {
@@ -47,9 +44,9 @@ public class HallService extends EntityObjectService<Hall, HallRepository> {
     }
 
     /**
-     * Update hall.
+     * Updates a hall.
      *
-     * @param hall the hall
+     * @param hall  the hall
      */
     @Override
     public List<EntityObject> update(EntityObject hall) {
@@ -59,10 +56,11 @@ public class HallService extends EntityObjectService<Hall, HallRepository> {
     }
 
     /**
-     * Override method to get seances associated with hall.
+     * Overrides method to get seances associated with hall.
+     *
      * Because of lazy loading, they are not loaded at the object creation.
      *
-     * @param hall hall to delete
+     * @param hall  hall to delete
      * @return list of entity objects deleted with hall
      */
     @Override
@@ -72,9 +70,9 @@ public class HallService extends EntityObjectService<Hall, HallRepository> {
     }
 
     /**
-     * Find halls by capacity greater than given value
+     * Finds halls by capacity greater than given value
      *
-     * @param capacity the capacity
+     * @param capacity  the capacity
      * @return the list of halls
      */
     public List<Hall> findHallsByCapacityGreaterThan(int capacity) {
@@ -82,17 +80,17 @@ public class HallService extends EntityObjectService<Hall, HallRepository> {
     }
 
     /**
-     * Find halls by capacity list.
+     * Finds halls by capacity list.
      *
-     * @param capacity the capacity
-     * @return the list
+     * @param capacity  the capacity
+     * @return the list of halls
      */
     public List<Hall> findHallsByCapacity(int capacity) {
         return repository.findAllByCapacity(capacity);
     }
 
     /**
-     * Find hall by its id.
+     * Finds hall by its id.
      *
      * @param number hall's id
      * @return the hall
@@ -101,5 +99,10 @@ public class HallService extends EntityObjectService<Hall, HallRepository> {
         return repository.findByNumber(number);
     }
 
-    public Iterable<Hall> getAllHalls(){ return repository.findAll(); }
+    /**
+     * Finds all the halls.
+     *
+     * @return the list of all the halls
+     */
+    public Iterable<Hall> findAllHalls(){ return repository.findAll(); }
 }

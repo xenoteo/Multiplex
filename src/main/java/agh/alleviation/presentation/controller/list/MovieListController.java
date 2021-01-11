@@ -9,20 +9,19 @@ import javafx.scene.control.*;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
-
 /**
  * The type Movie list controller.
  */
 @Component
 @FxmlView("/views/MovieList.fxml")
 public class MovieListController extends GenericListController<Movie> {
+    /**
+     * The seance service.
+     */
     private SeanceService seanceService;
 
     /**
-     * The Add movie.
+     * The Add movie button.
      */
     @FXML
     public Button addMovie;
@@ -63,6 +62,9 @@ public class MovieListController extends GenericListController<Movie> {
     @FXML
     public TableColumn<Movie, String> ratingColumn;
 
+    /**
+     * Initializes the movie list view.
+     */
     @FXML
     public void initialize() {
         super.initialize();

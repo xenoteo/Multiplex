@@ -3,7 +3,8 @@ package agh.alleviation.presentation;
 /**
  * Enum representing navigable screens in application
  *
- * @author Kamil Krzempek, Anna Nosek
+ * @author Kamil Krzempek
+ * @author  Anna Nosek
  */
 public enum Screen {
     /**

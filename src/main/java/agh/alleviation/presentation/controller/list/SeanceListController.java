@@ -1,7 +1,5 @@
 package agh.alleviation.presentation.controller.list;
 
-import agh.alleviation.model.EntityObject;
-import agh.alleviation.model.Movie;
 import agh.alleviation.model.Seance;
 import agh.alleviation.model.Ticket;
 import agh.alleviation.model.user.User;
@@ -60,39 +58,76 @@ public class SeanceListController extends GenericListController<Seance> implemen
     @FXML
     public TableColumn<Seance, String> ratingColumn;
 
+    /**
+     * The movie text field.
+     */
     @FXML
     private TextField movieField;
 
+    /**
+     * The hall text field.
+     */
     @FXML
     private TextField hallField;
 
+    /**
+     * The date from picker.
+     */
     @FXML
     private DatePicker dateFromField;
 
+    /**
+     * The date to picker.
+     */
     @FXML
     private DatePicker dateToField;
 
+    /**
+     * The max price text field.
+     */
     @FXML
     private TextField maxPriceField;
 
+    /**
+     * The active user.
+     */
     private ActiveUser activeUser;
 
+    /**
+     * The composite filter.
+     */
     private CompositeFilter filter;
 
+    /**
+     * The add button.
+     */
     @FXML
     private Button add;
 
+    /**
+     * The edit button.
+     */
     @FXML
     private Button edit;
 
+    /**
+     * The delete button.
+     */
     @FXML
     private Button delete;
 
+    /**
+     * Sets the active user.
+     * @param activeUser  the active user
+     */
     @Autowired
     public void setActiveUser(ActiveUser activeUser) {
         this.activeUser = activeUser;
     }
 
+    /**
+     * Initializes the seance list view.
+     */
     @FXML
     protected void initialize() {
         super.initialize();
@@ -132,12 +167,18 @@ public class SeanceListController extends GenericListController<Seance> implemen
         }
     }
 
+    @Override
     @FXML
     protected void handleDeleteAction(ActionEvent event) {
         Seance seance = (Seance) itemTable.getSelectionModel().getSelectedItem();
         serviceManager.delete(seance);
     }
 
+    /**
+     * Handles add to basket action.
+     *
+     * @param event  the event
+     */
     @FXML
     private void handleAddToBasketAction(ActionEvent event) {
         Seance seance = (Seance) itemTable.getSelectionModel().getSelectedItem();
@@ -159,6 +200,9 @@ public class SeanceListController extends GenericListController<Seance> implemen
         }
     }
 
+    /**
+     * Resets the table items.
+     */
     private void resetTableItems() {
         User userEntity = activeUser.getUserEntity();
         if (userEntity != null && userEntity.getUserType() == UserType.CUSTOMER)
@@ -170,9 +214,11 @@ public class SeanceListController extends GenericListController<Seance> implemen
         itemTable.setItems(sortedList);
     }
 
+    /**
+     * Applies the filters.
+     */
     @FXML
     private void applyFilters() {
-
         clearFilters();
 
         if (!movieField.getText().isEmpty()) filter.addFilter(new MovieFilter(movieField.getText()));
@@ -195,9 +241,11 @@ public class SeanceListController extends GenericListController<Seance> implemen
         itemTable.setItems(sortedList);
     }
 
+    /**
+     * Clears the filters.
+     */
     @FXML
     private void clearFilters() {
-
         filter.clearFilters();
         resetTableItems();
     }

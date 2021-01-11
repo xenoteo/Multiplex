@@ -1,12 +1,9 @@
 package agh.alleviation.model;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 import javax.persistence.*;
-import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
@@ -14,8 +11,8 @@ import java.io.ObjectOutput;
 /**
  * This class represents movie genres.
  *
- * @author Anna Nosek
  * @see Movie
+ * @author Anna Nosek
  */
 @Entity
 @Table(name = Genre.TABLE_NAME)
@@ -47,7 +44,7 @@ public class Genre extends EntityObject {
     /**
      * Instantiates a new Genre.
      *
-     * @param name the name
+     * @param name  the name
      */
     public Genre(String name) {
 
@@ -56,7 +53,7 @@ public class Genre extends EntityObject {
     }
 
     /**
-     * Get name string.
+     * Gets the name string.
      *
      * @return the string
      */
@@ -66,7 +63,7 @@ public class Genre extends EntityObject {
     }
 
     /**
-     * Set name.
+     * Sets the name.
      *
      * @param name the name
      */
@@ -75,9 +72,9 @@ public class Genre extends EntityObject {
     }
 
     /**
-     * Name property string property.
+     * Returns the name string property.
      *
-     * @return the string property
+     * @return the name string property
      */
     public StringProperty nameProperty() { return this.name; }
 

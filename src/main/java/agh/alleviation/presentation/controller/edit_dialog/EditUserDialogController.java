@@ -19,20 +19,32 @@ import org.springframework.stereotype.Component;
 @FxmlView("/views/EditUserDialog.fxml")
 public class EditUserDialogController extends EditDialogController<User> {
 
+    /**
+     * The user type dropdown.
+     */
     @FXML
     private ChoiceBox<UserType> userTypeDropdown;
 
+    /**
+     * The name field.
+     */
     @FXML
     private TextField nameField;
 
+    /**
+     * The login field.
+     */
     @FXML
     private TextField loginField;
 
+    /**
+     * The email field.
+     */
     @FXML
     private TextField emailField;
 
     /**
-     * Initialize fields of form
+     * Initializes fields of form
      */
     @FXML
     protected void initialize() {
@@ -76,6 +88,9 @@ public class EditUserDialogController extends EditDialogController<User> {
         return validator;
     }
 
+    /**
+     * Saves the user.
+     */
     @FXML
     private void saveUser() {
         Validator validator = createValidations();

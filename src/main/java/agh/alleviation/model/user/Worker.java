@@ -9,8 +9,8 @@ import javax.persistence.Table;
  * This class represents the worker of the cinema.
  * Their fields do not differ from the standard user, although they will have different responsibilities.
  *
- * @author Anna Nosek
  * @see User
+ * @author Anna Nosek
  */
 @Entity
 @Table(name = Worker.TABLE_NAME)

@@ -15,10 +15,21 @@ public class EmailSender {
     private final JavaMailSender javaMailSender;
     private final String FROM_ADDRESS = "alleviationproject@gmail.com";
 
+    /**
+     * Instantiates an email sender.
+     *
+     * @param javaMailSender  the java mail sender
+     */
     public EmailSender(JavaMailSender javaMailSender) {
         this.javaMailSender = javaMailSender;
     }
 
+    /**
+     * Sens a notification about seance.
+     *
+     * @param user  the user
+     * @param seance  the seance
+     */
     public void sendNotificationAboutSeance(User user, Seance seance) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(FROM_ADDRESS);

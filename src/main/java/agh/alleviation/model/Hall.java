@@ -3,7 +3,6 @@ package agh.alleviation.model;
 import javafx.beans.property.*;
 
 import javax.persistence.*;
-import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
@@ -45,7 +44,6 @@ public class Hall extends EntityObject {
     private final IntegerProperty capacityProperty = new SimpleIntegerProperty(this, Columns.CAPACITY);
     private final IntegerProperty numberProperty = new SimpleIntegerProperty(this, Columns.NUMBER);
     private final ObjectProperty<List<Seance>> seancesProperty = new SimpleObjectProperty<>(this, Columns.SEANCES);
-//
 
     /**
      * Instantiates a new Hall.
@@ -56,8 +54,8 @@ public class Hall extends EntityObject {
     /**
      * Instantiates a new Hall.
      *
-     * @param capacity the capacity
-     * @param number   the number
+     * @param capacity  the capacity
+     * @param number  the number
      */
     public Hall(int capacity, int number) {
         setCapacity(capacity);
@@ -66,16 +64,16 @@ public class Hall extends EntityObject {
     }
 
     /**
-     * Capacity property integer property.
+     * Returns the capacity integer property.
      *
-     * @return the integer property
+     * @return the capacity integer property
      */
     public IntegerProperty capacityProperty() {
         return capacityProperty;
     }
 
     /**
-     * Gets capacity.
+     * Gets the capacity.
      *
      * @return the capacity
      */
@@ -85,33 +83,33 @@ public class Hall extends EntityObject {
     }
 
     /**
-     * Set capacity.
+     * Sets the capacity.
      *
-     * @param capacity the capacity
+     * @param capacity  the capacity
      */
     public void setCapacity(int capacity) {
         capacityProperty.set(capacity);
     }
 
     /**
-     * Number property integer property.
+     * Returns the number integer property.
      *
      * @return the integer property
      */
     public IntegerProperty numberProperty() { return numberProperty; }
 
     /**
-     * Get number int.
+     * Gets the hall's number.
      *
-     * @return the int
+     * @return the hall's number.
      */
     @Column(name = Columns.NUMBER)
     public int getNumber() { return numberProperty.get(); }
 
     /**
-     * Set number.
+     * Set the hall's number.
      *
-     * @param number the number
+     * @param number  the hall's number
      */
     public void setNumber(int number) { numberProperty.set(number); }
 
@@ -126,14 +124,14 @@ public class Hall extends EntityObject {
     /**
      * Sets seances.
      *
-     * @param seances the seances
+     * @param seances  the seances
      */
     public void setSeances(List<Seance> seances) { seancesProperty.set(seances); }
 
     /**
-     * Add seance.
+     * Adds a seance.
      *
-     * @param seance the seance
+     * @param seance  the seance
      */
     public void addSeance(Seance seance) { getSeances().add(seance); }
 
@@ -158,11 +156,6 @@ public class Hall extends EntityObject {
     }
 
     @Override
-    public String toString() {
-        return "Hall " + getNumber();
-    }
-
-    @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         super.writeExternal(out);
         out.writeInt(getCapacity());
@@ -176,5 +169,10 @@ public class Hall extends EntityObject {
         setCapacity(in.readInt());
         setCapacity(in.readInt());
         setSeances((List<Seance>) in.readObject());
+    }
+
+    @Override
+    public String toString() {
+        return "Hall " + getNumber();
     }
 }

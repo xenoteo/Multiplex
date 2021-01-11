@@ -40,6 +40,12 @@ public class MonthStats extends GenericStats<Month> {
         public static final String TICKETS = "Tickets bought";
     }
 
+    /**
+     * Instantiates a month stats.
+     *
+     * @param itemTable  the item table
+     * @param ticketService  the ticket service
+     */
     public MonthStats(TableView itemTable, TicketService ticketService) {
         super(itemTable, ticketService);
     }

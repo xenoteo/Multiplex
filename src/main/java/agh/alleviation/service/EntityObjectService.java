@@ -12,8 +12,8 @@ import java.util.stream.Collectors;
  * Base class for all services. Provides default methods implementations for data adding, updating, deleting and retrieving.
  * This class takes two generics - one for object class and second for repository class.
  *
- * @param <E> subclass of EntityObject
- * @param <R> repository for the entity of type E
+ * @param <E>  subclass of EntityObject
+ * @param <R>  repository for the entity of type E
  * @author Anna Nosek
  */
 @Service
@@ -45,18 +45,18 @@ public abstract class EntityObjectService<E extends EntityObject, R extends Crud
     }
 
     /**
-     * Add.
+     * Adds a new object.
      *
-     * @param e the object to be persisted
+     * @param e  the object to be persisted
      */
     public void add(EntityObject e) {
         repository.save((E) e);
     }
 
     /**
-     * Update.
+     * Updates an object.
      *
-     * @param item the item
+     * @param item  the item
      */
     public List<EntityObject> update(EntityObject item) {
         List<EntityObject> updatedObjectList = item.update();
@@ -65,9 +65,9 @@ public abstract class EntityObjectService<E extends EntityObject, R extends Crud
     }
 
     /**
-     * Delete list.
+     * Deletes a list.
      *
-     * @param item the item
+     * @param item  the item
      * @return the list
      */
     public List<EntityObject> delete(EntityObject item) {

@@ -16,25 +16,41 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
- * Controller responsible for modal with seance editing
+ * Controller responsible for modal with seance editing.
  *
  * @author Kamil Krzempek
  */
 @Component
 @FxmlView("/views/EditSeanceDialog.fxml")
 public class EditSeanceDialogController extends EditDialogController<Seance> {
+
+    /**
+     * The movie choice box.
+     */
     @FXML
     private ChoiceBox<Movie> movieChoiceBox;
 
+    /**
+     * The hall choice box.
+     */
     @FXML
     private ChoiceBox<Hall> hallChoiceBox;
 
+    /**
+     * The date picker.
+     */
     @FXML
     private DatePicker datePicker;
 
+    /**
+     * The price field.
+     */
     @FXML
     private TextField priceField;
 
+    /**
+     * Initializes the edit seance view.
+     */
     @Override
     protected void initialize() {
         super.initialize();
@@ -71,6 +87,9 @@ public class EditSeanceDialogController extends EditDialogController<Seance> {
         return validator;
     }
 
+    /**
+     * Saves the seance.
+     */
     @FXML
     private void saveSeance() {
         Validator validator = createValidations();

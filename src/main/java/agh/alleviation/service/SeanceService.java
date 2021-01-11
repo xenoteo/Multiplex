@@ -14,9 +14,9 @@ import java.util.List;
 /**
  * Service responsible for manipulating the seance repository.
  *
- * @author Ksenia Fiodarava
  * @see SeanceRepository
  * @see Seance
+ * @author Ksenia Fiodarava
  */
 @Service
 @Transactional
@@ -27,9 +27,9 @@ public class SeanceService extends EntityObjectService<Seance, SeanceRepository>
     /**
      * Instantiates a new Seance service.
      *
-     * @param seanceRepository the seance repository
+     * @param seanceRepository  the seance repository
      * @param movieRepository  the movie repository
-     * @param hallRepository   the hall repository
+     * @param hallRepository  the hall repository
      */
     @Autowired
     public SeanceService(
@@ -40,9 +40,9 @@ public class SeanceService extends EntityObjectService<Seance, SeanceRepository>
     }
 
     /**
-     * Add seance seance.
+     * Adds a seance.
      *
-     * @param movie the movie
+     * @param movie  the movie
      * @return the seance
      */
     public Seance addSeance(Movie movie) {
@@ -54,12 +54,12 @@ public class SeanceService extends EntityObjectService<Seance, SeanceRepository>
     }
 
     /**
-     * Add seance seance.
+     * Adds a seance.
      *
-     * @param movie the movie
+     * @param movie  the movie
      * @param hall  the hall
      * @param date  the date
-     * @param price the price
+     * @param price  the price
      * @return the seance
      */
     public Seance addSeance(Movie movie, Hall hall, LocalDateTime date, double price) {
@@ -82,7 +82,7 @@ public class SeanceService extends EntityObjectService<Seance, SeanceRepository>
     }
 
     /**
-     * Override method to get tickets associated with seance
+     * Overrides method to get tickets associated with seance
      * Because of lazy loading, they are not loaded at the object creation.
      *
      * @param seance seance to delete

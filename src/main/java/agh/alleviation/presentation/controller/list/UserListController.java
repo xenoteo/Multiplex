@@ -1,6 +1,5 @@
 package agh.alleviation.presentation.controller.list;
 
-import agh.alleviation.model.Seance;
 import agh.alleviation.model.user.User;
 import agh.alleviation.util.UserType;
 import javafx.fxml.FXML;
@@ -17,18 +16,33 @@ import org.springframework.stereotype.Component;
 @Component
 @FxmlView("/views/UserList.fxml")
 public class UserListController extends GenericListController<User> {
+    /**
+     * The user type column.
+     */
     @FXML
     private TableColumn<User, UserType> typeColumn;
 
+    /**
+     * The name column.
+     */
     @FXML
     private TableColumn<User, String> nameColumn;
 
+    /**
+     * The login column.
+     */
     @FXML
     private TableColumn<User, String> loginColumn;
 
+    /**
+     * The email column.
+     */
     @FXML
     private TableColumn<User, String> emailColumn;
 
+    /**
+     * Initializes the user list view.
+     */
     @FXML
     protected void initialize() {
         super.initialize();
@@ -43,16 +57,13 @@ public class UserListController extends GenericListController<User> {
         emailColumn.setCellValueFactory(dataValue -> dataValue.getValue().emailProperty());
     }
 
-    /**
-     * Handle add action.
-     *
-     * @param event the event
-     */
+    @Override
     @FXML
     protected void handleAddAction(ActionEvent event) {
         viewControllerManager.getUserDialogContext().showAddItemDialog();
     }
 
+    @Override
     @FXML
     protected void handleEditAction(ActionEvent event) {
         User user = (User) itemTable.getSelectionModel().getSelectedItem();
@@ -61,6 +72,7 @@ public class UserListController extends GenericListController<User> {
         }
     }
 
+    @Override
     @FXML
     protected void handleDeleteAction(ActionEvent event) {
         User user = (User) itemTable.getSelectionModel().getSelectedItem();
