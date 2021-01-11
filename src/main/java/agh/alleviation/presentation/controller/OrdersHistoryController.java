@@ -5,45 +5,51 @@ import agh.alleviation.model.Order;
 import agh.alleviation.model.Ticket;
 import agh.alleviation.model.user.User;
 import agh.alleviation.presentation.context.ActiveUser;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import net.rgielen.fxweaver.core.FxmlView;
-import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-
 
 /**
  * Controller of the orders history view. Responsible for displaying all of the user's orders.
  *
  * @author Anna Nosek
  */
-
 @Component
 @FxmlView("/views/OrdersHistory.fxml")
 public class OrdersHistoryController extends GenericController implements PropertyChangeListener {
 
+    /**
+     * The order list.
+     */
     @FXML
     private ListView<EntityObject> ordersList;
 
+    /**
+     * The active user.
+     */
     private ActiveUser activeUser;
 
+    /**
+     * Sets the active user.
+     * @param activeUser  the active user
+     */
     @Autowired
     public void setActiveUser(ActiveUser activeUser) {
         this.activeUser = activeUser;
     }
 
+    /**
+     * Initializes the order history view.
+     */
     @FXML
     private void initialize() {
         ordersList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
@@ -78,6 +84,11 @@ public class OrdersHistoryController extends GenericController implements Proper
         });
     }
 
+    /**
+     * Handles show details action.
+     *
+     * @param event  the event.
+     */
     @FXML
     private void showDetailsAction(ActionEvent event) {
         Order selectedOrder = (Order) ordersList.getSelectionModel().getSelectedItem();

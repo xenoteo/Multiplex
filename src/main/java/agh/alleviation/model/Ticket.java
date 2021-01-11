@@ -4,21 +4,17 @@ import agh.alleviation.util.Rating;
 import javafx.beans.property.*;
 
 import javax.persistence.*;
-import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 /**
  * Class responsible for representation of a ticket.
  * It keeps the information about the seance and its price.
  * Seance's price may be different from the ticket's price, as a customer may have a discount.
  *
- * @author Ksenia Fiodarava
  * @see Seance
+ * @author Ksenia Fiodarava
  */
 @Entity
 @Table(name = Ticket.TABLE_NAME)
@@ -40,14 +36,17 @@ public class Ticket extends EntityObject {
          * The constant PRICE.
          */
         public static final String PRICE = "price";
-
         /**
          * The constant ORDER.
          */
         public static final String ORDER = "order";
-
+        /**
+         * The constant IS_RATED.
+         */
         public static final String IS_RATED = "is_rated";
-
+        /**
+         * The constant IS_RATING_POSITIVE.
+         */
         public static final String IS_RATING_POSITIVE = "is_rating_positive";
     }
 
@@ -66,7 +65,7 @@ public class Ticket extends EntityObject {
     /**
      * Instantiates a new Ticket.
      *
-     * @param seance the seance
+     * @param seance  the seance
      * @param price  the price
      */
     public Ticket(Seance seance, double price) {
@@ -76,6 +75,11 @@ public class Ticket extends EntityObject {
         setIsRated(false);
     }
 
+    /**
+     * Instantiates a new Ticket.
+     *
+     * @param seance  the seance
+     */
     public Ticket(Seance seance) {
         setSeance(seance);
         setPrice(seance.getPrice());
@@ -84,14 +88,14 @@ public class Ticket extends EntityObject {
     }
 
     /**
-     * Seance property object property.
+     * Returns the seance object property.
      *
-     * @return the object property
+     * @return the seance object property
      */
     public ObjectProperty<Seance> seanceProperty() { return seanceProperty; }
 
     /**
-     * Gets seance.
+     * Gets the seance.
      *
      * @return the seance
      */
@@ -101,23 +105,23 @@ public class Ticket extends EntityObject {
     }
 
     /**
-     * Sets seance.
+     * Sets the seance.
      *
-     * @param seance the seance
+     * @param seance  the seance
      */
     public void setSeance(Seance seance) { seanceProperty.setValue(seance);}
 
     /**
-     * Price property double property.
+     * Returns the price double property.
      *
-     * @return the double property
+     * @return the price double property
      */
     public DoubleProperty priceProperty() { return priceProperty; }
 
     /**
-     * Get price double.
+     * Gets the price.
      *
-     * @return the double
+     * @return the price
      */
     @Column(name = Columns.PRICE)
     public double getPrice() {
@@ -125,7 +129,7 @@ public class Ticket extends EntityObject {
     }
 
     /**
-     * Gets order.
+     * Gets the order.
      *
      * @return the order
      */
@@ -133,34 +137,64 @@ public class Ticket extends EntityObject {
     public Order getOrder() { return orderProperty.get(); }
 
     /**
-     * Sets order.
+     * Sets the order.
      *
-     * @param order the order
+     * @param order  the order
      */
     public void setOrder(Order order) { orderProperty.set(order); }
 
     /**
-     * Set price.
+     * Sets the price.
      *
-     * @param price the price
+     * @param price  the price
      */
     public void setPrice(double price) {
         priceProperty.set(price);
     }
 
+    /**
+     * Gets is rated.
+     *
+     * @return is rated boolean
+     */
     @Column(name = Columns.IS_RATED)
     public boolean getIsRated() { return isRatedProperty.get(); }
 
+    /**
+     * Sets is rated.
+     *
+     * @param isRated  is rated boolean
+     */
     public void setIsRated(boolean isRated) { isRatedProperty.set(isRated); }
 
+    /**
+     * Returns the is rated boolean property.
+     *
+     * @return the is rated boolean property
+     */
     @Transient
     public BooleanProperty isRatedProperty() { return isRatedProperty; }
 
+    /**
+     * Gets is rating positive.
+     *
+     * @return is rating positive boolean
+     */
     @Column(name = Columns.IS_RATING_POSITIVE)
     public Rating getIsRatingPositive() { return Rating.fromOrdinal(isRatingPositive.get()); }
 
+    /**
+     * Sets is rating positive.
+     *
+     * @param rating  the rating
+     */
     public void setIsRatingPositive(Rating rating) { isRatingPositive.set(rating.ordinal()); }
 
+    /**
+     * Returns the is rating positive integer property.
+     *
+     * @return the is rating positive integer property
+     */
     @Transient
     public IntegerProperty isRatingPositiveProperty() { return isRatingPositive; }
 

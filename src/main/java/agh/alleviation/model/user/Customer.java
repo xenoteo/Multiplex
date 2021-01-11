@@ -18,8 +18,8 @@ import java.util.List;
  * This class represents the customer of the cinema.
  * Their fields do not differ from the standard user, although they will have the ability to create orders.
  *
- * @author Anna Nosek
  * @see User
+ * @author Anna Nosek
  */
 @Entity
 @Table(name = Customer.TABLE_NAME)
@@ -40,13 +40,14 @@ public class Customer extends User {
      * Instantiates a new Customer.
      *
      * @param name  the name
-     * @param login the login
-     * @param email the email
+     * @param login  the login
+     * @param email  the email
      */
     public Customer(final String name, final String login, final String email) {
         super(name, login, email);
     }
 
+    @Override
     public List<EntityObject> update() {
         super.update();
         List<EntityObject> updatedObjects = new ArrayList<>(getOrders());
@@ -56,6 +57,7 @@ public class Customer extends User {
         return updatedObjects;
     }
 
+    @Override
     public List<EntityObject> delete() {
         super.delete();
         List<EntityObject> deletedObjects = new ArrayList<>(getOrders());

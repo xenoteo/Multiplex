@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.time.Month;
-import java.util.List;
 
 /**
  * This class is responsible for populating the database with sample data at the start of the application.
@@ -28,11 +26,11 @@ public class DataLoader {
     /**
      * Instantiates a new Data loader.
      *
-     * @param hallService   the hall service
+     * @param hallService  the hall service
      * @param movieService  the movie service
      * @param orderService  the order service
-     * @param seanceService the seance service
-     * @param userService   the user service
+     * @param seanceService  the seance service
+     * @param userService  the user service
      */
     @Autowired
     public DataLoader(
@@ -50,7 +48,7 @@ public class DataLoader {
     }
 
     /**
-     * Populate users.
+     * Populates users.
      */
     public void populateUsers() {
         userService.addUser("Mike", "mikeErl", "mike@erlang.com", UserType.ADMIN, "otp");
@@ -59,7 +57,7 @@ public class DataLoader {
     }
 
     /**
-     * Populate halls.
+     * Populates halls.
      */
     public void populateHalls() {
         hallService.addHall(50, 1);
@@ -67,7 +65,7 @@ public class DataLoader {
     }
 
     /**
-     * Populate movies.
+     * Populates movies.
      */
     public void populateMovies() {
         movieService.addMovie("Erlang: the movie", "fantasy", "Great movie", "Joe", "Mike,Robert");
@@ -75,7 +73,7 @@ public class DataLoader {
     }
 
     /**
-     * Populate seances.
+     * Populates seances.
      */
     public void populateSeances() {
         LocalDateTime date = LocalDateTime.now().plusDays(6);
@@ -88,7 +86,7 @@ public class DataLoader {
     }
 
     /**
-     * Populate orders.
+     * Populates orders.
      */
     public void populateOrders() {
         Customer customer = userService.findAllCustomers().get(0);

@@ -8,8 +8,8 @@ import net.rgielen.fxweaver.core.FxControllerAndView;
 /**
  * The type Item dialog context.
  *
- * @param <Item>       the type parameter
- * @param <Controller> the type parameter
+ * @param <Item>  the type parameter
+ * @param <Controller>  the type parameter
  */
 public class ItemDialogContext<Item, Controller extends EditDialogController<Item>> extends StageAndSceneSetupper {
     /**
@@ -20,14 +20,21 @@ public class ItemDialogContext<Item, Controller extends EditDialogController<Ite
     /**
      * Instantiates a new Item dialog context.
      *
-     * @param primaryStage      the primary stage
-     * @param controllerAndView the controller and view
+     * @param primaryStage  the primary stage
+     * @param controllerAndView  the controller and view
      */
     public ItemDialogContext(Stage primaryStage, FxControllerAndView<Controller, Pane> controllerAndView) {
         super(primaryStage);
         this.controllerAndView = controllerAndView;
     }
 
+    /**
+     * Shows the item dialog.
+     *
+     * @param title  the title
+     * @param item  the item
+     * @return the item
+     */
     private Item showItemDialog(String title, Item item) {
         Stage stage = setupStageAndScene(controllerAndView.getView().get(), title);
         Controller controller = controllerAndView.getController();
@@ -38,7 +45,7 @@ public class ItemDialogContext<Item, Controller extends EditDialogController<Ite
     }
 
     /**
-     * Show add item dialog item.
+     * Shows the add item dialog item.
      *
      * @return the item
      */
@@ -47,13 +54,12 @@ public class ItemDialogContext<Item, Controller extends EditDialogController<Ite
     }
 
     /**
-     * Show edit item dialog.
+     * Shows the edit item dialog.
      *
      * @param item the item
      */
     public void showEditItemDialog(Item item) {
         this.showItemDialog("Edit item", item);
     }
-
 
 }

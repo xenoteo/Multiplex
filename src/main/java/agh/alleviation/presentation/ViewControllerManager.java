@@ -33,8 +33,8 @@ import java.util.Map;
  * It heavily relies on FxWeaver in order to maintain cooperation between JavaFX and Spring Boot.
  * It sets up modal views for adding user and hall.
  *
- * @author Kamil Krzempek
  * @see ScreenSwitcher
+ * @author Kamil Krzempek
  */
 @Component
 public class ViewControllerManager {
@@ -51,25 +51,25 @@ public class ViewControllerManager {
     }
 
     /**
-     * Set fx weaver.
+     * Sets the fx weaver.
      *
-     * @param weaver the weaver
+     * @param weaver  the weaver
      */
     public void setFxWeaver(FxWeaver weaver) {
         fxWeaver = weaver;
     }
 
     /**
-     * Set primary stage.
+     * Sets the primary stage.
      *
-     * @param stage the stage
+     * @param stage  the stage
      */
     public void setPrimaryStage(Stage stage) {
         primaryStage = stage;
     }
 
     /**
-     * Init root layout.
+     * Inits the root layout.
      */
     public void initRootLayout() {
         BorderPane borderPane = new BorderPane();
@@ -122,7 +122,7 @@ public class ViewControllerManager {
     }
 
     /**
-     * Show primary stage.
+     * Shows the primary stage.
      */
     public void showPrimaryStage() {
         primaryStage.show();
@@ -130,7 +130,7 @@ public class ViewControllerManager {
     }
 
     /**
-     * Hide primary stage.
+     * Hides the primary stage.
      */
     public void hidePrimaryStage() {
         primaryStage.close();
@@ -139,7 +139,6 @@ public class ViewControllerManager {
     /**
      * Loads controllers into the FxWeaver and sets them up with corresponding views.
      */
-
     private FxControllerAndView<? extends GenericController, Node> addToControllersAndViews(
         Screen screen, Class<? extends GenericController> controller) {
         var controllerAndView = fxWeaver.load(controller);
@@ -148,9 +147,9 @@ public class ViewControllerManager {
     }
 
     /**
-     * Switch view.
+     * Switches the view.
      *
-     * @param screen the screen
+     * @param screen  the screen
      */
     public void switchView(Screen screen) {
         screenSwitcher.activate(screen);
@@ -192,6 +191,11 @@ public class ViewControllerManager {
         return new ItemDialogContext<>(primaryStage, fxWeaver.load(EditSeanceDialogController.class));
     }
 
+    /**
+     * Gets order dialog context.
+     *
+     * @return the order dialog context
+     */
     public ItemDialogContext<Order, OrderDetailsDialogController> getOrderDialogContext() {
         return new ItemDialogContext<>(primaryStage, fxWeaver.load(OrderDetailsDialogController.class));
     }
@@ -222,7 +226,7 @@ public class ViewControllerManager {
     }
 
     /**
-     * Updates active user.
+     * Updates the active user.
      *
      * @param user new user
      */
@@ -238,7 +242,7 @@ public class ViewControllerManager {
     }
 
     /**
-     * Set active user.
+     * Sets the active user.
      *
      * @param activeUser the active user
      */

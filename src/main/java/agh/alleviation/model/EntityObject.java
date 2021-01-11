@@ -4,7 +4,6 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 
 import javax.persistence.*;
-import javax.swing.border.EtchedBorder;
 import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
@@ -83,15 +82,15 @@ public abstract class EntityObject implements Externalizable {
     public void setIsActive(boolean isActive) { this.isActive.set(isActive);}
 
     /**
-     * Is active property boolean property.
+     * Returns is active boolean property.
      *
-     * @return the boolean property
+     * @return the is active boolean property
      */
     @Transient
     public BooleanProperty isActiveProperty() { return isActive; }
 
     /**
-     * Update
+     * Updates an object.
      *
      * @return list of affected items
      */
@@ -102,7 +101,7 @@ public abstract class EntityObject implements Externalizable {
     }
 
     /**
-     * Delete list.
+     * Deletes the list.
      *
      * @return the list
      */

@@ -70,6 +70,12 @@ public class MovieStats extends GenericStats<Movie> {
         public static final String TICKETS = "Tickets bought";
     }
 
+    /**
+     * Instantiates a movie stats.
+     *
+     * @param itemTable  the item table
+     * @param ticketService  the ticket service
+     */
     public MovieStats(TableView itemTable, TicketService ticketService) {
         super(itemTable, ticketService);
     }

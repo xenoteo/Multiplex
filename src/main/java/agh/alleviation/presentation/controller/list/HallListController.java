@@ -16,12 +16,21 @@ import org.springframework.stereotype.Component;
 @Component
 @FxmlView("/views/HallList.fxml")
 public class HallListController extends GenericListController<Hall> {
+    /**
+     * The number column.
+     */
     @FXML
     private TableColumn<Hall, Integer> numberColumn;
 
+    /**
+     * The capacity column.
+     */
     @FXML
     private TableColumn<Hall, Integer> capacityColumn;
 
+    /**
+     * Initializes the hall list view.
+     */
     @FXML
     protected void initialize() {
         super.initialize();
@@ -35,11 +44,13 @@ public class HallListController extends GenericListController<Hall> {
         capacityColumn.setCellValueFactory(dataValue -> dataValue.getValue().capacityProperty().asObject());
     }
 
+    @Override
     @FXML
     protected void handleAddAction(ActionEvent event) {
         viewControllerManager.getHallDialogContext().showAddItemDialog();
     }
 
+    @Override
     @FXML
     protected void handleEditAction(ActionEvent event) {
         Hall hall = (Hall) itemTable.getSelectionModel().getSelectedItem();

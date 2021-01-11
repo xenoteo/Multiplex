@@ -7,13 +7,19 @@ import agh.alleviation.model.Seance;
  * Should be used as a part of composite filter.
  *
  * @author Anna Nosek
- *
  */
-
 public class PriceFilter implements SeanceFilter {
 
+    /**
+     * The max price.
+     */
     private float maxPrice;
 
+    /**
+     * Instantiates a price filter.
+     *
+     * @param maxPrice  the max price
+     */
     public PriceFilter(int maxPrice){
         this.maxPrice = maxPrice;
     }
@@ -23,6 +29,11 @@ public class PriceFilter implements SeanceFilter {
         return seance.getPrice() <= maxPrice;
     }
 
+    /**
+     * Sets the max price.
+     *
+     * @param maxPrice  the max price
+     */
     public void setMaxPrice(float maxPrice){
         this.maxPrice = maxPrice;
     }

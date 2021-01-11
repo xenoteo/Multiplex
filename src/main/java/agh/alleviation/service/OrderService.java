@@ -15,10 +15,10 @@ import java.util.List;
 /**
  * Service responsible for manipulating order and ticket repositories.
  *
- * @author Ksenia Fiodarava
  * @see OrderRepository
  * @see Order
  * @see Ticket
+ * @author Ksenia Fiodarava
  */
 @Service
 @Transactional
@@ -26,37 +26,33 @@ public class OrderService extends EntityObjectService<Order, OrderRepository> {
     private final TicketRepository ticketRepository;
     private final UserRepository userRepository;
     private final SeanceRepository seanceRepository;
-    private final CustomerRepository customerRepository;
     private final OrderRepository orderRepository;
 
     /**
      * Instantiates a new Order service.
      *
-     * @param orderRepository    the order repository
-     * @param ticketRepository   the ticket repository
-     * @param userRepository     the user repository
-     * @param seanceRepository   the seance repository
-     * @param customerRepository the customer repository
+     * @param orderRepository  the order repository
+     * @param ticketRepository  the ticket repository
+     * @param userRepository  the user repository
+     * @param seanceRepository  the seance repository
      */
     @Autowired
     public OrderService(
         OrderRepository orderRepository,
         TicketRepository ticketRepository,
         UserRepository userRepository,
-        SeanceRepository seanceRepository,
-        CustomerRepository customerRepository) {
+        SeanceRepository seanceRepository) {
         repository = orderRepository;
         this.orderRepository = orderRepository;
         this.ticketRepository = ticketRepository;
         this.userRepository = userRepository;
         this.seanceRepository = seanceRepository;
-        this.customerRepository = customerRepository;
     }
 
     /**
-     * Add ticket.
+     * Adds the ticket.
      *
-     * @param seance the seance
+     * @param seance  the seance
      * @param price  the price
      * @return the ticket
      */
@@ -68,6 +64,14 @@ public class OrderService extends EntityObjectService<Order, OrderRepository> {
         return ticket;
     }
 
+    /**
+     * Adds the ticket to the order.
+     *
+     * @param seance  the seance
+     * @param price  the price
+     * @param order  the order
+     * @return the ticket
+     */
     public Ticket addTicketToOrder(Seance seance, double price, Order order) {
         Ticket ticket = addTicket(seance, price);
         order.getTickets().add(ticket);
@@ -77,15 +81,21 @@ public class OrderService extends EntityObjectService<Order, OrderRepository> {
         return ticket;
     }
 
+    /**
+     * Adds an order.
+     *
+     * @param customer  the customer
+     * @return the order
+     */
     public Order addOrder(Customer customer) {
         return addOrder(new ArrayList<>(), customer);
     }
 
     /**
-     * Add order.
+     * Adds the order.
      *
      * @param tickets  the tickets
-     * @param customer the customer
+     * @param user  the user
      * @return the order
      */
     public Order addOrder(List<Ticket> tickets, User user) {
@@ -125,7 +135,7 @@ public class OrderService extends EntityObjectService<Order, OrderRepository> {
     /**
      * Get orders by customers.
      *
-     * @param customer the customer
+     * @param user  the user
      * @return the list
      */
     public List<Order> getOrdersByUser(User user) {
@@ -139,7 +149,7 @@ public class OrderService extends EntityObjectService<Order, OrderRepository> {
     }
 
     /**
-     * Override method to get tickets associated with order
+     * Overrides method to get tickets associated with order
      * Because of lazy loading, they are not loaded at the object creation.
      *
      * @param order order to delete
@@ -150,8 +160,13 @@ public class OrderService extends EntityObjectService<Order, OrderRepository> {
         return super.delete(order);
     }
 
-
-    public Order getOrderWithTickets(Order order){
+    /**
+     * Finds orders with tickets.
+     *
+     * @param order  the order
+     * @return the order
+     */
+    public Order findOrderWithTickets(Order order){
         return repository.findByIdWithTickets(order.getId());
     }
 }

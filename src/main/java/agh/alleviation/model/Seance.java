@@ -8,7 +8,6 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,9 +16,9 @@ import java.util.List;
  * One movie can have many seance, but a seance can be assigned only to one movie.
  * In one hall there can take place many seances, but a seance can be assigned only to one hall.
  *
- * @author Ksenia Fiodarava
  * @see Movie
  * @see Hall
+ * @author Ksenia Fiodarava
  */
 @Entity
 @Table(name = Seance.TABLE_NAME)
@@ -77,10 +76,10 @@ public class Seance extends EntityObject {
     /**
      * Instantiates a new Seance.
      *
-     * @param movie the movie
+     * @param movie  the movie
      * @param hall  the hall
      * @param date  the date
-     * @param price the price
+     * @param price  the price
      */
     public Seance(Movie movie, Hall hall, LocalDateTime date, double price) {
         this(movie);
@@ -90,16 +89,16 @@ public class Seance extends EntityObject {
     }
 
     /**
-     * Movie property object property.
+     * Returns the movie object property.
      *
-     * @return the object property
+     * @return the movie object property
      */
     public ObjectProperty<Movie> movieProperty() {
         return movieProperty;
     }
 
     /**
-     * Gets movie.
+     * Gets the movie.
      *
      * @return the movie
      */
@@ -109,25 +108,25 @@ public class Seance extends EntityObject {
     }
 
     /**
-     * Set movie.
+     * Sets the movie.
      *
-     * @param movie the movie
+     * @param movie  the movie
      */
     public void setMovie(Movie movie) {
         movieProperty.setValue(movie);
     }
 
     /**
-     * Hall property object property.
+     * Returns the hall object property.
      *
-     * @return the object property
+     * @return the hall object property
      */
     public ObjectProperty<Hall> hallProperty() {
         return hallProperty;
     }
 
     /**
-     * Gets hall.
+     * Gets the hall.
      *
      * @return the hall
      */
@@ -137,7 +136,7 @@ public class Seance extends EntityObject {
     }
 
     /**
-     * Set hall.
+     * Sets the hall.
      *
      * @param hall the hall
      */
@@ -146,16 +145,16 @@ public class Seance extends EntityObject {
     }
 
     /**
-     * Date property object property.
+     * Returns the date object property.
      *
-     * @return the object property
+     * @return the date object property
      */
     public ObjectProperty<LocalDateTime> dateProperty() {
         return dateProperty;
     }
 
     /**
-     * Gets date.
+     * Gets the date.
      *
      * @return the date
      */
@@ -165,25 +164,25 @@ public class Seance extends EntityObject {
     }
 
     /**
-     * Set date.
+     * Sets the date.
      *
-     * @param date the date
+     * @param date  the date
      */
     public void setDate(LocalDateTime date) {
         dateProperty.setValue(date);
     }
 
     /**
-     * Price property double property.
+     * Returns the price double property.
      *
-     * @return the double property
+     * @return the price double property
      */
     public DoubleProperty priceProperty() {
         return priceProperty;
     }
 
     /**
-     * Gets price.
+     * Gets the price.
      *
      * @return the price
      */
@@ -193,18 +192,18 @@ public class Seance extends EntityObject {
     }
 
     /**
-     * Set price.
+     * Sets the price.
      *
-     * @param price the price
+     * @param price  the price
      */
     public void setPrice(double price) {
         priceProperty.set(price);
     }
 
     /**
-     * Tickets property object property.
+     * Returns the ticket list object property.
      *
-     * @return the object property
+     * @return the ticket list object property
      */
     public ObjectProperty<List<Ticket>> ticketsProperty() { return tickets; }
 
@@ -219,35 +218,17 @@ public class Seance extends EntityObject {
     /**
      * Sets tickets.
      *
-     * @param tickets the tickets
+     * @param tickets  the tickets
      */
     public void setTickets(List<Ticket> tickets) { this.tickets.set(tickets);}
 
     /**
-     * Add ticket.
+     * Adds a ticket.
      *
-     * @param ticket the ticket
+     * @param ticket  the ticket
      */
     public void addTicket(Ticket ticket) {
         getTickets().add(ticket);
-    }
-
-    @Override
-    public void writeExternal(ObjectOutput out) throws IOException {
-        super.writeExternal(out);
-        out.writeObject(getMovie());
-        out.writeObject(getDate());
-        out.writeObject(getPrice());
-        out.writeObject(getTickets());
-    }
-
-    @Override
-    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        super.readExternal(in);
-        setMovie((Movie) in.readObject());
-        setDate((LocalDateTime) in.readObject());
-        setPrice(in.readDouble());
-        setTickets((List<Ticket>) in.readObject());
     }
 
     @Override
@@ -268,5 +249,23 @@ public class Seance extends EntityObject {
             deletedObjects.addAll(ticket.delete());
         });
         return deletedObjects;
+    }
+
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+        super.writeExternal(out);
+        out.writeObject(getMovie());
+        out.writeObject(getDate());
+        out.writeObject(getPrice());
+        out.writeObject(getTickets());
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        super.readExternal(in);
+        setMovie((Movie) in.readObject());
+        setDate((LocalDateTime) in.readObject());
+        setPrice(in.readDouble());
+        setTickets((List<Ticket>) in.readObject());
     }
 }

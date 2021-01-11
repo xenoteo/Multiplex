@@ -18,9 +18,9 @@ import java.util.Objects;
  * Actors are kept in a coma separated String.
  * MovieService will be responsible for processing this list into a useful structure.
  *
+ * @see Genre
  * @author Kamil Krzempek
  * @author Anna Nosek
- * @see Genre
  */
 @Entity
 @Table(name = Movie.TABLE_NAME)
@@ -54,9 +54,13 @@ public class Movie extends EntityObject {
          * The constant ACTORS.
          */
         public static final String ACTORS = "actors";
-
+        /**
+         * The constant LIKES.
+         */
         public static final String LIKES = "likes";
-
+        /**
+         * The constant DISLIKES.
+         */
         public static final String DISLIKES = "dislikes";
     }
 
@@ -68,11 +72,11 @@ public class Movie extends EntityObject {
     /**
      * Instantiates a new Movie.
      *
-     * @param name        the name
-     * @param genre       the genre
-     * @param description the description
-     * @param director    the director
-     * @param actors      the actors
+     * @param name  the name
+     * @param genre  the genre
+     * @param description  the description
+     * @param director  the director
+     * @param actors  the actors
      */
     public Movie(final String name, Genre genre, String description, String director, String actors) {
         setName(name);
@@ -93,7 +97,7 @@ public class Movie extends EntityObject {
     private final IntegerProperty dislikes = new SimpleIntegerProperty();
 
     /**
-     * Gets name.
+     * Gets the name.
      *
      * @return the name
      */
@@ -103,43 +107,43 @@ public class Movie extends EntityObject {
     }
 
     /**
-     * Sets name.
+     * Sets the name.
      *
-     * @param name the name
+     * @param name  the name
      */
     public void setName(String name) { this.name.set(name); }
 
     /**
-     * Name property string property.
+     * Returns the name string property.
      *
-     * @return the string property
+     * @return the name string property
      */
     public StringProperty nameProperty() { return name; }
 
     /**
-     * Get description string.
+     * Gets the description string.
      *
-     * @return the string
+     * @return the description string
      */
     @Column(name = Columns.DESCRIPTION)
     public String getDescription() { return description.get(); }
 
     /**
-     * Set description.
+     * Sets the description.
      *
-     * @param description the description
+     * @param description  the description
      */
     public void setDescription(String description) { this.description.set(description);}
 
     /**
-     * Description property string property.
+     * Returns the description string property.
      *
-     * @return the string property
+     * @return the description string property
      */
     public StringProperty descriptionProperty() { return description; }
 
     /**
-     * Get genre genre.
+     * Gets a genre.
      *
      * @return the genre
      */
@@ -147,58 +151,58 @@ public class Movie extends EntityObject {
     public Genre getGenre() { return genre.get(); }
 
     /**
-     * Set genre.
+     * Sets a genre.
      *
-     * @param genre the genre
+     * @param genre  the genre
      */
     public void setGenre(Genre genre) { this.genre.set(genre); }
 
     /**
-     * Genre property object property.
+     * Returns the genre object property.
      *
-     * @return the object property
+     * @return the genre object property
      */
     public ObjectProperty<Genre> genreProperty() { return genre; }
 
     /**
-     * Get director string.
+     * Gets the director string.
      *
-     * @return the string
+     * @return the director string
      */
     @Column(name = Columns.DIRECTOR)
     public String getDirector() { return director.get(); }
 
     /**
-     * Set director.
+     * Sets the director.
      *
-     * @param director the director
+     * @param director  the director
      */
     public void setDirector(String director) { this.director.set(director);}
 
     /**
-     * Director property string property.
+     * Returns the director string property.
      *
-     * @return the string property
+     * @return the director string property
      */
     public StringProperty directorProperty() { return director; }
 
     /**
-     * Get actors string.
+     * Gets the actors string.
      *
-     * @return the string
+     * @return the actors string
      */
     @Column(name = Columns.ACTORS)
     public String getActors() { return actors.get(); }
 
     /**
-     * Set actors.
+     * Sets actors.
      *
-     * @param actors the actors
+     * @param actors  the actors
      */
     public void setActors(String actors) { this.actors.set(actors); }
 
     /**
-     * Actors property string property.
+     * Returns the actors string property.
      *
      * @return the string property
      */
@@ -215,30 +219,69 @@ public class Movie extends EntityObject {
     /**
      * Sets seances.
      *
-     * @param seances the seances
+     * @param seances  the seances
      */
     public void setSeances(List<Seance> seances) { this.seances.set(seances); }
 
     /**
-     * Seances property object property.
+     * Returns seances object property.
      *
-     * @return the object property
+     * @return the seances object property
      */
     public ObjectProperty<List<Seance>> seancesProperty() { return seances; }
 
+    /**
+     * Gets likes.
+     *
+     * @return the likes
+     */
     @Column(name=Columns.LIKES)
     public int getLikes(){ return likes.get(); }
 
+    /**
+     * Sets likes.
+     *
+     * @param likes  the likes
+     */
     public void setLikes(int likes){ this.likes.set(likes); }
 
+    /**
+     * Returns the likes integer property.
+     *
+     * @return the likes integer property
+     */
     public IntegerProperty likesProperty(){ return likes; }
 
+    /**
+     * Gets dislikes.
+     *
+     * @return the dislikes
+     */
     @Column(name=Columns.DISLIKES)
     public int getDislikes(){ return dislikes.get(); }
 
+    /**
+     * Sets dislikes
+     *
+     * @param dislikes  the dislikes
+     */
     public void setDislikes(int dislikes){ this.dislikes.set(dislikes); }
 
+    /**
+     * Returns the dislikes integer property.
+     *
+     * @return the dislikes integer property
+     */
     public IntegerProperty dislikesProperty(){ return dislikes; }
+
+    /**
+     * Adds a seance.
+     *
+     * @param seance  the seance
+     */
+    public void addSeance(Seance seance) {
+        getSeances().add(seance);
+    }
 
     @Override
     public List<EntityObject> update() {
@@ -258,15 +301,6 @@ public class Movie extends EntityObject {
             deletedObjects.addAll(seance.delete());
         });
         return deletedObjects;
-    }
-
-    /**
-     * Add seance.
-     *
-     * @param seance the seance
-     */
-    public void addSeance(Seance seance) {
-        getSeances().add(seance);
     }
 
     @Override

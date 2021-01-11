@@ -5,23 +5,27 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxWeaver;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 
 /**
- * Class responsible for Spring Boot context creation and JavaFx application launch
+ * Class responsible for Spring Boot context creation and JavaFx application launch.
  *
  * @author Kamil Krzempek
  */
 public class CinemaApp extends Application {
+    /**
+     * The application context.
+     */
     private ConfigurableApplicationContext applicationContext;
+    /**
+     * The view controller manager.
+     */
     private ViewControllerManager viewControllerManager;
 
     @Override
     public void init() {
         String[] args = getParameters().getRaw().toArray(new String[0]);
-
         this.applicationContext = new SpringApplicationBuilder().sources(AlleviationApplication.class).run(args);
     }
 

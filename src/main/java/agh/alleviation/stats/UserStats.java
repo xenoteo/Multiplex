@@ -39,6 +39,12 @@ public class UserStats extends GenericStats<User> {
         public static final String TICKETS = "Tickets bought";
     }
 
+    /**
+     * Instantiates a user stats.
+     *
+     * @param itemTable  the item table
+     * @param ticketService  the ticket service
+     */
     public UserStats(TableView itemTable, TicketService ticketService) {
         super(itemTable, ticketService);
     }

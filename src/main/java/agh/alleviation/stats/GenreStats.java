@@ -39,6 +39,12 @@ public class GenreStats extends GenericStats<Genre> {
         public static final String TICKETS = "Tickets bought";
     }
 
+    /**
+     * Instantiates a genre stats.
+     *
+     * @param itemTable  the item table
+     * @param ticketService  the ticket service
+     */
     public GenreStats(TableView itemTable, TicketService ticketService) {
         super(itemTable, ticketService);
     }

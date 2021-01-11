@@ -25,6 +25,12 @@ public abstract class GenericStats<Item> extends GenericController {
      */
     protected TicketService ticketService;
 
+    /**
+     * Instantiates a generic stats.
+     *
+     * @param itemTable  the item table
+     * @param ticketService  the ticket service
+     */
     public GenericStats(TableView itemTable, TicketService ticketService) {
         this.itemTable = itemTable;
         this.ticketService = ticketService;

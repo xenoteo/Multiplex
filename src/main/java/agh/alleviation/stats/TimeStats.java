@@ -43,6 +43,12 @@ public class TimeStats extends GenericStats<LocalTime>{
         public static final String TICKETS = "Tickets bought";
     }
 
+    /**
+     * Instantiates a time stats.
+     *
+     * @param itemTable  the item table
+     * @param ticketService  the ticket service
+     */
     public TimeStats(TableView itemTable, TicketService ticketService) {
         super(itemTable, ticketService);
     }

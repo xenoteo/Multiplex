@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.HBox?>
 
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0"
       prefWidth="600.0" styleClass="menuBar" stylesheets="@../styles/Menu.css" xmlns="http://javafx.com/javafx/11.0.1"
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="agh.alleviation.presentation.controller.MenuController">
@@ -18,17 +19,22 @@
                 <ToggleButton fx:id="orders" onAction="#handleActiveButtonChanged" styleClass="menuButton"
                               text="Orders History"
                               visible="false"/>
+                <ToggleButton fx:id="stats" onAction="#handleActiveButtonChanged" styleClass="menuButton"
+                              text="Statistics"
+                              visible="false"/>
                 <ToggleButton fx:id="movies" onAction="#handleActiveButtonChanged" styleClass="menuButton"
                               text="Movie List" visible="false"/>
                 <ToggleButton fx:id="halls" onAction="#handleActiveButtonChanged" selected="true"
                               styleClass="menuButton" text="Hall List" visible="false"/>
                 <ToggleButton fx:id="users" onAction="#handleActiveButtonChanged" styleClass="menuButton"
                               text="User List" visible="false"/>
-                <ToggleButton fx:id="stats" onAction="#handleActiveButtonChanged" styleClass="menuButton" text="Statistics"
-                              visible="false"/>
             </toggles>
         </ToggleButtonGroup>
         <Button fx:id="logoutButton" alignment="TOP_RIGHT" mnemonicParsing="false" onAction="#logout"
-                styleClass="logoutButton" text="Logout" textAlignment="CENTER"/>
+                styleClass="logoutButton" textAlignment="CENTER">
+            <graphic>
+                <FontIcon iconLiteral="mdi2l-logout-variant" iconColor="#ffffff" iconSize="18"/>
+            </graphic>
+        </Button>
     </children>
 </HBox>
