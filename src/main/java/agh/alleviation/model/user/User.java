@@ -297,6 +297,5 @@ public abstract class User extends EntityObject implements Externalizable {
         setLogin((String) in.readObject());
         setEmail((String) in.readObject());
         setOrders((List<Order>) in.readObject());
-
     }
 }
