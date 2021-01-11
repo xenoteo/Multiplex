@@ -96,6 +96,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  *     <li>Basket - adding tickets and placing orders</li>
  *     <li>Orders history for a logged-in user - all past orders and tickets</li>
  *     <li>Filtering the seances by movie, date, hall and max price</li>
+ *     <li>Sorting the viewed data</li>
  *     <li>Email service - notifies users about upcoming seances from their orders</li>
  *     <li>Persistent database - the project no longer uses runtime-only in-memory database, now the data is saved on drive.</li>
  *     <li>Statistics - the most popular movies, genres, days, months, the most active users</li>
@@ -108,7 +109,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  *
  * Roles of team members:
  * <ul>
- *     <li>Kamil Krzempek - email service, orders history details, filters view, documentation</li>
+ *     <li>Kamil Krzempek - email service, orders history details, filters view, sorting in views documentation</li>
  *     <li>Ksenia Fiodarava - statistics - views and controllers, documentation</li>
  *     <li>Anna Nosek - filters logic, basket and order history, documentation</li>
  * </ul>
