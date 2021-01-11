@@ -16,6 +16,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Class responsible for representation of customer's orders.
@@ -98,6 +99,11 @@ public class Order extends EntityObject {
     @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true)
     public List<Ticket> getTickets() {
         return ticketsProperty.getValue();
+    }
+
+    @Transient
+    public List<Ticket> getActiveTickets() {
+        return ticketsProperty.getValue().stream().filter(Ticket::getIsActive).collect(Collectors.toList());
     }
 
     /**

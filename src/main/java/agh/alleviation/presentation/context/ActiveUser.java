@@ -74,7 +74,6 @@ public class ActiveUser{
 
         userEntity.getOrders().forEach( order -> {
             ordersWithTickets.add(orderService.getOrderWithTickets(order));
-            System.out.println(orderService.getOrderWithTickets(order));
         });
 
         userEntity.setOrders(ordersWithTickets);

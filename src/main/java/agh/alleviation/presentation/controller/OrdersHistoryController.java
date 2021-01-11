@@ -48,7 +48,7 @@ public class OrdersHistoryController extends GenericController implements Proper
     private void initialize() {
         ordersList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         serviceManager.addObservableList(Order.class);
-        ordersList.setItems(serviceManager.getList(Order.class));
+        ordersList.setItems(serviceManager.getActiveElementsList(Order.class));
         ordersList.setCellFactory(column -> {
             ListCell<EntityObject> cell = new ListCell<>() {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");

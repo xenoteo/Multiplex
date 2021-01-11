@@ -89,6 +89,33 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  *     <li>Anna Nosek - model changes, Entity and Service abstract classes, ObservableComposite introduction, major refactoring</li>
  * </ul>
  * All Team members were participating in creating the documentation. All of the mentioned roles were fluid and required involvement of all participants - the introduced ideas were preceded with detailed discussions. Integration of the changes was also done in a team-based fashion.
+ *
+ *
+ * <h2>Third milestone</h2>
+ * Added functionalities
+ * <ul>
+ *     <li>Basket - adding tickets and placing orders</li>
+ *     <li>Orders history for a logged-in user - all past orders and tickets</li>
+ *     <li>Filtering the seances by movie, date, hall and max price</li>
+ *     <li>Email service - notifies users about upcoming seances from their orders</li>
+ *     <li>Persistent database - the project no longer uses runtime-only in-memory database, now the data is saved on drive.</li>
+ *     <li>Statistics - the most popular movies, genres, days, months, the most active users</li>
+ * </ul>
+ * Introduced patterns:
+ * <ul>
+ *     <li>Composite pattern - used for creating complex filtering with multiple fields</li>
+ *     <li>Further utilization of already existing patterns</li>
+ * </ul>
+ *
+ * Roles of team members:
+ * <ul>
+ *     <li>Kamil Krzempek - email service, orders history details, filters view, documentation</li>
+ *     <li>Ksenia Fiodarava - statistics - views and controllers, documentation</li>
+ *     <li>Anna Nosek - filters logic, basket and order history, documentation</li>
+ * </ul>
+ *
+ * All tasks were completed in a team-based manner. All members were actively participating in creating the functionalities.
+ *
  */
 @SpringBootApplication
 @EnableJpaRepositories(basePackages = {"agh.alleviation.persistence"})

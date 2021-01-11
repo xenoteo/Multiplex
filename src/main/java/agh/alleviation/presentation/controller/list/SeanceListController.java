@@ -196,7 +196,6 @@ public class SeanceListController extends GenericListController<Seance> implemen
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        System.out.println("Property changed");
         boolean canEdit;
         if (evt.getNewValue() != null) {
             canEdit = ((User) evt.getNewValue()).getUserType() != UserType.CUSTOMER;

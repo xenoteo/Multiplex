@@ -262,11 +262,9 @@ public class Seance extends EntityObject {
 
     @Override
     public List<EntityObject> delete() {
-        System.out.println("Deleting from seance");
         super.delete();
         List<EntityObject> deletedObjects = new ArrayList<>(getTickets());
         getTickets().forEach(ticket -> {
-            System.out.println(ticket.getId());
             deletedObjects.addAll(ticket.delete());
         });
         return deletedObjects;
