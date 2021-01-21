@@ -16,30 +16,49 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
- * Controller responsible for modal with seance editing
+ * Controller responsible for modal with seance editing.
+ *
  * @author Kamil Krzempek
  */
 @Component
 @FxmlView("/views/EditSeanceDialog.fxml")
 public class EditSeanceDialogController extends EditDialogController<Seance> {
+
+    /**
+     * The movie choice box.
+     */
     @FXML
     private ChoiceBox<Movie> movieChoiceBox;
 
+    /**
+     * The hall choice box.
+     */
     @FXML
     private ChoiceBox<Hall> hallChoiceBox;
 
+    /**
+     * The date picker.
+     */
     @FXML
     private DatePicker datePicker;
 
+    /**
+     * The price field.
+     */
     @FXML
     private TextField priceField;
 
+    /**
+     * Initializes the edit seance view.
+     */
     @Override
     protected void initialize() {
         super.initialize();
 
-        serviceManager.getList(Movie.class).forEach(movie -> movieChoiceBox.getItems().add((Movie) movie));
-        serviceManager.getList(Hall.class).forEach(hall -> hallChoiceBox.getItems().add((Hall) hall));
+        serviceManager
+            .getActiveElementsList(Movie.class)
+            .forEach(movie -> movieChoiceBox.getItems().add((Movie) movie));
+        serviceManager.getActiveElementsList(Hall.class).forEach(hall -> hallChoiceBox.getItems().add((Hall) hall));
     }
 
     @Override
@@ -55,26 +74,26 @@ public class EditSeanceDialogController extends EditDialogController<Seance> {
     @Override
     protected Validator createValidations() {
         Validator validator = new Validator();
-        validator.createCheck()
-                .withMethod(c -> {
-                    try{
-                        double price = Double.parseDouble(c.get("price"));
-                        if (price < 0){
-                            c.error("Price must be positive");
-                        }
-                    }
-                    catch (NumberFormatException e){
-                        c.error("Price must be a number");
-                    }
-                })
-                .dependsOn("price", priceField.textProperty());
+        validator.createCheck().withMethod(c -> {
+            try {
+                double price = Double.parseDouble(c.get("price"));
+                if (price < 0) {
+                    c.error("Price must be positive");
+                }
+            } catch (NumberFormatException e) {
+                c.error("Price must be a number");
+            }
+        }).dependsOn("price", priceField.textProperty());
         return validator;
     }
 
+    /**
+     * Saves the seance.
+     */
     @FXML
     private void saveSeance() {
         Validator validator = createValidations();
-        if (!validator.validate()){
+        if (!validator.validate()) {
             showErrors(validator);
             return;
         }
@@ -86,7 +105,7 @@ public class EditSeanceDialogController extends EditDialogController<Seance> {
 
         SeanceService service = (SeanceService) serviceManager.getService(Seance.class);
 
-        if(editedItem == null) {
+        if (editedItem == null) {
             Seance seance = service.addSeance(movie, hall, date, price);
             serviceManager.add(seance);
         } else {
@@ -98,6 +117,4 @@ public class EditSeanceDialogController extends EditDialogController<Seance> {
         }
         dialogStage.close();
     }
-
-
 }

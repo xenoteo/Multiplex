@@ -25,8 +25,15 @@ public enum UserType {
      */
     CUSTOMER("Customer");
 
+    /**
+     * The name.
+     */
     private final String name;
 
+    /**
+     * Instantiates a user type.
+     * @param name
+     */
     UserType(String name) {
         this.name = name;
     }

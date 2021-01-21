@@ -28,6 +28,13 @@ public class ItemDialogContext<Item, Controller extends EditDialogController<Ite
         this.controllerAndView = controllerAndView;
     }
 
+    /**
+     * Shows the item dialog.
+     *
+     * @param title  the title
+     * @param item  the item
+     * @return the item
+     */
     private Item showItemDialog(String title, Item item) {
         Stage stage = setupStageAndScene(controllerAndView.getView().get(), title);
         Controller controller = controllerAndView.getController();
@@ -38,7 +45,7 @@ public class ItemDialogContext<Item, Controller extends EditDialogController<Ite
     }
 
     /**
-     * Show add item dialog item.
+     * Shows the add item dialog item.
      *
      * @return the item
      */
@@ -47,11 +54,12 @@ public class ItemDialogContext<Item, Controller extends EditDialogController<Ite
     }
 
     /**
-     * Show edit item dialog.
+     * Shows the edit item dialog.
      *
      * @param item the item
      */
     public void showEditItemDialog(Item item) {
         this.showItemDialog("Edit item", item);
     }
+
 }

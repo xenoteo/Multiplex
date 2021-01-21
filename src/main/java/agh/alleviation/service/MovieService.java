@@ -1,10 +1,10 @@
 package agh.alleviation.service;
 
-import agh.alleviation.model.EntityObject;
-import agh.alleviation.model.Genre;
-import agh.alleviation.model.Movie;
+import agh.alleviation.model.*;
 import agh.alleviation.persistence.GenreRepository;
 import agh.alleviation.persistence.MovieRepository;
+import agh.alleviation.persistence.TicketRepository;
+import agh.alleviation.util.Rating;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,21 +20,25 @@ import java.util.List;
 @Transactional
 public class MovieService extends EntityObjectService<Movie, MovieRepository> {
     private final GenreRepository genreRepository;
+    private final TicketRepository ticketRepository;
 
     /**
      * Instantiates a new Movie service.
      *
-     * @param movieRepository the movie repository
-     * @param genreRepository the genre repository
+     * @param movieRepository  the movie repository
+     * @param genreRepository  the genre repository
+     * @param ticketRepository the ticket repository
      */
     @Autowired
-    public MovieService(MovieRepository movieRepository, GenreRepository genreRepository) {
+    public MovieService(
+        MovieRepository movieRepository, GenreRepository genreRepository, TicketRepository ticketRepository) {
         repository = movieRepository;
         this.genreRepository = genreRepository;
+        this.ticketRepository = ticketRepository;
     }
 
     /**
-     * Add movie
+     * Adds a movie.
      *
      * @param name        the name
      * @param genreName   the genre
@@ -51,7 +55,7 @@ public class MovieService extends EntityObjectService<Movie, MovieRepository> {
     }
 
     /**
-     * Get genre of given name, if such genre does not exist, create it first
+     * Gets the genre of given name, if such genre does not exist, create it first.
      *
      * @param name the name
      * @return the genre
@@ -64,7 +68,7 @@ public class MovieService extends EntityObjectService<Movie, MovieRepository> {
     }
 
     /**
-     * Find movie by name
+     * Finds the movie by name.
      *
      * @param name the name
      * @return the movie
@@ -73,8 +77,15 @@ public class MovieService extends EntityObjectService<Movie, MovieRepository> {
         return repository.findByName(name);
     }
 
+    @Override
+    public List<EntityObject> update(EntityObject movie) {
+        repository.save((Movie) movie);
+        movie = repository.findByIdWithSeances(movie.getId());
+        return super.update(movie);
+    }
+
     /**
-     * Override method to get seances associated with movie
+     * Overrides method to get seances associated with movie
      * Because of lazy loading, they are not loaded at the object creation.
      *
      * @param movie movie to delete
@@ -84,5 +95,30 @@ public class MovieService extends EntityObjectService<Movie, MovieRepository> {
     public List<EntityObject> delete(EntityObject movie) {
         movie = repository.findByIdWithSeances(movie.getId());
         return super.delete(movie);
+    }
+
+    /**
+     * Rates a movie.
+     *
+     * @param ticket the ticket
+     * @param rating the rating
+     */
+    public void rateMovie(Ticket ticket, Rating rating) {
+        Movie ratedMovie = ticket.getSeance().getMovie();
+
+        if (!ticket.getIsRated()) {
+            if (rating == Rating.POSITIVE) ratedMovie.setLikes(ratedMovie.getLikes() + 1);
+            else ratedMovie.setDislikes(ratedMovie.getDislikes() + 1);
+            ticket.setIsRated(true);
+        } else if (rating != ticket.getIsRatingPositive()) {
+            int difference = rating == Rating.POSITIVE ? 1 : -1;
+            ratedMovie.setLikes(ratedMovie.getLikes() + difference);
+            ratedMovie.setDislikes(ratedMovie.getDislikes() - difference);
+        }
+
+        ticket.setIsRatingPositive(rating);
+
+        ticketRepository.save(ticket);
+        repository.save(ratedMovie);
     }
 }

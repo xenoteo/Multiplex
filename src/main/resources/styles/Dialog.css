@@ -1,0 +1,15 @@
+.dialogBody {
+    -fx-background-color: #F7F7FF;
+}
+
+.dialogButtonPrimary {
+    -fx-text-fill: #F7F7FF;
+    -fx-background-color: #246EB9;
+    -fx-pref-width: 75px;
+}
+
+.dialogButtonSecondary {
+    -fx-text-fill: #131112;
+    -fx-background-color: #F7F7FF;
+    -fx-pref-width: 75px;
+}

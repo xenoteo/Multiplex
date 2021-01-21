@@ -14,18 +14,22 @@ import java.util.List;
  */
 public interface MovieRepository extends CrudRepository<Movie, Integer> {
     /**
-     * Find by name movie.
+     * Finds the movie by name .
      *
      * @param name the name
-     * @return the movie
+     * @return the movie with given name
      */
     Movie findByName(String name);
 
+    /**
+     * Finds the list of all the movies.
+     *
+     * @return the list of all the movies
+     */
     List<Movie> findAll();
 
-
     /**
-     * Find by id with seances movie.
+     * Find the movie by id with seances.
      *
      * @param id the id
      * @return the movie

@@ -1,7 +1,6 @@
 package agh.alleviation.persistence;
 
 import agh.alleviation.model.user.Customer;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -13,15 +12,10 @@ import java.util.List;
  * @see Customer
  */
 public interface CustomerRepository extends CrudRepository<Customer, Integer> {
-    List<Customer> findAll();
-
     /**
-     * Find by id with orders customer.
+     * Finds all the customers.
      *
-     * @param id the id
-     * @return the customer
+     * @return the ist of all the customers
      */
-    @Query("SELECT c FROM Customer c LEFT JOIN FETCH c.orders WHERE c.id = ?1")
-    Customer findByIdWithOrders(int id);
-
+    List<Customer> findAll();
 }

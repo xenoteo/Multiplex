@@ -40,7 +40,7 @@ public class SeanceService extends EntityObjectService<Seance, SeanceRepository>
     }
 
     /**
-     * Add seance seance.
+     * Adds a seance.
      *
      * @param movie the movie
      * @return the seance
@@ -54,7 +54,7 @@ public class SeanceService extends EntityObjectService<Seance, SeanceRepository>
     }
 
     /**
-     * Add seance seance.
+     * Adds a seance.
      *
      * @param movie the movie
      * @param hall  the hall
@@ -74,8 +74,15 @@ public class SeanceService extends EntityObjectService<Seance, SeanceRepository>
         return seance;
     }
 
+    @Override
+    public List<EntityObject> update(EntityObject seance) {
+        repository.save((Seance) seance);
+        seance = repository.findByIdWithTickets(seance.getId());
+        return super.update(seance);
+    }
+
     /**
-     * Override method to get tickets associated with seance
+     * Overrides method to get tickets associated with seance
      * Because of lazy loading, they are not loaded at the object creation.
      *
      * @param seance seance to delete
@@ -83,7 +90,7 @@ public class SeanceService extends EntityObjectService<Seance, SeanceRepository>
      */
     @Override
     public List<EntityObject> delete(EntityObject seance) {
-        seance = repository.findByIdWithTickets(seance.getId());
-        return super.delete(seance);
+        Seance seanceObj = repository.findByIdWithTickets(seance.getId());
+        return super.delete(seanceObj);
     }
 }

@@ -9,6 +9,7 @@ agh.alleviation.presentation.controller
 agh.alleviation.presentation.controller.access_dialog
 agh.alleviation.presentation.controller.edit_dialog
 agh.alleviation.presentation.controller.list
+agh.alleviation.presentation.filter
 agh.alleviation.service
 agh.alleviation.stats
 agh.alleviation.util

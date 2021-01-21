@@ -4,7 +4,6 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 
 import javax.persistence.*;
-import javax.swing.border.EtchedBorder;
 import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
@@ -16,6 +15,7 @@ import java.util.Objects;
 /**
  * An abstraction for all database Entities. The EntityObject class itself is not an entity in the database, hence the @MappedSuperclass annotation.
  * Allows generalization of higher-level code.
+ *
  * @author Anna Nosek
  */
 @MappedSuperclass
@@ -82,15 +82,26 @@ public abstract class EntityObject implements Externalizable {
     public void setIsActive(boolean isActive) { this.isActive.set(isActive);}
 
     /**
-     * Is active property boolean property.
+     * Returns is active boolean property.
      *
-     * @return the boolean property
+     * @return the is active boolean property
      */
     @Transient
     public BooleanProperty isActiveProperty() { return isActive; }
 
     /**
-     * Delete list.
+     * Updates an object.
+     *
+     * @return list of affected items
+     */
+    public List<EntityObject> update() {
+        List<EntityObject> updatedObjects = new ArrayList<>();
+        updatedObjects.add(this);
+        return updatedObjects;
+    }
+
+    /**
+     * Deletes the list.
      *
      * @return the list
      */

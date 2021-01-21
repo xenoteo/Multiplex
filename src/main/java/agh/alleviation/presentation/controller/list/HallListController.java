@@ -16,35 +16,46 @@ import org.springframework.stereotype.Component;
 @Component
 @FxmlView("/views/HallList.fxml")
 public class HallListController extends GenericListController<Hall> {
+    /**
+     * The number column.
+     */
     @FXML
     private TableColumn<Hall, Integer> numberColumn;
 
+    /**
+     * The capacity column.
+     */
     @FXML
     private TableColumn<Hall, Integer> capacityColumn;
 
+    /**
+     * Initializes the hall list view.
+     */
     @FXML
     protected void initialize() {
         super.initialize();
 
         serviceManager.fillFromService(Hall.class);
-        itemTable.setItems(serviceManager.getActiveElementsList(Hall.class));
+        var sortedList = serviceManager.getActiveElementsList(Hall.class).sorted();
+        sortedList.comparatorProperty().bind(itemTable.comparatorProperty());
+        itemTable.setItems(sortedList);
 
         numberColumn.setCellValueFactory(dataValue -> dataValue.getValue().numberProperty().asObject());
         capacityColumn.setCellValueFactory(dataValue -> dataValue.getValue().capacityProperty().asObject());
-
     }
 
+    @Override
     @FXML
     protected void handleAddAction(ActionEvent event) {
-        this.viewControllerManager.getHallDialogContext().showAddItemDialog();
+        viewControllerManager.getHallDialogContext().showAddItemDialog();
     }
 
+    @Override
     @FXML
     protected void handleEditAction(ActionEvent event) {
         Hall hall = (Hall) itemTable.getSelectionModel().getSelectedItem();
         if (hall != null) {
-            this.viewControllerManager.getHallDialogContext().showEditItemDialog(hall);
+            viewControllerManager.getHallDialogContext().showEditItemDialog(hall);
         }
     }
-
 }

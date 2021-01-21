@@ -22,14 +22,14 @@ public abstract class GenericListController<Item extends EntityObject> extends G
     protected TableView<EntityObject> itemTable;
 
     /**
-     * Initialize.
+     * Initializes the item table selection model.
      */
     protected void initialize() {
         itemTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }
 
     /**
-     * Handle add action.
+     * Handles add action.
      *
      * @param event the event
      */
@@ -37,7 +37,7 @@ public abstract class GenericListController<Item extends EntityObject> extends G
     protected abstract void handleAddAction(ActionEvent event);
 
     /**
-     * Handle edit action.
+     * Handles edit action.
      *
      * @param event the event
      */
@@ -45,7 +45,7 @@ public abstract class GenericListController<Item extends EntityObject> extends G
     protected abstract void handleEditAction(ActionEvent event);
 
     /**
-     * Handle delete action.
+     * Handles delete action.
      *
      * @param event the event
      */

@@ -14,6 +14,7 @@ import java.util.Map;
 /**
  * Provides logic and abstraction of Controller-Service-ObservableList communication.
  * Introduced to decouple Controllers from Services and to allow showing the current database changes made in different parts of the application.
+ *
  * @author Anna Nosek
  */
 @Component
@@ -29,14 +30,16 @@ public class ServiceManager {
      * @param seanceService the seance service
      * @param userService   the user service
      * @param ticketService the ticket service
+     * @param orderService  the order service
      */
     @Autowired
     public ServiceManager(
-        HallService hallService,
-        MovieService movieService,
-        SeanceService seanceService,
-        UserService userService,
-        TicketService ticketService) {
+            HallService hallService,
+            MovieService movieService,
+            SeanceService seanceService,
+            UserService userService,
+            TicketService ticketService,
+            OrderService orderService) {
 
         this.services = new HashMap<>();
         this.services.put(Hall.class, hallService);
@@ -44,14 +47,15 @@ public class ServiceManager {
         this.services.put(Seance.class, seanceService);
         this.services.put(User.class, userService);
         this.services.put(Ticket.class, ticketService);
+        this.services.put(Order.class, orderService);
 
         this.observableComposite = new ObservableComposite();
     }
 
     /**
-     * A helper function.
-     * @param item - database item
-     * @return - conrete class of the item, with exception of User, for which the abstract class User is returned
+     * Gets the item class.
+     * @param item  database item
+     * @return concrete class of the item, with exception of User, for which the abstract class User is returned
      */
     private Class<?> getClassOf(EntityObject item) {
         Class<?> itemClass = item.getClass();
@@ -90,12 +94,22 @@ public class ServiceManager {
     }
 
     /**
-     * Fill ObservableList of specified class with all active
+     * Fills the ObservableList of specified class with all active.
      *
      * @param itemClass the item class
      */
     public void fillFromService(Class<? extends EntityObject> itemClass) {
         observableComposite.addAll(itemClass, services.get(itemClass).getAll());
+    }
+
+    /**
+     * Fills the observable list.
+     *
+     * @param itemClass the item class
+     * @param items     the list of items
+     */
+    public void fill(Class<? extends EntityObject> itemClass, List<EntityObject> items) {
+        observableComposite.addAll(itemClass, items);
     }
 
     /**
@@ -110,7 +124,16 @@ public class ServiceManager {
     }
 
     /**
-     * Add to observable.
+     * Adds an observable list.
+     *
+     * @param itemClass the item class
+     */
+    public void addObservableList(Class<? extends EntityObject> itemClass){
+        observableComposite.addObservableList(itemClass);
+    }
+
+    /**
+     * Adds an item to observable.
      *
      * @param item the item
      */
@@ -119,18 +142,39 @@ public class ServiceManager {
     }
 
     /**
-     * Update.
+     * Deletes the item from observable.
+     *
+     * @param item the item
+     */
+    public void deleteFromObservable(EntityObject item) {
+        observableComposite.delete(getClassOf(item), item);
+    }
+
+    /**
+     * Singly updates.
+     *
+     * @param item the item
+     */
+    public void singleUpdate(EntityObject item) {
+        Class<?> itemClass = getClassOf(item);
+        services.get(itemClass).update(item);
+        observableComposite.update(itemClass, item);
+    }
+
+    /**
+     * Updates.
      *
      * @param item the item
      */
     public void update(EntityObject item) {
         Class<?> itemClass = getClassOf(item);
+        List<EntityObject> updatedList = services.get(itemClass).update(item);
         observableComposite.update(itemClass, item);
-        services.get(itemClass).update(item);
+        updatedList.forEach(this::singleUpdate);
     }
 
     /**
-     * Delete - deletes the object from database (here deleting is understood as marking as not active)
+     * Deletes the object from database (here deleting is understood as marking as not active)
      * and delegates the update of the affected objects in the ObservableLists.
      *
      * @param item the item
@@ -139,6 +183,15 @@ public class ServiceManager {
         Class<?> itemClass = getClassOf(item);
         observableComposite.delete(itemClass, item);
         List<EntityObject> deletedList = services.get(itemClass).delete(item);
-        deletedList.forEach(this::update);
+        deletedList.forEach(this::singleUpdate);
+    }
+
+    /**
+     * Clears the observable list.
+     *
+     * @param itemClass the item class
+     */
+    public void clearObservableList(Class<? extends EntityObject> itemClass) {
+        observableComposite.clearObservableList(itemClass);
     }
 }

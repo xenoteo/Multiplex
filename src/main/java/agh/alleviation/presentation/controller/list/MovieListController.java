@@ -1,8 +1,8 @@
 package agh.alleviation.presentation.controller.list;
 
-import agh.alleviation.model.Movie;
-import agh.alleviation.model.Seance;
+import agh.alleviation.model.*;
 import agh.alleviation.service.SeanceService;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -15,10 +15,13 @@ import org.springframework.stereotype.Component;
 @Component
 @FxmlView("/views/MovieList.fxml")
 public class MovieListController extends GenericListController<Movie> {
+    /**
+     * The seance service.
+     */
     private SeanceService seanceService;
 
     /**
-     * The Add movie.
+     * The Add movie button.
      */
     @FXML
     public Button addMovie;
@@ -53,19 +56,37 @@ public class MovieListController extends GenericListController<Movie> {
     @FXML
     public TableColumn<Movie, String> actorsColumn;
 
+    /**
+     * The rating column.
+     */
+    @FXML
+    public TableColumn<Movie, String> ratingColumn;
+
+    /**
+     * Initializes the movie list view.
+     */
     @FXML
     public void initialize() {
         super.initialize();
 
         serviceManager.fillFromService(Movie.class);
-        itemTable.setItems(serviceManager.getActiveElementsList(Movie.class));
+        var sortedList = serviceManager.getActiveElementsList(Movie.class).sorted();
+        sortedList.comparatorProperty().bind(itemTable.comparatorProperty());
+        itemTable.setItems(sortedList);
 
         nameColumn.setCellValueFactory(dataValue -> dataValue.getValue().nameProperty());
         genreColumn.setCellValueFactory(dataValue -> dataValue.getValue().genreProperty().asString());
         descriptionColumn.setCellValueFactory(dataValue -> dataValue.getValue().descriptionProperty());
         directorColumn.setCellValueFactory(dataValue -> dataValue.getValue().directorProperty());
         actorsColumn.setCellValueFactory(dataValue -> dataValue.getValue().actorsProperty());
-
+        ratingColumn.setCellValueFactory(cellData -> {
+            Movie movie = cellData.getValue();
+            return Bindings.createStringBinding(() -> {
+                int likes = movie.getLikes();
+                int ratesCount = likes + movie.getDislikes();
+                return ratesCount == 0 ? "No rates" : 100 * likes / ratesCount + "%";
+            }, movie.likesProperty(), movie.dislikesProperty());
+        });
     }
 
     @Override
@@ -79,12 +100,10 @@ public class MovieListController extends GenericListController<Movie> {
             case "addSeance" -> {
                 Movie movie = (Movie) itemTable.getSelectionModel().getSelectedItem();
                 if (movie != null) {
-                    Seance seance =
-                        seanceService.addSeance(movie);  // TODO: sad panda, maybe instead accept a movie in show editItemDialog
+                    Seance seance = seanceService.addSeance(movie);
                     viewControllerManager.getSeanceDialogContext().showEditItemDialog(seance);
                 }
             }
-            default -> System.out.println("No action");
         }
     }
 
@@ -101,5 +120,4 @@ public class MovieListController extends GenericListController<Movie> {
         Movie movie = (Movie) itemTable.getSelectionModel().getSelectedItem();
         serviceManager.delete(movie);
     }
-
 }

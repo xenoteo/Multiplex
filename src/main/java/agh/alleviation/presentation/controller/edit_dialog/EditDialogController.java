@@ -8,7 +8,6 @@ import javafx.stage.Stage;
  * Abstraction for EditDialogControllers - responsible for both adding a new element to the database as well as updating an existing one.
  *
  * @param <T> - type of edited/added EntityObject
- *
  * @author Kamil Krzempek
  */
 public abstract class EditDialogController<T> extends ValidatingController {
@@ -18,12 +17,12 @@ public abstract class EditDialogController<T> extends ValidatingController {
     protected Stage dialogStage;
 
     /**
-     * The Edited item.
+     * The edited item.
      */
     protected T editedItem;
 
     /**
-     * Initialize.
+     * Initializes edited item.
      */
     @FXML
     protected void initialize() {

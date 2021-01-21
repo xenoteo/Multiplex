@@ -1,8 +1,6 @@
 package agh.alleviation.persistence;
 
 import agh.alleviation.model.Hall;
-import agh.alleviation.model.Movie;
-import agh.alleviation.model.Seance;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -16,23 +14,23 @@ import java.util.List;
  */
 public interface HallRepository extends CrudRepository<Hall, Integer> {
     /**
-     * Find by capacity greater than equal list.
+     * Finds the halls by capacity greater than equal.
      *
      * @param capacity the capacity
-     * @return the list
+     * @return the list of the halls with given capacity
      */
     List<Hall> findByCapacityGreaterThanEqual(int capacity);
 
     /**
-     * Find all by capacity list.
+     * Finds all halls by capacity.
      *
      * @param capacity the capacity
-     * @return the list
+     * @return the list of the halls with given capacity
      */
     List<Hall> findAllByCapacity(int capacity);
 
     /**
-     * Find by id with seances hall.
+     * Finds the hall by id with seances.
      *
      * @param id the id
      * @return the hall
@@ -41,10 +39,10 @@ public interface HallRepository extends CrudRepository<Hall, Integer> {
     Hall findByIdWithSeances(int id);
 
     /**
-     * Find by number hall.
+     * Finds the hall by number.
      *
      * @param number the number
-     * @return the hall
+     * @return the hall with given number
      */
     Hall findByNumber(int number);
 }

@@ -43,7 +43,7 @@ public class UserService extends EntityObjectService<User, UserRepository> {
      * This function updates the userType in the user according to its concrete class.
      * UserType would be obsolete in the database, so it is only assigned when the User instance is accessed in the application.
      *
-     * @param user user from the database
+     * @param user  user from the database
      * @return user with updated UserType field
      * @see User
      */
@@ -129,18 +129,23 @@ public class UserService extends EntityObjectService<User, UserRepository> {
         return user;
     }
 
+    @Override
+    public List<EntityObject> update(EntityObject user) {
+        User userObj = repository.findByIdWithOrders(user.getId());
+        return super.update(userObj);
+    }
+
     /**
-     * Override method to get orders associated with user if user is customer
+     * Overrides method to get orders associated with user if user is customer
      * Because of lazy loading, they are not loaded at the object creation.
      *
-     * @param user user to delete
+     * @param user  user to delete
      * @return list of entity objects deleted with user
      */
     @Override
     public List<EntityObject> delete(EntityObject user) {
-        if (user instanceof Customer) {
-            user = customerRepository.findByIdWithOrders(user.getId());
-        }
+        user = repository.findByIdWithOrders(user.getId());
+
         return super.delete(user);
     }
 
@@ -159,12 +164,12 @@ public class UserService extends EntityObjectService<User, UserRepository> {
     }
 
     /**
-     * Get user by login user.
+     * Finds user with orders.
      *
-     * @param login the login
+     * @param user the user
      * @return the user
      */
-    public User getUserByLogin(String login){
-        return repository.findByLogin(login);
+    public User findUserWithOrders(User user){
+        return repository.findByIdWithOrders(user.getId());
     }
 }

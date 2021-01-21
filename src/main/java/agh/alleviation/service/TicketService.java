@@ -26,4 +26,5 @@ public class TicketService extends EntityObjectService<Ticket, TicketRepository>
     public TicketService(TicketRepository ticketRepository) {
         repository = ticketRepository;
     }
+
 }

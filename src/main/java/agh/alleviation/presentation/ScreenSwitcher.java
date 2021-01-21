@@ -2,7 +2,6 @@ package agh.alleviation.presentation;
 
 import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import java.util.HashMap;
 
 /**
@@ -11,7 +10,13 @@ import java.util.HashMap;
  * @author Kamil Krzempek
  */
 public class ScreenSwitcher {
+    /**
+     * The screen map.
+     */
     private HashMap<Screen, Node> screenMap;
+    /**
+     * The main pane.
+     */
     private BorderPane mainPane;
 
     /**
@@ -25,7 +30,7 @@ public class ScreenSwitcher {
     }
 
     /**
-     * Add screen.
+     * Adds a screen.
      *
      * @param screen the screen
      * @param node   the node
@@ -35,7 +40,7 @@ public class ScreenSwitcher {
     }
 
     /**
-     * Activate.
+     * Activates a screen.
      *
      * @param screen the screen
      */

@@ -37,7 +37,8 @@ public class AccessDialogViewer<Controller extends AccessDialogController> exten
 
     /**
      * Shows a dialog with provided title.
-     * @param title the title
+     *
+     * @param title  the title
      */
     private void showDialog(String title){
         Stage stage = setupStageAndScene(controllerAndView.getView().get(), title);

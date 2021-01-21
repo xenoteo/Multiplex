@@ -1,18 +1,18 @@
 package agh.alleviation.model;
 
 import agh.alleviation.model.user.Customer;
-import javafx.beans.property.IntegerProperty;
+import agh.alleviation.model.user.User;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 
 import javax.persistence.*;
-import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Class responsible for representation of customer's orders.
@@ -41,7 +41,12 @@ public class Order extends EntityObject {
         /**
          * The constant CUSTOMER.
          */
-        public static final String CUSTOMER = "customer";
+        public static final String USER = "user";
+        /**
+         * The constant DATE.
+         */
+        public static final String DATE = "date";
+
     }
 
     /**
@@ -51,50 +56,60 @@ public class Order extends EntityObject {
     }
 
     private final ObjectProperty<List<Ticket>> ticketsProperty = new SimpleObjectProperty<>();
-    private final ObjectProperty<Customer> customerProperty = new SimpleObjectProperty<>();
+    private final ObjectProperty<User> userProperty = new SimpleObjectProperty<>();
+    private final ObjectProperty<LocalDateTime> dateProperty = new SimpleObjectProperty<>();
 
     /**
      * Instantiates a new Order.
      *
-     * @param tickets  the tickets
-     * @param customer the customer
+     * @param tickets the list of tickets
+     * @param user    the user
      */
-    public Order(List<Ticket> tickets, Customer customer) {
+    public Order(List<Ticket> tickets, User user) {
         setTickets(tickets);
-        setCustomer(customer);
+        setUser(user);
         setIsActive(true);
     }
 
     /**
      * Instantiates a new Order.
      *
-     * @param customer the customer
+     * @param user the user
      */
-    public Order(Customer customer) {
-        setCustomer(customer);
+    public Order(User user) {
+        setUser(user);
         setIsActive(true);
     }
 
     /**
-     * Tickets property object property.
+     * Returns the ticket object property.
      *
-     * @return the object property
+     * @return the ticket object property
      */
-    ObjectProperty<List<Ticket>> ticketsProperty() { return ticketsProperty;}
+    public ObjectProperty<List<Ticket>> ticketsProperty() { return ticketsProperty;}
 
     /**
-     * Get tickets list.
+     * Get the ticket list.
      *
-     * @return the list
+     * @return the list of tickets
      */
-//    @Column(name = Columns.TICKETS)
-    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true)
     public List<Ticket> getTickets() {
         return ticketsProperty.getValue();
     }
 
     /**
-     * Set tickets.
+     * Gets the list of active tickets.
+     *
+     * @return the list of active tickets
+     */
+    @Transient
+    public List<Ticket> getActiveTickets() {
+        return ticketsProperty.getValue().stream().filter(Ticket::getIsActive).collect(Collectors.toList());
+    }
+
+    /**
+     * Sets tickets.
      *
      * @param tickets the tickets
      */
@@ -103,32 +118,81 @@ public class Order extends EntityObject {
     }
 
     /**
-     * Customer property object property.
+     * Adds a ticket.
      *
-     * @return the object property
+     * @param ticket the ticket
      */
-    ObjectProperty<Customer> customerProperty() { return customerProperty;}
+    public void addTicket(Ticket ticket){
+        if(getTickets() == null){
+            setTickets(new ArrayList<>());
+        }
+        getTickets().add(ticket);
+    }
+
 
     /**
-     * Get customer customer.
+     * Return the user object property.
      *
-     * @return the customer
+     * @return the user object property
      */
-    @JoinColumn(name = Columns.CUSTOMER)
+    ObjectProperty<User> userProperty() { return userProperty;}
+
+    /**
+     * Gets the user.
+     *
+     * @return the user
+     */
+    @JoinColumn(name = Columns.USER)
     @ManyToOne
-    public Customer getCustomer() {
-        return customerProperty.getValue();
+    public User getUser() {
+        return userProperty.getValue();
     }
 
     /**
-     * Set customer.
+     * Sets a user.
      *
-     * @param customer the customer
+     * @param user the user
      */
-    public void setCustomer(Customer customer) {
-        customerProperty.setValue(customer);
+    public void setUser(User user) {
+        userProperty.setValue(user);
     }
 
+    /**
+     * Gets a date.
+     *
+     * @return the date
+     */
+    public LocalDateTime getDate() {
+        return dateProperty.getValue();
+    }
+
+    /**
+     * Sets a date.
+     *
+     * @param date the date
+     */
+    public void setDate(LocalDateTime date) {
+        dateProperty.setValue(date);
+    }
+
+    /**
+     * Returns the date object property.
+     *
+     * @return the date object property
+     */
+    public ObjectProperty<LocalDateTime> dateProperty(){ return dateProperty; }
+
+    @Override
+    public List<EntityObject> update() {
+        super.update();
+        List<EntityObject> updatedObjects = new ArrayList<>(getTickets());
+        getTickets().forEach(ticket -> {
+            updatedObjects.addAll(ticket.update());
+        });
+        return updatedObjects;
+    }
+
+    @Override
     public List<EntityObject> delete() {
         super.delete();
         List<EntityObject> deletedObjects = new ArrayList<>(getTickets());
@@ -142,13 +206,15 @@ public class Order extends EntityObject {
     public void writeExternal(ObjectOutput out) throws IOException {
         super.writeExternal(out);
         out.writeObject(getTickets());
-        out.writeObject(getCustomer());
+        out.writeObject(getUser());
+        out.writeObject(getDate());
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         super.readExternal(in);
         setTickets((List<Ticket>) in.readObject());
-        setCustomer((Customer) in.readObject());
+        setUser((Customer) in.readObject());
+        setDate((LocalDateTime) in.readObject());
     }
 }

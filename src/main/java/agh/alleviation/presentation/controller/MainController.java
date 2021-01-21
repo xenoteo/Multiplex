@@ -4,7 +4,7 @@ import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
 
 /**
- * Controller responsible for displaying splash screen (empty at the moment)
+ * Controller responsible for displaying splash screen.
  *
  * @author Kamil Krzempek
  */

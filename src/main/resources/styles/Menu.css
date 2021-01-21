@@ -1,0 +1,21 @@
+.menuBar {
+    -fx-background-color: #F7F7FF;
+    -fx-pref-height: 29px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);
+}
+
+.menuButton {
+    -fx-text-fill: #F7F7FF;
+    -fx-background-color: #53A2BE;
+    -fx-background-radius: 0;
+}
+
+.menuButton:selected {
+    -fx-background-color: #3E88A3;
+}
+
+.logoutButton {
+    -fx-text-fill: #F7F7FF;
+    -fx-background-color: #EC4732;
+    -fx-background-radius: 0;
+}

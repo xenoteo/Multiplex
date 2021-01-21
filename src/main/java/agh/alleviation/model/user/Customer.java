@@ -47,45 +47,17 @@ public class Customer extends User {
         super(name, login, email);
     }
 
-    private final ObjectProperty<List<Order>> ordersProperty = new SimpleObjectProperty<>();
-
-    /**
-     * Get orders list.
-     *
-     * @return the list
-     */
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    public List<Order> getOrders() {
-        return ordersProperty.get();
+    @Override
+    public List<EntityObject> update() {
+        super.update();
+        List<EntityObject> updatedObjects = new ArrayList<>(getOrders());
+        getOrders().forEach(order -> {
+            updatedObjects.addAll(order.update());
+        });
+        return updatedObjects;
     }
 
-    /**
-     * Set orders.
-     *
-     * @param orders the orders
-     */
-    public void setOrders(List<Order> orders) {
-        ordersProperty.set(orders);
-    }
-
-    /**
-     * Orders property object property.
-     *
-     * @return the object property
-     */
-    public ObjectProperty<List<Order>> ordersProperty() {
-        return ordersProperty;
-    }
-
-    /**
-     * Add order.
-     *
-     * @param order the order
-     */
-    public void addOrder(Order order) {
-        getOrders().add(order);
-    }
-
+    @Override
     public List<EntityObject> delete() {
         super.delete();
         List<EntityObject> deletedObjects = new ArrayList<>(getOrders());
@@ -98,14 +70,10 @@ public class Customer extends User {
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         super.writeExternal(out);
-        out.writeObject(getOrders());
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         super.readExternal(in);
-        setOrders((List<Order>) in.readObject());
-
     }
-
 }
