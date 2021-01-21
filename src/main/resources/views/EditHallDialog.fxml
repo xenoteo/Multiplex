@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane prefHeight="100.0" prefWidth="275.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agh.alleviation.controller.EditHallDialogController">
+<BorderPane prefHeight="100.0" prefWidth="275.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agh.alleviation.presentation.controller.edit_dialog.EditHallDialogController">
     <center>
         <GridPane prefHeight="182.0" prefWidth="275.0" BorderPane.alignment="CENTER">
             <columnConstraints>
@@ -28,7 +28,7 @@
                         <Insets right="10.0" />
                     </GridPane.margin>
                 </TextField>
-                <Button fx:id="addHallButton" mnemonicParsing="false" onAction="#addHall" text="Add hall" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
+                <Button mnemonicParsing="false" onAction="#saveHall" text="Save hall" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
             <Label text="Hall number" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
             <TextField fx:id="numberField" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>

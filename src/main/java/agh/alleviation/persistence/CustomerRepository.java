@@ -12,5 +12,10 @@ import java.util.List;
  * @see Customer
  */
 public interface CustomerRepository extends CrudRepository<Customer, Integer> {
+    /**
+     * Finds all the customers.
+     *
+     * @return the ist of all the customers
+     */
     List<Customer> findAll();
 }

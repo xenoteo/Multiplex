@@ -1,6 +1,7 @@
 package agh.alleviation.persistence;
 
 import agh.alleviation.model.Movie;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -13,12 +14,26 @@ import java.util.List;
  */
 public interface MovieRepository extends CrudRepository<Movie, Integer> {
     /**
-     * Find by name movie.
+     * Finds the movie by name .
      *
      * @param name the name
-     * @return the movie
+     * @return the movie with given name
      */
     Movie findByName(String name);
 
+    /**
+     * Finds the list of all the movies.
+     *
+     * @return the list of all the movies
+     */
     List<Movie> findAll();
+
+    /**
+     * Find the movie by id with seances.
+     *
+     * @param id the id
+     * @return the movie
+     */
+    @Query("SELECT m FROM Movie m LEFT JOIN FETCH m.seances WHERE m.id = ?1")
+    Movie findByIdWithSeances(int id);
 }

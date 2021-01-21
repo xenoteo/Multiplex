@@ -3,11 +3,12 @@ package agh.alleviation.model;
 import javafx.beans.property.*;
 
 import javax.persistence.*;
-import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class responsible for representation of a movie's seance.
@@ -21,21 +22,16 @@ import java.util.Date;
  */
 @Entity
 @Table(name = Seance.TABLE_NAME)
-public class Seance implements Externalizable {
+public class Seance extends EntityObject {
     /**
      * The constant TABLE_NAME.
      */
     public static final String TABLE_NAME = "seance";
 
-
     /**
      * The type Columns.
      */
     public static class Columns {
-        /**
-         * The constant ID.
-         */
-        public static final String ID = "id";
         /**
          * The constant MOVIE.
          */
@@ -54,18 +50,27 @@ public class Seance implements Externalizable {
         public static final String PRICE = "price";
     }
 
-    private final IntegerProperty idProperty = new SimpleIntegerProperty(this, "id");
     private final ObjectProperty<Movie> movieProperty = new SimpleObjectProperty<>();
     private final ObjectProperty<Hall> hallProperty = new SimpleObjectProperty<>();
-    private final ObjectProperty<Date> dateProperty = new SimpleObjectProperty<>();
+    private final ObjectProperty<LocalDateTime> dateProperty = new SimpleObjectProperty<>();
     private final DoubleProperty priceProperty = new SimpleDoubleProperty(this, "price");
-
+    private final ObjectProperty<List<Ticket>> tickets = new SimpleObjectProperty<>();
 
     /**
      * Instantiates a new Seance.
      */
     public Seance() {
+    }
 
+    /**
+     * Instantiates a new Seance.
+     *
+     * @param movie the movie
+     */
+    public Seance(Movie movie) {
+        setMovie(movie);
+        setTickets(new ArrayList<>());
+        setIsActive(true);
     }
 
     /**
@@ -76,52 +81,24 @@ public class Seance implements Externalizable {
      * @param date  the date
      * @param price the price
      */
-    public Seance(Movie movie, Hall hall, Date date, double price){
-        setMovie(movie);
+    public Seance(Movie movie, Hall hall, LocalDateTime date, double price) {
+        this(movie);
         setHall(hall);
         setDate(date);
         setPrice(price);
     }
 
-
     /**
-     * Id property integer property.
+     * Returns the movie object property.
      *
-     * @return the integer property
+     * @return the movie object property
      */
-    public IntegerProperty idProperty() { return idProperty; }
-
-    /**
-     * Gets id.
-     *
-     * @return the id
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = Columns.ID)
-    public int getId() {
-        return idProperty.get();
-    }
-
-    /**
-     * Sets id.
-     *
-     * @param id the id
-     */
-    public void setId(int id) { idProperty.set(id);}
-
-
-    /**
-     * Movie property object property.
-     *
-     * @return the object property
-     */
-    ObjectProperty<Movie> movieProperty(){
+    public ObjectProperty<Movie> movieProperty() {
         return movieProperty;
     }
 
     /**
-     * Gets movie.
+     * Gets the movie.
      *
      * @return the movie
      */
@@ -131,26 +108,25 @@ public class Seance implements Externalizable {
     }
 
     /**
-     * Set movie.
+     * Sets the movie.
      *
      * @param movie the movie
      */
-    public void setMovie(Movie movie){
+    public void setMovie(Movie movie) {
         movieProperty.setValue(movie);
     }
 
-
     /**
-     * Hall property object property.
+     * Returns the hall object property.
      *
-     * @return the object property
+     * @return the hall object property
      */
-    ObjectProperty<Hall> hallProperty(){
+    public ObjectProperty<Hall> hallProperty() {
         return hallProperty;
     }
 
     /**
-     * Gets hall.
+     * Gets the hall.
      *
      * @return the hall
      */
@@ -160,55 +136,53 @@ public class Seance implements Externalizable {
     }
 
     /**
-     * Set hall.
+     * Sets the hall.
      *
      * @param hall the hall
      */
-    public void setHall(Hall hall){
+    public void setHall(Hall hall) {
         hallProperty.setValue(hall);
     }
 
-
     /**
-     * Date property object property.
+     * Returns the date object property.
      *
-     * @return the object property
+     * @return the date object property
      */
-    ObjectProperty<Date> dateProperty(){
+    public ObjectProperty<LocalDateTime> dateProperty() {
         return dateProperty;
     }
 
     /**
-     * Gets date.
+     * Gets the date.
      *
      * @return the date
      */
     @Column(name = Columns.DATE)
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return dateProperty.getValue();
     }
 
     /**
-     * Set date.
+     * Sets the date.
      *
      * @param date the date
      */
-    public void setDate(Date date){
+    public void setDate(LocalDateTime date) {
         dateProperty.setValue(date);
     }
 
-
     /**
-     * Price property double property.
+     * Returns the price double property.
      *
-     * @return the double property
+     * @return the price double property
      */
-    public DoubleProperty priceProperty(){
+    public DoubleProperty priceProperty() {
         return priceProperty;
     }
 
     /**
-     * Gets price.
+     * Gets the price.
      *
      * @return the price
      */
@@ -218,29 +192,80 @@ public class Seance implements Externalizable {
     }
 
     /**
-     * Set price.
+     * Sets the price.
      *
      * @param price the price
      */
-    public void setPrice(double price){
+    public void setPrice(double price) {
         priceProperty.set(price);
     }
 
+    /**
+     * Returns the ticket list object property.
+     *
+     * @return the ticket list object property
+     */
+    public ObjectProperty<List<Ticket>> ticketsProperty() { return tickets; }
+
+    /**
+     * Gets tickets.
+     *
+     * @return the tickets
+     */
+    @OneToMany(orphanRemoval = true, cascade = {CascadeType.PERSIST})
+    public List<Ticket> getTickets() { return tickets.get(); }
+
+    /**
+     * Sets tickets.
+     *
+     * @param tickets the tickets
+     */
+    public void setTickets(List<Ticket> tickets) { this.tickets.set(tickets);}
+
+    /**
+     * Adds a ticket.
+     *
+     * @param ticket the ticket
+     */
+    public void addTicket(Ticket ticket) {
+        getTickets().add(ticket);
+    }
+
+    @Override
+    public List<EntityObject> update() {
+        super.update();
+        List<EntityObject> updatedTickets = new ArrayList<>(getTickets());
+        getTickets().forEach(ticket -> {
+            updatedTickets.addAll(ticket.update());
+        });
+        return updatedTickets;
+    }
+
+    @Override
+    public List<EntityObject> delete() {
+        super.delete();
+        List<EntityObject> deletedObjects = new ArrayList<>(getTickets());
+        getTickets().forEach(ticket -> {
+            deletedObjects.addAll(ticket.delete());
+        });
+        return deletedObjects;
+    }
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeObject(getId());
+        super.writeExternal(out);
         out.writeObject(getMovie());
         out.writeObject(getDate());
         out.writeObject(getPrice());
+        out.writeObject(getTickets());
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        setId(in.readInt());
+        super.readExternal(in);
         setMovie((Movie) in.readObject());
-        setDate((Date) in.readObject());
+        setDate((LocalDateTime) in.readObject());
         setPrice(in.readDouble());
-
+        setTickets((List<Ticket>) in.readObject());
     }
 }

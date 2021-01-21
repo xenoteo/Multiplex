@@ -1,9 +1,15 @@
 agh.alleviation
-agh.alleviation.controller
 agh.alleviation.model
 agh.alleviation.model.user
 agh.alleviation.persistence
 agh.alleviation.presentation
+agh.alleviation.presentation.context
+agh.alleviation.presentation.context.manager
+agh.alleviation.presentation.controller
+agh.alleviation.presentation.controller.access_dialog
+agh.alleviation.presentation.controller.edit_dialog
+agh.alleviation.presentation.controller.list
+agh.alleviation.presentation.filter
 agh.alleviation.service
 agh.alleviation.stats
 agh.alleviation.util

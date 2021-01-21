@@ -10,4 +10,5 @@ import org.springframework.data.repository.CrudRepository;
  * @see Ticket
  */
 public interface TicketRepository extends CrudRepository<Ticket, Integer> {
+
 }

@@ -1,0 +1,23 @@
+.button {
+    -fx-min-width: 20;
+}
+
+#like-button .ikonli-font-icon {
+    -fx-icon-code: "mdi2t-thumb-up";
+    -fx-icon-color: #29BF12;
+    -fx-icon-size: 20px;
+}
+
+#like-button.button-selected {
+    -fx-background-color: #9DF58F;
+}
+
+#dislike-button .ikonli-font-icon {
+    -fx-icon-code: "mdi2t-thumb-down";
+    -fx-icon-color: #EC4732;
+    -fx-icon-size: 20px;
+}
+
+#dislike-button.button-selected {
+    -fx-background-color: #F38A7C;
+}

@@ -1,16 +1,32 @@
 package agh.alleviation.presentation;
 
-import agh.alleviation.controller.*;
+import agh.alleviation.model.Order;
+import agh.alleviation.presentation.context.ActiveUser;
+import agh.alleviation.presentation.controller.*;
+import agh.alleviation.presentation.controller.access_dialog.LoginDialogController;
+import agh.alleviation.presentation.controller.access_dialog.RegistrationDialogController;
+import agh.alleviation.presentation.controller.edit_dialog.*;
+import agh.alleviation.presentation.controller.list.HallListController;
+import agh.alleviation.presentation.controller.list.MovieListController;
+import agh.alleviation.presentation.controller.list.SeanceListController;
+import agh.alleviation.presentation.controller.list.UserListController;
 import agh.alleviation.model.Hall;
+import agh.alleviation.model.Movie;
+import agh.alleviation.model.Seance;
 import agh.alleviation.model.user.User;
-import agh.alleviation.presentation.Screen;
-import agh.alleviation.presentation.ScreenSwitcher;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxControllerAndView;
 import net.rgielen.fxweaver.core.FxWeaver;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.beans.PropertyChangeListener;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * ViewControllerManager is responsible for setting up the controllers of the application.
@@ -20,109 +36,219 @@ import net.rgielen.fxweaver.core.FxWeaver;
  * @author Kamil Krzempek
  * @see ScreenSwitcher
  */
+@Component
 public class ViewControllerManager {
     private FxWeaver fxWeaver;
     private Stage primaryStage;
     private ScreenSwitcher screenSwitcher;
+    private Map<Screen, FxControllerAndView<? extends GenericController, Node>> controllersAndViews;
+    private ActiveUser activeUser;
 
     /**
      * Instantiates a new View controller manager.
-     *
-     * @param fxWeaver     the fx weaver
-     * @param primaryStage the primary stage
      */
-    public ViewControllerManager(FxWeaver fxWeaver, Stage primaryStage) {
-        this.fxWeaver = fxWeaver;
-        this.primaryStage = primaryStage;
+    public ViewControllerManager() {
     }
 
     /**
-     * Init root layout.
+     * Sets the fx weaver.
+     *
+     * @param weaver the weaver
+     */
+    public void setFxWeaver(FxWeaver weaver) {
+        fxWeaver = weaver;
+    }
+
+    /**
+     * Sets the primary stage.
+     *
+     * @param stage the stage
+     */
+    public void setPrimaryStage(Stage stage) {
+        primaryStage = stage;
+    }
+
+    /**
+     * Inits the root layout.
      */
     public void initRootLayout() {
-        this.setViewsAndControllers();
+        BorderPane borderPane = new BorderPane();
+        Scene scene = new Scene(borderPane);
+        screenSwitcher = new ScreenSwitcher(borderPane);
 
+        borderPane.setPrefHeight(400);
+
+        controllersAndViews = new HashMap<>();
+
+        addToControllersAndViews(Screen.MAIN, MainController.class);
+        addToControllersAndViews(Screen.USER_LIST, UserListController.class);
+        addToControllersAndViews(Screen.HALL_LIST, HallListController.class);
+        addToControllersAndViews(Screen.MOVIE_LIST, MovieListController.class);
+        addToControllersAndViews(Screen.SEANCE_LIST, SeanceListController.class);
+        addToControllersAndViews(Screen.TICKET_LIST, BasketController.class);
+        addToControllersAndViews(Screen.ORDER_LIST, OrdersHistoryController.class);
+        addToControllersAndViews(Screen.STATISTICS, StatisticsController.class);
+
+        controllersAndViews.forEach((screen, cv) -> cv.getController().setAppController(this));
+
+        var menuBar = fxWeaver.load(MenuController.class);
+        menuBar.getController().setAppController(this);
+
+        activeUser.addUserChangeListener(menuBar.getController());
+        activeUser.addUserChangeListener((PropertyChangeListener) controllersAndViews
+            .get(Screen.SEANCE_LIST)
+            .getController());
+        activeUser.addUserChangeListener((PropertyChangeListener) controllersAndViews
+            .get(Screen.TICKET_LIST)
+            .getController());
+        activeUser.addUserChangeListener((PropertyChangeListener) controllersAndViews
+            .get(Screen.ORDER_LIST)
+            .getController());
+
+        borderPane.setTop(menuBar.getView().get());
+
+        controllersAndViews.forEach((screen, controllerAndView) -> {
+            Pane rootPane = (Pane) controllerAndView.getView().get();
+            screenSwitcher.addScreen(screen, rootPane);
+        });
+
+        var login = fxWeaver.load(LoginDialogController.class);
+        login.getController().setAppController(this);
+
+        var register = fxWeaver.load(RegistrationDialogController.class);
+        register.getController().setAppController(this);
+
+        primaryStage.setScene(scene);
+    }
+
+    /**
+     * Shows the primary stage.
+     */
+    public void showPrimaryStage() {
         primaryStage.show();
+        screenSwitcher.activate(Screen.MAIN);
+    }
+
+    /**
+     * Hides the primary stage.
+     */
+    public void hidePrimaryStage() {
+        primaryStage.close();
     }
 
     /**
      * Loads controllers into the FxWeaver and sets them up with corresponding views.
      */
-    public void setViewsAndControllers() {
-        this.screenSwitcher = new ScreenSwitcher();
-
-        var main = fxWeaver.load(MainController.class);
-        var userList = fxWeaver.load(UserListController.class);
-        var hallList = fxWeaver.load(HallListController.class);
-
-        main.getController().setAppController(this);
-        userList.getController().setAppController(this);
-        hallList.getController().setAppController(this);
-
-        Pane mainRoot = (Pane) main.getView().get();
-        screenSwitcher.addScreen(Screen.MAIN, mainRoot);
-        Pane userListRoot = (Pane) userList.getView().get();
-        screenSwitcher.addScreen(Screen.USER_LIST, userListRoot);
-        Pane hallListRoot = (Pane) hallList.getView().get();
-        screenSwitcher.addScreen(Screen.HALL_LIST, hallListRoot);
-
-        Scene scene = new Scene(mainRoot);
-        screenSwitcher.setMainScene(scene);
-        primaryStage.setScene(scene);
+    private FxControllerAndView<? extends GenericController, Node> addToControllersAndViews(
+        Screen screen, Class<? extends GenericController> controller) {
+        var controllerAndView = fxWeaver.load(controller);
+        controllersAndViews.put(screen, controllerAndView);
+        return controllerAndView;
     }
 
     /**
-     * Switch view.
+     * Switches the view.
      *
      * @param screen the screen
      */
     public void switchView(Screen screen) {
-        this.screenSwitcher.activate(screen);
+        screenSwitcher.activate(screen);
     }
 
     /**
-     * A helper function for showAddUserDialog and showAddDialog.
+     * Gets user dialog context.
      *
-     * @param root  root pane
-     * @param title title of the window
-     * @return a stage for the window
+     * @return the user dialog context
      */
-    public Stage setupStageAndScene(Pane root, String title) {
-        Stage dialogStage = new Stage();
-        dialogStage.setTitle(title);
-        dialogStage.initModality(Modality.WINDOW_MODAL);
-        dialogStage.initOwner(primaryStage);
-
-        Scene scene = new Scene(root);
-        dialogStage.setScene(scene);
-        return dialogStage;
+    public ItemDialogContext<User, EditUserDialogController> getUserDialogContext() {
+        return new ItemDialogContext<>(primaryStage, fxWeaver.load(EditUserDialogController.class));
     }
 
     /**
-     * Show add user dialog user.
+     * Gets hall dialog context.
      *
-     * @return the user
+     * @return the hall dialog context
      */
-    public User showAddUserDialog() {
-        FxControllerAndView<EditUserDialogController, Pane> controllerAndView = fxWeaver.load(EditUserDialogController.class);
-        Stage stage = setupStageAndScene(controllerAndView.getView().get(), "Add user");
-        EditUserDialogController controller = controllerAndView.getController();
-        controller.setDialogStage(stage);
-        stage.showAndWait();
-        return controller.getUser();
+    public ItemDialogContext<Hall, EditHallDialogController> getHallDialogContext() {
+        return new ItemDialogContext<>(primaryStage, fxWeaver.load(EditHallDialogController.class));
     }
 
     /**
-     * Show add hall dialog hall.
+     * Gets movie dialog context.
      *
-     * @return the hall
+     * @return the movie dialog context
      */
-    public Hall showAddHallDialog() {
-        FxControllerAndView<EditHallDialogController, Pane> controllerAndView = fxWeaver.load(EditHallDialogController.class);
-        Stage stage = setupStageAndScene(controllerAndView.getView().get(), "Add hall");
-        EditHallDialogController controller = controllerAndView.getController();
-        controller.setDialogStage(stage);
-        stage.showAndWait();
-        return controller.getHall();
+    public ItemDialogContext<Movie, EditMovieDialogController> getMovieDialogContext() {
+        return new ItemDialogContext<>(primaryStage, fxWeaver.load(EditMovieDialogController.class));
     }
+
+    /**
+     * Gets seance dialog context.
+     *
+     * @return the seance dialog context
+     */
+    public ItemDialogContext<Seance, EditSeanceDialogController> getSeanceDialogContext() {
+        return new ItemDialogContext<>(primaryStage, fxWeaver.load(EditSeanceDialogController.class));
+    }
+
+    /**
+     * Gets order dialog context.
+     *
+     * @return the order dialog context
+     */
+    public ItemDialogContext<Order, OrderDetailsDialogController> getOrderDialogContext() {
+        return new ItemDialogContext<>(primaryStage, fxWeaver.load(OrderDetailsDialogController.class));
+    }
+
+    /**
+     * Logs out a user.
+     */
+    public void logout() {
+        switchView(Screen.MAIN);
+        activeUser.setUserEntity(null);
+        hidePrimaryStage();
+        showLoginDialog();
+    }
+
+    /**
+     * Shows login dialog.
+     *
+     * @return whether user was successfully logged in
+     */
+    public boolean showLoginDialog() {
+        User user =
+            new AccessDialogViewer<>(primaryStage, fxWeaver.load(LoginDialogController.class)).showLoginDialog();
+        if (user != null) {
+            updateActiveUser(user);
+            showPrimaryStage();
+        }
+        return user != null;
+    }
+
+    /**
+     * Updates the active user.
+     *
+     * @param user new user
+     */
+    private void updateActiveUser(User user) {
+        activeUser.setUserEntity(user);
+    }
+
+    /**
+     * Shows registration dialog.
+     */
+    public void showRegistrationDialog() {
+        new AccessDialogViewer<>(primaryStage, fxWeaver.load(RegistrationDialogController.class)).showRegisterDialog();
+    }
+
+    /**
+     * Sets the active user.
+     *
+     * @param activeUser the active user
+     */
+    @Autowired
+    public void setActiveUser(ActiveUser activeUser) {
+        this.activeUser = activeUser;
+    }
+
 }
