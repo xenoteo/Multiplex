@@ -6,14 +6,6 @@ A desktop application for managing the cinema multiplex.
   
 The users can register and login having different roles and authorities. The movies repertuar is shown for users and there is a possibility to buy tickets for movies. The movie can be liked or disliked by the user. The search of movies and filtering the results is available. There are also statistics available.
 
-## Tech used
-- JDK15
-- Spring Boot
-- H2 Database Engine
-- PostgreSQL
-- JavaFX
-- JavaDocs
-
 ## Execution of the project
 
 ### Prerequisites
@@ -22,8 +14,16 @@ The users can register and login having different roles and authorities. The mov
 ### Running the project
 Project can be run by executing `./gradlew bootRun` command in the root folder.
 
+## Tech used
+- JDK15
+- Spring Boot
+- H2 Database Engine
+- PostgreSQL
+- JavaFX
+- JavaDocs
+
 ## Database
-Current database state (the database is created upon starting the app and discarded upon closing the app): http://localhost:8080/h2-console.
+Current database state can be found at http://localhost:8080/h2-console.
 
 ## Documentation
 Documentation is generated from JavaDocs, and can be accessed by opening `./doc/index.html` file in a browser.
