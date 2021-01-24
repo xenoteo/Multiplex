@@ -62,7 +62,7 @@ Documentation is generated from JavaDocs, and can be accessed by opening `./doc/
 All screenshots made from an admin account. 
   
 The first view of the application is the login/register window.
-<a href="https://imgur.com/94R9ooL"><img src="https://i.imgur.com/94R9ooL.png" title="source: imgur.com" / width=10vw></a>
+<a href="https://imgur.com/94R9ooL"><img src="https://i.imgur.com/94R9ooL.png" title="source: imgur.com" width=10vw/></a>
   
 Viewing the seance list:
 <a href="https://imgur.com/IhyRDjg"><img src="https://i.imgur.com/IhyRDjg.png" title="source: imgur.com" /></a>
