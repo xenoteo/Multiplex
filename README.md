@@ -61,20 +61,21 @@ Documentation is generated from JavaDocs, and can be accessed by opening `./doc/
 ## Screenshots
 All screenshots made from an admin account. 
   
-The first view of the application is the login/register window.
+### Login/Register window.
+The first view of the application. 
 <a href="https://imgur.com/94R9ooL"><img src="https://i.imgur.com/94R9ooL.png" title="source: imgur.com" width=25%/></a>
   
-Viewing the seance list:
+### Viewing the seance list
 <a href="https://imgur.com/IhyRDjg"><img src="https://i.imgur.com/IhyRDjg.png" title="source: imgur.com" /></a>
   
-Viewing the basket:
+### Viewing the basket
 <a href="https://imgur.com/zDvBHay"><img src="https://i.imgur.com/zDvBHay.png" title="source: imgur.com" /></a>
   
-Viewing the statistics (by movie):
+### Viewing the statistics (by movie)
 <a href="https://imgur.com/glhSs9D"><img src="https://i.imgur.com/glhSs9D.png" title="source: imgur.com" /></a>
   
-Viewing the hall list:
+### Viewing the hall list
 <a href="https://imgur.com/8oms2NN"><img src="https://i.imgur.com/8oms2NN.png" title="source: imgur.com" /></a>
   
-Viewing the user list:
+### Viewing the user list
 <a href="https://imgur.com/NBlSmN1"><img src="https://i.imgur.com/NBlSmN1.png" title="source: imgur.com" /></a>
